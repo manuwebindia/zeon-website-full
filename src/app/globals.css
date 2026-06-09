@@ -1,0 +1,266 @@
+@import "tailwindcss";
+
+/* ─── Tailwind v4 Theme Configuration ─────────────── */
+@theme {
+  /* Brand Colors */
+  --color-primary: #FF4444;
+  --color-primary-hover: #E63B3B;
+  --color-primary-light: #FFF0F0;
+
+  /* Backgrounds */
+  --color-base: #FFFFFF;
+  --color-surface: #F8F9FA;
+  --color-dark: #161B2A;
+
+  /* Typography */
+  --color-heading: #111827;
+  --color-body: #4B5563;
+  --color-inverse: #FFFFFF;
+
+  /* UI */
+  --color-border: #E2E8F0;
+  --color-gold: #ffb400;
+  --color-green: #1a8f6d;
+
+  /* Shadows */
+  --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.03);
+  --shadow-card-hover: 0 12px 30px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 4px 14px rgba(255, 68, 68, 0.3);
+  --shadow-glow-hover: 0 6px 20px rgba(255, 68, 68, 0.4);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.06);
+
+  /* Font Family */
+  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+
+  /* Animations */
+  --animate-fade-in-up: fadeInUp 0.8s ease both;
+  --animate-fade-in-up-delay: fadeInUp 0.8s 0.15s ease both;
+  --animate-pulse-badge: pulseBadge 2s ease-in-out infinite;
+  --animate-pulse-dot: pulse-dot 1.5s ease-in-out infinite;
+  --animate-float: floatImg 3s ease-in-out infinite;
+  --animate-spin-slow: spinSlow 1s linear infinite;
+  --animate-fade-in: fadeIn 0.3s ease;
+}
+
+/* ─── Keyframe Animations ─────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulseBadge {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,68,68,0.4); }
+  50%      { box-shadow: 0 0 0 6px rgba(255,68,68,0); }
+}
+@keyframes floatImg {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes pulse-dot {
+  0%   { transform: scale(0.9); opacity: 0.7; }
+  50%  { transform: scale(1.2); opacity: 1; box-shadow: 0 0 12px var(--color-primary); }
+  100% { transform: scale(0.9); opacity: 0.7; }
+}
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes scroll-left {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes scroll-right {
+  0%   { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.5; box-shadow: 0 0 15px var(--color-primary); }
+}
+
+@layer utilities {
+  /* ─── Premium SVG Background Patterns ─── */
+  .bg-grid-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23000000' fill-opacity='0.025' fill-rule='evenodd'/%3E%3C/svg%3E");
+  }
+  .bg-dots-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1.5' fill='%23000000' fill-opacity='0.04'/%3E%3C/svg%3E");
+  }
+  .bg-diagonal-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-1 1 l2 -2 M0 10 l10 -10 M9 11 l2 -2' stroke='%23000000' stroke-opacity='0.03' stroke-width='1'/%3E%3C/svg%3E");
+  }
+  .bg-zeon-banner {
+    background-image: url('/zeon-banner-bg.webp');
+  }
+}
+
+/* ─── Base Layer ──────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    background-color: #222831;
+  }
+  a { text-decoration: none; color: inherit; }
+  button { cursor: pointer; font-family: inherit; }
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--color-heading);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+  p { color: var(--color-body); }
+}
+
+/* ─── Component Layer (styles that can't be pure utilities) ─── */
+@layer components {
+
+  /* Syllabus accordion grid trick */
+  .syllabus-content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s ease;
+  }
+  .syllabus-content-wrapper.open {
+    grid-template-rows: 1fr;
+  }
+  .syllabus-content {
+    overflow: hidden;
+  }
+
+  /* Marquee tracks */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: scroll-left linear infinite;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+  .marquee-track.marquee-reverse {
+    animation: scroll-right linear infinite;
+  }
+  .marquee-wrapper:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Admission section pseudo-elements */
+  .admission-bg::before {
+    content: "ZEON";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(140px, 22vw, 280px);
+    font-weight: 900;
+    color: rgba(255, 68, 68, 0.035);
+    letter-spacing: 0.15em;
+    pointer-events: none;
+    z-index: 0;
+    white-space: nowrap;
+    user-select: none;
+  }
+  .admission-bg::after {
+    content: "";
+    position: absolute;
+    top: -80px;
+    right: -120px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, rgba(255, 68, 68, 0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Dot grid decoration */
+  .dot-grid-decor::before {
+    content: "";
+    position: absolute;
+    bottom: -60px;
+    left: -80px;
+    width: 280px;
+    height: 280px;
+    background-image: radial-gradient(circle, rgba(255,68,68,0.18) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  /* Marquee fade edges */
+  .marquee-fade-left {
+    background: linear-gradient(to right, var(--color-surface), transparent);
+  }
+  .marquee-fade-right {
+    background: linear-gradient(to left, var(--color-surface), transparent);
+  }
+
+  /* Scroll float component */
+  .scroll-float { overflow: hidden; }
+  .scroll-float-text {
+    display: inline-block;
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .char { display: inline-block; }
+}
+
+/* ─── Utility Layer ───────────────────────────────── */
+@layer utilities {
+  .text-primary { color: var(--color-primary); }
+  .bg-primary { background-color: var(--color-primary); }
+  .bg-primary-hover:hover { background-color: var(--color-primary-hover); }
+  .border-primary { border-color: var(--color-primary); }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* ─── Reduced Motion ─────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Animation Performance ──────────────────────── */
+.marquee-track {
+  contain: layout style;
+}
+.animate-pulse-glow,
+.animate-pulse-badge {
+  contain: layout style paint;
+}
+
+/* ─── Hide reCAPTCHA v3 Badge ─────────────────────── */
+.grecaptcha-badge {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  display: none !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
