@@ -17,7 +17,6 @@ import {
   FaMapMarkerAlt,
   FaEnvelope,
   FaCheck,
-  FaCalendarAlt,
   FaUsers,
   FaMapMarker,
   FaBriefcase,
@@ -69,14 +68,13 @@ const placementHighlights = [
   { icon: FiTrendingUp, title: "Career Mentorship", desc: "Continuous guidance on industry trends, skills, and portfolio growth." },
 ];
 
-/* --- Certification logos for marquee --- */
 const certImages = [
-  { src: "/certificates/Google-Ads-Video-Certification.webp", alt: "Google Ads Video" },
-  { src: "/certificates/Facebook-Blueprint-Certification.webp", alt: "Facebook Blueprint" },
-  { src: "/certificates/Google-Analytics-Certification.webp", alt: "Google Analytics" },
-  { src: "/certificates/google-adwords.webp", alt: "Google Adwords" },
-  { src: "/certificates/Google Mobile-Advertising-Certification.webp", alt: "Google Mobile Advertising" },
-  { src: "/certificates/Google-Shopping-Advertising Certification.webp", alt: "Google Shopping Advertising" },
+  { src: "/certificates/Google-Ads-Video-Certification.webp", title: "Google Ads Video Certification" },
+  { src: "/certificates/Facebook-Blueprint-Certification.webp", title: "Facebook Blueprint Certification" },
+  { src: "/certificates/Google-Analytics-Certification.webp", title: "Google Analytics Certification" },
+  { src: "/certificates/google-adwords.webp", title: "Google Adwords Certification" },
+  { src: "/certificates/Google Mobile-Advertising-Certification.webp", title: "Google Ads Display Certification" },
+  { src: "/certificates/Google-Shopping-Advertising Certification.webp", title: "Google Shopping Advertising Certification" },
 ];
 
 /* --- FAQs --- */
@@ -299,7 +297,7 @@ export default function Home() {
                   mode="online"
                   title="Advanced Digital Marketing Course"
                   duration="2 Months + 1 Month Internship"
-                  image="/web-pic.webp"
+                  image="/courses/digitalmarketing-course.webp"
                   slug="/courses/advanced-digital-marketing"
                   certifications="15+ Certifications (Google, Meta, HubSpot)"
                   placement="Guaranteed Internship & 100% Placement"
@@ -328,7 +326,7 @@ export default function Home() {
                   mode="online"
                   title="SEO Specialist Course"
                   duration="15 Days + 1 Month Internship"
-                  image="/process-pic-new.webp"
+                  image="/courses/seo-course.webp"
                   slug="/courses/seo-specialist"
                   certifications="Zeon & Google Certifications"
                   placement="1-Month Agency Internship Support"
@@ -356,7 +354,7 @@ export default function Home() {
                   mode="online"
                   title="Ads Specialist Course"
                   duration="10 Days"
-                  image="/step-admission.webp"
+                  image="/courses/ads-course.webp"
                   slug="/courses/ads-specialist"
                   certifications="Google & Meta Ads Certifications"
                   placement="Placement Drive Eligibility"
@@ -428,41 +426,59 @@ export default function Home() {
         {/* ═══════════════════════════════════════════════
             SECTION 6: CERTIFICATIONS SHOWCASE
         ═══════════════════════════════════════════════ */}
-        <section className="py-16 md:py-20 bg-surface border-y border-border overflow-hidden">
-          <div className="w-full max-w-[1200px] mx-auto px-6 text-center">
+        <section className="py-16 md:py-20 bg-surface bg-diagonal-pattern border-y border-border overflow-hidden">
+          <div className="w-full max-w-[1200px] mx-auto px-6">
             <ScrollReveal direction="up" distance={40}>
-              <div className="text-center mb-[3rem] max-w-3xl mx-auto">
-                <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
-                  Certifications
-                </span>
-                <h2 className="text-[clamp(2.2rem,4vw,2.8rem)] font-extrabold text-heading mb-4 leading-tight">
+              <div className="text-center mb-12 max-w-3xl mx-auto">
+                <h2 className="text-[2.2rem] lg:text-[2.8rem] font-extrabold text-heading mb-4 leading-tight">
                   Get Certified By <span className="text-primary">Industry Leaders</span>
                 </h2>
-                <p className="text-[1.1rem] text-body leading-relaxed font-medium">
-                  Boost your resume and attract global recruiters with certifications from leading marketing networks.
+                <p className="text-[1.05rem] text-body leading-relaxed font-medium max-w-2xl mx-auto">
+                  Get your skills recognized by the pioneers of technology and marketing.
+                  <br className="hidden sm:inline" />
+                  Showcase them on LinkedIn. Let the recruiters find you.
                 </p>
               </div>
             </ScrollReveal>
 
-            {/* Certificate Slider/Marquee */}
-            <div className="relative w-full max-w-5xl mx-auto overflow-hidden py-4">
-              <div className="flex gap-8 justify-center flex-wrap max-md:grid max-md:grid-cols-2 max-[480px]:grid-cols-1">
+            <ScrollReveal direction="up" distance={50} delay={0.1}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto mt-12">
+                {/* Zeon Academy Certification Card */}
+                <div className="col-span-1 md:col-span-2 lg:col-span-1 lg:row-span-3 bg-white border border-border/80 rounded-[20px] p-8 flex flex-col items-center justify-center text-center shadow-card hover:shadow-card-hover hover:border-primary/20 transition-all duration-300 hover:-translate-y-1">
+                  <div className="relative w-[130px] h-[130px] rounded-full border border-[#ffebeb] flex items-center justify-center bg-white p-3 shadow-[inset_0_2px_8px_rgba(255,68,68,0.04)] mb-4">
+                    <Image
+                      src="/LOGOblack.png"
+                      alt="Zeon Academy"
+                      width={100}
+                      height={100}
+                      className="object-contain"
+                    />
+                  </div>
+                  <h3 className="text-[1.2rem] font-extrabold text-heading mb-1 mt-2">
+                    Zeon Academy
+                  </h3>
+                  <span className="text-[1.05rem] font-bold text-primary tracking-wide uppercase">
+                    Certification
+                  </span>
+                </div>
+
+                {/* Other Certification Cards */}
                 {certImages.map((cert, i) => (
                   <div
                     key={i}
-                    className="bg-white border border-border rounded-xl flex items-center justify-center p-6 text-center shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+                    className="bg-white border border-border/80 rounded-[20px] p-4 sm:p-6 flex flex-col items-center justify-center text-center shadow-card hover:shadow-card-hover hover:border-primary/20 transition-all duration-300 hover:-translate-y-1 min-h-[170px]"
                   >
                     <Image
                       src={cert.src}
-                      alt={cert.alt}
-                      width={120}
-                      height={60}
-                      className="h-12 w-auto object-contain"
+                      alt={cert.title}
+                      width={300}
+                      height={200}
+                      className="w-full h-auto max-h-[140px] object-contain"
                     />
                   </div>
                 ))}
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </section>
 
@@ -558,111 +574,6 @@ export default function Home() {
             <TestimonialsSlider />
           </div>
         </section>
-
-        {/* ═══════════════════════════════════════════════
-            SECTION 9: UPCOMING BATCHES
-        ═══════════════════════════════════════════════ */}
-        <section className="py-16 md:py-20 bg-surface border-y border-border">
-          <div className="w-full max-w-[1000px] mx-auto px-6">
-            <div className="text-center mb-12">
-              <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
-                Schedules
-              </span>
-              <h2 className="text-[clamp(2.2rem,4vw,2.6rem)] font-extrabold text-heading mb-4 leading-tight">
-                Upcoming <span className="text-primary">Batches</span>
-              </h2>
-              <p className="text-[1.1rem] text-body max-w-2xl mx-auto font-medium">
-                Flexible timings with both offline and live online training options.
-              </p>
-            </div>
-
-            <div className="bg-white border border-border rounded-3xl overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.03)]">
-              {/* Header */}
-              <div className="hidden sm:grid grid-cols-4 bg-[#f8f9fa] border-b border-border p-5 font-bold text-heading text-[0.92rem]">
-                <div>Course Name</div>
-                <div>Start Date</div>
-                <div>Learning Mode</div>
-                <div className="text-right">Action</div>
-              </div>
-
-              {/* Rows */}
-              <div className="divide-y divide-border/60">
-                {/* Row 1 */}
-                <div className="grid grid-cols-1 sm:grid-cols-4 p-5 sm:p-6 items-center gap-4 sm:gap-0">
-                  <div className="font-extrabold text-heading text-[0.98rem]">Advanced Digital Marketing</div>
-                  <div className="flex items-center gap-2 text-[0.92rem] text-body">
-                    <FaCalendarAlt className="text-primary shrink-0" />
-                    <span><NextBatchDate serverDate={nextBatchDate} /></span>
-                  </div>
-                  <div>
-                    <span className="inline-block text-[0.82rem] font-bold text-heading bg-primary-light border border-primary/10 px-3 py-1 rounded-full">
-                      Kochi Campus / Live Online
-                    </span>
-                  </div>
-                  <div className="sm:text-right">
-                    <button
-                      onClick={() => {
-                        window.dispatchEvent(new CustomEvent("openBookDemo", { detail: { courseName: "Advanced Digital Marketing Batch" } }));
-                      }}
-                      className="inline-flex items-center justify-center bg-primary text-white text-[0.82rem] font-bold px-5 py-2.5 rounded-full hover:bg-primary-hover shadow-glow transition-all duration-300 border-none cursor-pointer"
-                    >
-                      Enquire Now
-                    </button>
-                  </div>
-                </div>
-
-                {/* Row 2 */}
-                <div className="grid grid-cols-1 sm:grid-cols-4 p-5 sm:p-6 items-center gap-4 sm:gap-0">
-                  <div className="font-extrabold text-heading text-[0.98rem]">SEO Specialist Course</div>
-                  <div className="flex items-center gap-2 text-[0.92rem] text-body">
-                    <FaCalendarAlt className="text-primary shrink-0" />
-                    <span>Next Monday</span>
-                  </div>
-                  <div>
-                    <span className="inline-block text-[0.82rem] font-bold text-heading bg-primary-light border border-primary/10 px-3 py-1 rounded-full">
-                      Kochi Campus / Live Online
-                    </span>
-                  </div>
-                  <div className="sm:text-right">
-                    <button
-                      onClick={() => {
-                        window.dispatchEvent(new CustomEvent("openBookDemo", { detail: { courseName: "SEO Specialist Batch" } }));
-                      }}
-                      className="inline-flex items-center justify-center bg-primary text-white text-[0.82rem] font-bold px-5 py-2.5 rounded-full hover:bg-primary-hover shadow-glow transition-all duration-300 border-none cursor-pointer"
-                    >
-                      Enquire Now
-                    </button>
-                  </div>
-                </div>
-
-                {/* Row 3 */}
-                <div className="grid grid-cols-1 sm:grid-cols-4 p-5 sm:p-6 items-center gap-4 sm:gap-0">
-                  <div className="font-extrabold text-heading text-[0.98rem]">Ads Specialist Course</div>
-                  <div className="flex items-center gap-2 text-[0.92rem] text-body">
-                    <FaCalendarAlt className="text-primary shrink-0" />
-                    <span>Next Monday</span>
-                  </div>
-                  <div>
-                    <span className="inline-block text-[0.82rem] font-bold text-heading bg-primary-light border border-primary/10 px-3 py-1 rounded-full">
-                      Kochi Campus / Live Online
-                    </span>
-                  </div>
-                  <div className="sm:text-right">
-                    <button
-                      onClick={() => {
-                        window.dispatchEvent(new CustomEvent("openBookDemo", { detail: { courseName: "Ads Specialist Batch" } }));
-                      }}
-                      className="inline-flex items-center justify-center bg-primary text-white text-[0.82rem] font-bold px-5 py-2.5 rounded-full hover:bg-primary-hover shadow-glow transition-all duration-300 border-none cursor-pointer"
-                    >
-                      Enquire Now
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
 
         {/* ═══════════════════════════════════════════════
             SECTION 11: FAQ SECTION
@@ -763,7 +674,7 @@ export default function Home() {
                 <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
                   Find Us
                 </span>
-                <h2 className="text-[clamp(2rem,3.5vw,2.6rem)] font-extrabold text-heading mb-3 leading-tight">
+                <h2 className="text-[2.2rem] lg:text-[2.8rem] font-extrabold text-heading mb-3 leading-tight">
                   Our <span className="text-primary">Campus</span> Location
                 </h2>
                 <p className="text-[1rem] text-body max-w-[600px] mx-auto font-medium">
@@ -857,7 +768,7 @@ export default function Home() {
                   {[
                     { label: "Home", href: "/" },
                     { label: "About Us", href: "/about" },
-                    { label: "Courses", href: "/courses/advanced-digital-marketing" },
+                    { label: "Courses", href: "/courses" },
                     { label: "Placements", href: "/placements" },
                     { label: "Blog", href: "/blog" },
                     { label: "Contact Us", href: "/contact" },

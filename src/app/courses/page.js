@@ -1,0 +1,230 @@
+import Image from "next/image";
+import Link from "next/link";
+import dynamic from "next/dynamic";
+import { FaPhoneAlt, FaCheck, FaMapMarkerAlt, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedin, FaYoutube } from "react-icons/fa";
+import Navbar from "../../components/Navbar";
+import CourseCard from "../../components/CourseCard";
+import ScrollReveal from "../../components/ScrollReveal";
+import Footer from "../../components/Footer";
+
+const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
+const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
+const LegalModal = dynamic(() => import("../../components/LegalModal"));
+const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
+
+export const metadata = {
+  title: "Professional Digital Marketing Courses in Kochi | Zeon Academy",
+  description: "Save hundreds of hours by learning from working professionals with the best digital marketing course in Kochi, Kerala. Browse our courses.",
+  alternates: {
+    canonical: "/courses",
+  },
+};
+
+export default function CoursesPage() {
+  return (
+    <>
+      <Navbar />
+      <LegalModal />
+      <WhatsAppFloat />
+      <BookDemoModal />
+
+      <main className="bg-white pt-20">
+        {/* BREADCRUMB & HEADER SECTION */}
+        <section className="relative py-16 md:py-20 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+          {/* Orbs */}
+          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+
+          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
+            {/* Breadcrumbs */}
+            <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body mb-5">
+              <Link href="/" className="hover:text-primary transition-colors">
+                Home
+              </Link>
+              <span className="text-border">/</span>
+              <span className="text-primary font-bold">Courses</span>
+            </div>
+
+            <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
+              Start your journey here!
+            </span>
+            <h1 className="text-[clamp(2.2rem,5vw,3.2rem)] font-extrabold leading-[1.2] text-heading mb-5 tracking-tight max-w-4xl mx-auto">
+              Looking for a sure-shot way to <br className="hidden sm:inline" />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">
+                pump up your digital marketing career?
+              </span>
+            </h1>
+            <p className="text-[1.1rem] md:text-[1.15rem] text-body leading-relaxed font-medium max-w-3xl mx-auto">
+              Save hundreds of hours by learning from working professionals with the best digital marketing course in Kochi, Kerala.
+            </p>
+          </div>
+        </section>
+
+        {/* FEATURED COURSES LIST */}
+        <section className="py-16 md:py-24 bg-white relative">
+          <div className="w-full max-w-[1200px] mx-auto px-6">
+            <ScrollReveal direction="up" distance={50} delay={0.1}>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Course 1 */}
+                <CourseCard
+                  mode="online"
+                  title="Advanced Digital Marketing Course"
+                  duration="2 Months + 1 Month Internship"
+                  image="/courses/digitalmarketing-course.webp"
+                  slug="/courses/advanced-digital-marketing"
+                  certifications="15+ Certifications (Google, Meta, HubSpot)"
+                  placement="Guaranteed Internship & 100% Placement"
+                  description="A complete, practical 60-day program that teaches all major areas of digital marketing using real tools, real campaigns, and placement-focused training."
+                  learnList={[
+                    "Digital Marketing Strategy & Channels",
+                    "SEO & Search Console Audits",
+                    "Google Ads & Performance Marketing",
+                    "Meta Ads & Instagram Campaigns",
+                    "Email Marketing & Automation Tools",
+                  ]}
+                  isPopular={true}
+                  syllabus={[
+                    { title: "Module 1: Intro to Digital Marketing & Graphic Design", topics: [] },
+                    { title: "Module 2: Website Creation & WordPress Setup", topics: [] },
+                    { title: "Module 3: Search Engine Optimization (SEO)", topics: [] },
+                    { title: "Module 4: Google Analytics & Search Console", topics: [] },
+                    { title: "Module 5: Performance Marketing & Google Ads", topics: [] },
+                    { title: "Module 6: Social Media Marketing & Meta Ads", topics: [] },
+                    { title: "Module 7: Email Marketing & Analytics Setup", topics: [] },
+                  ]}
+                />
+
+                {/* Course 2 */}
+                <CourseCard
+                  mode="online"
+                  title="SEO Specialist Course"
+                  duration="15 Days + 1 Month Internship"
+                  image="/courses/seo-course.webp"
+                  slug="/courses/seo-specialist"
+                  certifications="Zeon & Google Certifications"
+                  placement="1-Month Agency Internship Support"
+                  description="A fast-track SEO program designed to build strong search optimization skills in just 15 days."
+                  learnList={[
+                    "SEO Search Logic & Search Algorithms",
+                    "On-Page Content SEO & Page Speeds",
+                    "Technical SEO Auditing & Screaming Frog",
+                    "Local Business Listing & Map Packs",
+                    "Backlink Strategy & Authority Building",
+                  ]}
+                  isPopular={false}
+                  syllabus={[
+                    { title: "Module 1: SEO Fundamentals & Core Logic", topics: [] },
+                    { title: "Module 2: Keyword Research & Competitive Intel", topics: [] },
+                    { title: "Module 3: On-Page SEO & Content Planning", topics: [] },
+                    { title: "Module 4: Technical Audits & Web Speeds", topics: [] },
+                    { title: "Module 5: Link Building Strategies", topics: [] },
+                    { title: "Module 6: Local Map Pack SEO", topics: [] },
+                  ]}
+                />
+
+                {/* Course 3 */}
+                <CourseCard
+                  mode="online"
+                  title="Ads Specialist Course"
+                  duration="10 Days"
+                  image="/courses/ads-course.webp"
+                  slug="/courses/ads-specialist"
+                  certifications="Google & Meta Ads Certifications"
+                  placement="Placement Drive Eligibility"
+                  description="A 10-day intensive training focused on creating, managing, and optimizing high-performance social media ad campaigns."
+                  learnList={[
+                    "Paid Advertising Foundations",
+                    "Google Search & Display Network Ads",
+                    "Meta Business Suite & Pixel Tracking",
+                    "Audience Targeting & Funnel Strategy",
+                    "Campaign Budgets, ROAS & Scalability",
+                  ]}
+                  isPopular={false}
+                  syllabus={[
+                    { title: "Module 1: Paid Traffic & Tracking Basics", topics: [] },
+                    { title: "Module 2: Google Ads Setup & Optimization", topics: [] },
+                    { title: "Module 3: Display Advertising & YouTube Ads", topics: [] },
+                    { title: "Module 4: Meta Campaign Manager (FB & IG)", topics: [] },
+                    { title: "Module 5: Conversion Tracking & Pixels", topics: [] },
+                    { title: "Module 6: Analytics & Scaling Campaigns", topics: [] },
+                  ]}
+                />
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* SECTION: MEET OUR MENTORS */}
+        <section className="py-16 md:py-24 bg-surface bg-dots-pattern border-t border-border">
+          <div className="w-full max-w-[1200px] mx-auto px-6">
+            <ScrollReveal direction="up" distance={30}>
+              <div className="text-center mb-16 max-w-2xl mx-auto">
+                <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
+                  Expert Faculty
+                </span>
+                <h2 className="text-[2.2rem] md:text-[2.8rem] font-extrabold text-heading leading-tight mb-4">
+                  Meet Our <span className="text-primary">Mentors</span>
+                </h2>
+                <p className="text-[1.05rem] text-body leading-relaxed font-medium">
+                  Learn directly from industry experts actively running campaigns and driving results.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 max-w-3xl mx-auto">
+              {/* Mentor 1: Sreethu */}
+              <ScrollReveal direction="up" distance={40} delay={0.1} className="w-full sm:w-1/2">
+                <div className="bg-white border border-border rounded-3xl p-6 flex flex-col items-center text-center shadow-card hover:shadow-card-hover hover:border-primary/20 transition-all duration-500 hover:-translate-y-1.5 group">
+                  <div className="relative w-[200px] h-[200px] rounded-2xl overflow-hidden mb-6 shadow-sm border border-border bg-surface">
+                    <Image
+                      src="/Sreethu.webp"
+                      alt="Sreethu — Digital Marketing Specialist & Mentor"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="200px"
+                    />
+                  </div>
+                  <h3 className="text-[1.3rem] font-extrabold text-heading mb-1 leading-snug">
+                    Sreethu
+                  </h3>
+                  <span className="text-[0.9rem] font-bold text-primary tracking-wide uppercase">
+                    Digital Marketing Trainer
+                  </span>
+                  <p className="text-[0.85rem] text-body mt-3 font-medium leading-relaxed">
+                    Specializes in Search Engine Optimization (SEO), Social Media campaigns, and strategic digital planning with years of agency experience.
+                  </p>
+                </div>
+              </ScrollReveal>
+
+              {/* Mentor 2: Renuka K. */}
+              <ScrollReveal direction="up" distance={40} delay={0.2} className="w-full sm:w-1/2">
+                <div className="bg-white border border-border rounded-3xl p-6 flex flex-col items-center text-center shadow-card hover:shadow-card-hover hover:border-primary/20 transition-all duration-500 hover:-translate-y-1.5 group">
+                  <div className="relative w-[200px] h-[200px] rounded-2xl overflow-hidden mb-6 shadow-sm border border-border bg-surface">
+                    <Image
+                      src="/Renuka-K.webp"
+                      alt="Renuka K. — Performance Marketing Specialist & Mentor"
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="200px"
+                    />
+                  </div>
+                  <h3 className="text-[1.3rem] font-extrabold text-heading mb-1 leading-snug">
+                    Renuka K.
+                  </h3>
+                  <span className="text-[0.9rem] font-bold text-primary tracking-wide uppercase">
+                    Digital Marketing Trainer
+                  </span>
+                  <p className="text-[0.85rem] text-body mt-3 font-medium leading-relaxed">
+                    Specializes in Pay-Per-Click ads, Facebook & Google campaigns, Conversion Rate Optimization, and performance analytics.
+                  </p>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </section>
+
+        <Footer />
+      </main>
+    </>
+  );
+}

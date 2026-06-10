@@ -24,7 +24,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About Us" },
-    { href: "/courses/advanced-digital-marketing", label: "Courses" },
+    { href: "/courses", label: "Courses" },
     { href: "/placements", label: "Placements" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },

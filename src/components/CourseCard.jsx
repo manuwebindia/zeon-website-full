@@ -65,12 +65,22 @@ export default function CourseCard({
         isPopular ? theme.borderPopular : theme.borderNormal
       }${isOpen ? " self-start" : ""}`}
     >
-
-
       {/* Popular Ribbon */}
       {isPopular && (
         <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 ${theme.ribbonBg} text-white text-[0.72rem] font-black px-4 py-1.5 rounded-full tracking-wider uppercase whitespace-nowrap z-10 shadow-sm`}>
           Most Popular
+        </div>
+      )}
+
+      {image && (
+        <div className="relative w-full h-[200px] rounded-t-3xl overflow-hidden shrink-0">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+          />
         </div>
       )}
 
@@ -112,25 +122,26 @@ export default function CourseCard({
         </ul>
 
         {/* Syllabus Accordion */}
-        <div className="border-t border-border pt-5 mb-6 mt-auto">
-          <button
-            className="flex items-center justify-between gap-2 w-full bg-transparent border-none text-[0.88rem] font-bold text-heading cursor-pointer py-1.5 font-[inherit]"
-            onClick={handleToggle}
-            aria-expanded={isOpen}
-          >
-            <span>View Full Syllabus</span>
-            <FiChevronDown
-              className={`text-lg text-body transition-transform duration-300 ${
-                isOpen ? `rotate-180 ${theme.textPrimary}` : ""
-              }`}
-            />
-          </button>
+        {syllabus && syllabus.length > 0 && (
+          <div className="border-t border-border pt-5 mb-6 mt-auto">
+            <button
+              className="flex items-center justify-between gap-2 w-full bg-transparent border-none text-[0.88rem] font-bold text-heading cursor-pointer py-1.5 font-[inherit]"
+              onClick={handleToggle}
+              aria-expanded={isOpen}
+            >
+              <span>View Full Syllabus</span>
+              <FiChevronDown
+                className={`text-lg text-body transition-transform duration-300 ${
+                  isOpen ? `rotate-180 ${theme.textPrimary}` : ""
+                }`}
+              />
+            </button>
 
-          <div
-            className={`syllabus-content-wrapper ${isOpen ? "open" : ""}`}
-          >
-            <div className="syllabus-content text-left">
-              {syllabus.map((mod, idx) => (
+            <div
+              className={`syllabus-content-wrapper ${isOpen ? "open" : ""}`}
+            >
+              <div className="syllabus-content text-left">
+                {syllabus.map((mod, idx) => (
                 <div key={idx} className="mt-4">
                   <h5 className="text-[0.88rem] text-heading mb-2 leading-snug">
                     {mod.title.includes(":") ? (
@@ -158,6 +169,7 @@ export default function CourseCard({
             </div>
           </div>
         </div>
+        )}
 
         {/* CTA Buttons */}
         <div className="mt-auto grid grid-cols-1 min-[450px]:grid-cols-2 md:grid-cols-1 xl:grid-cols-2 gap-3 w-full">
