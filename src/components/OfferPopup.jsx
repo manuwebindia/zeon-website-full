@@ -154,10 +154,10 @@ export default function OfferPopup() {
   /* ── permanently dismissed ── */
   if (dismissed) return null;
 
-  /* ── MINIMISED BANNER (top-0 banner) ── */
+  /* ── MINIMISED BANNER (under header banner) ── */
   const miniBanner = minimised && !expired ? (
     <div
-      className={`fixed top-0 left-0 right-0 h-10 sm:h-11 z-[99998] transition-transform duration-300 ${
+      className={`fixed top-[70px] md:top-[74px] left-0 right-0 h-10 md:h-11 z-[999] transition-transform duration-300 ${
         pulseMini ? "scale-[1.005]" : "scale-100"
       }`}
       style={{

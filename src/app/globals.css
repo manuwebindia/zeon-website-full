@@ -270,16 +270,10 @@
 }
 
 /* ─── Mini Banner Layout Shifts ──────────────────── */
-html.has-mini-banner header {
-  top: 40px !important;
-}
 html.has-mini-banner body {
   margin-top: 40px !important;
 }
-@media (min-width: 640px) {
-  html.has-mini-banner header {
-    top: 44px !important;
-  }
+@media (min-width: 768px) {
   html.has-mini-banner body {
     margin-top: 44px !important;
   }
