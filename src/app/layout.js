@@ -2,6 +2,7 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import ScrollToTop from "@/components/ScrollToTop";
+import OfferPopup from "@/components/OfferPopup";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -75,6 +76,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={openSans.variable}>
       <body>
         <style>{`.grecaptcha-badge { display: none !important; }`}</style>
+        <OfferPopup />
         {children}
         <ScrollToTop />
         <Script 
