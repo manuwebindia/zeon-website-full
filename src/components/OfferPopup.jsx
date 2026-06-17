@@ -168,14 +168,17 @@ export default function OfferPopup() {
     >
       <div className="max-w-[1200px] mx-auto h-full flex items-center justify-between gap-3 px-4">
         {/* Left */}
-        <div className="flex items-center gap-2 min-w-0 flex-1">
-          <span className="text-white text-lg shrink-0">🎉</span>
-          <p className="text-white font-bold text-[0.8rem] sm:text-[0.88rem] truncate">
-            Exclusive Offer Expiring Soon!{" "}
-            <span className="font-black tracking-widest bg-white/20 rounded px-1.5 py-0.5 text-white ml-1">
+        <div className="flex items-center gap-1.5 min-w-0 flex-1">
+          <span className="text-white text-[1.05rem] sm:text-lg shrink-0">🎉</span>
+          <div className="flex items-center gap-1 min-w-0">
+            <span className="text-white font-bold text-[0.78rem] sm:text-[0.88rem] truncate">
+              <span className="hidden sm:inline">Exclusive Offer Expiring Soon!</span>
+              <span className="inline sm:hidden">Offer Expiring Soon!</span>
+            </span>
+            <span className="font-black tracking-widest bg-white/20 rounded px-1.5 py-0.5 text-[0.75rem] sm:text-[0.82rem] text-white shrink-0 ml-1">
               {formatTime(timeLeft)}
             </span>
-          </p>
+          </div>
         </div>
 
         {/* Claim button */}
@@ -203,15 +206,15 @@ export default function OfferPopup() {
   const popup = showPopup && !expired ? (
     <div
       className="fixed inset-0 z-[100000] flex items-center justify-center p-4 sm:p-6"
-      style={{ background: "rgba(0,0,0,0.65)", backdropFilter: "blur(8px)" }}
+      style={{ background: "rgba(0,0,0,0.50)", backdropFilter: "blur(6px)" }}
       onClick={handleMinimise}
     >
       <div
-        className="relative w-full max-w-[420px] rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.5)] animate-fade-in"
+        className="relative w-full max-w-[420px] rounded-3xl overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.15)] animate-fade-in"
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "linear-gradient(145deg, #1a0a0a 0%, #2d0f0f 40%, #1c1010 100%)",
-          border: "1px solid rgba(255,68,68,0.25)",
+          background: "linear-gradient(145deg, #ffffff 0%, #fffefe 60%, #fffcfc 100%)",
+          border: "1px solid rgba(255,68,68,0.15)",
         }}
       >
         {/* Top accent line */}
@@ -221,15 +224,15 @@ export default function OfferPopup() {
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
-            background: "radial-gradient(ellipse at 50% 0%, rgba(255,68,68,0.15) 0%, transparent 65%)",
+            background: "radial-gradient(ellipse at 50% 0%, rgba(255,68,68,0.05) 0%, transparent 65%)",
           }}
         />
 
         {/* Decorative circles */}
         <div className="absolute -top-12 -right-12 w-40 h-40 rounded-full opacity-10 pointer-events-none"
-          style={{ background: "radial-gradient(circle, #FF4444, transparent)" }} />
+          style={{ background: "radial-gradient(circle, rgba(255,68,68,0.3), transparent)" }} />
         <div className="absolute -bottom-10 -left-10 w-32 h-32 rounded-full opacity-10 pointer-events-none"
-          style={{ background: "radial-gradient(circle, #FF4444, transparent)" }} />
+          style={{ background: "radial-gradient(circle, rgba(255,68,68,0.3), transparent)" }} />
 
         {/* Action buttons — top-right */}
         <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-30">
@@ -237,7 +240,7 @@ export default function OfferPopup() {
           <button
             onClick={handleClose}
             aria-label="Close offer"
-            className="w-8 h-8 flex items-center justify-center text-white/60 hover:text-white hover:bg-white/10 rounded-full transition-all duration-200 cursor-pointer"
+            className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-all duration-200 cursor-pointer"
           >
             <FaTimes size={14} />
           </button>
@@ -247,27 +250,27 @@ export default function OfferPopup() {
         <div className="relative z-10 px-6 pt-10 pb-7 text-center">
 
           {/* Badge */}
-          <div className="inline-flex items-center gap-1.5 bg-[#FF4444]/15 border border-[#FF4444]/30 text-[#FF4444] text-[0.72rem] font-extrabold tracking-[0.18em] uppercase px-3.5 py-1 rounded-full mb-5">
+          <div className="inline-flex items-center gap-1.5 bg-[#FF4444]/10 border border-[#FF4444]/20 text-[#FF4444] text-[0.72rem] font-extrabold tracking-[0.18em] uppercase px-3.5 py-1 rounded-full mb-5">
             <FaTag size={9} />
             Limited Time Offer
           </div>
 
           {/* Headline */}
-          <h2 className="text-white text-[1.85rem] sm:text-[2.1rem] font-extrabold leading-tight mb-1">
+          <h2 className="text-heading text-[1.85rem] sm:text-[2.1rem] font-extrabold leading-tight mb-1">
             Get <span className="text-[#FF4444]">₹3,000 OFF</span>
           </h2>
-          <p className="text-white/90 text-[1rem] sm:text-[1.1rem] font-bold mb-1">
+          <p className="text-body text-[1rem] sm:text-[1.1rem] font-bold mb-1">
             on Your Digital Marketing Course
           </p>
-          <p className="text-white/50 text-[0.82rem] mb-6">
+          <p className="text-body/60 text-[0.82rem] mb-6">
             Use code at enquiry — seats are limited!
           </p>
 
           {/* Code box */}
           <div className="flex items-center justify-center gap-3 mb-7">
             <div
-              className="flex-1 max-w-[220px] flex items-center justify-center py-3 px-5 rounded-xl border-2 border-dashed border-[#FF4444]/60 bg-[#FF4444]/10"
-              style={{ boxShadow: "0 0 24px rgba(255,68,68,0.12)" }}
+              className="flex-1 max-w-[220px] flex items-center justify-center py-3 px-5 rounded-xl border-2 border-dashed border-[#FF4444]/40 bg-[#FF4444]/5"
+              style={{ boxShadow: "0 8px 24px rgba(255,68,68,0.04)" }}
             >
               <span className="text-[#FF4444] text-[1.4rem] font-black tracking-[0.2em]">
                 {OFFER_CODE}
@@ -277,19 +280,19 @@ export default function OfferPopup() {
 
           {/* Countdown */}
           <div className="mb-7">
-            <p className="text-white/50 text-[0.75rem] mb-2.5 font-semibold uppercase tracking-widest">
+            <p className="text-body/50 text-[0.75rem] mb-2.5 font-semibold uppercase tracking-widest">
               Offer expires in
             </p>
             <div className="flex items-center justify-center gap-3">
               {/* Minutes */}
               <div className="flex flex-col items-center">
-                <div className="bg-white/8 border border-white/10 rounded-xl px-4 py-2.5 min-w-[60px] text-center"
-                  style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-                  <span className="text-white text-[2rem] sm:text-[2.2rem] font-black tabular-nums leading-none">
+                <div className="bg-gray-50 border border-gray-150 rounded-xl px-4 py-2.5 min-w-[60px] text-center"
+                  style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,1)" }}>
+                  <span className="text-heading text-[2rem] sm:text-[2.2rem] font-black tabular-nums leading-none">
                     {String(Math.floor(Math.max(0, timeLeft) / 60000)).padStart(2, "0")}
                   </span>
                 </div>
-                <span className="text-white/40 text-[0.65rem] font-semibold uppercase tracking-widest mt-1.5">min</span>
+                <span className="text-body/45 text-[0.65rem] font-semibold uppercase tracking-widest mt-1.5">min</span>
               </div>
 
               {/* Colon */}
@@ -297,13 +300,13 @@ export default function OfferPopup() {
 
               {/* Seconds */}
               <div className="flex flex-col items-center">
-                <div className="bg-white/8 border border-white/10 rounded-xl px-4 py-2.5 min-w-[60px] text-center"
-                  style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.08)" }}>
-                  <span className="text-white text-[2rem] sm:text-[2.2rem] font-black tabular-nums leading-none">
+                <div className="bg-gray-50 border border-gray-150 rounded-xl px-4 py-2.5 min-w-[60px] text-center"
+                  style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,1)" }}>
+                  <span className="text-heading text-[2rem] sm:text-[2.2rem] font-black tabular-nums leading-none">
                     {String(Math.floor((Math.max(0, timeLeft) % 60000) / 1000)).padStart(2, "0")}
                   </span>
                 </div>
-                <span className="text-white/40 text-[0.65rem] font-semibold uppercase tracking-widest mt-1.5">sec</span>
+                <span className="text-body/45 text-[0.65rem] font-semibold uppercase tracking-widest mt-1.5">sec</span>
               </div>
             </div>
           </div>
@@ -314,7 +317,7 @@ export default function OfferPopup() {
             className="w-full flex items-center justify-center gap-2.5 py-4 px-6 rounded-2xl font-black text-[1rem] text-white transition-all duration-300 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
             style={{
               background: "linear-gradient(135deg, #25D366 0%, #1ebe5d 100%)",
-              boxShadow: "0 8px 28px rgba(37,211,102,0.35), 0 2px 0 rgba(255,255,255,0.1) inset",
+              boxShadow: "0 8px 28px rgba(37,211,102,0.22), 0 2px 0 rgba(255,255,255,0.1) inset",
             }}
           >
             <FaWhatsapp size={20} />
@@ -324,13 +327,13 @@ export default function OfferPopup() {
           {/* Not Now button */}
           <button
             onClick={handleMinimise}
-            className="w-full mt-3 py-3 rounded-2xl font-bold text-[0.9rem] text-white/50 hover:text-white/80 transition-all duration-200 border border-white/10 hover:bg-white/5 active:scale-95 cursor-pointer"
+            className="w-full mt-3 py-3 rounded-2xl font-bold text-[0.9rem] text-body/60 hover:text-body border border-border/80 hover:border-border hover:bg-surface active:scale-95 transition-all duration-200 cursor-pointer"
           >
             Not Now
           </button>
 
-          <p className="text-white/30 text-[0.72rem] mt-4 leading-relaxed">
-            🔒 No spam · Code: <strong className="text-white/50">{OFFER_CODE}</strong> · Sent instantly via WhatsApp
+          <p className="text-body/40 text-[0.72rem] mt-4 leading-relaxed">
+            🔒 No spam · Code: <strong className="text-body/60">{OFFER_CODE}</strong> · Sent instantly via WhatsApp
           </p>
         </div>
       </div>
