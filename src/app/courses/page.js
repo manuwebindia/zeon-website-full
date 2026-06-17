@@ -231,7 +231,7 @@ export default function CoursesPage() {
                     <div className="flex items-start justify-between gap-3">
                       <div>
                         <h3 className="text-[1.4rem] font-extrabold text-heading leading-tight">
-                          JayaRaman
+                          Jayakrishnan
                         </h3>
                         <p className="text-[0.9rem] font-bold text-primary mt-0.5">
                           Digital Marketing Mentor
