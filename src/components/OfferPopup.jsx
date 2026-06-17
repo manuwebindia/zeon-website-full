@@ -25,6 +25,95 @@ function formatTime(ms) {
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
+/* ─── Confetti Canvas Component ─────────────────── */
+function ConfettiCanvas({ active }) {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    if (!active) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    let animationFrameId;
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      if (canvasRef.current) {
+        width = canvasRef.current.width = window.innerWidth;
+        height = canvasRef.current.height = window.innerHeight;
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
+    const colors = [
+      "#FF4444", "#3B82F6", "#25D366", "#FBBF24",
+      "#A78BFA", "#EC4899", "#10B981", "#F59E0B"
+    ];
+
+    const particles = [];
+    const particleCount = 100;
+
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * -height - 20,
+        r: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        tilt: Math.random() * 10 - 5,
+        tiltAngleIncremental: Math.random() * 0.05 + 0.02,
+        tiltAngle: Math.random() * Math.PI,
+        vy: Math.random() * 3 + 2,
+        vx: Math.random() * 1.5 - 0.75,
+      });
+    }
+
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      let activeParticles = 0;
+
+      particles.forEach((p) => {
+        p.tiltAngle += p.tiltAngleIncremental;
+        p.y += p.vy;
+        p.x += p.vx + Math.sin(p.tiltAngle) * 0.4;
+
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.tiltAngle);
+        ctx.fillStyle = p.color;
+
+        ctx.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+
+        ctx.restore();
+
+        if (p.y < height + 20) {
+          activeParticles++;
+        }
+      });
+
+      if (activeParticles > 0) {
+        animationFrameId = requestAnimationFrame(draw);
+      }
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [active]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none z-[200000] w-full h-full"
+    />
+  );
+}
+
 /* ─── Main Component ─────────────────────────────── */
 export default function OfferPopup() {
   const [mounted,     setMounted]     = useState(false);
@@ -238,7 +327,7 @@ export default function OfferPopup() {
         <div className="absolute top-3.5 right-3.5 flex items-center gap-1.5 z-30">
           {/* Close */}
           <button
-            onClick={handleClose}
+            onClick={handleMinimise}
             aria-label="Close offer"
             className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-all duration-200 cursor-pointer"
           >
@@ -342,6 +431,7 @@ export default function OfferPopup() {
 
   return createPortal(
     <>
+      {showPopup && <ConfettiCanvas active={showPopup} />}
       {popup}
       {miniBanner}
     </>,
