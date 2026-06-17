@@ -268,3 +268,19 @@
   height: 0 !important;
   overflow: hidden !important;
 }
+
+/* ─── Mini Banner Layout Shifts ──────────────────── */
+html.has-mini-banner header {
+  top: 40px !important;
+}
+html.has-mini-banner body {
+  margin-top: 40px !important;
+}
+@media (min-width: 640px) {
+  html.has-mini-banner header {
+    top: 44px !important;
+  }
+  html.has-mini-banner body {
+    margin-top: 44px !important;
+  }
+}

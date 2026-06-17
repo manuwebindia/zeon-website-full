@@ -110,6 +110,18 @@ export default function OfferPopup() {
     return () => clearTimeout(pulseTimer.current);
   }, [minimised]);
 
+  /* ── toggle body/html class for mini banner spacing ── */
+  useEffect(() => {
+    if (minimised && !expired && !dismissed) {
+      document.documentElement.classList.add("has-mini-banner");
+    } else {
+      document.documentElement.classList.remove("has-mini-banner");
+    }
+    return () => {
+      document.documentElement.classList.remove("has-mini-banner");
+    };
+  }, [minimised, expired, dismissed]);
+
   /* ── handlers ── */
   const handleMinimise = useCallback(() => {
     setShowPopup(false);
@@ -142,10 +154,10 @@ export default function OfferPopup() {
   /* ── permanently dismissed ── */
   if (dismissed) return null;
 
-  /* ── MINIMISED BANNER (below header) ── */
+  /* ── MINIMISED BANNER (top-0 banner) ── */
   const miniBanner = minimised && !expired ? (
     <div
-      className={`fixed top-[64px] left-0 right-0 z-[99998] transition-transform duration-300 ${
+      className={`fixed top-0 left-0 right-0 h-10 sm:h-11 z-[99998] transition-transform duration-300 ${
         pulseMini ? "scale-[1.005]" : "scale-100"
       }`}
       style={{
@@ -154,7 +166,7 @@ export default function OfferPopup() {
         animation: "shimmer-banner 4s linear infinite",
       }}
     >
-      <div className="max-w-[1200px] mx-auto flex items-center justify-between gap-3 px-4 py-2 sm:py-2.5">
+      <div className="max-w-[1200px] mx-auto h-full flex items-center justify-between gap-3 px-4">
         {/* Left */}
         <div className="flex items-center gap-2 min-w-0 flex-1">
           <span className="text-white text-lg shrink-0">🎉</span>
@@ -169,7 +181,7 @@ export default function OfferPopup() {
         {/* Claim button */}
         <button
           onClick={handleExpand}
-          className="flex items-center gap-1.5 bg-white text-[#b91c1c] font-black text-[0.75rem] sm:text-[0.82rem] px-3 sm:px-4 py-1.5 rounded-full shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl shrink-0 whitespace-nowrap"
+          className="flex items-center gap-1.5 bg-white text-[#b91c1c] font-black text-[0.75rem] sm:text-[0.82rem] px-3 sm:px-4 py-1.5 rounded-full shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl shrink-0 whitespace-nowrap cursor-pointer"
         >
           <FaChevronUp size={10} />
           CLAIM
@@ -179,7 +191,7 @@ export default function OfferPopup() {
         <button
           onClick={handleClose}
           aria-label="Close offer"
-          className="text-white/80 hover:text-white transition-colors p-1 shrink-0 ml-1"
+          className="text-white/80 hover:text-white transition-colors p-1 shrink-0 ml-1 cursor-pointer"
         >
           <FaTimes size={14} />
         </button>
