@@ -72,23 +72,46 @@ export default function CourseCard({
         </div>
       )}
 
-      {image && (
-        <div className="relative w-full h-[200px] rounded-t-3xl overflow-hidden shrink-0">
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover"
-          />
-        </div>
+      {/* Clickable image + title area */}
+      {slug ? (
+        <Link href={slug} className="block group/card">
+          {image && (
+            <div className="relative w-full h-[200px] rounded-t-3xl overflow-hidden shrink-0">
+              <Image
+                src={image}
+                alt={title}
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover transition-transform duration-300 group-hover/card:scale-105"
+              />
+            </div>
+          )}
+        </Link>
+      ) : (
+        image && (
+          <div className="relative w-full h-[200px] rounded-t-3xl overflow-hidden shrink-0">
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
+            />
+          </div>
+        )
       )}
 
       <div className="flex flex-col h-full p-7 pb-9">
         {/* Title & Duration */}
-        <h3 className="text-[1.3rem] font-extrabold text-heading mb-2 leading-snug">
-          {title}
-        </h3>
+        {slug ? (
+          <Link href={slug} className={`text-[1.3rem] font-extrabold text-heading mb-2 leading-snug block hover:${theme.textPrimary} transition-colors duration-200`}>
+            {title}
+          </Link>
+        ) : (
+          <h3 className="text-[1.3rem] font-extrabold text-heading mb-2 leading-snug">
+            {title}
+          </h3>
+        )}
         
         <div className="flex items-center gap-2 text-[0.92rem] text-heading font-bold mb-4">
           <span className="text-body font-semibold">Duration:</span>

@@ -187,10 +187,10 @@ export default function AboutPage() {
         </section>
 
         {/* SECTION 3: OUR TEAM */}
-        <section className="py-16 md:py-24 bg-white overflow-hidden">
+        <section className="py-16 md:py-24 bg-surface bg-dots-pattern border-t border-border overflow-hidden">
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <ScrollReveal direction="up" distance={30}>
-              <div className="text-center mb-12 max-w-2xl mx-auto">
+              <div className="text-center mb-16 max-w-2xl mx-auto">
                 <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
                   Our Team
                 </span>
@@ -203,19 +203,80 @@ export default function AboutPage() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" distance={40} delay={0.15}>
-              <div className="relative w-full max-w-5xl mx-auto rounded-[28px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-border bg-surface p-4">
-                <div className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden">
-                  <Image
-                    src="/about-us-banner-zeon.webp"
-                    alt="Zeon Academy Team Banner"
-                    fill
-                    className="object-cover object-center"
-                    priority
-                  />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {/* Mentor 1: Sreethu */}
+              <ScrollReveal direction="up" distance={40} delay={0.1}>
+                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
+                  {/* Image Panel */}
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-[#ffecd2] flex items-end justify-center overflow-hidden">
+                    {/* Decorative circles */}
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-[#ff8c4a]/15 rounded-full blur-lg" />
+                    <Image
+                      src="/sreethu2.webp"
+                      alt="Sreethu — Digital Marketing Specialist & Mentor"
+                      width={280}
+                      height={300}
+                      className="object-contain object-bottom w-auto h-[300px] transition-transform duration-500 group-hover:scale-105 relative z-10 drop-shadow-lg"
+                      sizes="280px"
+                    />
+                  </div>
+                  {/* Info Panel */}
+                  <div className="px-6 py-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-[1.4rem] font-extrabold text-heading leading-tight">
+                          Sreethu
+                        </h3>
+                        <p className="text-[0.9rem] font-bold text-primary mt-0.5">
+                          Digital Marketing Trainer
+                        </p>
+                      </div>
+                      <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 bg-green-500/10 text-green-500 text-[0.75rem] font-bold px-3 py-1 rounded-full">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block animate-pulse" />
+                        Active Trainer
+                      </span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </ScrollReveal>
+              </ScrollReveal>
+
+              {/* Mentor 2: Jayakrishnan */}
+              <ScrollReveal direction="up" distance={40} delay={0.2}>
+                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
+                  {/* Image Panel */}
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-[#eef2ff] via-[#f5f0ff] to-[#ffe4f0] flex items-end justify-center overflow-hidden">
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-purple-400/15 rounded-full blur-lg" />
+                    <Image
+                      src="/Jayakrishnan.webp"
+                      alt="Jayakrishnan — Performance Marketing Specialist & Mentor"
+                      width={280}
+                      height={300}
+                      className="object-contain object-bottom w-auto h-[300px] transition-transform duration-500 group-hover:scale-105 relative z-10 drop-shadow-lg"
+                      sizes="280px"
+                    />
+                  </div>
+                  {/* Info Panel */}
+                  <div className="px-6 py-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-[1.4rem] font-extrabold text-heading leading-tight">
+                          JayaRaman
+                        </h3>
+                        <p className="text-[0.9rem] font-bold text-primary mt-0.5">
+                          Digital Marketing Mentor
+                        </p>
+                      </div>
+                      <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 bg-green-500/10 text-green-500 text-[0.75rem] font-bold px-3 py-1 rounded-full">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block animate-pulse" />
+                        Active Trainer
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
           </div>
         </section>
 

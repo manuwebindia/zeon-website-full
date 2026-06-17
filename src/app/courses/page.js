@@ -171,52 +171,79 @@ export default function CoursesPage() {
               </div>
             </ScrollReveal>
 
-            <div className="flex flex-col sm:flex-row justify-center items-center gap-8 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {/* Mentor 1: Sreethu */}
-              <ScrollReveal direction="up" distance={40} delay={0.1} className="w-full sm:w-1/2">
-                <div className="bg-white border border-border rounded-3xl p-6 flex flex-col items-center text-center shadow-card hover:shadow-card-hover hover:border-primary/20 transition-all duration-500 hover:-translate-y-1.5 group">
-                  <div className="relative w-[200px] h-[200px] rounded-2xl overflow-hidden mb-6 shadow-sm border border-border bg-surface">
+              <ScrollReveal direction="up" distance={40} delay={0.1}>
+                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
+                  {/* Image Panel */}
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-[#ffecd2] flex items-end justify-center overflow-hidden">
+                    {/* Decorative circles */}
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-[#ff8c4a]/15 rounded-full blur-lg" />
                     <Image
-                      src="/Sreethu.webp"
+                      src="/sreethu2.webp"
                       alt="Sreethu — Digital Marketing Specialist & Mentor"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="200px"
+                      width={280}
+                      height={300}
+                      className="object-contain object-bottom w-auto h-[300px] transition-transform duration-500 group-hover:scale-105 relative z-10 drop-shadow-lg"
+                      sizes="280px"
                     />
                   </div>
-                  <h3 className="text-[1.3rem] font-extrabold text-heading mb-1 leading-snug">
-                    Sreethu
-                  </h3>
-                  <span className="text-[0.9rem] font-bold text-primary tracking-wide uppercase">
-                    Digital Marketing Trainer
-                  </span>
-                  <p className="text-[0.85rem] text-body mt-3 font-medium leading-relaxed">
-                    Specializes in Search Engine Optimization (SEO), Social Media campaigns, and strategic digital planning with years of agency experience.
-                  </p>
+                  {/* Info Panel */}
+                  <div className="px-6 py-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-[1.4rem] font-extrabold text-heading leading-tight">
+                          Sreethu
+                        </h3>
+                        <p className="text-[0.9rem] font-bold text-primary mt-0.5">
+                          Digital Marketing Trainer
+                        </p>
+                      </div>
+                      <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 bg-green-500/10 text-green-500 text-[0.75rem] font-bold px-3 py-1 rounded-full">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block animate-pulse" />
+                        Active Trainer
+                      </span>
+                    </div>
+
+                  </div>
                 </div>
               </ScrollReveal>
 
-              {/* Mentor 2: Renuka K. */}
-              <ScrollReveal direction="up" distance={40} delay={0.2} className="w-full sm:w-1/2">
-                <div className="bg-white border border-border rounded-3xl p-6 flex flex-col items-center text-center shadow-card hover:shadow-card-hover hover:border-primary/20 transition-all duration-500 hover:-translate-y-1.5 group">
-                  <div className="relative w-[200px] h-[200px] rounded-2xl overflow-hidden mb-6 shadow-sm border border-border bg-surface">
+              {/* Mentor 2: Jayakrishnan */}
+              <ScrollReveal direction="up" distance={40} delay={0.2}>
+                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
+                  {/* Image Panel */}
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-[#eef2ff] via-[#f5f0ff] to-[#ffe4f0] flex items-end justify-center overflow-hidden">
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-purple-400/15 rounded-full blur-lg" />
                     <Image
-                      src="/Renuka-K.webp"
-                      alt="Renuka K. — Performance Marketing Specialist & Mentor"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      sizes="200px"
+                      src="/Jayakrishnan.webp"
+                      alt="Jayakrishnan — Performance Marketing Specialist & Mentor"
+                      width={280}
+                      height={300}
+                      className="object-contain object-bottom w-auto h-[300px] transition-transform duration-500 group-hover:scale-105 relative z-10 drop-shadow-lg"
+                      sizes="280px"
                     />
                   </div>
-                  <h3 className="text-[1.3rem] font-extrabold text-heading mb-1 leading-snug">
-                    Renuka K.
-                  </h3>
-                  <span className="text-[0.9rem] font-bold text-primary tracking-wide uppercase">
-                    Digital Marketing Trainer
-                  </span>
-                  <p className="text-[0.85rem] text-body mt-3 font-medium leading-relaxed">
-                    Specializes in Pay-Per-Click ads, Facebook & Google campaigns, Conversion Rate Optimization, and performance analytics.
-                  </p>
+                  {/* Info Panel */}
+                  <div className="px-6 py-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-[1.4rem] font-extrabold text-heading leading-tight">
+                          JayaRaman
+                        </h3>
+                        <p className="text-[0.9rem] font-bold text-primary mt-0.5">
+                          Digital Marketing Mentor
+                        </p>
+                      </div>
+                      <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 bg-green-500/10 text-green-500 text-[0.75rem] font-bold px-3 py-1 rounded-full">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block animate-pulse" />
+                        Active Trainer
+                      </span>
+                    </div>
+
+                  </div>
                 </div>
               </ScrollReveal>
             </div>

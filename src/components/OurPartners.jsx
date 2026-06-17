@@ -5,23 +5,44 @@ import Image from "next/image";
 
 const allPartners = [
   "/partners/adox-global-1.webp",
+  "/partners/Auctor_Logo_1024x724-01-1024x724.webp",
   "/partners/capsdata-3.webp",
   "/partners/classis-digital-6.webp",
+  "/partners/edbe-logo.webp",
+  "/partners/evolux_logo-768x384.webp",
+  "/partners/findmyhostel.webp",
   "/partners/first-reach-6.webp",
+  "/partners/global-visa-logo.webp",
+  "/partners/ieie.webp",
+  "/partners/IMG-20230404-WA0001.webp",
   "/partners/ishkhan-4.webp",
   "/partners/kerala-paints-5.webp",
+  "/partners/log_3.webp",
+  "/partners/logo_10.webp",
+  "/partners/logo_4.webp",
+  "/partners/logo_6.webp",
+  "/partners/logo_8.webp",
+  "/partners/logo_9.webp",
+  "/partners/logo_anata.webp",
+  "/partners/logos-02-01-1024x724.webp",
+  "/partners/logos-02-02-1024x724.webp",
+  "/partners/maad-concepts.webp",
   "/partners/maruti-suzuki 1.webp",
+  "/partners/oppiatec-logo.webp",
+  "/partners/pepebbq.webp",
+  "/partners/peraka.webp",
   "/partners/whiteswan-2.webp",
   "/partners/wistora.webp",
+  "/partners/zenesty.webp",
 ];
 
-const row1 = allPartners.slice(0, 3);
-const row2 = allPartners.slice(3, 6);
-const row3 = allPartners.slice(6, 9);
+const row1 = allPartners.slice(0, 10);
+const row2 = allPartners.slice(10, 20);
+const row3 = allPartners.slice(20);
 
 function MarqueeRow({ items, direction = "left", speed = "40s" }) {
-  /* 4 copies needed for seamless infinite scroll with 3 items per row */
-  const duplicatedItems = [...items, ...items, ...items, ...items];
+  /* 2 copies needed for seamless infinite scroll with translateX(-50%) */
+  const duplicatedItems = [...items, ...items];
 
   return (
     <div className="marquee-wrapper overflow-hidden w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">

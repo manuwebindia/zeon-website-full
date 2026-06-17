@@ -37,17 +37,18 @@ export default function Navbar() {
         { href: "/about", label: "About Us" },
         { href: "/#testimonials", label: "Testimonials" },
         { href: "/gallery", label: "Photo Gallery" },
-        { href: "/#placements", label: "Placements" },
       ],
     },
     {
       label: "Courses",
+      href: "/courses",
       subItems: [
         { href: "/courses/advanced-digital-marketing", label: "Advanced DM" },
         { href: "/courses/seo-specialist", label: "SEO Specialist" },
         { href: "/courses/ads-specialist", label: "Ads Specialist" },
       ],
     },
+    { href: "/#placements", label: "Placements" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];
@@ -88,10 +89,21 @@ export default function Navbar() {
                 if (hasSubItems) {
                   return (
                     <li key={link.label} className="relative group py-2">
-                      <button className="flex items-center gap-1.5 px-3.5 py-2 text-[0.9rem] font-medium text-body rounded-md transition-colors duration-200 whitespace-nowrap hover:text-primary hover:bg-primary-light">
-                        <span>{link.label}</span>
-                        <FaChevronDown className="w-2.5 h-2.5 transition-transform duration-200 group-hover:rotate-180 text-body group-hover:text-primary" />
-                      </button>
+                      {/* Desktop: Link navigates, hover still shows dropdown */}
+                      {link.href ? (
+                        <Link
+                          href={link.href}
+                          className="flex items-center gap-1.5 px-3.5 py-2 text-[0.9rem] font-medium text-body rounded-md transition-colors duration-200 whitespace-nowrap hover:text-primary hover:bg-primary-light"
+                        >
+                          <span>{link.label}</span>
+                          <FaChevronDown className="w-2.5 h-2.5 transition-transform duration-200 group-hover:rotate-180 text-body group-hover:text-primary" />
+                        </Link>
+                      ) : (
+                        <button className="flex items-center gap-1.5 px-3.5 py-2 text-[0.9rem] font-medium text-body rounded-md transition-colors duration-200 whitespace-nowrap hover:text-primary hover:bg-primary-light">
+                          <span>{link.label}</span>
+                          <FaChevronDown className="w-2.5 h-2.5 transition-transform duration-200 group-hover:rotate-180 text-body group-hover:text-primary" />
+                        </button>
+                      )}
 
                       {/* Dropdown Menu */}
                       <div className="absolute left-0 top-full pt-1.5 w-56 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-[1010]">
@@ -183,17 +195,33 @@ export default function Navbar() {
                 if (hasSubItems) {
                   return (
                     <li key={link.label} className="border-b border-border/40 py-1">
-                      <button
-                        onClick={() => toggleMobileDropdown(link.label)}
-                        className="flex items-center justify-between w-full px-4 py-3.5 text-[1.1rem] font-bold text-heading rounded-xl transition-colors duration-200 hover:bg-primary-light hover:text-primary text-left"
-                      >
-                        <span>{link.label}</span>
-                        <FaChevronDown
-                          className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                            isExpanded ? "rotate-180 text-primary" : "text-body"
-                          }`}
-                        />
-                      </button>
+                      {/* Mobile: label navigates, chevron toggles accordion */}
+                      <div className="flex items-center justify-between w-full rounded-xl overflow-hidden">
+                        {link.href ? (
+                          <Link
+                            href={link.href}
+                            onClick={() => setMobileOpen(false)}
+                            className="flex-1 px-4 py-3.5 text-[1.1rem] font-bold text-heading transition-colors duration-200 hover:text-primary text-left"
+                          >
+                            {link.label}
+                          </Link>
+                        ) : (
+                          <span className="flex-1 px-4 py-3.5 text-[1.1rem] font-bold text-heading">
+                            {link.label}
+                          </span>
+                        )}
+                        <button
+                          onClick={() => toggleMobileDropdown(link.label)}
+                          className="px-4 py-3.5 text-body hover:text-primary transition-colors duration-200"
+                          aria-label={`Toggle ${link.label} submenu`}
+                        >
+                          <FaChevronDown
+                            className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                              isExpanded ? "rotate-180 text-primary" : ""
+                            }`}
+                          />
+                        </button>
+                      </div>
 
                       {/* Accordion panel */}
                       <div

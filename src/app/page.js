@@ -9,6 +9,7 @@ import WhatsAppFloat from "../components/WhatsAppFloat";
 // Import Home Components
 import HeroSection from "../components/home/HeroSection";
 import HeroDownBanner from "../components/home/HeroDownBanner";
+import CareerQuiz from "../components/home/CareerQuiz";
 import WhyChooseZeon from "../components/home/WhyChooseZeon";
 import OurCourses from "../components/home/OurCourses";
 import Certifications from "../components/home/Certifications";
@@ -53,6 +54,7 @@ export default function Home() {
       <main>
         <HeroSection nextBatchDate={nextBatchDate} />
         <HeroDownBanner />
+        <CareerQuiz />
         <WhyChooseZeon />
         <OurCourses />
         <Certifications />
