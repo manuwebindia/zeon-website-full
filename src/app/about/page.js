@@ -41,7 +41,7 @@ export default function AboutPage() {
           <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
 
           <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
-            <span className="inline-flex items-center gap-2 bg-primary-light text-primary border border-primary/12 rounded-full px-4 py-1.5 text-[0.78rem] font-bold tracking-wide mb-6">
+            <span className="inline-block text-primary text-[0.85rem] font-semibold mb-5 tracking-[0.2em] uppercase">
               Who We Are
             </span>
             <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight">

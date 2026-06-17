@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -14,43 +16,56 @@ const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"))
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
 const LegalModal = dynamic(() => import("../../../components/LegalModal"));
 
-export const metadata = {
-  title: "Advanced Digital Marketing Course in Kochi | Zeon Academy",
-  description: "Join our Advanced Digital Marketing Course to learn SEO, Social Media Marketing, Google Ads, and WordPress. Complete with an internship and placement assistance.",
-  alternates: {
-    canonical: "/courses/advanced-digital-marketing",
-  },
-};
-
-export default function AdvancedDigitalMarketingPage() {
+export default function SeoSpecialistPage() {
   const whatYouWillLearn = [
-    "Build a Digital Marketing Strategy",
-    "Optimize Websites for SEO",
-    "Drive Organic Traffic with SEO",
-    "Create a Content Strategy Plan",
-    "Find Your Online Audience",
-    "Drive Traffic with the targeted audience",
-    "Create effective Google Ads",
-    "Create effective social media Ads",
-    "Analyze Website Data",
+    "Understand how SEO works",
+    "Discover the best keywords for websites",
+    "Structure and Optimize the webpages",
+    "Stand out with Technical SEO",
+    "Build High-quality Backlinks"
   ];
 
   const courseContent = [
-    { question: "Introduction to Digital Marketing", answer: "Learn the fundamentals of digital marketing, its channels, and how it differs from traditional marketing." },
-    { question: "Market Research", answer: "Learn to conduct effective market research, understand your target audience, their needs, preferences, and behavior to inform business decisions." },
-    { question: "Website Fundamentals", answer: "Understand how domains, hosting, and website structures work to create a solid foundation for digital marketing." },
-    { question: "WordPress", answer: "Learn to build and manage a fully functional website or blog using WordPress without any coding knowledge." },
-    { question: "Search Engine Optimization", answer: "Master on-page, off-page, and technical SEO strategies to rank websites higher on Google search results." },
-    { question: "Search Engine Marketing Using Google Ads", answer: "Create and optimize paid search campaigns using Google Ads to drive targeted traffic to your website." },
-    { question: "Google Analytics & Google Search Console", answer: "Track and analyze website traffic, user behavior, and performance metrics using Google's powerful tools." },
-    { question: "Social Media Marketing", answer: "Build brand awareness and engage with audiences on platforms like Facebook, Instagram, LinkedIn, and Twitter." },
-    { question: "PPC Advertising", answer: "Learn the principles of Pay-Per-Click advertising to maximize ROI on various ad networks." },
-    { question: "Copy Writing", answer: "Write compelling and persuasive ad copies, landing page content, and social media posts that convert." },
-    { question: "Content Marketing", answer: "Create and distribute valuable content to attract, engage, and retain a clearly defined audience." },
-    { question: "Email Marketing", answer: "Design effective email campaigns, build subscriber lists, and use automation to nurture leads." },
-    { question: "Youtube Marketing", answer: "Optimize YouTube channels and videos to increase views, subscribers, and brand visibility." },
-    { question: "Marketing Automation & Affiliate Marketing", answer: "Automate repetitive marketing tasks and learn how to earn commissions by promoting other people's products." },
-    { question: "Design Techniques for Social Media", answer: "Use tools like Canva to create visually appealing graphics for your digital marketing campaigns." }
+    {
+      question: "Search Engine Result Page (SERP)",
+      answer: "Understanding search engine results, layouts, indexing, and the precise organic positioning of search keywords on SERPs."
+    },
+    {
+      question: "Major Google Algorithms",
+      answer: "Deep dive into Google Search systems like Core Updates, helpful content system, search quality rater guidelines, and spam detection systems."
+    },
+    {
+      question: "How SEO Works?",
+      answer: "Learn search engine crawler behavior, indexing mechanisms, web page rendering, and search ranking factors."
+    },
+    {
+      question: "On-Page SEO",
+      answer: "Optimize headers, metadata, URL slugs, internal link structures, content density, page speed parameters, and search intent alignment."
+    },
+    {
+      question: "Off-Page SEO",
+      answer: "Develop authority-building backlink campaigns, outreach planning, directory submissions, social signals, and local domain authority."
+    },
+    {
+      question: "SEO Competitor Analysis",
+      answer: "Audit competitor keywords, map content gaps, explore domain backlinks, and benchmark organic organic traffic performance."
+    },
+    {
+      question: "Keyword Research",
+      answer: "Discover search volumes, keyword density, local ranking difficulties, search intent types, and long-tail semantic variations."
+    },
+    {
+      question: "Robots.txt, Sitemap.xml, and Schema Markup",
+      answer: "Configure crawl budgets, direct search indexing crawlers, set up XML index maps, and integrate structured JSON-LD schema snippets."
+    },
+    {
+      question: "Website Audit",
+      answer: "Perform tech audits to identify crawl logs, redirection loops, broken links, non-responsive UI pages, and core web vital blockages."
+    },
+    {
+      question: "Google My Business Listing",
+      answer: "Optimize Google Business Profile layouts, generate local customer citations, manage reviews, and improve local Map Pack rankings."
+    }
   ];
 
   return (
@@ -72,14 +87,14 @@ export default function AdvancedDigitalMarketingPage() {
                   <span className="text-border">/</span>
                   <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
                   <span className="text-border">/</span>
-                  <span className="text-primary font-bold">Advanced Digital Marketing Course</span>
+                  <span className="text-primary font-bold">SEO Specialist Course</span>
                 </div>
 
                 <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-heading leading-tight mb-4">
-                  Advanced Digital Marketing Course
+                  SEO Specialist Course
                 </h1>
                 <p className="text-[1.1rem] md:text-[1.2rem] text-body font-medium leading-relaxed mb-6">
-                  Social Media Marketing | Google & FB Ads | WordPress | SEO | Analytics & More
+                  Keyword Research | Technical SEO | Organic Traffic & More
                 </p>
 
                 <div className="flex items-center gap-4">
@@ -110,7 +125,7 @@ export default function AdvancedDigitalMarketingPage() {
                     <div className="relative w-full aspect-video rounded-[20px] overflow-hidden shadow-card border border-border">
                       <iframe 
                         className="absolute top-0 left-0 w-full h-full"
-                        src="https://www.youtube.com/embed/ejHyZIHXNP0" 
+                        src="https://www.youtube.com/embed/zRLgN4JSTts" 
                         title="YouTube video player" 
                         frameBorder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -126,10 +141,7 @@ export default function AdvancedDigitalMarketingPage() {
                     <h2 className="text-[1.5rem] font-extrabold text-heading mb-4">Description</h2>
                     <div className="text-[1.05rem] text-body leading-relaxed space-y-4 font-medium">
                       <p>
-                        This course is designed to create a firm understanding of several aspects of the Digital Marketing industry. Completing this course will give you a clear understanding of the foundations of the new digital marketing landscape. The modules will equip you with the tools, concepts, and stories that help you create, and promote digital products and services online. We have structured the course in a strictly job-oriented format. This course contains theoretical classes, in-hand projects, and an internship in our parent Digital marketing company.
-                      </p>
-                      <p>
-                        The course is taught by working professionals of Web India Branding and Marketing. The modules are easy to digest and delivered in a conversational style. Communication in the classroom will be in Malayalam. The course will be available only in online mode.
+                        This course is designed to give the student a comprehensive understanding of the theory and best practices of SEO. You will learn how to organize and optimize web pages to show up on the first page of Google search results. You will discover the importance of content in SEO and methods to identify the most suitable keywords to draw traffic to a website. The course also includes techniques to build powerful backlinks and technical SEO to beat the competition.
                       </p>
                     </div>
                   </div>
@@ -191,25 +203,31 @@ export default function AdvancedDigitalMarketingPage() {
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
                           <FaCheckCircle className="text-blue-600 text-sm" />
                         </div>
-                        2 months classes
+                        15 Days Classes
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
                           <FaCheckCircle className="text-blue-600 text-sm" />
                         </div>
-                        3 months internship
+                        1 Month Agency Internship Support
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
                           <FaCheckCircle className="text-blue-600 text-sm" />
                         </div>
-                        100% placement assistance
+                        Zeon & Google Certifications
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
                           <FaCheckCircle className="text-blue-600 text-sm" />
                         </div>
-                        Certificate of completion
+                        100% Placement Support
+                      </li>
+                      <li className="flex items-center gap-3 text-body font-medium">
+                        <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-blue-600 text-sm" />
+                        </div>
+                        Certificate of Completion
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
@@ -248,19 +266,19 @@ export default function AdvancedDigitalMarketingPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <CourseCard
                 mode="online"
-                title="SEO Specialist Course"
-                duration="15 Days + 1 Month Internship"
-                image="/courses/seo-course.webp"
-                slug="/courses/seo-specialist"
-                certifications="Zeon & Google Certifications"
-                placement="1-Month Agency Internship Support"
-                description="A fast-track SEO program designed to build strong search optimization skills in just 15 days."
+                title="Advanced Digital Marketing Course"
+                duration="2 Months + 1 Month Internship"
+                image="/courses/digitalmarketing-course.webp"
+                slug="/courses/advanced-digital-marketing"
+                certifications="15+ Certifications (Google, Meta, HubSpot)"
+                placement="Guaranteed Internship & 100% Placement"
+                description="A complete, practical 60-day program that teaches all major areas of digital marketing using real tools, real campaigns, and placement-focused training."
                 learnList={[
-                  "SEO Search Logic & Search Algorithms",
-                  "On-Page Content SEO & Page Speeds",
-                  "Technical SEO Auditing & Screaming Frog"
+                  "Digital Marketing Strategy & Channels",
+                  "SEO & Search Console Audits",
+                  "Google Ads & Performance Marketing"
                 ]}
-                isPopular={false}
+                isPopular={true}
               />
               <CourseCard
                 mode="online"
