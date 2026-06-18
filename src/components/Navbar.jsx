@@ -48,7 +48,13 @@ export default function Navbar() {
         { href: "/courses/ads-specialist", label: "Ads Specialist" },
       ],
     },
-    { href: "/#placements", label: "Placements" },
+    {
+      label: "Job Vacancy",
+      href: "",
+      subItems: [
+        { href: "/placements", label: "Placement Cell" },
+      ],
+    },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact" },
   ];

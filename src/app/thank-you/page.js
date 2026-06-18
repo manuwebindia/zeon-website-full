@@ -110,7 +110,7 @@ export default function ThankYouPage() {
                   {[
                     { label: "Why Zeon",   href: "/#why-zeon"   },
                     { label: "Program",    href: "/#program"    },
-                    { label: "Placements", href: "/#placements" },
+                    { label: "Job Vacancy", href: "/placements" },
                     { label: "Admission",  href: "/#admission"  },
                     { label: "Fees & Schedule", href: "/#fees"  },
                   ].map(({ label, href }) => (

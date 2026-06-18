@@ -54,7 +54,7 @@ export default function Footer() {
                 { label: "Home", href: "/" },
                 { label: "About Us", href: "/about" },
                 { label: "Courses", href: "/courses" },
-                { label: "Placements", href: "/placements" },
+                { label: "Job Vacancy", href: "/placements" },
                 { label: "Blog", href: "/blog" },
                 { label: "Contact Us", href: "/contact" },
               ].map(({ label, href }) => (
