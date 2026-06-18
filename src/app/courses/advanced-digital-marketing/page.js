@@ -62,23 +62,23 @@ export default function AdvancedDigitalMarketingPage() {
 
       <main className="bg-surface pt-24 pb-20">
         {/* HEADER HERO */}
-        <section className="bg-white border-b border-border py-12 lg:py-16">
+        <section className="bg-[#222831] border-b border-white/10 py-12 lg:py-16">
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
               <div className="flex-1 animate-fade-in-up">
                 {/* Breadcrumb */}
-                <div className="flex items-center gap-2 text-[0.88rem] font-semibold text-body mb-6">
-                  <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-                  <span className="text-border">/</span>
-                  <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
-                  <span className="text-border">/</span>
+                <div className="flex items-center gap-2 text-[0.88rem] font-semibold text-[#c3c8cf] mb-6">
+                  <Link href="/" className="hover:text-white transition-colors">Home</Link>
+                  <span className="text-white/30">/</span>
+                  <Link href="/courses" className="hover:text-white transition-colors">Courses</Link>
+                  <span className="text-white/30">/</span>
                   <span className="text-primary font-bold">Advanced Digital Marketing Course</span>
                 </div>
 
-                <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-heading leading-tight mb-4">
+                <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-white leading-tight mb-4">
                   Advanced Digital Marketing Course
                 </h1>
-                <p className="text-[1.1rem] md:text-[1.2rem] text-body font-medium leading-relaxed mb-6">
+                <p className="text-[1.1rem] md:text-[1.2rem] text-[#c3c8cf] font-medium leading-relaxed mb-6">
                   Social Media Marketing | Google & FB Ads | WordPress | SEO | Analytics & More
                 </p>
 
@@ -89,7 +89,7 @@ export default function AdvancedDigitalMarketingPage() {
                       <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                     </div>
                   </div>
-                  <span className="text-body font-medium text-[0.95rem]">Google Reviews</span>
+                  <span className="text-[#c3c8cf] font-medium text-[0.95rem]">Google Reviews</span>
                 </div>
               </div>
             </div>
