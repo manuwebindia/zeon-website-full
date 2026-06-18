@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import {
   // Feather / utility icons (already used)
   FiArrowRight,
@@ -182,9 +183,24 @@ export default function CareerQuiz() {
           </p>
         </div>
 
-        {/* Quiz Card */}
-        <div className="max-w-4xl mx-auto">
-          <div className="bg-white border border-border rounded-3xl shadow-card overflow-hidden">
+        {/* Two column layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch max-w-6xl mx-auto">
+          {/* Left Column: Image Card */}
+          <div className="lg:col-span-5 flex flex-col justify-stretch">
+            <div className="relative rounded-3xl overflow-hidden shadow-card border border-border bg-white p-0 h-full flex flex-col items-center justify-center min-h-[350px] lg:min-h-[480px]">
+              <Image
+                src="/thinking.webp"
+                alt="Student receiving certificate"
+                width={600}
+                height={500}
+                className="w-full h-full object-cover rounded-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+              />
+            </div>
+          </div>
+
+          {/* Right Column: Quiz Card */}
+          <div className="lg:col-span-7 flex flex-col justify-stretch">
+            <div className="bg-white border border-border rounded-3xl shadow-card overflow-hidden h-full flex flex-col justify-between">
 
             {/* ─── QUESTIONS ─── */}
             {step >= 1 && step <= 3 && currentQ && (
@@ -346,6 +362,7 @@ export default function CareerQuiz() {
               </div>
             )}
 
+            </div>
           </div>
         </div>
       </div>
