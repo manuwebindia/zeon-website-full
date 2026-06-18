@@ -127,37 +127,10 @@ export default function OfferPopup() {
   const intervalRef  = useRef(null);
   const pulseTimer   = useRef(null);
 
-  /* ── initialise from localStorage ── */
+  /* ── initialise state ── */
   useEffect(() => {
     setMounted(true);
-
-    // Permanently closed?
-    if (localStorage.getItem(LS_CLOSED_KEY) === "1") {
-      setDismissed(true);
-      return;
-    }
-
-    // Retrieve or create expiry
-    let expiry = Number(localStorage.getItem(LS_EXPIRE_KEY));
-    if (!expiry || expiry < Date.now()) {
-      expiry = Date.now() + DURATION_MS;
-      localStorage.setItem(LS_EXPIRE_KEY, String(expiry));
-    }
-
-    const remaining = expiry - Date.now();
-    if (remaining <= 0) {
-      setExpired(true);
-      setTimeLeft(0);
-      return;
-    }
-
-    setTimeLeft(remaining);
-
-    // Already minimised?
-    if (localStorage.getItem(LS_MINI_KEY) === "1") {
-      setMinimised(true);
-      return;
-    }
+    setTimeLeft(DURATION_MS);
 
     // Show popup after delay
     const delay = setTimeout(() => setShowPopup(true), POPUP_DELAY_MS);
@@ -174,8 +147,6 @@ export default function OfferPopup() {
         if (next <= 0) {
           clearInterval(intervalRef.current);
           setExpired(true);
-          localStorage.removeItem(LS_EXPIRE_KEY);
-          localStorage.removeItem(LS_MINI_KEY);
           return 0;
         }
         return next;
@@ -215,22 +186,17 @@ export default function OfferPopup() {
   const handleMinimise = useCallback(() => {
     setShowPopup(false);
     setMinimised(true);
-    localStorage.setItem(LS_MINI_KEY, "1");
   }, []);
 
   const handleClose = useCallback(() => {
     setShowPopup(false);
     setMinimised(false);
     setDismissed(true);
-    localStorage.setItem(LS_CLOSED_KEY, "1");
-    localStorage.removeItem(LS_MINI_KEY);
-    localStorage.removeItem(LS_EXPIRE_KEY);
   }, []);
 
   const handleExpand = useCallback(() => {
     setMinimised(false);
     setShowPopup(true);
-    localStorage.removeItem(LS_MINI_KEY);
   }, []);
 
   const handleClaim = useCallback(() => {
@@ -250,21 +216,21 @@ export default function OfferPopup() {
         pulseMini ? "scale-[1.005]" : "scale-100"
       }`}
       style={{
-        background: "linear-gradient(90deg, #b91c1c 0%, #FF4444 35%, #ff6b6b 50%, #FF4444 65%, #b91c1c 100%)",
+        background: "linear-gradient(90deg, #851010 0%, #a81818 25%, #d62f2f 45%, #FF4444 50%, #d62f2f 55%, #a81818 75%, #851010 100%)",
         backgroundSize: "300% 100%",
         animation: "shimmer-banner 4s linear infinite",
       }}
     >
       <div className="max-w-[1200px] mx-auto h-full flex items-center justify-between gap-3 px-4">
         {/* Left */}
-        <div className="flex items-center gap-1.5 min-w-0 flex-1">
-          <span className="text-white text-[1.05rem] sm:text-lg shrink-0">🎉</span>
-          <div className="flex items-center gap-1 min-w-0">
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <FaTag className="text-white/95 text-[0.9rem] sm:text-base shrink-0" />
+          <div className="flex items-center gap-1.5 min-w-0">
             <span className="text-white font-bold text-[0.78rem] sm:text-[0.88rem] truncate">
               <span className="hidden sm:inline">Exclusive Offer Expiring Soon!</span>
               <span className="inline sm:hidden">Offer Expiring Soon!</span>
             </span>
-            <span className="font-black tracking-widest bg-white/20 rounded px-1.5 py-0.5 text-[0.75rem] sm:text-[0.82rem] text-white shrink-0 ml-1">
+            <span className="font-black tracking-widest bg-black/20 border border-white/10 rounded px-1.5 py-0.5 text-[0.75rem] sm:text-[0.82rem] text-white shrink-0 ml-1">
               {formatTime(timeLeft)}
             </span>
           </div>
@@ -273,7 +239,7 @@ export default function OfferPopup() {
         {/* Claim button */}
         <button
           onClick={handleExpand}
-          className="flex items-center gap-1.5 bg-white text-[#b91c1c] font-black text-[0.75rem] sm:text-[0.82rem] px-3 sm:px-4 py-1.5 rounded-full shadow-lg transition-all duration-200 hover:scale-105 hover:shadow-xl shrink-0 whitespace-nowrap cursor-pointer"
+          className="flex items-center gap-1.5 bg-dark text-white font-black text-[0.75rem] sm:text-[0.82rem] px-3 sm:px-4 py-1.5 rounded-full shadow-lg transition-all duration-200 hover:scale-105 hover:bg-black shrink-0 whitespace-nowrap cursor-pointer"
         >
           <FaChevronUp size={10} />
           CLAIM

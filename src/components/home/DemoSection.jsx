@@ -73,6 +73,15 @@ export default function DemoSection() {
                     Q &amp; A with trainers
                   </li>
                 </ul>
+                <button
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.dispatchEvent(new CustomEvent("openBookDemo", { detail: { courseName: "Free Live Demo Class" } }));
+                  }}
+                  className="w-full inline-flex items-center justify-center rounded-[36px] py-4 px-8 font-bold text-[0.95rem] transition-all duration-300 bg-[#0B5CFF] text-white hover:bg-[#084BCE] shadow-[0_4px_15px_rgba(11,92,255,0.25)] hover:-translate-y-0.5 cursor-pointer text-center"
+                >
+                  Book Free Demo
+                </button>
                 <BookDemoModal />
               </div>
             </div>

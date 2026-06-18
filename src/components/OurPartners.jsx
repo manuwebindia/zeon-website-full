@@ -21,14 +21,14 @@ const allPartners = [
   { src: "/partners/logo_4.webp", scale: 2.6 },
   { src: "/partners/logo_6.webp", scale: 2.4 },
   { src: "/partners/logo_8.webp", scale: 1.45 },
-  { src: "/partners/logo_9.webp", scale: 1.9 },
+  { src: "/partners/logo_9.webp", scale: 1.9, style: { marginTop: "15px" } },
   { src: "/partners/logo_anata.webp", scale: 1.7 },
-  { src: "/partners/logos-02-02-1024x724.webp", scale: 2.4 },
-  { src: "/partners/maad-concepts.webp", scale: 1.8 },
+  { src: "/partners/logos-02-02-1024x724.webp", scale: 2.6 },
+  { src: "/partners/maad-concepts.webp", scale: 1.8, style: { marginTop: "10px" } },
   { src: "/partners/maruti-suzuki 1.webp", scale: 1.2 },
   { src: "/partners/oppiatec-logo.webp", scale: 2.6 },
   { src: "/partners/pepebbq.webp", scale: 1.2 },
-  { src: "/partners/peraka.webp", scale: 1.3 },
+  { src: "/partners/peraka.webp", scale: 1.3, style: { marginLeft: "40px" } },
   { src: "/partners/whiteswan-2.webp", scale: 1.5 },
   { src: "/partners/wistora.webp", scale: 1.25 },
 ];
@@ -67,6 +67,7 @@ function MarqueeRow({ items, direction = "left", speed = "40s" }) {
                 maxWidth: "100%",
                 objectFit: "contain",
                 transform: `scale(${partner.scale || 1.0})`,
+                ...partner.style
               }}
             />
           </div>

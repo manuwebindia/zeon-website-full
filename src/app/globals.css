@@ -81,8 +81,8 @@
   100% { background-position: 200% 0; }
 }
 @keyframes shimmer-banner {
-  0%   { background-position: 200% 50%; }
-  100% { background-position: -200% 50%; }
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 300% 50%; }
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
@@ -273,7 +273,7 @@
 /* Mini banner sits at top-0; navbar shifts down below it seamlessly.
    Page <main> needs extra top padding to clear both navbar + mini banner. */
 html.has-mini-banner header {
-  top: 40px !important;
+  top: 52px !important;
 }
 html.has-mini-banner main {
   margin-top: 40px !important;
@@ -284,7 +284,7 @@ html.has-mini-banner .sticky[class*="top-"] {
 }
 @media (min-width: 768px) {
   html.has-mini-banner header {
-    top: 44px !important;
+    top: 60px !important;
   }
   html.has-mini-banner main {
     margin-top: 44px !important;

@@ -233,10 +233,10 @@ export default function PricingTabs() {
           ) : (
             <div className="flex flex-col gap-2.5 mb-7 flex-1">
               {/* 1st Installment */}
-              <div className="bg-surface rounded-[10px] p-3 px-3.5 border border-border">
+              <div className="bg-surface rounded-[10px] p-3 px-3.5 border border-primary">
                 <div className="flex items-center justify-between mb-1">
                   <span
-                    className={`text-[0.7rem] font-medium px-2 py-0.5 rounded-full ${theme.bgPrimary10} ${theme.textPrimary} tracking-wider inline-block`}
+                    className="text-[0.7rem] font-semibold px-2 py-0.5 rounded-full bg-primary-light text-primary tracking-wider inline-block"
                   >
                     1<sup>st</sup> Installment
                   </span>

@@ -66,13 +66,15 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-[1000] w-full border-b transition-all duration-300 ${
-          scrolled
-            ? "bg-white/95 backdrop-blur-md border-border shadow-sm"
-            : "bg-white/90 backdrop-blur-sm border-border/40"
-        }`}
+        className="fixed left-0 right-0 z-[1000] w-full transition-all duration-300 pointer-events-none top-3 md:top-4 px-4 sm:px-6 md:px-8"
       >
-        <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 py-3.5 md:py-4">
+        <div
+          className={`mx-auto max-w-[1200px] w-full flex items-center justify-between pointer-events-auto transition-all duration-300 border rounded-full px-6 py-2.5 ${
+            scrolled
+              ? "bg-white/98 backdrop-blur-md border-border shadow-lg"
+              : "bg-white/98 backdrop-blur-sm border-border/60 shadow-md"
+          }`}
+        >
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
             <Image
@@ -80,7 +82,7 @@ export default function Navbar() {
               alt="Zeon Digital Marketing Academy"
               width={0}
               height={0}
-              sizes="160px"
+              sizes="500px"
               priority
               style={{ height: "42px", width: "auto" }}
             />
