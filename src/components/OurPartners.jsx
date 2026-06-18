@@ -4,36 +4,33 @@ import React from "react";
 import Image from "next/image";
 
 const allPartners = [
-  "/partners/adox-global-1.webp",
-  "/partners/Auctor_Logo_1024x724-01-1024x724.webp",
-  "/partners/capsdata-3.webp",
-  "/partners/classis-digital-6.webp",
-  "/partners/edbe-logo.webp",
-  "/partners/evolux_logo-768x384.webp",
-  "/partners/findmyhostel.webp",
-  "/partners/first-reach-6.webp",
-  "/partners/global-visa-logo.webp",
-  "/partners/ieie.webp",
-  "/partners/IMG-20230404-WA0001.webp",
-  "/partners/ishkhan-4.webp",
-  "/partners/kerala-paints-5.webp",
-  "/partners/log_3.webp",
-  "/partners/logo_10.webp",
-  "/partners/logo_4.webp",
-  "/partners/logo_6.webp",
-  "/partners/logo_8.webp",
-  "/partners/logo_9.webp",
-  "/partners/logo_anata.webp",
-  "/partners/logos-02-01-1024x724.webp",
-  "/partners/logos-02-02-1024x724.webp",
-  "/partners/maad-concepts.webp",
-  "/partners/maruti-suzuki 1.webp",
-  "/partners/oppiatec-logo.webp",
-  "/partners/pepebbq.webp",
-  "/partners/peraka.webp",
-  "/partners/whiteswan-2.webp",
-  "/partners/wistora.webp",
-  "/partners/zenesty.webp",
+  { src: "/partners/adox-global-1.webp", scale: 1.2 },
+  { src: "/partners/Auctor_Logo_1024x724-01-1024x724.webp", scale: 2.50 },
+  { src: "/partners/capsdata-3.webp", scale: 1.40 },
+  { src: "/partners/classis-digital-6.webp", scale: 1.20 },
+  { src: "/partners/edbe-logo.webp", scale: 2.2 },
+  { src: "/partners/findmyhostel.webp", scale: 1.2 },
+  { src: "/partners/first-reach-6.webp", scale: 1.2 },
+  { src: "/partners/global-visa-logo.webp", scale: 1.3 },
+  { src: "/partners/ieie.webp", scale: 1.25 },
+  { src: "/partners/IMG-20230404-WA0001.webp", scale: 1.80 },
+  { src: "/partners/ishkhan-4.webp", scale: 1.6 },
+  { src: "/partners/kerala-paints-5.webp", scale: 1.2 },
+  { src: "/partners/log_3.webp", scale: 1.8 },
+  { src: "/partners/logo_10.webp", scale: 1.8 },
+  { src: "/partners/logo_4.webp", scale: 2.6 },
+  { src: "/partners/logo_6.webp", scale: 2.4 },
+  { src: "/partners/logo_8.webp", scale: 1.45 },
+  { src: "/partners/logo_9.webp", scale: 1.9 },
+  { src: "/partners/logo_anata.webp", scale: 1.7 },
+  { src: "/partners/logos-02-02-1024x724.webp", scale: 2.4 },
+  { src: "/partners/maad-concepts.webp", scale: 1.8 },
+  { src: "/partners/maruti-suzuki 1.webp", scale: 1.2 },
+  { src: "/partners/oppiatec-logo.webp", scale: 2.6 },
+  { src: "/partners/pepebbq.webp", scale: 1.2 },
+  { src: "/partners/peraka.webp", scale: 1.3 },
+  { src: "/partners/whiteswan-2.webp", scale: 1.5 },
+  { src: "/partners/wistora.webp", scale: 1.25 },
 ];
 
 const row1 = allPartners.slice(0, 10);
@@ -52,23 +49,24 @@ function MarqueeRow({ items, direction = "left", speed = "40s" }) {
         }`}
         style={{ animationDuration: speed }}
       >
-        {duplicatedItems.map((imgSrc, idx) => (
+        {duplicatedItems.map((partner, idx) => (
           <div
             key={idx}
-            className="w-[220px] h-[90px] bg-white rounded-xl mx-4 flex items-center justify-center p-6 shadow-card border border-border shrink-0 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-card-hover md:w-[220px] md:h-[90px] max-md:w-[180px] max-md:h-[75px] max-md:mx-3"
+            className="w-[220px] h-[90px] bg-white rounded-xl overflow-hidden mx-4 flex items-center justify-center p-3 md:p-4 shadow-card border border-border shrink-0 transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-card-hover md:w-[220px] md:h-[90px] max-md:w-[180px] max-md:h-[75px] max-md:mx-3"
           >
             <Image
-              src={imgSrc}
+              src={partner.src}
               alt="Hiring Partner"
               width={0}
               height={0}
-              sizes="120px"
+              sizes="600px"
               loading="lazy"
               style={{
                 width: "auto",
-                height: "48px",
+                height: "100%",
                 maxWidth: "100%",
                 objectFit: "contain",
+                transform: `scale(${partner.scale || 1.0})`,
               }}
             />
           </div>

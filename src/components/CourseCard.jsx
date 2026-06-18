@@ -41,22 +41,24 @@ export default function CourseCard({
   const isOnline = mode === "online";
   const theme = isOnline 
     ? {
-        borderPopular: "border border-border shadow-[0_8px_30px_rgba(11,92,255,0.06)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.12)] hover:border-[#0B5CFF]/30",
-        borderNormal: "border border-border shadow-[0_8px_30px_rgba(11,92,255,0.06)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.12)] hover:border-[#0B5CFF]/30",
+        borderPopular: "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
+        borderNormal: "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
         ribbonBg: "bg-[#0B5CFF]",
         textPrimary: "text-[#0B5CFF]",
         checkColor: "before:text-[#0B5CFF]",
         btnPopular: "bg-[#0B5CFF] border-2 border-transparent text-white hover:bg-[#084BCE] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(11,92,255,0.25)]",
         btnNormal: "bg-transparent text-[#0B5CFF] border-2 border-[#0B5CFF] hover:bg-[#0B5CFF] hover:text-white hover:-translate-y-0.5",
+        btnDetails: "hover:border-[#0B5CFF] hover:text-[#0B5CFF]",
       }
     : {
-        borderPopular: "border border-border shadow-[0_8px_30px_rgba(16,185,129,0.06)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.12)] hover:border-primary/30",
-        borderNormal: "border border-border shadow-[0_8px_30px_rgba(16,185,129,0.06)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.12)] hover:border-primary/30",
-        ribbonBg: "bg-primary",
-        textPrimary: "text-primary",
-        checkColor: "before:text-primary",
-        btnPopular: "bg-primary border-2 border-transparent text-white hover:bg-primary-hover hover:-translate-y-0.5 shadow-glow",
-        btnNormal: "bg-transparent text-primary border-2 border-primary hover:bg-primary hover:text-white hover:-translate-y-0.5",
+        borderPopular: "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
+        borderNormal: "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
+        ribbonBg: "bg-[#37d366]",
+        textPrimary: "text-[#37d366]",
+        checkColor: "before:text-[#37d366]",
+        btnPopular: "bg-[#37d366] border-2 border-transparent text-white hover:bg-[#059669] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(16,185,129,0.25)]",
+        btnNormal: "bg-transparent text-[#37d366] border-2 border-[#37d366] hover:bg-[#37d366] hover:text-white hover:-translate-y-0.5",
+        btnDetails: "hover:border-[#37d366] hover:text-[#37d366]",
       };
 
   return (
@@ -211,14 +213,14 @@ export default function CourseCard({
           {slug ? (
             <Link
               href={slug}
-              className="inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading hover:border-primary hover:text-primary whitespace-nowrap w-full text-center"
+              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${theme.btnDetails} whitespace-nowrap w-full text-center`}
             >
               View Details
             </Link>
           ) : (
             <a
               href="#fees"
-              className="inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading hover:border-primary hover:text-primary whitespace-nowrap w-full text-center"
+              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${theme.btnDetails} whitespace-nowrap w-full text-center`}
             >
               View Fee
             </a>
