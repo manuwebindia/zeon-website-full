@@ -130,10 +130,46 @@ export default function OfferPopup() {
   /* ── initialise state ── */
   useEffect(() => {
     setMounted(true);
+
+    const todayStr = new Date().toDateString();
+
+    // If permanently closed today
+    if (localStorage.getItem("zeon_offer_last_closed_date") === todayStr) {
+      setDismissed(true);
+      return;
+    }
+
+    // If already shown today
+    if (localStorage.getItem("zeon_offer_last_shown_date") === todayStr) {
+      // If it was minimised, keep showing the minimised mini-banner
+      if (localStorage.getItem(LS_MINI_KEY) === "1") {
+        setMinimised(true);
+        let expiry = Number(localStorage.getItem(LS_EXPIRE_KEY));
+        const remaining = expiry - Date.now();
+        if (remaining <= 0) {
+          setExpired(true);
+          setTimeLeft(0);
+        } else {
+          setTimeLeft(remaining);
+        }
+      } else {
+        // Otherwise, don't show the popup modal again today
+        setDismissed(true);
+      }
+      return;
+    }
+
+    // Otherwise first visit of the day: setup timer duration
     setTimeLeft(DURATION_MS);
 
     // Show popup after delay
-    const delay = setTimeout(() => setShowPopup(true), POPUP_DELAY_MS);
+    const delay = setTimeout(() => {
+      setShowPopup(true);
+      // Mark as shown today and record timer expiry
+      localStorage.setItem("zeon_offer_last_shown_date", todayStr);
+      localStorage.setItem(LS_EXPIRE_KEY, String(Date.now() + DURATION_MS));
+    }, POPUP_DELAY_MS);
+
     return () => clearTimeout(delay);
   }, []);
 
@@ -147,6 +183,7 @@ export default function OfferPopup() {
         if (next <= 0) {
           clearInterval(intervalRef.current);
           setExpired(true);
+          localStorage.removeItem(LS_MINI_KEY);
           return 0;
         }
         return next;
@@ -186,17 +223,22 @@ export default function OfferPopup() {
   const handleMinimise = useCallback(() => {
     setShowPopup(false);
     setMinimised(true);
+    localStorage.setItem(LS_MINI_KEY, "1");
   }, []);
 
   const handleClose = useCallback(() => {
     setShowPopup(false);
     setMinimised(false);
     setDismissed(true);
+    localStorage.setItem("zeon_offer_last_closed_date", new Date().toDateString());
+    localStorage.removeItem(LS_MINI_KEY);
+    localStorage.removeItem(LS_EXPIRE_KEY);
   }, []);
 
   const handleExpand = useCallback(() => {
     setMinimised(false);
     setShowPopup(true);
+    localStorage.removeItem(LS_MINI_KEY);
   }, []);
 
   const handleClaim = useCallback(() => {
