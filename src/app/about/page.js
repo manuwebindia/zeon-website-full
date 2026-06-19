@@ -33,9 +33,9 @@ export default function AboutPage() {
       <Navbar />
       <WhatsAppFloat />
 
-      <main className="bg-white pt-20">
+      <main className="bg-white">
         {/* HERO BANNER */}
-        <section className="relative py-16 md:py-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+        <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
           {/* Orbs */}
           <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
           <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />

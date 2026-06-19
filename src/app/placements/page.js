@@ -8,7 +8,6 @@ import ScrollReveal from "../../components/ScrollReveal";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
-const LegalModal = dynamic(() => import("../../components/LegalModal"));
 
 export const metadata = {
   title: "Job Vacancies | Digital Marketing Jobs in Kerala | Zeon Academy Placement Cell",
@@ -194,14 +193,13 @@ export default function PlacementsPage() {
   return (
     <>
       <Navbar />
-      <LegalModal />
       <WhatsAppFloat />
       <BookDemoModal />
 
-      <main className="bg-surface pt-20">
+      <main className="bg-surface">
 
         {/* ── HERO BANNER ── */}
-        <section className="relative py-16 md:py-24 bg-[#222831] overflow-hidden border-b border-white/10">
+        <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-[#222831] overflow-hidden border-b border-white/10">
           {/* Decorative orbs */}
           <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
           <div className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-primary/8 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />

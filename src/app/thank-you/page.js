@@ -36,7 +36,7 @@ export default function ThankYouPage() {
       
       <main className="min-h-screen flex flex-col">
         {/* Thank You Section */}
-        <section className="pt-32 pb-20 flex-grow flex items-center justify-center bg-surface bg-dots-pattern">
+        <section className="pt-28 pb-20 flex-grow flex items-center justify-center bg-surface bg-dots-pattern">
           <div className="w-full max-w-[800px] mx-auto px-6 text-center animate-fade-in-up">
             <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-[#37d366]/10 text-[#37d366] mb-8 shadow-sm">
               <FaCheckCircle className="text-[4rem]" />

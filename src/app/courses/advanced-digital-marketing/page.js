@@ -12,7 +12,6 @@ import Footer from "../../../components/Footer";
 
 const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
-const LegalModal = dynamic(() => import("../../../components/LegalModal"));
 
 export const metadata = {
   title: "Advanced Digital Marketing Course in Kochi | Zeon Academy",
@@ -56,13 +55,12 @@ export default function AdvancedDigitalMarketingPage() {
   return (
     <>
       <Navbar />
-      <LegalModal />
       <WhatsAppFloat />
       <BookDemoModal />
 
-      <main className="bg-surface pt-24 pb-20">
+      <main className="bg-surface pb-20">
         {/* HEADER HERO */}
-        <section className="bg-[#222831] border-b border-white/10 py-12 lg:py-16">
+        <section className="bg-[#222831] border-b border-white/10 pt-24 pb-12 lg:pt-28 lg:pb-16">
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
               <div className="flex-1 animate-fade-in-up">

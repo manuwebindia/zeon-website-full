@@ -3,7 +3,6 @@
 import dynamic from "next/dynamic";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import LegalModal from "../components/LegalModal";
 import WhatsAppFloat from "../components/WhatsAppFloat";
 
 // Import Home Components
@@ -48,7 +47,6 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <LegalModal />
       <WhatsAppFloat />
 
       <main>

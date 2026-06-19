@@ -103,58 +103,56 @@ const TERMS = {
 function ModalContent({ doc, onClose }) {
   return (
     <div
-      className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99999] overflow-y-auto animate-fade-in"
+      className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99999] flex items-center justify-center p-4 sm:p-6 md:p-10 animate-fade-in"
       onClick={onClose}
     >
-      <div className="flex min-h-full items-start justify-center p-4 py-8">
-        <div
-          className="bg-white w-full max-w-[720px] rounded-2xl relative shadow-[0_30px_70px_rgba(0,0,0,0.35)] overflow-hidden"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* Accent bar */}
-          <div className="h-[4px] w-full bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a]" />
+      <div
+        className="bg-white w-full max-w-[720px] max-h-[90vh] rounded-2xl relative shadow-[0_30px_70px_rgba(0,0,0,0.35)] flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Accent bar */}
+        <div className="h-[4px] w-full bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] shrink-0" />
 
-          {/* Header */}
-          <div className="sticky top-0 bg-white/95 backdrop-blur-sm border-b border-border px-6 py-4 flex items-center justify-between z-10">
-            <h2 className="text-[1.15rem] font-extrabold text-heading m-0">
-              {doc.title}
-            </h2>
-            <button
-              onClick={onClose}
-              aria-label="Close"
-              className="flex items-center justify-center w-8 h-8 rounded-full text-body hover:text-primary hover:bg-primary/10 transition-all duration-200 border-none bg-transparent cursor-pointer"
-            >
-              <FaTimes />
-            </button>
-          </div>
+        {/* Header */}
+        <div className="bg-white border-b border-border px-6 py-4 flex items-center justify-between shrink-0">
+          <h2 className="text-[1.15rem] font-extrabold text-heading m-0">
+            {doc.title}
+          </h2>
+          <button
+            onClick={onClose}
+            aria-label="Close"
+            className="flex items-center justify-center w-8 h-8 rounded-full text-body hover:text-primary hover:bg-primary/10 transition-all duration-200 border-none bg-transparent cursor-pointer"
+          >
+            <FaTimes />
+          </button>
+        </div>
 
-          {/* Body */}
-          <div className="px-6 py-7 max-sm:px-4 space-y-6 text-[0.92rem] leading-relaxed text-body">
-            {doc.sections.map((sec, i) => (
-              <div key={i}>
-                {sec.heading && (
-                  <h3 className="text-[1rem] font-bold text-heading mb-2">
-                    {sec.heading}
-                  </h3>
-                )}
-                {sec.body.split("\n\n").map((para, j) => (
-                  <p key={j} className="mb-2 last:mb-0 whitespace-pre-line">
-                    {para}
-                  </p>
-                ))}
-              </div>
-            ))}
-          </div>
+        {/* Body */}
+        <div className="px-6 py-7 max-sm:px-4 space-y-6 text-[0.92rem] leading-relaxed text-body overflow-y-auto flex-1">
+          {doc.sections.map((sec, i) => (
+            <div key={i}>
+              {sec.heading && (
+                <h3 className="text-[1rem] font-bold text-heading mb-2">
+                  {sec.heading}
+                </h3>
+              )}
+              {sec.body.split("\n\n").map((para, j) => (
+                <p key={j} className="mb-2 last:mb-0 whitespace-pre-line">
+                  {para}
+                </p>
+              ))}
+            </div>
+          ))}
+        </div>
 
-          {/* Footer */}
-          <div className="px-6 py-4 border-t border-border flex justify-end">
-            <button
-              onClick={onClose}
-              className="px-6 py-2.5 rounded-full bg-primary text-white font-semibold text-[0.9rem] hover:bg-primary-hover transition-all duration-300 border-none cursor-pointer"
-            >
-              Close
-            </button>
-          </div>
+        {/* Footer */}
+        <div className="px-6 py-4 border-t border-border flex justify-end shrink-0">
+          <button
+            onClick={onClose}
+            className="px-6 py-2.5 rounded-full bg-primary text-white font-semibold text-[0.9rem] hover:bg-primary-hover transition-all duration-300 border-none cursor-pointer"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
