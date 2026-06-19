@@ -141,12 +141,11 @@ export default function DownloadBrochureModal() {
     >
       <div className="flex min-h-full items-center justify-center p-4 py-6">
         <div
-          className="bg-[#fff] w-full max-w-[460px] rounded-2xl p-7 relative shadow-[0_30px_70px_rgba(0,0,0,0.4)] border border-white/20 ring-1 ring-black/5 overflow-hidden"
+          className="bg-[#fff] w-full max-w-[460px] rounded-2xl p-7 relative shadow-[0_30px_70px_rgba(0,0,0,0.4)] border border-border ring-1 ring-black/5 overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Top colored accent strip */}
           <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-[#ff4a4a]" />
-          <div className="absolute -inset-[50px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
           
           <button
             className="absolute top-4 right-4 bg-none border-none text-body text-2xl cursor-pointer transition-colors duration-300 hover:text-primary"
@@ -158,7 +157,7 @@ export default function DownloadBrochureModal() {
 
           <div>
             <div className="flex justify-center mb-3">
-              <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-red-500 text-2xl border border-red-100">
+              <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-red-500 text-2xl border border-border">
                 <FaFilePdf />
               </div>
             </div>
@@ -181,7 +180,7 @@ export default function DownloadBrochureModal() {
                   placeholder="Enter your full name"
                   required
                   onKeyDown={allowNameKey}
-                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${
+                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-white font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${
                     errors.name ? "border-red-400 focus:border-red-400 focus:ring-red-100" : "border-border focus:border-primary focus:ring-primary/10"
                   }`}
                 />
@@ -197,7 +196,7 @@ export default function DownloadBrochureModal() {
                   name="email"
                   placeholder="Enter your email address"
                   required
-                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${
+                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-white font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:ring-primary/10 focus:bg-white ${
                     errors.email ? "border-red-400 focus:border-red-400 focus:ring-red-100" : "border-border focus:border-primary focus:ring-primary/10"
                   }`}
                 />
@@ -215,7 +214,7 @@ export default function DownloadBrochureModal() {
                   required
                   maxLength={10}
                   onKeyDown={allowPhoneKey}
-                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${
+                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-white font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${
                     errors.phone ? "border-red-400 focus:border-red-400 focus:ring-red-100" : "border-border focus:border-primary focus:ring-primary/10"
                   }`}
                 />
