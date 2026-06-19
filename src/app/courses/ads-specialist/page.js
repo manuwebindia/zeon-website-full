@@ -228,8 +228,44 @@ export default function AdSpecialistPage() {
                     </div>
                   </div>
 
-                  {/* Demo Form */}
-                  <div className="sticky top-28">
+                  {/* Sticky Sidebar: Brochure + Demo Form */}
+                  <div className="sticky top-28 space-y-6">
+
+                    {/* Download Brochure Card */}
+                    <div className="bg-white border border-border rounded-2xl overflow-hidden shadow-card">
+                      <div className="h-[5px] w-full bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a]" />
+                      <div className="p-6">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0">
+                            <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none">
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#ef4444" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                              <polyline points="14 2 14 8 20 8" stroke="#ef4444" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                              <text x="6" y="19" fontSize="5.5" fontWeight="800" fill="#ef4444" fontFamily="sans-serif">PDF</text>
+                            </svg>
+                          </div>
+                          <div>
+                            <p className="text-[0.95rem] font-extrabold text-heading leading-tight">Course Brochure</p>
+                            <p className="text-[0.78rem] text-body mt-0.5">Ads Specialist</p>
+                          </div>
+                        </div>
+                        <p className="text-[0.82rem] text-body mb-4 leading-relaxed">
+                          Get the complete course outline, fee structure, and career outcomes — all in one PDF.
+                        </p>
+                        <a
+                          href="/brochures/Ads_Specialist.pdf"
+                          download
+                          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-primary to-[#ff4a4a] text-white font-bold text-[0.9rem] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
+                        >
+                          <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="7 10 12 15 17 10"/>
+                            <line x1="12" y1="15" x2="12" y2="3"/>
+                          </svg>
+                          Download Brochure
+                        </a>
+                      </div>
+                    </div>
+
                     <FreeDemoForm />
                   </div>
 

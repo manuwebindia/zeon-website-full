@@ -35,7 +35,7 @@ export default function Navbar() {
       label: "Why Zeon",
       subItems: [
         { href: "/about", label: "About Us" },
-        { href: "/#testimonials", label: "Testimonials" },
+        { href: "/testimonials", label: "Testimonials" },
         { href: "/gallery", label: "Photo Gallery" },
       ],
     },

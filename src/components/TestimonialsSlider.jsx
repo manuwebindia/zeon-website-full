@@ -150,20 +150,17 @@ export default function TestimonialsSlider() {
 
                 {/* Content */}
                 <div className="p-6 md:p-8 text-left flex flex-col flex-1">
+                  <h4 className="text-xl font-extrabold text-heading mb-1.5">
+                    {t.name}
+                  </h4>
                   <div className="flex gap-1 text-gold mb-4">
                     {[...Array(5)].map((_, i) => (
                       <FaStar key={i} />
                     ))}
                   </div>
-                  <p className="text-[1.05rem] text-body leading-relaxed italic mb-6 flex-1">
+                  <p className="text-[1.05rem] text-body leading-relaxed italic flex-1">
                     {t.quote}
                   </p>
-                  <h4 className="text-xl font-extrabold text-heading mb-1">
-                    {t.name}
-                  </h4>
-                  <span className="text-[0.9rem] text-primary font-semibold">
-                    {t.role}
-                  </span>
                 </div>
               </div>
             </div>

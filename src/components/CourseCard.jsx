@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiChevronDown, FiBookOpen, FiAward, FiBriefcase } from "react-icons/fi";
+import { FiChevronDown, FiBookOpen, FiDownload } from "react-icons/fi";
 
 export default function CourseCard({
   title,
@@ -18,6 +18,7 @@ export default function CourseCard({
   image,
   certifications,
   placement,
+  brochure,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -226,6 +227,18 @@ export default function CourseCard({
             </a>
           )}
         </div>
+
+        {/* Download Brochure */}
+        {brochure && (
+          <a
+            href={brochure}
+            download
+            className="mt-3 inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-[36px] border-2 border-dashed border-border text-body text-[0.85rem] font-semibold hover:border-primary hover:text-primary transition-all duration-300 group"
+          >
+            <FiDownload className="text-base group-hover:animate-bounce" />
+            Download Brochure (PDF)
+          </a>
+        )}
       </div>
     </div>
   );

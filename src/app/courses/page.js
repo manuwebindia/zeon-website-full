@@ -81,6 +81,7 @@ export default function CoursesPage() {
                     "Email Marketing & Automation Tools",
                   ]}
                   isPopular={true}
+                  brochure="/brochures/Advanced_Digital Marketing_Zeon_Academy.pdf"
                   syllabus={[
                     { title: "Module 1: Intro to Digital Marketing & Graphic Design", topics: [] },
                     { title: "Module 2: Website Creation & WordPress Setup", topics: [] },
@@ -110,6 +111,7 @@ export default function CoursesPage() {
                     "Backlink Strategy & Authority Building",
                   ]}
                   isPopular={false}
+                  brochure="/brochures/SEO_Specialist.pdf"
                   syllabus={[
                     { title: "Module 1: SEO Fundamentals & Core Logic", topics: [] },
                     { title: "Module 2: Keyword Research & Competitive Intel", topics: [] },
@@ -138,6 +140,7 @@ export default function CoursesPage() {
                     "Campaign Budgets, ROAS & Scalability",
                   ]}
                   isPopular={false}
+                  brochure="/brochures/Ads_Specialist.pdf"
                   syllabus={[
                     { title: "Module 1: Paid Traffic & Tracking Basics", topics: [] },
                     { title: "Module 2: Google Ads Setup & Optimization", topics: [] },
