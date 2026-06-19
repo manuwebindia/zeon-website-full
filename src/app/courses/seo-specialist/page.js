@@ -11,6 +11,7 @@ import ScrollReveal from "../../../components/ScrollReveal";
 import FreeDemoForm from "../../../components/FreeDemoForm";
 import CourseTestimonials from "../../../components/CourseTestimonials";
 import Footer from "../../../components/Footer";
+import BrochureDownloadButton from "../../../components/BrochureDownloadButton";
 
 const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
@@ -268,10 +269,10 @@ export default function SeoSpecialistPage() {
                         <p className="text-[0.82rem] text-body mb-4 leading-relaxed">
                           Get the complete course outline, fee structure, and career outcomes — all in one PDF.
                         </p>
-                        <a
-                          href="/brochures/SEO_Specialist.pdf"
-                          download
-                          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-primary to-[#ff4a4a] text-white font-bold text-[0.9rem] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-sm"
+                        <BrochureDownloadButton
+                          brochureUrl="/brochures/SEO_Specialist.pdf"
+                          courseName="SEO Specialist Course"
+                          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-primary to-[#ff4a4a] text-white font-bold text-[0.9rem] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-sm cursor-pointer"
                         >
                           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -279,7 +280,7 @@ export default function SeoSpecialistPage() {
                             <line x1="12" y1="15" x2="12" y2="3"/>
                           </svg>
                           Download Brochure
-                        </a>
+                        </BrochureDownloadButton>
                       </div>
                     </div>
 

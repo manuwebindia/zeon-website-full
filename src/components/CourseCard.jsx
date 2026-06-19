@@ -230,14 +230,19 @@ export default function CourseCard({
 
         {/* Download Brochure */}
         {brochure && (
-          <a
-            href={brochure}
-            download
-            className="mt-3 inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-[36px] border-2 border-dashed border-border text-body text-[0.85rem] font-semibold hover:border-primary hover:text-primary transition-all duration-300 group"
+          <button
+            onClick={() => {
+              window.dispatchEvent(
+                new CustomEvent("openDownloadBrochure", {
+                  detail: { brochureUrl: brochure, courseName: title }
+                })
+              );
+            }}
+            className="mt-3 inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-[36px] border-2 border-dashed border-border text-body text-[0.85rem] font-semibold hover:border-primary hover:text-primary transition-all duration-300 group cursor-pointer"
           >
             <FiDownload className="text-base group-hover:animate-bounce" />
             Download Brochure (PDF)
-          </a>
+          </button>
         )}
       </div>
     </div>
