@@ -51,7 +51,7 @@ export default function AboutPage() {
               </span>
             </h1>
             <p className="text-[1.15rem] text-body leading-relaxed font-medium max-w-3xl mx-auto">
-              Zeon Academy is an offshoot of Web India Solutions (WIS), a web development and digital marketing company with 17 years of experience in the business.
+              Zeon Academy is an offshoot of Web India Solutions (WIS), a web development and digital marketing company with 18 years of experience in the business.
             </p>
           </div>
         </section>
@@ -91,7 +91,7 @@ export default function AboutPage() {
                   <span className="text-primary">Working at WIS</span>
                 </h2>
                 <p className="text-base md:text-[1.05rem] text-body leading-[1.7] font-medium mb-6">
-                  We are not an ordinary digital marketing training institute in Kochi. Zeon Academy stands out as it is an offshoot of Web India Solutions fondly known as <strong>WIS</strong>, a web development and digital marketing company with 17 years of experience in the business.
+                  We are not an ordinary digital marketing training institute in Kochi. Zeon Academy stands out as it is an offshoot of Web India Solutions fondly known as <strong>WIS</strong>, a web development and digital marketing company with 18 years of experience in the business.
                 </p>
                 <p className="text-base md:text-[1.05rem] text-body leading-[1.7] font-medium mb-8">
                   Housed in the same building, studying at Zeon Academy is inseparable from working at WIS. All the faculty teaching are professional digital marketers of WIS.

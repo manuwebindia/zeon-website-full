@@ -20,5 +20,11 @@ export default function sitemap() {
       changeFrequency: "yearly",
       priority: 0.1,
     },
+    {
+      url: `${SITE_URL}/post-your-job`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
   ];
 }

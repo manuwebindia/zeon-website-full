@@ -53,6 +53,7 @@ export default function Navbar() {
       href: "",
       subItems: [
         { href: "/placements", label: "Placement Cell" },
+        { href: "/post-your-job", label: "Post Your Job" },
       ],
     },
     { href: "/blog", label: "Blog" },
