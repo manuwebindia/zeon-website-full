@@ -88,7 +88,7 @@ export default function TestimonialsClient() {
       {/* ── HERO ── */}
       <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
         <Image
-          src="/courses/cour.webp"
+          src="/courses/courss.webp"
           alt="Zeon Academy Courses Banner"
           fill
           priority

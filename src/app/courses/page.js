@@ -29,10 +29,10 @@ export default function CoursesPage() {
       <main className="bg-white">
         {/* BREADCRUMB & HEADER SECTION */}
         <section className="relative pt-24 pb-16 md:pt-28 md:pb-20 overflow-hidden">
-         {/* Background Image Banner */}
+          {/* Background Image Banner */}
           <div className="absolute inset-0 z-1">
             <Image
-              src="/courses/cour.webp"
+              src="/courses/courss.webp"
               alt="Zeon Academy Courses Banner"
               fill
               priority

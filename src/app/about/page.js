@@ -38,12 +38,12 @@ export default function AboutPage() {
         {/* HERO BANNER */}
         <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
           <Image
-                        src="/courses/cour.webp"
-                        alt="Zeon Academy Courses Banner"
-                        fill
-                        priority
-                        className="object-cover object-center opacity-100 pointer-events-none"
-                      />
+            src="/courses/courss.webp"
+            alt="Zeon Academy Courses Banner"
+            fill
+            priority
+            className="object-cover object-center opacity-100 pointer-events-none"
+          />
           {/* Orbs */}
           <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
           <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
@@ -68,14 +68,14 @@ export default function AboutPage() {
         <section className="py-16 md:py-24 bg-white relative overflow-hidden">
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <div className="flex flex-col lg:flex-row items-center gap-16">
-              
+
               {/* Left Side: Visual representation */}
               <ScrollReveal direction="left" distance={40} className="flex-1 w-full max-w-[500px]">
                 <div className="relative">
                   {/* Decorative dot patterns */}
                   <div className="absolute -top-6 -left-6 w-24 h-24 bg-dots-pattern opacity-40" />
                   <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-dots-pattern opacity-40" />
-                  
+
                   <div className="bg-surface border border-border p-6 rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative z-10">
                     <div className="relative w-full h-[320px] rounded-2xl overflow-hidden">
                       <Image
