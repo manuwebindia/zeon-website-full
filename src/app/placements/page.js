@@ -1,6 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { FaMapMarkerAlt, FaBriefcase, FaBuilding, FaArrowRight } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBriefcase, FaBuilding, FaArrowRight, FaStar } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import OurPartners from "../../components/OurPartners";
@@ -199,47 +200,67 @@ export default function PlacementsPage() {
       <main className="bg-surface">
 
         {/* ── HERO BANNER ── */}
-        <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-[#222831] overflow-hidden border-b border-white/10">
+        <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+          <Image
+            src="/courses/cour.webp"
+            alt="Zeon Academy Courses Banner"
+            fill
+            priority
+            className="object-cover object-center opacity-100 pointer-events-none"
+          />
           {/* Decorative orbs */}
-          <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-primary/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[250px] h-[250px] bg-primary/8 rounded-full blur-3xl translate-x-1/3 translate-y-1/3 pointer-events-none" />
+          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center">
+          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-center gap-2 text-[0.88rem] font-semibold text-[#c3c8cf] mb-8">
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
-              <span className="text-white/30">/</span>
+            <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body mb-5">
+              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+              <span className="text-border">/</span>
               <span className="text-primary font-bold">Placement Cell</span>
             </div>
 
-            <div className="max-w-3xl mx-auto animate-fade-in-up">
+            <div className="max-w-3xl mx-auto">
               <span className="inline-block text-primary text-[0.85rem] font-semibold mb-4 tracking-[0.2em] uppercase">
                 Placement Cell
               </span>
-              <h1 className="text-[clamp(2.2rem,5vw,3.4rem)] font-extrabold text-white leading-[1.15] mb-5 tracking-tight">
+              <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight">
                 Job Vacancies for{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff6b6b] to-[#ff8c4a]">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">
                   Digital Marketing
                 </span>{" "}
                 in Kerala
               </h1>
-              <p className="text-[1.1rem] text-[#c3c8cf] leading-relaxed font-medium max-w-2xl mx-auto">
+              <p className="text-[1.15rem] text-body leading-relaxed font-medium max-w-2xl mx-auto mb-8">
                 Live job openings sourced exclusively for Zeon Academy students and alumni. Apply directly through WhatsApp — our placement cell is here to connect you with top companies.
               </p>
 
-              {/* Stats strip */}
-              <div className="flex flex-wrap justify-center gap-6 mt-8">
-                {[
-                  { value: `${vacancies.length}+`, label: "Active Openings" },
-                  { value: "100+", label: "Hiring Partners" },
-                  { value: "Kerala", label: "& Beyond" },
-                ].map(({ value, label }) => (
-                  <div key={label} className="flex items-center gap-3">
-                    <span className="text-[1.6rem] font-black text-primary">{value}</span>
-                    <span className="text-[#c3c8cf] font-medium text-sm leading-tight text-left">{label}</span>
-                  </div>
+              <div className="flex items-center justify-center gap-1.5 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <FaStar key={i} className="text-[#fbbf24] text-xl" />
                 ))}
               </div>
+              <p className="text-body text-[0.9rem] font-semibold">
+                Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── STATS STRIP ── */}
+        <section className="bg-surface border-b border-border py-8">
+          <div className="w-full max-w-[1200px] mx-auto px-6">
+            <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+              {[
+                { value: `${vacancies.length}+`, label: "Active Openings" },
+                { value: "100+", label: "Hiring Partners" },
+                { value: "Kerala", label: "& Beyond" },
+              ].map((s, i) => (
+                <div key={i} className="text-center">
+                  <p className="text-[2rem] font-extrabold text-heading leading-none mb-1">{s.value}</p>
+                  <p className="text-[0.88rem] font-semibold text-body">{s.label}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -322,31 +343,33 @@ export default function PlacementsPage() {
         <OurPartners />
 
         {/* ── CTA ── */}
-        <section className="py-16 bg-[#222831] border-t border-white/10 relative overflow-hidden">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-primary/12 rounded-full blur-3xl pointer-events-none" />
-          <div className="w-full max-w-[800px] mx-auto px-6 relative z-10 text-center">
-            <ScrollReveal direction="up" distance={30}>
-              <h2 className="text-[clamp(1.8rem,3.5vw,2.6rem)] font-extrabold text-white mb-4 leading-tight">
-                Ready to Land Your <span className="text-primary">Dream Job?</span>
-              </h2>
-              <p className="text-[1.05rem] text-[#c3c8cf] leading-relaxed mb-8 max-w-xl mx-auto">
-                Join Zeon Academy and get direct access to our placement cell, 100+ hiring partners, and job-ready training.
-              </p>
-              <div className="flex gap-4 flex-col sm:flex-row justify-center max-w-[400px] mx-auto">
-                <Link
-                  href="/#apply"
-                  className="flex-1 inline-flex items-center justify-center px-7 py-4 rounded-full font-bold text-base bg-primary text-white shadow-glow transition-all duration-300 hover:bg-primary-hover hover:-translate-y-0.5"
-                >
-                  Book Free Demo
-                </Link>
-                <Link
-                  href="/courses"
-                  className="flex-1 inline-flex items-center justify-center px-7 py-4 rounded-full font-bold text-base border border-white/40 text-white transition-all duration-300 hover:border-white hover:bg-white/5"
-                >
-                  Explore Courses
-                </Link>
-              </div>
-            </ScrollReveal>
+        <section className="py-16 bg-surface border-t border-border">
+          <div className="w-full max-w-[900px] mx-auto px-6 text-center">
+            <div className="flex items-center justify-center gap-1 mb-3">
+              {[...Array(5)].map((_, i) => (
+                <FaStar key={i} className="text-[#fbbf24] text-lg" />
+              ))}
+            </div>
+            <h2 className="text-[1.8rem] md:text-[2.2rem] font-extrabold text-heading mb-4">
+              Ready to Land Your <span className="text-primary">Dream Job?</span>
+            </h2>
+            <p className="text-[1.05rem] text-body font-medium leading-relaxed mb-8 max-w-xl mx-auto">
+              Join Zeon Academy and get direct access to our placement cell, 100+ hiring partners, and job-ready training.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/#apply"
+                className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300"
+              >
+                Book Free Demo
+              </Link>
+              <Link
+                href="/courses"
+                className="px-8 py-4 border-2 border-border text-heading font-bold text-[1rem] rounded-full hover:border-primary hover:text-primary transition-all duration-300"
+              >
+                Explore Courses
+              </Link>
+            </div>
           </div>
         </section>
 

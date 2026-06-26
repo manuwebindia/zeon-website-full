@@ -1,0 +1,138 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Blog {
+  id               String    @id @default(cuid())
+  title            String
+  slug             String    @unique
+  seoTitle         String?   @map("seo_title")
+  seoDescription   String?   @map("seo_description")
+  featuredImage    String?   @map("featured_image")
+  featuredImageAlt String?   @map("featured_image_alt")
+  content          Json      // Array of content blocks
+  excerpt          String?
+  status           String    @default("draft") // "draft" | "published"
+  allowIndexing    Boolean   @default(true) @map("allow_indexing")
+  publishedAt      DateTime? @map("published_at")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  // Phase 1 — Taxonomy & Focus Keyword
+  focusKeyword     String?   @map("focus_keyword")
+  category         String?
+  tags             Json?     // String array e.g. ["seo","web design"]
+
+  // Phase 3 — Social Media / OG Overrides
+  ogTitle          String?   @map("og_title")
+  ogDescription    String?   @map("og_description")
+  ogImage          String?   @map("og_image")
+  canonicalUrl     String?   @map("canonical_url")
+
+  // Phase 4 — Schema Markup
+  articleType      String?   @default("Article") @map("article_type") // "Article" | "FAQPage" | "HowTo"
+  schemaFaqItems   Json?     @map("schema_faq_items")    // [{question, answer}]
+  schemaHowToSteps Json?     @map("schema_how_to_steps") // [{name, text}]
+
+  @@map("blogs")
+}
+
+// ── RBAC: Groups (custom, user-defined — no hardcoded seeds) ─────────────────
+model Group {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  permissions Json     @default("[]")   // ["blogs.view","blogs.create",...]
+  createdAt   DateTime @default(now())  @map("created_at")
+  updatedAt   DateTime @updatedAt       @map("updated_at")
+  users       User[]
+
+  @@map("groups")
+}
+
+// ── RBAC: Users (DB-backed, managed via admin UI) ────────────────────────────
+model User {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  email        String?   @unique
+  displayName  String?   @map("display_name")
+  passwordHash String    @map("password_hash")
+  avatarUrl    String?   @map("avatar_url")
+  isActive     Boolean   @default(true) @map("is_active")
+  groupId      String    @map("group_id")
+  group        Group     @relation(fields: [groupId], references: [id])
+  lastLoginAt  DateTime? @map("last_login_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt      @map("updated_at")
+
+  @@map("users")
+}
+
+// ── Chatbot: Lead Capture ─────────────────────────────────────────────────────
+model ChatbotLead {
+  id         String   @id @default(cuid())
+  name       String
+  phone      String   @unique                    // normalised 10-digit, upsert key
+  source     String   @default("chatbot")
+  pageUrl    String?  @map("page_url")
+  status     String   @default("new")            // "new" | "contacted" | "converted" | "closed"
+  notes      String?  @db.Text
+  transcript Json?                               // last 10 messages at capture time
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt      @map("updated_at")
+
+  @@map("chatbot_leads")
+}
+
+// ── Chatbot: Session Analytics ────────────────────────────────────────────────
+model ChatSession {
+  id            String   @id @default(cuid())
+  sessionId     String   @unique  @map("session_id")
+  ipHash        String   @map("ip_hash")
+  firstQuestion String?  @map("first_question") @db.Text
+  messageCount  Int      @default(0) @map("message_count")
+  pageUrl       String?  @map("page_url")
+  lastMessageAt DateTime @map("last_message_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@map("chat_sessions")
+}
+
+// ── Contact / Pricing Inquiry Leads ──────────────────────────────────────────
+model ContactLead {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  email       String?
+  service     String?              // from ContactForm ("Web Design", etc.)
+  message     String?  @db.Text   // from ContactForm
+  plan        String?              // from PricingForm ("basic" | "intermediate" | "premium" | "custom")
+  budget      String?              // from PricingForm (numeric string)
+  requirement String?  @db.Text   // from PricingForm
+  source      String   @default("contact")  // "contact" | "pricing"
+  status      String   @default("new")      // "new" | "contacted" | "converted" | "closed"
+  notes       String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("contact_leads")
+}
+
+// ── Rate Limiting (DB-backed, MySQL) ──────────────────────────────────────────
+model RateLimit {
+  id        String   @id @default(cuid())
+  ipHash    String   @map("ip_hash")
+  endpoint  String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([ipHash, endpoint, createdAt])
+  @@map("rate_limits")
+}
+

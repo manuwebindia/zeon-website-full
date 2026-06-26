@@ -61,23 +61,39 @@ export default function AdvancedDigitalMarketingPage() {
 
       <main className="bg-surface pb-20">
         {/* HEADER HERO */}
-        <section className="bg-[#222831] border-b border-white/10 pt-24 pb-12 lg:pt-28 lg:pb-16">
-          <div className="w-full max-w-[1200px] mx-auto px-6">
+        <section className="relative pt-24 pb-12 lg:pt-28 lg:pb-16 overflow-hidden border-b border-border">
+          {/* Background Image Banner */}
+          <div className="absolute inset-0 z-1">
+            <Image
+              src="/courses/courses-fin.webp"
+              alt="Zeon Academy Courses Banner"
+              sizes="1600px"
+              fill
+              priority
+              className="object-cover object-center opacity-100 pointer-events-none"
+            />
+            {/* <div className="absolute inset-0 bg-gradient-to-b from-[#161B2A]/10 via-[#161B2A]/30 to-[#161B2A]/10" /> */}
+          </div>
+          {/* Orbs */}
+          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+
+          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
             <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
               <div className="flex-1 animate-fade-in-up">
                 {/* Breadcrumb */}
-                <div className="flex items-center justify-center gap-2 text-[0.88rem] font-semibold text-[#c3c8cf] mb-6">
-                  <Link href="/" className="hover:text-white transition-colors">Home</Link>
-                  <span className="text-white/30">/</span>
-                  <Link href="/courses" className="hover:text-white transition-colors">Courses</Link>
-                  <span className="text-white/30">/</span>
+                <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body my-6">
+                  <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+                  <span className="text-border">/</span>
+                  <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
+                  <span className="text-border">/</span>
                   <span className="text-primary font-bold">Advanced Digital Marketing Course</span>
                 </div>
 
-                <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-white leading-tight mb-4 text-center">
-                  Advanced Digital Marketing Course
+                <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-heading leading-tight mb-4 text-center">
+                  Advanced <br />Digital Marketing Course
                 </h1>
-                <p className="text-[1.1rem] md:text-[1.2rem] text-[#c3c8cf] font-medium leading-relaxed mb-6 text-center">
+                <p className="text-[1.1rem] md:text-[1.2rem] text-body font-medium leading-relaxed mb-6 text-center">
                   Social Media Marketing | Google & FB Ads | WordPress | SEO | Analytics & More
                 </p>
 
@@ -88,7 +104,7 @@ export default function AdvancedDigitalMarketingPage() {
                       <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                     </div>
                   </div>
-                  <span className="text-[#c3c8cf] font-medium text-[0.95rem]">Google Reviews</span>
+                  <span className="text-body font-medium text-[0.95rem]">Google Reviews</span>
                 </div>
               </div>
             </div>

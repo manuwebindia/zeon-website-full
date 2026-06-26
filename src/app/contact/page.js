@@ -4,6 +4,7 @@ import { FaPhoneAlt, FaMapMarkerAlt, FaEnvelope, FaChevronRight, FaMapMarkedAlt 
 import Navbar from "../../components/Navbar";
 import ScrollReveal from "../../components/ScrollReveal";
 import ContactForm from "../../components/ContactForm";
+import Image from "next/image";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const Footer = dynamic(() => import("../../components/Footer"));
@@ -26,6 +27,17 @@ export default function ContactPage() {
 
         {/* ─── HERO BANNER ─────────────────────────────── */}
         <section className="relative pt-24 pb-16 md:pt-28 md:pb-20 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+          <div className="absolute inset-0 z-1">
+              <Image
+                        src="/courses/cour.webp"
+                        alt="Zeon Academy Courses Banner"
+                        sizes="1600px"
+                        fill
+                        priority
+                        className="object-cover object-center opacity-100 pointer-events-none"
+                      />
+                      {/* <div className="absolute inset-0 bg-gradient-to-b from-[#161B2A]/10 via-[#161B2A]/30 to-[#161B2A]/10" /> */}
+                    </div>
           <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
           <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
 

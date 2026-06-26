@@ -11,6 +11,7 @@ import {
   FaLinkedin,
   FaYoutube,
   FaBriefcase,
+  FaStar,
 } from "react-icons/fa";
 import { FiClock, FiMonitor } from "react-icons/fi";
 import Navbar from "../../components/Navbar";
@@ -36,6 +37,13 @@ export default function AboutPage() {
       <main className="bg-white">
         {/* HERO BANNER */}
         <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+          <Image
+                        src="/courses/cour.webp"
+                        alt="Zeon Academy Courses Banner"
+                        fill
+                        priority
+                        className="object-cover object-center opacity-100 pointer-events-none"
+                      />
           {/* Orbs */}
           <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
           <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
@@ -281,34 +289,34 @@ export default function AboutPage() {
         </section>
 
         {/* CTA SECTION */}
-        <section className="py-16 bg-[#222831] text-white relative overflow-hidden border-t border-white/5">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] bg-primary/15 rounded-full blur-3xl z-0" />
-          
-          <div className="w-full max-w-[900px] mx-auto px-6 relative z-10 text-center">
-            <ScrollReveal direction="up" distance={30}>
-              <h2 className="text-[2.2rem] md:text-[2.8rem] font-extrabold text-white mb-6 leading-tight">
-                Launch Your Career with <br />
-                <span className="text-primary">Kerala&rsquo;s #1 Academy</span>
-              </h2>
-              <p className="text-[1.1rem] text-[#c3c8cf] leading-relaxed max-w-2xl mx-auto mb-10">
-                Ready to learn from professional digital marketers and gain real agency work experience? Book your demo class today.
-              </p>
-              
-              <div className="flex gap-4 flex-col sm:flex-row justify-center max-w-[420px] mx-auto">
-                <Link
-                  href="/#admission"
-                  className="flex-1 inline-flex items-center justify-center px-7 py-4 rounded-full font-bold text-base bg-primary text-white shadow-glow transition-all duration-300 hover:bg-primary-hover hover:-translate-y-0.5 cursor-pointer"
-                >
-                  Book Free Demo
-                </Link>
-                <Link
-                  href="/courses"
-                  className="flex-1 inline-flex items-center justify-center px-7 py-4 rounded-full font-bold text-base bg-transparent text-white border border-white/40 transition-all duration-300 hover:border-white hover:bg-white/5 cursor-pointer"
-                >
-                  Explore Programs
-                </Link>
-              </div>
-            </ScrollReveal>
+        <section className="py-16 bg-surface border-t border-border">
+          <div className="w-full max-w-[900px] mx-auto px-6 text-center">
+            <div className="flex items-center justify-center gap-1 mb-3">
+              {[...Array(5)].map((_, i) => (
+                <FaStar key={i} className="text-[#fbbf24] text-lg" />
+              ))}
+            </div>
+            <h2 className="text-[1.8rem] md:text-[2.2rem] font-extrabold text-heading mb-4">
+              Launch Your Career with <br />
+              <span className="text-primary">Kerala&rsquo;s #1 Academy</span>
+            </h2>
+            <p className="text-[1.05rem] text-body font-medium leading-relaxed mb-8 max-w-xl mx-auto">
+              Ready to learn from professional digital marketers and gain real agency work experience? Book your demo class today.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link
+                href="/#admission"
+                className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300"
+              >
+                Book Free Demo
+              </Link>
+              <Link
+                href="/courses"
+                className="px-8 py-4 border-2 border-border text-heading font-bold text-[1rem] rounded-full hover:border-primary hover:text-primary transition-all duration-300"
+              >
+                Explore Programs
+              </Link>
+            </div>
           </div>
         </section>
 
