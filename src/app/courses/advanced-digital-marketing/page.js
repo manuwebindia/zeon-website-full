@@ -66,7 +66,7 @@ export default function AdvancedDigitalMarketingPage() {
             <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
               <div className="flex-1 animate-fade-in-up">
                 {/* Breadcrumb */}
-                <div className="flex items-center gap-2 text-[0.88rem] font-semibold text-[#c3c8cf] mb-6">
+                <div className="flex items-center justify-center gap-2 text-[0.88rem] font-semibold text-[#c3c8cf] mb-6">
                   <Link href="/" className="hover:text-white transition-colors">Home</Link>
                   <span className="text-white/30">/</span>
                   <Link href="/courses" className="hover:text-white transition-colors">Courses</Link>
@@ -74,14 +74,14 @@ export default function AdvancedDigitalMarketingPage() {
                   <span className="text-primary font-bold">Advanced Digital Marketing Course</span>
                 </div>
 
-                <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-white leading-tight mb-4">
+                <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-white leading-tight mb-4 text-center">
                   Advanced Digital Marketing Course
                 </h1>
-                <p className="text-[1.1rem] md:text-[1.2rem] text-[#c3c8cf] font-medium leading-relaxed mb-6">
+                <p className="text-[1.1rem] md:text-[1.2rem] text-[#c3c8cf] font-medium leading-relaxed mb-6 text-center">
                   Social Media Marketing | Google & FB Ads | WordPress | SEO | Analytics & More
                 </p>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center gap-4">
                   <div className="flex items-center gap-1.5 bg-[#fff8e1] px-4 py-2 rounded-full border border-[#ffe082]">
                     <span className="font-extrabold text-heading">5.0</span>
                     <div className="flex text-gold text-sm">

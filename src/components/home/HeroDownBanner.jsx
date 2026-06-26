@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function HeroDownBanner() {
   return (
-        <section className="w-full bg-surface pt-3 pb-4 md:pt-3 md:pb-5 lg:pb-6">
+        <section className="w-full bg-white pt-3 pb-4 md:pt-3 md:pb-5 lg:pb-1">
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <div className="relative w-full rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.1)] group">
               <a href="#fees" className="block cursor-pointer w-full h-full">

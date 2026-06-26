@@ -5,7 +5,7 @@ import NextBatchDate from "../NextBatchDate";
 
 export default function HeroSection({ nextBatchDate }) {
   return (
-        <section className="pt-24 pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36 xl:pb-16 bg-surface xl:bg-zeon-banner bg-no-repeat bg-center bg-cover relative overflow-x-hidden">
+        <section className="pt-24 pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36 xl:pb-16 bg-white xl:bg-zeon-banner bg-no-repeat bg-center bg-cover relative overflow-x-hidden">
           <div className="w-full max-w-[1200px] mx-auto px-6 flex items-center justify-between gap-14 max-[1024px]:flex-col max-[1024px]:text-center max-[1024px]:gap-0">
             {/* Left Box (Desktop wrapper, bypassed on Mobile) */}
             <div className="flex-1 max-w-[540px] max-[1024px]:contents">

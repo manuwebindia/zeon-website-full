@@ -164,8 +164,9 @@ export default function CareerQuiz() {
   };
 
   return (
-    <section className="py-10 md:py-14 lg:py-16 xl:py-20 bg-surface bg-dots-pattern border-t border-border">
-      <div className="w-full max-w-[1200px] mx-auto px-6">
+    <section className="py-10 md:py-14 lg:py-16 xl:py-20 bg-gradient-to-b from-white to-surface relative">
+      <div className="absolute inset-0 bg-dots-pattern pointer-events-none" />
+      <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
 
         {/* Section Header */}
         <div className="text-center mb-12 max-w-5xl mx-auto">
