@@ -14,7 +14,7 @@ import {
 } from '@tabler/icons-react';
 
 function getToken() {
-  return typeof window !== 'undefined' ? localStorage.getItem('wdk_admin_token') : '';
+  return typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
 }
 function authHeaders() {
   return { Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' };

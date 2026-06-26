@@ -46,7 +46,7 @@ export default function SocialFields({
     formData.append('file', file);
 
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       const res = await fetch('/api/admin/upload', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
@@ -106,7 +106,7 @@ export default function SocialFields({
             variant="outlined"
             value={canonicalUrl || ''}
             onChange={(e) => onChange('canonicalUrl', e.target.value)}
-            placeholder="https://webdesignerskerala.in/blog/your-slug"
+            placeholder="https://admission.zeonacademy.com/blog/your-slug"
             helperText="Auto-generated from slug. Override only if republishing content from another source."
           />
 

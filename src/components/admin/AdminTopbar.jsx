@@ -25,11 +25,11 @@ const AdminTopbar = ({ toggleMobileSidebar }) => {
   const router = useRouter();
 
   const handleLogout = () => {
-    localStorage.removeItem('wdk_admin_token');
-    localStorage.removeItem('wdk_admin_user');
-    localStorage.removeItem('wdk_admin_permissions');
-    localStorage.removeItem('wdk_author_name');
-    localStorage.removeItem('wdk_author_image');
+    localStorage.removeItem('zeon_admin_token');
+    localStorage.removeItem('zeon_admin_user');
+    localStorage.removeItem('zeon_admin_permissions');
+    localStorage.removeItem('zeon_author_name');
+    localStorage.removeItem('zeon_author_image');
     router.push('/admin');
   };
 

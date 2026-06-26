@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-wdk-blog-dev-only-change-this';
+const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-zeon-blog-dev-only-change-this';
 
 /**
  * Signs a JWT token.

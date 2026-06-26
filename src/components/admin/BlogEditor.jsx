@@ -115,7 +115,7 @@ export default function BlogEditor({ mode, initialData }) {
   const [canPublish, setCanPublish] = useState(false);
   useEffect(() => {
     try {
-      const perms = JSON.parse(localStorage.getItem('wdk_admin_permissions') || '[]');
+      const perms = JSON.parse(localStorage.getItem('zeon_admin_permissions') || '[]');
       setCanPublish(perms.includes('*') || perms.includes('blogs.publish'));
     } catch {
       setCanPublish(false);
@@ -263,7 +263,7 @@ export default function BlogEditor({ mode, initialData }) {
     setAutoSaveStatus('saving');
 
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       const isEdit = !!state.autoDraftId;
       const url = isEdit
         ? `/api/admin/blogs/${state.autoDraftId}`
@@ -685,7 +685,7 @@ export default function BlogEditor({ mode, initialData }) {
     };
 
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       // Resolve blog ID from either initial data or existing auto-draft ID
       const blogId = initialData?.id || autoDraftId;
       const url =

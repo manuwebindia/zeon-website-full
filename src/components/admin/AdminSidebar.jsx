@@ -34,7 +34,7 @@ import {
 function getPermissions() {
   try {
     const raw = typeof window !== 'undefined'
-      ? localStorage.getItem('wdk_admin_permissions')
+      ? localStorage.getItem('zeon_admin_permissions')
       : '[]';
     return JSON.parse(raw || '[]');
   } catch {
@@ -45,7 +45,7 @@ function getPermissions() {
 function getLoggedInUser() {
   try {
     const raw = typeof window !== 'undefined'
-      ? localStorage.getItem('wdk_admin_user')
+      ? localStorage.getItem('zeon_admin_user')
       : '{}';
     return JSON.parse(raw || '{}');
   } catch {
@@ -86,14 +86,14 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
   const SidebarContent = () => {
     // Read inside the component so re-renders pick up fresh values
     const user = getLoggedInUser();
-    const displayName = user.displayName || user.username || 'WDK Admin';
+    const displayName = user.displayName || user.username || 'Zeon Admin';
     const avatarUrl = user.avatarUrl || '';
 
     // ── Chatbot Leads badge (new leads count) ──────────────────────────────
     const [newLeadsCount, setNewLeadsCount] = React.useState(0);
     React.useEffect(() => {
       if (!can('chatbot-leads.view')) return;
-      const token = typeof window !== 'undefined' ? localStorage.getItem('wdk_admin_token') : '';
+      const token = typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
       if (!token) return;
       const fetchCount = async () => {
         try {
@@ -117,7 +117,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
     const [newContactCount, setNewContactCount] = React.useState(0);
     React.useEffect(() => {
       if (!can('contact-leads.view')) return;
-      const token = typeof window !== 'undefined' ? localStorage.getItem('wdk_admin_token') : '';
+      const token = typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
       if (!token) return;
       const fetchCount = async () => {
         try {
@@ -140,8 +140,8 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
         <MUISidebar
           width="100%"
           showProfile={false}
-          themeColor="#1A4FD6"
-          themeSecondaryColor="#17C653"
+          themeColor="#FF4444"
+          themeSecondaryColor="#CC2222"
           style={{ flexGrow: 1 }}
         >
           {/* Logo */}
@@ -528,9 +528,9 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
         {/* ── Logged-in user profile (bottom widget) ── */}
         <Box sx={{ mt: 'auto', p: isCollapsed ? 1.5 : 3, borderTop: '1px solid #eff2f7', display: 'flex', alignItems: 'center', justifyContent: isCollapsed ? 'center' : 'flex-start', gap: 1.5, background: '#F8FAFC' }}>
           <Avatar
-            src={avatarUrl || '/Webdesignerkerala_logo_color.webp'}
+            src={avatarUrl || '/zeon-logo.png'}
             alt={displayName}
-            sx={{ width: 40, height: 40, border: '2px solid #1A4FD6', boxShadow: '0 2px 8px rgba(26,79,214,0.1)' }}
+            sx={{ width: 40, height: 40, border: '2px solid #FF4444', boxShadow: '0 2px 8px rgba(255,68,68,0.1)' }}
           />
           {!isCollapsed && (
             <Box sx={{ minWidth: 0, flexGrow: 1 }}>
@@ -627,12 +627,12 @@ const TypographyVariantWrapper = ({ isCollapsed }) => (
           fontSize: isCollapsed ? '1.5rem' : '1.25rem',
           fontWeight: 800,
           letterSpacing: '0.5px',
-          background: 'linear-gradient(90deg, #1A4FD6 0%, #17C653 100%)',
+          background: 'linear-gradient(90deg, #FF4444 0%, #CC2222 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
         }}
       >
-        {isCollapsed ? "W" : "WDK ADMIN"}
+        {isCollapsed ? "Z" : "ZEON ADMIN"}
       </span>
     </Link>
   </Box>

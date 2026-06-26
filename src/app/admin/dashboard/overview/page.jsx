@@ -28,7 +28,7 @@ export default function DashboardOverviewPage() {
   React.useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const token = localStorage.getItem('wdk_admin_token');
+        const token = localStorage.getItem('zeon_admin_token');
         const res = await fetch('/api/admin/blogs', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -107,8 +107,8 @@ export default function DashboardOverviewPage() {
       value: totalPosts.toString(),
       change: 'Live from database',
       changeColor: 'success.main',
-      icon: <IconFileText size={24} style={{ color: '#1A4FD6' }} />,
-      bgColor: 'rgba(26, 79, 214, 0.08)',
+      icon: <IconFileText size={24} style={{ color: '#FF4444' }} />,
+      bgColor: 'rgba(255, 68, 68, 0.08)',
     },
     {
       title: 'Avg. SEO Score',
@@ -163,7 +163,7 @@ export default function DashboardOverviewPage() {
             borderRadius: 2,
             fontWeight: 600,
             textTransform: 'none',
-            boxShadow: '0 4px 14px 0 rgba(26,79,214,0.3)',
+            boxShadow: '0 4px 14px 0 rgba(255,68,68,0.3)',
           }}
         >
           New Blog Post
@@ -239,8 +239,8 @@ export default function DashboardOverviewPage() {
               <svg viewBox="0 0 500 200" width="100%" height="100%" style={{ overflow: 'visible' }}>
                 <defs>
                   <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#1A4FD6" stopOpacity="0.25"/>
-                    <stop offset="100%" stopColor="#1A4FD6" stopOpacity="0"/>
+                    <stop offset="0%" stopColor="#FF4444" stopOpacity="0.25"/>
+                    <stop offset="100%" stopColor="#FF4444" stopOpacity="0"/>
                   </linearGradient>
                 </defs>
                 {/* Grid Lines */}
@@ -259,16 +259,16 @@ export default function DashboardOverviewPage() {
                 <path
                   d="M 0 160 C 50 140, 75 80, 125 70 C 175 60, 200 130, 250 110 C 300 90, 325 50, 375 40 C 425 30, 450 90, 500 80"
                   fill="none"
-                  stroke="#1A4FD6"
+                  stroke="#FF4444"
                   strokeWidth="3.5"
                   strokeLinecap="round"
                 />
 
                 {/* Dots on Graph */}
-                <circle cx="125" cy="70" r="5" fill="#1A4FD6" stroke="#fff" strokeWidth="2" />
-                <circle cx="250" cy="110" r="5" fill="#1A4FD6" stroke="#fff" strokeWidth="2" />
-                <circle cx="375" cy="40" r="5" fill="#17C653" stroke="#fff" strokeWidth="2" />
-                <circle cx="500" cy="80" r="5" fill="#1A4FD6" stroke="#fff" strokeWidth="2" />
+                <circle cx="125" cy="70" r="5" fill="#FF4444" stroke="#fff" strokeWidth="2" />
+                <circle cx="250" cy="110" r="5" fill="#FF4444" stroke="#fff" strokeWidth="2" />
+                <circle cx="375" cy="40" r="5" fill="#CC2222" stroke="#fff" strokeWidth="2" />
+                <circle cx="500" cy="80" r="5" fill="#FF4444" stroke="#fff" strokeWidth="2" />
 
                 {/* X Axis Labels */}
                 <text x="0" y="215" fill="#94a3b8" fontSize="10" fontWeight="600">Mon</text>
@@ -344,7 +344,7 @@ export default function DashboardOverviewPage() {
                       <Typography variant="caption" color="text.secondary">
                         {formatDate(post.publishedAt || post.createdAt)}
                       </Typography>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: '#1A4FD6' }}>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: '#FF4444' }}>
                         SEO: {calculateSeoScore(post)}%
                       </Typography>
                     </Box>

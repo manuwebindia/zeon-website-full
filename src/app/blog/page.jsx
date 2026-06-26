@@ -7,9 +7,9 @@ import prisma from '@/lib/db';
 import { ArrowRight, Clock, Calendar, BookOpen } from 'lucide-react';
 
 export const metadata = {
-  title: 'Web Design Blog | Tips for small company website design',
+  title: 'Digital Marketing Blog | Tips, Guides & Insights | Zeon Academy',
   description:
-    'Explore expert insights on small Company website design, web design services, SEO tips, and digital growth strategies from Kerala\'s trusted web design agency.',
+    'Explore expert insights on digital marketing, SEO, Google Ads, Meta Ads, and career growth strategies from Kerala\'s #1 digital marketing academy — Zeon.',
 };
 
 const getPublishedBlogs = unstable_cache(
@@ -90,7 +90,7 @@ const AuthorAvatar = ({ name, image }) => {
     ? name.split(' ').map((n) => n[0]).slice(0, 2).join('').toUpperCase()
     : 'W';
   return (
-    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#1A4FD6] to-[#17C653] text-[11px] font-extrabold text-white shadow-sm ring-2 ring-white">
+    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#FF4444] to-[#CC2222] text-[11px] font-extrabold text-white shadow-sm ring-2 ring-white">
       {initials}
     </div>
   );
@@ -99,8 +99,8 @@ const AuthorAvatar = ({ name, image }) => {
 export default async function BlogListingPage() {
   const blogs = await getPublishedBlogs();
 
-  const authorName = 'Web Designers Kerala';
-  const authorImage = '/faviconn.png';
+  const authorName = 'Zeon Academy';
+  const authorImage = '/favicon.webp';
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -123,19 +123,18 @@ export default async function BlogListingPage() {
         <div className="absolute top-0 inset-x-0 h-[500px] bg-gradient-to-b from-slate-50 to-transparent -z-10" />
         <div className="mx-auto max-w-4xl text-center">
           <div className="mb-6 inline-flex">
-            <span className="rounded-full border border-[#1A4FD6]/20 bg-[#1A4FD6]/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#1A4FD6]">
+            <span className="rounded-full border border-[#FF4444]/20 bg-[#FF4444]/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#FF4444]">
               Blogs
             </span>
           </div>
           <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl md:text-6xl leading-tight">
             Insights &amp; Guides for <br className="hidden sm:block" />
-            <span className="bg-gradient-to-r from-[#1A4FD6] to-[#17C653] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#FF4444] to-[#CC2222] bg-clip-text text-transparent">
               Digital Growth
             </span>
           </h1>
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-slate-600 md:text-xl font-normal">
-            Explore advanced strategies, modern web design tips, and business optimization guides
-            curated by a leading website design company Cochin businesses trust.
+            Explore advanced strategies, hands-on digital marketing guides, and career tips curated by Zeon Academy — Kerala&apos;s #1 practical digital marketing institute.
           </p>
         </div>
       </section>
@@ -156,7 +155,7 @@ export default async function BlogListingPage() {
             {/* Featured Post Hero */}
             {featuredPost && (
               <section className="mt-8 mb-12">
-                <div className="group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-[32px] p-6 lg:p-8 border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_-10px_rgba(26,79,214,0.06)] transition-all duration-500">
+                <div className="group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white rounded-[32px] p-6 lg:p-8 border border-slate-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_-10px_rgba(255,68,68,0.06)] transition-all duration-500">
                   {/* Image */}
                   <div className="lg:col-span-7 relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-slate-50">
                     {featuredPost.featuredImage ? (
@@ -185,7 +184,7 @@ export default async function BlogListingPage() {
                         </span>
                       </div>
                     )}
-                    <h2 className="mb-4 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-[1.15] group-hover:text-[#1A4FD6] transition-colors duration-300">
+                    <h2 className="mb-4 text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 leading-[1.15] group-hover:text-[#FF4444] transition-colors duration-300">
                       <Link href={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
                     </h2>
                     <p className="mb-6 text-slate-600 text-base sm:text-lg leading-relaxed line-clamp-3">
@@ -259,7 +258,7 @@ export default async function BlogListingPage() {
                         )}
 
                         {/* Title */}
-                        <h2 className="mb-3 text-lg sm:text-xl font-bold tracking-tight text-slate-900 leading-snug group-hover:text-[#1A4FD6] transition-colors duration-300">
+                        <h2 className="mb-3 text-lg sm:text-xl font-bold tracking-tight text-slate-900 leading-snug group-hover:text-[#FF4444] transition-colors duration-300">
                           <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
                         </h2>
 
@@ -302,29 +301,29 @@ export default async function BlogListingPage() {
                 <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-gradient-to-tr from-white/10 to-transparent blur-3xl pointer-events-none" />
                 <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-gradient-to-br from-[#17C653]/20 to-transparent blur-3xl pointer-events-none" />
                 <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
-                  <span className="rounded-full bg-white/10 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#17C653] border border-white/10 mb-6">
-                    Ready to scale?
+                  <span className="rounded-full bg-white/10 px-4 py-1.5 text-xs font-extrabold uppercase tracking-widest text-[#FF4444] border border-white/10 mb-6">
+                    Ready to grow?
                   </span>
                   <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white leading-tight mb-4">
-                    Transform Your Digital Journey Today
+                    Level Up Your Digital Marketing Career
                   </h2>
                   <p className="text-slate-200 text-sm sm:text-base md:text-lg leading-relaxed mb-8 max-w-xl">
-                    Partner with Web Designers Kerala. From lightning-fast custom websites to
-                    high-ranking SEO pipelines, we build solutions that convert searchers into customers.
+                    Partner with Zeon Academy. From expert-led SEO training to high-converting
+                    digital marketing strategies, we build the skills that turn students into professionals.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                     <Link
                       href="/contact"
-                      className="group inline-flex items-center gap-2 rounded-full bg-[#17C653] hover:bg-[#15b24a] px-8 py-4 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
+                      className="group inline-flex items-center gap-2 rounded-full bg-[#FF4444] hover:bg-[#CC2222] px-8 py-4 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 active:translate-y-0"
                     >
-                      Get A Free Proposal
+                      Enroll Now
                       <ArrowRight className="h-4 w-4 text-white transition-transform duration-200 group-hover:translate-x-1" />
                     </Link>
                     <Link
-                      href="/services"
+                      href="/courses"
                       className="inline-flex items-center gap-2 rounded-full bg-white/10 hover:bg-white/15 px-8 py-4 text-sm font-bold text-white border border-white/10 transition-all duration-300"
                     >
-                      Explore Our Services
+                      Explore Our Courses
                     </Link>
                   </div>
                 </div>

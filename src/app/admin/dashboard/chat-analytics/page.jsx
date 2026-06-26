@@ -15,11 +15,11 @@ import { useRouter } from 'next/navigation';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 function getToken() {
-  return typeof window !== 'undefined' ? localStorage.getItem('wdk_admin_token') : '';
+  return typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
 }
 function can(key) {
   try {
-    const perms = JSON.parse(localStorage.getItem('wdk_admin_permissions') || '[]');
+    const perms = JSON.parse(localStorage.getItem('zeon_admin_permissions') || '[]');
     return perms.includes('*') || perms.includes(key);
   } catch { return false; }
 }

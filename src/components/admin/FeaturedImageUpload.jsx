@@ -42,7 +42,7 @@ export default function FeaturedImageUpload({
       
       setLoadingMedia(true);
       try {
-        const token = localStorage.getItem('wdk_admin_token');
+        const token = localStorage.getItem('zeon_admin_token');
         const res = await fetch('/api/admin/media', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -88,7 +88,7 @@ export default function FeaturedImageUpload({
     formData.append('file', file);
 
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       const res = await fetch('/api/admin/upload', {
         method: 'POST',
         headers: {
@@ -164,7 +164,7 @@ export default function FeaturedImageUpload({
               transition: 'all 0.2s',
               '&:hover': {
                 backgroundColor: uploading ? '#F8FAFC' : '#F1F5F9',
-                borderColor: uploading ? '#b4c2d6' : '#1A4FD6',
+                borderColor: uploading ? '#b4c2d6' : '#FF4444',
               },
             }}
           >
@@ -239,7 +239,7 @@ export default function FeaturedImageUpload({
                   '&:hover': { backgroundColor: '#fff' },
                 }}
               >
-                <IconPhoto size={16} style={{ color: '#1A4FD6' }} />
+                <IconPhoto size={16} style={{ color: '#FF4444' }} />
               </IconButton>
               <IconButton
                 size="small"
@@ -349,9 +349,9 @@ export default function FeaturedImageUpload({
                       backgroundSize: 'cover',
                       backgroundPosition: 'center',
                       backgroundColor: '#f1f5f9',
-                      border: image === item.url ? '3px solid #1A4FD6' : '1px solid #e5eaef',
+                      border: image === item.url ? '3px solid #FF4444' : '1px solid #e5eaef',
                       cursor: 'pointer',
-                      boxShadow: image === item.url ? '0 4px 12px rgba(26,79,214,0.15)' : 'none',
+                      boxShadow: image === item.url ? '0 4px 12px rgba(255,68,68,0.15)' : 'none',
                       transition: 'all 0.15s ease-in-out',
                       '&:hover': {
                         transform: 'scale(1.03)',
@@ -365,7 +365,7 @@ export default function FeaturedImageUpload({
                           position: 'absolute',
                           top: 4,
                           right: 4,
-                          backgroundColor: '#1A4FD6',
+                          backgroundColor: '#FF4444',
                           color: '#fff',
                           px: 1,
                           py: 0.2,

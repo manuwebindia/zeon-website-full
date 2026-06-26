@@ -10,7 +10,7 @@ async function readSettings() {
     const data = await fs.readFile(SETTINGS_FILE_PATH, 'utf-8');
     return JSON.parse(data);
   } catch {
-    return { authorName: 'WDK Admin', authorImage: '' };
+    return { authorName: 'Zeon Academy', authorImage: '' };
   }
 }
 
@@ -40,7 +40,7 @@ export async function POST(request) {
     const { authorName, authorImage } = data;
 
     const newSettings = {
-      authorName: (authorName || 'WDK Admin').trim(),
+      authorName: (authorName || 'Zeon Academy').trim(),
       authorImage: (authorImage || '').trim(),
     };
 

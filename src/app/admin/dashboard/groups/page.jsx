@@ -68,7 +68,7 @@ const ALL_VALID_PERMISSIONS = PERMISSION_MATRIX.flatMap((row) =>
 );
 
 function getToken() {
-  return typeof window !== 'undefined' ? localStorage.getItem('wdk_admin_token') : '';
+  return typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
 }
 
 function authHeaders() {

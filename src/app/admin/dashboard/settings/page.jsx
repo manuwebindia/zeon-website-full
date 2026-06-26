@@ -23,7 +23,7 @@ import {
 import { IconUser, IconLayoutSidebar, IconLock } from '@tabler/icons-react';
 
 export default function AdminSettingsPage() {
-  const [authorName, setAuthorName] = React.useState('WDK Admin');
+  const [authorName, setAuthorName] = React.useState('Zeon Academy');
   const [authorImage, setAuthorImage] = React.useState('');
   const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState(false);
@@ -33,7 +33,7 @@ export default function AdminSettingsPage() {
   React.useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const token = localStorage.getItem('wdk_admin_token');
+        const token = localStorage.getItem('zeon_admin_token');
         const res = await fetch('/api/admin/settings', {
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -42,12 +42,12 @@ export default function AdminSettingsPage() {
         
         if (res.ok) {
           const data = await res.json();
-          setAuthorName(data.authorName || 'WDK Admin');
+          setAuthorName(data.authorName || 'Zeon Academy');
           setAuthorImage(data.authorImage || '');
           
           // Seed local storage as well for fast load fallback
-          localStorage.setItem('wdk_author_name', data.authorName || 'WDK Admin');
-          localStorage.setItem('wdk_author_image', data.authorImage || '');
+          localStorage.setItem('zeon_author_name', data.authorName || 'Zeon Academy');
+          localStorage.setItem('zeon_author_image', data.authorImage || '');
         }
       } catch (error) {
         console.error('Failed to fetch settings:', error);
@@ -64,7 +64,7 @@ export default function AdminSettingsPage() {
     setErrorMessage('');
     
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       const res = await fetch('/api/admin/settings', {
         method: 'POST',
         headers: {
@@ -85,8 +85,8 @@ export default function AdminSettingsPage() {
       const data = await res.json();
       
       // Update local storage so sidebar re-renders instantly
-      localStorage.setItem('wdk_author_name', data.authorName);
-      localStorage.setItem('wdk_author_image', data.authorImage);
+      localStorage.setItem('zeon_author_name', data.authorName);
+      localStorage.setItem('zeon_author_image', data.authorImage);
       
       // Dispatch custom event to trigger instant live updates in components like AdminSidebar
       window.dispatchEvent(new Event('storage_update'));
@@ -142,13 +142,13 @@ export default function AdminSettingsPage() {
             {/* Live Profile Preview */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 4, p: 2, backgroundColor: '#F8FAFC', borderRadius: 2 }}>
               <Avatar
-                src={authorImage || '/Webdesignerkerala_logo_color.webp'}
+                src={authorImage || '/zeon-logo.png'}
                 alt={authorName}
-                sx={{ width: 56, height: 56, border: '2.5px solid #1A4FD6', boxShadow: '0 4px 12px rgba(26,79,214,0.15)' }}
+                sx={{ width: 56, height: 56, border: '2.5px solid #FF4444', boxShadow: '0 4px 12px rgba(255,68,68,0.15)' }}
               />
               <Box>
                 <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'text.primary', lineHeight: 1.2 }}>
-                  {authorName || 'WDK Admin'}
+                  {authorName || 'Zeon Academy'}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
                   Live Preview in Sidebar
@@ -173,7 +173,7 @@ export default function AdminSettingsPage() {
                 value={authorImage}
                 onChange={(e) => setAuthorImage(e.target.value)}
                 placeholder="e.g. https://example.com/avatar.jpg"
-                helperText="Paste a URL for your avatar image, or leave blank to use the default WDK logo."
+                helperText="Paste a URL for your avatar image, or leave blank to use the default Zeon logo."
               />
 
               <Box sx={{ mt: 'auto', pt: 2 }}>
@@ -188,7 +188,7 @@ export default function AdminSettingsPage() {
                     textTransform: 'none',
                     borderRadius: 2,
                     fontWeight: 600,
-                    boxShadow: '0 4px 12px rgba(26, 79, 214, 0.2)',
+                    boxShadow: '0 4px 12px rgba(255, 68, 68, 0.2)',
                   }}
                 >
                   {saving ? 'Saving...' : 'Save Profile Settings'}

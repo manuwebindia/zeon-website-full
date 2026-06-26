@@ -22,7 +22,7 @@ export default function EditBlogPage() {
     const fetchBlog = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem('wdk_admin_token');
+        const token = localStorage.getItem('zeon_admin_token');
         const res = await fetch(`/api/admin/blogs/${id}`, {
           headers: {
             'Authorization': `Bearer ${token}`,

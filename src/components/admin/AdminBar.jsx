@@ -12,7 +12,7 @@ export default function AdminBar() {
 
   useEffect(() => {
     // Check if token exists in localStorage
-    const token = typeof window !== 'undefined' ? localStorage.getItem('wdk_admin_token') : null;
+    const token = typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : null;
     setIsLoggedIn(!!token);
   }, [pathname]);
 
@@ -21,7 +21,7 @@ export default function AdminBar() {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem('wdk_admin_token');
+    localStorage.removeItem('zeon_admin_token');
     setIsLoggedIn(false);
     router.refresh();
   };
@@ -36,7 +36,7 @@ export default function AdminBar() {
           >
             <span className="h-2 w-2 rounded-full bg-[#17C653] animate-pulse"></span>
             <IconGauge size={13} stroke={2} />
-            WDK ADMIN PANEL
+            ZEON ADMIN PANEL
           </Link>
           <Link
             href="/admin/dashboard/blogs/new"

@@ -23,7 +23,7 @@ export default function AdminLoginPage() {
 
   useEffect(() => {
     // Check if token already exists in localStorage
-    const token = localStorage.getItem('wdk_admin_token');
+    const token = localStorage.getItem('zeon_admin_token');
     if (token) {
       router.push('/admin/dashboard');
     } else {
@@ -57,9 +57,9 @@ export default function AdminLoginPage() {
       }
 
       // Store token and user data in localStorage for permission gating
-      localStorage.setItem('wdk_admin_token', data.token);
-      localStorage.setItem('wdk_admin_user', JSON.stringify(data.user || {}));
-      localStorage.setItem('wdk_admin_permissions', JSON.stringify(data.user?.permissions || []));
+      localStorage.setItem('zeon_admin_token', data.token);
+      localStorage.setItem('zeon_admin_user', JSON.stringify(data.user || {}));
+      localStorage.setItem('zeon_admin_permissions', JSON.stringify(data.user?.permissions || []));
       router.push('/admin/dashboard');
     } catch (err) {
       setError(err.message);
@@ -91,7 +91,7 @@ export default function AdminLoginPage() {
         alignItems: 'center',
         minHeight: '100vh',
         padding: 3,
-        background: 'radial-gradient(circle, rgba(26,79,214,0.08) 0%, rgba(23,198,83,0.03) 100%)',
+        background: 'radial-gradient(circle, rgba(255,68,68,0.08) 0%, rgba(204,34,34,0.03) 100%)',
       }}
     >
       <Paper
@@ -107,8 +107,8 @@ export default function AdminLoginPage() {
         <Box sx={{ textAlign: 'center', mb: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
             <Image
-              src="/Webdesignerkerala_logo_color.webp"
-              alt="Web Designers Kerala Logo"
+              src="/zeon-logo.png"
+              alt="Zeon Academy Logo"
               width={220}
               height={46}
               style={{ objectFit: 'contain' }}
@@ -158,7 +158,7 @@ export default function AdminLoginPage() {
               py: 1.5,
               borderRadius: 2,
               fontWeight: 600,
-              boxShadow: '0 4px 14px 0 rgba(26,79,214,0.4)',
+              boxShadow: '0 4px 14px 0 rgba(255,68,68,0.4)',
             }}
           >
             {loading ? <CircularProgress size={24} color="inherit" /> : 'Sign In'}

@@ -28,7 +28,7 @@ export default function DashboardLayout({ children }) {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('wdk_admin_token');
+    const token = localStorage.getItem('zeon_admin_token');
     if (!token) {
       router.push('/admin');
       return;
@@ -39,8 +39,8 @@ export default function DashboardLayout({ children }) {
       const payload = JSON.parse(atob(token.split('.')[1]));
       if (payload.exp * 1000 < Date.now()) {
         // Token expired — clear all keys and redirect
-        ['wdk_admin_token', 'wdk_admin_user', 'wdk_admin_permissions',
-         'wdk_author_name', 'wdk_author_image'].forEach((k) =>
+        ['zeon_admin_token', 'zeon_admin_user', 'zeon_admin_permissions',
+         'zeon_author_name', 'zeon_author_image'].forEach((k) =>
           localStorage.removeItem(k)
         );
         router.push('/admin');
@@ -48,13 +48,13 @@ export default function DashboardLayout({ children }) {
       }
     } catch {
       // Malformed token
-      localStorage.removeItem('wdk_admin_token');
+      localStorage.removeItem('zeon_admin_token');
       router.push('/admin');
       return;
     }
 
     // Load sidebar collapse preference
-    const saved = localStorage.getItem('wdk_sidebar_collapsed');
+    const saved = localStorage.getItem('zeon_sidebar_collapsed');
     if (saved === 'true') {
       setIsSidebarCollapsed(true);
     }
@@ -65,7 +65,7 @@ export default function DashboardLayout({ children }) {
   const toggleSidebarCollapse = () => {
     const newVal = !isSidebarCollapsed;
     setIsSidebarCollapsed(newVal);
-    localStorage.setItem('wdk_sidebar_collapsed', String(newVal));
+    localStorage.setItem('zeon_sidebar_collapsed', String(newVal));
   };
 
   if (checkingAuth) {

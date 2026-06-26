@@ -10,13 +10,12 @@ const DEFAULT_CONFIG = {
   staticPages: [
     { path: '/', changeFrequency: 'weekly', priority: 1.0, enabled: true, canonical: '' },
     { path: '/about', changeFrequency: 'monthly', priority: 0.8, enabled: true, canonical: '' },
-    { path: '/services', changeFrequency: 'monthly', priority: 0.8, enabled: true, canonical: '' },
-    { path: '/industries-we-specialised', changeFrequency: 'monthly', priority: 0.7, enabled: true, canonical: '' },
+    { path: '/courses', changeFrequency: 'monthly', priority: 0.8, enabled: true, canonical: '' },
     { path: '/blog', changeFrequency: 'daily', priority: 0.9, enabled: true, canonical: '' },
     { path: '/contact', changeFrequency: 'monthly', priority: 0.7, enabled: true, canonical: '' },
   ],
   blogDefaults: { changeFrequency: 'weekly', priority: 0.6 },
-  globalSettings: { canonicalBaseUrl: 'https://webdesignerskerala.in' },
+  globalSettings: { canonicalBaseUrl: 'https://admission.zeonacademy.com' },
 };
 
 const VALID_FREQUENCIES = ['always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'];
@@ -107,7 +106,7 @@ export async function POST(request) {
         priority: Number(Number(blogDefaults?.priority || 0.6).toFixed(1)),
       },
       globalSettings: {
-        canonicalBaseUrl: globalSettings?.canonicalBaseUrl || 'https://webdesignerskerala.in',
+        canonicalBaseUrl: globalSettings?.canonicalBaseUrl || 'https://admission.zeonacademy.com',
       },
     };
 

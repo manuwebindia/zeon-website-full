@@ -36,7 +36,7 @@ function getFirstParagraph(content = []) {
 function checkLinks(content = []) {
   let hasInternal = false;
   let hasExternal = false;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://webdesignerskerala.in';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://admission.zeonacademy.com';
 
   content
     .filter((b) => b.type === 'text' && b.html)
@@ -49,7 +49,7 @@ function checkLinks(content = []) {
           url.startsWith('/') ||
           url.startsWith('#') ||
           url.startsWith(siteUrl) ||
-          url.startsWith('https://wdk') ||
+          url.startsWith('https://zeon') ||
           url.startsWith('http://localhost')
         ) {
           hasInternal = true;

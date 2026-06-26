@@ -22,7 +22,7 @@ const PRIORITY_MARKS = [
 ];
 
 function getToken() {
-  return typeof window !== 'undefined' ? localStorage.getItem('wdk_admin_token') : '';
+  return typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
 }
 function authHeaders() {
   return { Authorization: `Bearer ${getToken()}`, 'Content-Type': 'application/json' };
@@ -306,7 +306,7 @@ export default function SitemapPage() {
                   globalSettings: { ...prev.globalSettings, canonicalBaseUrl: e.target.value },
                 }))
               }
-              placeholder="https://webdesignerskerala.in"
+              placeholder="https://admission.zeonacademy.com"
               helperText="Used to generate default canonical tags."
               slotProps={{
                 helperText: { sx: { fontSize: '0.73rem' } }

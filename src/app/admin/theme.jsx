@@ -6,14 +6,14 @@ const baselightTheme = createTheme({
   direction: 'ltr',
   palette: {
     primary: {
-      main: '#1A4FD6', // WDK Primary Blue
-      light: '#ECF2FF',
-      dark: '#11359c',
+      main: '#FF4444', // Zeon Primary Red
+      light: '#FFF0F0',
+      dark: '#CC2222',
     },
     secondary: {
-      main: '#17C653', // WDK Secondary Green
-      light: '#E8F7FF',
-      dark: '#0e9c3e',
+      main: '#CC2222', // Zeon Dark Red
+      light: '#FFF0F0',
+      dark: '#991111',
     },
     success: {
       main: '#13DEB9',

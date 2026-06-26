@@ -38,7 +38,7 @@ export default function MediaLibraryPage() {
   const fetchMedia = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       const res = await fetch('/api/admin/media', {
         headers: {
           'Authorization': `Bearer ${token}`,

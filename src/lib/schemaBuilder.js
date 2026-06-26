@@ -2,9 +2,9 @@
 // Generates JSON-LD structured data objects for blog posts
 // Conditionally outputs Article, FAQPage, or HowTo schema based on articleType
 
-const DOMAIN = process.env.SITE_URL || 'https://webdesignerskerala.in';
-const LOGO_URL = `${DOMAIN}/Webdesignerkerala_logo_color.webp`;
-const ORG_NAME = 'Web Designers Kerala';
+const DOMAIN = process.env.SITE_URL || 'https://admission.zeonacademy.com';
+const LOGO_URL = `${DOMAIN}/zeon-logo.png`;
+const ORG_NAME = 'Zeon Academy';
 
 /**
  * Safely converts a date value (string or Date) to ISO string.

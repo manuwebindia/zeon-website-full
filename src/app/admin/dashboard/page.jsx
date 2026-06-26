@@ -56,7 +56,7 @@ export default function AdminDashboardPage() {
   const fetchBlogs = async () => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       const res = await fetch('/api/admin/blogs', {
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -98,7 +98,7 @@ export default function AdminDashboardPage() {
     setDeleting(true);
 
     try {
-      const token = localStorage.getItem('wdk_admin_token');
+      const token = localStorage.getItem('zeon_admin_token');
       const res = await fetch(`/api/admin/blogs/${selectedBlog.id}`, {
         method: 'DELETE',
         headers: {

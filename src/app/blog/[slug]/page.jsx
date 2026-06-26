@@ -96,31 +96,31 @@ export async function generateMetadata({ params }) {
 
   if (!blog) {
     return {
-      title: 'Post Not Found | WDK Blog',
+      title: 'Post Not Found | Zeon Blog',
       robots: { index: false, follow: false },
     };
   }
 
   const title = blog.seoTitle || blog.title;
   const description = blog.seoDescription || blog.excerpt || '';
-  const domain = process.env.SITE_URL || 'https://webdesignerskerala.in';
+  const domain = process.env.SITE_URL || 'https://admission.zeonacademy.com';
   const url = `${domain}/blog/${blog.slug}`;
   const canonical = blog.canonicalUrl || url;
-  const imageUrl = blog.featuredImage ? `${domain}${blog.featuredImage}` : `${domain}/Webdesignerkerala_logo_color.webp`;
+  const imageUrl = blog.featuredImage ? `${domain}${blog.featuredImage}` : `${domain}/zeon-logo.png`;
 
   const ogTitle = blog.ogTitle || title;
   const ogDescription = blog.ogDescription || description;
   const ogImageUrl = blog.ogImage ? `${domain}${blog.ogImage}` : imageUrl;
 
   return {
-    title: `${title} | Web Designers Kerala`,
+    title: `${title} | Zeon Academy`,
     description,
     alternates: { canonical },
     openGraph: {
       title: ogTitle,
       description: ogDescription,
       url,
-      siteName: 'Web Designers Kerala',
+      siteName: 'Zeon Academy',
       images: [
         {
           url: ogImageUrl,
@@ -185,7 +185,7 @@ const AuthorAvatar = ({ name, image }) => {
     : 'W';
 
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#1A4FD6] to-[#17C653] text-[12px] font-extrabold text-white shadow-sm ring-2 ring-white">
+    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#FF4444] to-[#CC2222] text-[12px] font-extrabold text-white shadow-sm ring-2 ring-white">
       {initials}
     </div>
   );
@@ -226,8 +226,8 @@ export default async function BlogPostPage({ params }) {
   }
 
   // Load dynamic global settings server-side
-  const authorName = 'Web Designers Kerala';
-  const authorImage = '/faviconn.png';
+  const authorName = 'Zeon Academy';
+  const authorImage = '/favicon.webp';
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -257,9 +257,9 @@ export default async function BlogPostPage({ params }) {
 
         {/* Breadcrumb row & Back to blog */}
         <div className="mt-6 mb-8 flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-400">
-          <Link href="/" className="hover:text-[#1A4FD6] transition-colors">Home</Link>
+          <Link href="/" className="hover:text-[#FF4444] transition-colors">Home</Link>
           <ChevronRight className="h-3 w-3" />
-          <Link href="/blog" className="hover:text-[#1A4FD6] transition-colors">Blog</Link>
+          <Link href="/blog" className="hover:text-[#FF4444] transition-colors">Blog</Link>
           <ChevronRight className="h-3 w-3" />
           {blog.category && (
             <>
@@ -274,7 +274,7 @@ export default async function BlogPostPage({ params }) {
         <div className="mb-10">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-sm font-bold text-[#1A4FD6] transition-all hover:text-[#17C653] group"
+            className="inline-flex items-center gap-2 text-sm font-bold text-[#FF4444] transition-all hover:text-[#CC2222] group"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Back to Blog
