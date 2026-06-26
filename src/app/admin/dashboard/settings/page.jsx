@@ -25,6 +25,7 @@ import { IconUser, IconLayoutSidebar, IconLock } from '@tabler/icons-react';
 export default function AdminSettingsPage() {
   const [authorName, setAuthorName] = React.useState('Zeon Academy');
   const [authorImage, setAuthorImage] = React.useState('');
+  const [universalNoIndex, setUniversalNoIndex] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -44,6 +45,7 @@ export default function AdminSettingsPage() {
           const data = await res.json();
           setAuthorName(data.authorName || 'Zeon Academy');
           setAuthorImage(data.authorImage || '');
+          setUniversalNoIndex(data.universalNoIndex || false);
           
           // Seed local storage as well for fast load fallback
           localStorage.setItem('zeon_author_name', data.authorName || 'Zeon Academy');
@@ -74,6 +76,7 @@ export default function AdminSettingsPage() {
         body: JSON.stringify({
           authorName: authorName.trim(),
           authorImage: authorImage.trim(),
+          universalNoIndex,
         }),
       });
 
@@ -111,15 +114,15 @@ export default function AdminSettingsPage() {
       {/* Page Header */}
       <Box sx={{ mb: 4 }}>
         <Typography variant="h4" component="h1" sx={{ fontWeight: 700, mb: 1 }}>
-          System & Author Settings
+          System & Settings
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Configure global author profiles, workspace preferences, and user roles.
+          Configure global author profiles, indexing preferences, and bot crawl configurations.
         </Typography>
       </Box>
 
       <Grid container spacing={4}>
-        {/* Author Profile Settings — FULLY ACTIVE AND INTERACTIVE */}
+        {/* Author Profile Settings */}
         <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={1}
@@ -133,7 +136,7 @@ export default function AdminSettingsPage() {
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-              <IconUser size={24} style={{ color: '#1A4FD6' }} />
+              <IconUser size={24} style={{ color: '#FF4444' }} />
               <Typography variant="h6" sx={{ fontWeight: 600 }}>
                 Author Profile Settings
               </Typography>
@@ -198,7 +201,7 @@ export default function AdminSettingsPage() {
           </Paper>
         </Grid>
 
-        {/* Sidepanel Customization — Coming Soon mockup */}
+        {/* SEO & Indexing Control Settings */}
         <Grid size={{ xs: 12, md: 6 }}>
           <Paper
             elevation={1}
@@ -207,84 +210,59 @@ export default function AdminSettingsPage() {
               borderRadius: 3,
               border: '1px solid #e5eaef',
               height: '100%',
-              position: 'relative',
-              overflow: 'hidden',
+              display: 'flex',
+              flexDirection: 'column',
             }}
           >
-            {/* Premium Coming Soon Overlay */}
-            <Box
-              sx={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(255, 255, 255, 0.85)',
-                backdropFilter: 'blur(3px)',
-                zIndex: 10,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
-                textAlign: 'center',
-                p: 3,
-              }}
-            >
-              <Box
-                sx={{
-                  backgroundColor: '#17C653',
-                  color: 'white',
-                  px: 2,
-                  py: 0.6,
-                  borderRadius: 2,
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  mb: 1.5,
-                  boxShadow: '0 4px 10px rgba(23, 198, 83, 0.25)',
-                }}
-              >
-                Coming Soon
-              </Box>
-              <IconLock size={32} style={{ color: '#17C653', marginBottom: '8px' }} />
-              <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
-                Sidebar Preferences
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ maxWidth: '280px' }}>
-                Tailor navigation options, toggles, badges, and background styles for your dashboard.
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
+              <IconLock size={24} style={{ color: '#FF4444' }} />
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                SEO & Indexing Control
               </Typography>
             </Box>
+            
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 4 }}>
+              Manage search engine visibility for your website. Enable this option during development to prevent search engine crawlers from indexing the site.
+            </Typography>
 
-            {/* Locked content background view for premium appearance */}
-            <Box sx={{ filter: 'blur(1.5px)', opacity: 0.6 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
-                <IconLayoutSidebar size={24} style={{ color: '#17C653' }} />
-                <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                  Side Panel Customization
-                </Typography>
-              </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3, flexGrow: 1 }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={universalNoIndex}
+                    onChange={(e) => setUniversalNoIndex(e.target.checked)}
+                    color="primary"
+                  />
+                }
+                label={
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+                      Universal No-Index
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                      Blocks search engines globally by adding noindex, nofollow metadata and modifying robots.txt rules.
+                    </Typography>
+                  </Box>
+                }
+              />
 
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                <FormControlLabel
-                  control={<Switch checked disabled />}
-                  label="Enable Dark Sidebar Theme"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Switch checked={false} disabled />}
-                  label="Auto-collapse Side Navigation"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Switch checked disabled />}
-                  label="Show Analytics Badges Next to Menu Items"
-                />
-                <Divider />
-                <FormControlLabel
-                  control={<Switch checked disabled />}
-                  label="Pin 'Create Post' to Bottom Utility Bar"
-                />
+              <Box sx={{ mt: 'auto', pt: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                  onClick={handleSave}
+                  disabled={saving}
+                  sx={{
+                    py: 1.4,
+                    textTransform: 'none',
+                    borderRadius: 2,
+                    fontWeight: 600,
+                    boxShadow: '0 4px 12px rgba(255, 68, 68, 0.2)',
+                  }}
+                >
+                  {saving ? 'Saving...' : 'Save Indexing Settings'}
+                </Button>
               </Box>
             </Box>
           </Paper>
@@ -299,7 +277,7 @@ export default function AdminSettingsPage() {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
       >
         <Alert onClose={() => setSnackbarOpen(false)} severity="success" sx={{ width: '100%', borderRadius: 2 }}>
-          Author Profile settings saved successfully!
+          Settings saved successfully!
         </Alert>
       </Snackbar>
 

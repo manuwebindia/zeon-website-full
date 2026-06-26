@@ -112,6 +112,19 @@ export async function generateMetadata({ params }) {
   const ogDescription = blog.ogDescription || description;
   const ogImageUrl = blog.ogImage ? `${domain}${blog.ogImage}` : imageUrl;
 
+  // Respect universalNoIndex global override setting
+  let universalNoIndex = false;
+  try {
+    const filePath = path.join(process.cwd(), 'src/data/settings.json');
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const settings = JSON.parse(fileContent);
+    universalNoIndex = Boolean(settings.universalNoIndex);
+  } catch (error) {
+    // ignore
+  }
+
+  const finalIndexing = universalNoIndex ? false : blog.allowIndexing;
+
   return {
     title: `${title} | Zeon Academy`,
     description,
@@ -140,12 +153,12 @@ export async function generateMetadata({ params }) {
       images: [ogImageUrl],
     },
     robots: {
-      index: blog.allowIndexing,
-      follow: blog.allowIndexing,
-      nocache: !blog.allowIndexing,
+      index: finalIndexing,
+      follow: finalIndexing,
+      nocache: !finalIndexing,
       googleBot: {
-        index: blog.allowIndexing,
-        follow: blog.allowIndexing,
+        index: finalIndexing,
+        follow: finalIndexing,
       },
     },
   };

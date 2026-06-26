@@ -8,9 +8,14 @@ const SETTINGS_FILE_PATH = path.join(process.cwd(), 'src/data/settings.json');
 async function readSettings() {
   try {
     const data = await fs.readFile(SETTINGS_FILE_PATH, 'utf-8');
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    return {
+      authorName: parsed.authorName || 'Zeon Academy',
+      authorImage: parsed.authorImage || '',
+      universalNoIndex: Boolean(parsed.universalNoIndex),
+    };
   } catch {
-    return { authorName: 'Zeon Academy', authorImage: '' };
+    return { authorName: 'Zeon Academy', authorImage: '', universalNoIndex: false };
   }
 }
 
@@ -37,11 +42,12 @@ export async function POST(request) {
     }
 
     const data = await request.json();
-    const { authorName, authorImage } = data;
+    const { authorName, authorImage, universalNoIndex } = data;
 
     const newSettings = {
       authorName: (authorName || 'Zeon Academy').trim(),
       authorImage: (authorImage || '').trim(),
+      universalNoIndex: Boolean(universalNoIndex),
     };
 
     const dir = path.dirname(SETTINGS_FILE_PATH);

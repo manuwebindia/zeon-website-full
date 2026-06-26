@@ -91,7 +91,7 @@ export default function AdminLoginPage() {
         alignItems: 'center',
         minHeight: '100vh',
         padding: 3,
-        background: 'radial-gradient(circle, rgba(255,68,68,0.08) 0%, rgba(204,34,34,0.03) 100%)',
+        background: '#f0f0f0',
       }}
     >
       <Paper
@@ -107,7 +107,7 @@ export default function AdminLoginPage() {
         <Box sx={{ textAlign: 'center', mb: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1 }}>
             <Image
-              src="/zeon-logo.png"
+              src="/LOGOblack.png"
               alt="Zeon Academy Logo"
               width={220}
               height={46}
