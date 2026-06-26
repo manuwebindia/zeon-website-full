@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { FaBriefcase, FaBuilding, FaMapMarkerAlt, FaPhoneAlt, FaCheckCircle, FaSpinner } from "react-icons/fa";
+import { FaBriefcase, FaBuilding, FaMapMarkerAlt, FaPhoneAlt, FaCheckCircle, FaSpinner, FaStar } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
@@ -120,43 +121,68 @@ export default function PostYourJobPage() {
   return (
     <>
       <Navbar />
-      <main className="bg-[#f8f9fa] min-h-screen">
+      <main className="bg-surface min-h-screen">
 
-        {/* ── HERO ── */}
-        <section className="relative bg-[#222831] overflow-hidden pt-28 pb-16 md:pt-36 md:pb-20">
-          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-primary/15 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-          <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-primary/10 rounded-full blur-[100px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
+        {/* ── HERO BANNER ── */}
+        <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+          <Image
+            src="/courses/courss.webp"
+            alt="Zeon Academy Courses Banner"
+            fill
+            priority
+            className="object-cover object-center opacity-100 pointer-events-none"
+          />
+          {/* Decorative orbs */}
+          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
 
-          <div className="w-full max-w-[900px] mx-auto px-6 relative z-10 text-center">
+          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
             {/* Breadcrumb */}
-            <div className="flex items-center justify-center gap-2 text-[0.82rem] font-semibold text-[#c3c8cf] mb-6">
-              <Link href="/" className="hover:text-white transition-colors">Home</Link>
-              <span className="text-white/30">/</span>
+            <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body mb-5">
+              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
+              <span className="text-border">/</span>
               <span className="text-primary font-bold">Post Your Job</span>
             </div>
 
-            <span className="inline-flex items-center gap-2 bg-primary/20 text-primary text-[0.78rem] font-bold px-4 py-1.5 rounded-full tracking-widest uppercase mb-5 border border-primary/30">
-              <FaBriefcase size={11} /> For Employers
-            </span>
-
-            <h1 className="text-[clamp(2rem,5vw,3rem)] font-extrabold text-white leading-[1.2] mb-5 tracking-tight">
-              Find Talent!{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a]">
-                Post Your Job
+            <div className="max-w-3xl mx-auto">
+              <span className="inline-block text-primary text-[0.85rem] font-semibold mb-4 tracking-[0.2em] uppercase">
+                For Employers
               </span>
-            </h1>
-
-            <p className="text-[1.05rem] text-[#c3c8cf] leading-relaxed font-medium max-w-2xl mx-auto">
-              List your job openings here. Find the best of the best digital marketing talent in Kerala.
-              We are the leading placement provider for digital marketing jobs in Kochi.
-            </p>
-
-            {/* Trust badges */}
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
-              {["500+ Placements", "Kerala's #1 DM Institute", "Top Recruiters Trust Us"].map((b) => (
-                <span key={b} className="flex items-center gap-1.5 bg-white/10 text-white text-[0.8rem] font-semibold px-3.5 py-1.5 rounded-full border border-white/15">
-                  <FaCheckCircle className="text-primary" size={11} /> {b}
+              <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight">
+                Find Top Talent!{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">
+                  Post Your Job
                 </span>
+              </h1>
+              <p className="text-[1.15rem] text-body leading-relaxed font-medium max-w-2xl mx-auto mb-8">
+                List your job openings here. Connect with the best digital marketing talent in Kerala. Zeon Academy is the leading placement provider for digital marketing professionals in Kochi.
+              </p>
+
+              <div className="flex items-center justify-center gap-1.5 mb-3">
+                {[...Array(5)].map((_, i) => (
+                  <FaStar key={i} className="text-[#fbbf24] text-xl" />
+                ))}
+              </div>
+              <p className="text-body text-[0.9rem] font-semibold">
+                Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ── TRUST STRIP / STATS ── */}
+        <section className="bg-surface border-b border-border py-8">
+          <div className="w-full max-w-[1200px] mx-auto px-6">
+            <div className="grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+              {[
+                { value: "500+", label: "Successful Placements" },
+                { value: "100+", label: "Hiring Partners" },
+                { value: "Kochi & Across Kerala", label: "Talent Pool" },
+              ].map((s, i) => (
+                <div key={i} className="text-center">
+                  <p className="text-[2rem] font-extrabold text-heading leading-none mb-1">{s.value}</p>
+                  <p className="text-[0.88rem] font-semibold text-body">{s.label}</p>
+                </div>
               ))}
             </div>
           </div>
