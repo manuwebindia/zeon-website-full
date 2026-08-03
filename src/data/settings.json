@@ -1,4 +1,6 @@
 {
   "authorName": "Zeon Academy",
-  "authorImage": ""
+  "authorImage": "",
+  "universalNoIndex": true,
+  "adminLoginUrl": "https://new.zeonacademy.com/admin"
 }

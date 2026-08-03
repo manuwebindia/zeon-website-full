@@ -31,7 +31,7 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/thank-you"],
+        disallow: ["/admin", "/api/admin", "/api/", "/thank-you"],
       },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,

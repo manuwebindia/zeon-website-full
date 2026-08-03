@@ -4,6 +4,7 @@ import prisma from '@/lib/db';
 import { requirePermission } from '@/lib/auth';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import { resolveSchemaPayload } from '@/lib/schemaBlocks';
 
 // GET a single blog by ID
 export async function GET(request, { params }) {
@@ -56,10 +57,18 @@ export async function PUT(request, { params }) {
       ogDescription,
       ogImage,
       canonicalUrl,
+      schemaBlocks,
       articleType,
       schemaFaqItems,
       schemaHowToSteps,
     } = data;
+
+    const schemaData = resolveSchemaPayload({
+      schemaBlocks,
+      articleType,
+      schemaFaqItems,
+      schemaHowToSteps,
+    });
 
     if (!title) {
       return NextResponse.json({ error: 'Title is required' }, { status: 400 });
@@ -135,15 +144,14 @@ export async function PUT(request, { params }) {
         ogDescription: ogDescription || null,
         ogImage: ogImage || null,
         canonicalUrl: canonicalUrl || null,
-        articleType: articleType || 'Article',
-        schemaFaqItems: schemaFaqItems || null,
-        schemaHowToSteps: schemaHowToSteps || null,
+        ...schemaData,
       }
     });
 
     try {
       revalidatePath('/blog');
       revalidatePath(`/blog/${slug}`);
+      revalidatePath('/sitemap.xml');
       if (oldSlug !== slug) revalidatePath(`/blog/${oldSlug}`);
       revalidateTag('blogs');
     } catch (err) {
@@ -180,6 +188,7 @@ export async function DELETE(request, { params }) {
     try {
       revalidatePath('/blog');
       revalidatePath(`/blog/${slug}`);
+      revalidatePath('/sitemap.xml');
       revalidateTag('blogs');
     } catch (err) {
       console.error('Revalidation failed after deletion:', err);
@@ -234,12 +243,21 @@ export async function PATCH(request, { params }) {
       'ogDescription',
       'ogImage',
       'canonicalUrl',
+      'schemaBlocks',
       'articleType',
       'schemaFaqItems',
       'schemaHowToSteps'
     ];
 
+    const hasSchemaFields = ['schemaBlocks', 'articleType', 'schemaFaqItems', 'schemaHowToSteps']
+      .some((field) => data[field] !== undefined);
+
+    if (hasSchemaFields) {
+      Object.assign(updateData, resolveSchemaPayload(data));
+    }
+
     allowedFields.forEach((field) => {
+      if (field.startsWith('schema') || field === 'articleType') return;
       if (data[field] !== undefined) {
         updateData[field] = data[field];
       }
@@ -294,6 +312,7 @@ export async function PATCH(request, { params }) {
       try {
         revalidatePath('/blog');
         revalidatePath(`/blog/${updatedBlog.slug}`);
+        revalidatePath('/sitemap.xml');
         if (oldSlug !== updatedBlog.slug) {
           revalidatePath(`/blog/${oldSlug}`);
         }

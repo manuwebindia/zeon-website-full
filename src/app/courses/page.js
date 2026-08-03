@@ -11,13 +11,11 @@ const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
-export const metadata = {
-  title: "Professional Digital Marketing Courses in Kochi | Zeon Academy",
-  description: "Save hundreds of hours by learning from working professionals with the best digital marketing course in Kochi, Kerala. Browse our courses.",
-  alternates: {
-    canonical: "/courses",
-  },
-};
+import { buildPageMetadata } from "@/lib/pageSeo";
+
+export async function generateMetadata() {
+  return buildPageMetadata("/courses");
+}
 
 export default function CoursesPage() {
   return (

@@ -5,8 +5,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import OfferPopup from "@/components/OfferPopup";
 import LegalModal from "@/components/LegalModal";
 import DownloadBrochureModal from "@/components/DownloadBrochureModal";
-import fs from "fs";
-import path from "path";
+import { buildPageMetadata } from "@/lib/pageSeo";
 
 const openSans = Open_Sans({
   variable: "--font-open-sans",
@@ -18,42 +17,15 @@ const openSans = Open_Sans({
 const SITE_URL = "https://admission.zeonacademy.com";
 
 export async function generateMetadata() {
-  let universalNoIndex = false;
-  try {
-    const filePath = path.join(process.cwd(), 'src/data/settings.json');
-    const fileContent = fs.readFileSync(filePath, 'utf-8');
-    const settings = JSON.parse(fileContent);
-    universalNoIndex = Boolean(settings.universalNoIndex);
-  } catch (error) {
-    // ignore
-  }
-
-  const robotsConfig = universalNoIndex ? {
-    index: false,
-    follow: false,
-    googleBot: {
-      index: false,
-      follow: false,
-    },
-  } : {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  };
+  const homeMeta = await buildPageMetadata("/");
 
   return {
     metadataBase: new URL(SITE_URL),
     title: {
-      default: "Best Digital Marketing Course in Kochi | #1 Kerala | Zeon",
+      default: homeMeta.title,
       template: "%s | Zeon Academy",
     },
-    description:
-      "Become a certified digital marketer at Zeon Academy. Practical training, guaranteed internship, and 100% placement support. Start your digital marketing career today!",
+    description: homeMeta.description,
     keywords: [
       "digital marketing course Kerala",
       "digital marketing institute Kochi",
@@ -63,36 +35,13 @@ export async function generateMetadata() {
       "digital marketing certification",
       "Zeon Academy",
     ],
-    alternates: {
-      canonical: "/",
-    },
-    openGraph: {
-      type: "website",
-      url: "/",
-      siteName: "Zeon Academy",
-      title: "Best Digital Marketing Course in Kochi | #1 Kerala | Zeon",
-      description:
-        "Become a certified digital marketer at Zeon Academy. Practical training, guaranteed internship, and 100% placement support. Start your digital marketing career today!",
-      images: [
-        {
-          url: "/zeon-banner-bg.webp",
-          width: 1200,
-          height: 630,
-          alt: "Zeon Digital Marketing Academy",
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: "Zeon Digital Marketing Academy | Kerala's #1 Digital Marketing Course",
-      description:
-        "Join Kerala's most practical digital marketing institute. 100% placement support, guaranteed internship.",
-      images: ["/zeon-banner-bg.webp"],
-    },
+    alternates: homeMeta.alternates,
+    openGraph: homeMeta.openGraph,
+    twitter: homeMeta.twitter,
     icons: {
       icon: "/favicon.webp",
     },
-    robots: robotsConfig,
+    robots: homeMeta.robots,
   };
 }
 

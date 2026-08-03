@@ -11,7 +11,7 @@ import TableOfContents from '@/components/TableOfContents';
 import SocialShare from '@/components/SocialShare';
 import RelatedPostsCarousel from '@/components/RelatedPostsCarousel';
 import prisma from '@/lib/db';
-import { buildJsonLd } from '@/lib/schemaBuilder';
+import { buildJsonLdList } from '@/lib/schemaBuilder';
 import { extractHeadings } from '@/lib/tocUtils';
 import { Calendar, Clock, ArrowLeft, ChevronRight, User } from 'lucide-react';
 
@@ -251,17 +251,20 @@ export default async function BlogPostPage({ params }) {
     });
   };
 
-  const jsonLd = buildJsonLd(blog);
+  const jsonLdList = buildJsonLdList(blog);
   const tocHeadings = extractHeadings(Array.isArray(blog.content) ? blog.content : []);
   const readTime = calculateReadTime(blog.content);
   const hasToc = tocHeadings.length >= 3;
 
   return (
     <main className="relative flex min-h-screen flex-col bg-[#F9FBFC] antialiased">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+      {jsonLdList.map((jsonLd, index) => (
+        <script
+          key={`blog-schema-${index}`}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      ))}
 
       <Navbar />
 

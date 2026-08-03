@@ -4,7 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { baselightTheme } from './theme';
 
-export default function AdminRootLayout({ children }) {
+export default function AdminShell({ children }) {
   return (
     <ThemeProvider theme={baselightTheme}>
       <CssBaseline />

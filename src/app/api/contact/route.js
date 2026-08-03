@@ -1,6 +1,7 @@
 export const runtime = "nodejs";
 
 import nodemailer from "nodemailer";
+import { getPrismaClient } from "@/lib/db";
 
 export async function POST(request) {
   try {
@@ -26,17 +27,30 @@ export async function POST(request) {
       return Response.json({ success: false, error: "Security check failed (Bot Activity Detected)." }, { status: 400 });
     }
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 465,
-      secure: process.env.SMTP_SECURE === "true",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+    const prisma = getPrismaClient();
+    const lead = await prisma.contactLead.create({
+      data: {
+        name: String(full_name).trim(),
+        email: String(email).trim(),
+        phone: String(phone).trim(),
+        message: String(message).trim(),
+        source: "contact",
+        status: "new",
       },
     });
 
-    const htmlBody = `
+    try {
+      const transporter = nodemailer.createTransport({
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT) || 465,
+        secure: process.env.SMTP_SECURE === "true",
+        auth: {
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASS,
+        },
+      });
+
+      const htmlBody = `
       <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,6 +101,10 @@ export async function POST(request) {
           <td style="padding:10px 0;color:#6b7280;font-size:0.9rem;vertical-align:top;">Message</td>
           <td style="padding:10px 0;font-weight:600;color:#111827;white-space:pre-line;">${message}</td>
         </tr>
+        <tr>
+          <td style="padding:10px 0;color:#6b7280;font-size:0.9rem;">Lead ID</td>
+          <td style="padding:10px 0;font-weight:600;color:#111827;">${lead.id}</td>
+        </tr>
       </table>
     </div>
     
@@ -99,19 +117,24 @@ export async function POST(request) {
 </html>
     `;
 
-    const recipients = [process.env.MAIL_TO, process.env.MAIL_TO_2].filter(Boolean).join(", ");
+      const recipients = [process.env.MAIL_TO, process.env.MAIL_TO_2].filter(Boolean).join(", ");
 
-    await transporter.sendMail({
-      from: `"Zeon Academy Contact" <${process.env.SMTP_USER}>`,
-      to: recipients,
-      replyTo: email,
-      subject: `New Contact Request — ${full_name}`,
-      html: htmlBody,
-    });
+      if (recipients) {
+        await transporter.sendMail({
+          from: `"Zeon Academy Contact" <${process.env.SMTP_USER}>`,
+          to: recipients,
+          replyTo: email,
+          subject: `New Contact Request — ${full_name}`,
+          html: htmlBody,
+        });
+      }
+    } catch (mailError) {
+      console.error("[contact api] Mail error:", mailError);
+    }
 
-    return Response.json({ success: true });
+    return Response.json({ success: true, id: lead.id });
   } catch (error) {
-    console.error("[contact api] Mail error:", error);
-    return Response.json({ success: false, error: "Failed to send email." }, { status: 500 });
+    console.error("[contact api] Error:", error);
+    return Response.json({ success: false, error: "Failed to submit contact form." }, { status: 500 });
   }
 }

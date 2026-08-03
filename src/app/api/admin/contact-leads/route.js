@@ -21,18 +21,20 @@ export async function GET(request) {
         where,
         orderBy: { createdAt: 'desc' },
         select: {
-          id:        true,
-          name:      true,
-          phone:     true,
-          email:     true,
-          service:   true,
-          plan:      true,
-          budget:    true,
-          source:    true,
-          status:    true,
-          notes:     true,
-          createdAt: true,
-          updatedAt: true,
+          id:          true,
+          name:        true,
+          phone:       true,
+          email:       true,
+          service:     true,
+          message:     true,
+          plan:        true,
+          budget:      true,
+          requirement: true,
+          source:      true,
+          status:      true,
+          notes:       true,
+          createdAt:   true,
+          updatedAt:   true,
         },
         take: 500, // safety cap
       }),
@@ -53,9 +55,11 @@ export async function GET(request) {
     // ── CSV export ──────────────────────────────────────────────────────────
     if (format === 'csv') {
       const rows = [
-        ['ID', 'Name', 'Phone', 'Email', 'Source', 'Service', 'Plan', 'Budget', 'Status', 'Created At'],
+        ['ID', 'Name', 'Phone', 'Email', 'Source', 'Message', 'Plan', 'Budget', 'Status', 'Created At'],
         ...leads.map((l) => [
-          l.id, l.name, l.phone, l.email || '', l.source, l.service || '', l.plan || '', l.budget || '', l.status,
+          l.id, l.name, l.phone, l.email || '', l.source,
+          l.message || l.requirement || l.service || '',
+          l.plan || '', l.budget || '', l.status,
           new Date(l.createdAt).toLocaleString('en-IN'),
         ]),
       ];

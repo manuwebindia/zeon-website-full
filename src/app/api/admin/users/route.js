@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import prisma from '@/lib/db';
 import { requirePermission } from '@/lib/auth';
+import { sendAdminWelcomeEmail } from '@/lib/adminUserMailer';
 
 // GET — list all DB users with group info
 export async function GET(request) {
@@ -62,7 +63,10 @@ export async function POST(request) {
     if (!groupId) {
       return NextResponse.json({ error: 'A group is required' }, { status: 400 });
     }
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email || !email.trim()) {
+      return NextResponse.json({ error: 'Email is required to send login credentials' }, { status: 400 });
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       return NextResponse.json({ error: 'Invalid email format' }, { status: 400 });
     }
 
@@ -84,7 +88,8 @@ export async function POST(request) {
       }
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const plainPassword = password;
+    const passwordHash = await bcrypt.hash(plainPassword, 10);
 
     const newUser = await prisma.user.create({
       data: {
@@ -100,7 +105,25 @@ export async function POST(request) {
 
     // Never return the password hash
     const { passwordHash: _, ...safeUser } = newUser;
-    return NextResponse.json({ user: safeUser }, { status: 201 });
+
+    let emailSent = false;
+    let emailError = null;
+
+    try {
+      await sendAdminWelcomeEmail({
+        displayName: displayName?.trim() || username.trim(),
+        username: username.trim(),
+        email: email.trim(),
+        password: plainPassword,
+        groupName: group.name,
+      });
+      emailSent = true;
+    } catch (mailError) {
+      console.error('Admin welcome email failed:', mailError);
+      emailError = 'User created, but the welcome email could not be sent.';
+    }
+
+    return NextResponse.json({ user: safeUser, emailSent, emailError }, { status: 201 });
   } catch (error) {
     console.error('Create user error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

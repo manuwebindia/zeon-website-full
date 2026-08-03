@@ -37,9 +37,10 @@ model Blog {
   canonicalUrl     String?   @map("canonical_url")
 
   // Phase 4 — Schema Markup
-  articleType      String?   @default("Article") @map("article_type") // "Article" | "FAQPage" | "HowTo"
-  schemaFaqItems   Json?     @map("schema_faq_items")    // [{question, answer}]
-  schemaHowToSteps Json?     @map("schema_how_to_steps") // [{name, text}]
+  articleType      String?   @default("Article") @map("article_type") // legacy primary type
+  schemaFaqItems   Json?     @map("schema_faq_items")    // legacy FAQ items
+  schemaHowToSteps Json?     @map("schema_how_to_steps") // legacy HowTo steps
+  schemaBlocks     Json?     @map("schema_blocks")       // [{ type, faqItems?, howToSteps? }]
 
   @@map("blogs")
 }
@@ -134,5 +135,29 @@ model RateLimit {
 
   @@index([ipHash, endpoint, createdAt])
   @@map("rate_limits")
+}
+
+// ── Job Postings (employer submissions → admin approval → placements) ─────────
+model JobPosting {
+  id             String    @id @default(cuid())
+  companyName    String    @map("company_name")
+  jobTitle       String    @map("job_title")
+  phone          String
+  location       String?
+  aboutCompany   String?   @map("about_company") @db.Text
+  skillsRequired String?   @map("skills_required") @db.Text
+  eligibility    String?   @db.Text
+  jobTypes       String?   @map("job_types")
+  shiftSchedule  String?   @map("shift_schedule")
+  status         String    @default("pending") // pending | approved | rejected
+  approvedAt     DateTime? @map("approved_at")
+  rejectedAt     DateTime? @map("rejected_at")
+  adminNotes     String?   @map("admin_notes") @db.Text
+  source         String    @default("website") // website | seed
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@index([status, createdAt])
+  @@map("job_postings")
 }
 

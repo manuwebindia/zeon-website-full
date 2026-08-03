@@ -58,6 +58,14 @@ const PERMISSION_MATRIX = [
     label: 'Contact Leads',
     cols: { view: 'contact-leads.view', create: null, edit: 'contact-leads.edit', delete: 'contact-leads.delete', publish: null, manage: null },
   },
+  {
+    label: 'Job Postings',
+    cols: { view: 'job-postings.view', create: null, edit: 'job-postings.edit', delete: 'job-postings.delete', publish: null, manage: null },
+  },
+  {
+    label: 'Offers',
+    cols: { view: null, create: null, edit: null, delete: null, publish: null, manage: 'offers.manage' },
+  },
 ];
 
 const COL_LABELS = ['View', 'Create', 'Edit', 'Delete', 'Publish', 'Manage/Upload'];

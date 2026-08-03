@@ -9,13 +9,11 @@ import Image from "next/image";
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const Footer = dynamic(() => import("../../components/Footer"));
 
-export const metadata = {
-  title: "Contact Us | Zeon Academy Kochi",
-  description: "Get in touch with Zeon Academy, Kerala's leading digital marketing training institute in Kochi. Call us at +91 7558888252, or visit our Vennala campus today.",
-  alternates: {
-    canonical: "/contact",
-  },
-};
+import { buildPageMetadata } from "@/lib/pageSeo";
+
+export async function generateMetadata() {
+  return buildPageMetadata("/contact");
+}
 
 export default function ContactPage() {
   return (

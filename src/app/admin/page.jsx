@@ -25,7 +25,7 @@ export default function AdminLoginPage() {
     // Check if token already exists in localStorage
     const token = localStorage.getItem('zeon_admin_token');
     if (token) {
-      router.push('/admin/dashboard');
+      router.push('/admin/dashboard/overview');
     } else {
       setCheckingAuth(false);
     }
@@ -60,7 +60,7 @@ export default function AdminLoginPage() {
       localStorage.setItem('zeon_admin_token', data.token);
       localStorage.setItem('zeon_admin_user', JSON.stringify(data.user || {}));
       localStorage.setItem('zeon_admin_permissions', JSON.stringify(data.user?.permissions || []));
-      router.push('/admin/dashboard');
+      router.push('/admin/dashboard/overview');
     } catch (err) {
       setError(err.message);
     } finally {

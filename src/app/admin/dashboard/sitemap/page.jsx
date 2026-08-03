@@ -7,10 +7,12 @@ import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
   IconButton, Dialog, DialogTitle, DialogContent, DialogActions,
   TextField, Tooltip, Chip, Divider, Grid,
+  Accordion, AccordionSummary, AccordionDetails,
 } from '@mui/material';
+import Link from 'next/link';
 import {
   IconMap, IconPlus, IconTrash, IconExternalLink, IconRefresh,
-  IconCheck,
+  IconCheck, IconChevronDown, IconFileText,
 } from '@tabler/icons-react';
 
 const FREQ_OPTIONS = ['always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never'];
@@ -30,6 +32,8 @@ function authHeaders() {
 
 export default function SitemapPage() {
   const [config, setConfig] = useState(null);
+  const [publishedBlogs, setPublishedBlogs] = useState([]);
+  const [refreshingBlogs, setRefreshingBlogs] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [addDialogOpen, setAddDialogOpen] = useState(false);
@@ -48,8 +52,11 @@ export default function SitemapPage() {
     try {
       const res = await fetch('/api/admin/sitemap', { headers: authHeaders() });
       const data = await res.json();
-      if (res.ok) setConfig(data);
-      else showSnackbar(data.error || 'Failed to load sitemap config', 'error');
+      if (res.ok) {
+        const { publishedBlogs: blogs = [], ...savedConfig } = data;
+        setConfig(savedConfig);
+        setPublishedBlogs(blogs);
+      } else showSnackbar(data.error || 'Failed to load sitemap config', 'error');
     } catch {
       showSnackbar('Network error', 'error');
     } finally {
@@ -59,18 +66,31 @@ export default function SitemapPage() {
 
   useEffect(() => { fetchConfig(); }, [fetchConfig]);
 
+  const refreshBlogs = async () => {
+    setRefreshingBlogs(true);
+    try {
+      await fetchConfig();
+      showSnackbar('Blog sitemap list refreshed');
+    } finally {
+      setRefreshingBlogs(false);
+    }
+  };
+
   const handleSave = async () => {
     if (!config) return;
     setSaving(true);
     try {
+      const { staticPages, blogDefaults, globalSettings } = config;
       const res = await fetch('/api/admin/sitemap', {
         method: 'POST',
         headers: authHeaders(),
-        body: JSON.stringify(config),
+        body: JSON.stringify({ staticPages, blogDefaults, globalSettings }),
       });
       const data = await res.json();
       if (!res.ok) { showSnackbar(data.error || 'Failed to save', 'error'); return; }
-      setConfig(data);
+      const { publishedBlogs: blogs = [], ...savedConfig } = data;
+      setConfig(savedConfig);
+      setPublishedBlogs(blogs);
       showSnackbar('Sitemap configuration saved');
     } catch {
       showSnackbar('Network error', 'error');
@@ -118,8 +138,19 @@ export default function SitemapPage() {
     setAddError('');
   };
 
-  const enabledCount = config?.staticPages?.filter((p) => p.enabled !== false).length || 0;
-  const totalPages = config?.staticPages?.length || 0;
+  const enabledStaticCount = config?.staticPages?.filter((p) => p.enabled !== false).length || 0;
+  const totalStaticPages = config?.staticPages?.length || 0;
+  const blogInSitemapCount = publishedBlogs.filter((b) => b.inSitemap).length;
+  const totalPublishedBlogs = publishedBlogs.length;
+
+  const formatDate = (value) => {
+    if (!value) return '—';
+    return new Date(value).toLocaleDateString('en-IN', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
+  };
 
   if (loading) {
     return (
@@ -168,9 +199,9 @@ export default function SitemapPage() {
       {/* Stats bar */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         {[
-          { label: 'Static Pages', value: totalPages, color: '#1A4FD6' },
-          { label: 'Enabled in Sitemap', value: enabledCount, color: '#17C653' },
-          { label: 'Excluded', value: totalPages - enabledCount, color: '#EF4444' },
+          { label: 'Static Pages', value: totalStaticPages, color: '#1A4FD6' },
+          { label: 'Published Blogs', value: totalPublishedBlogs, color: '#7C3AED' },
+          { label: 'In Sitemap', value: enabledStaticCount + blogInSitemapCount, color: '#17C653' },
         ].map((stat) => (
           <Grid size={{ xs: 12, sm: 4 }} key={stat.label}>
             <Paper elevation={0} sx={{ p: 2.5, borderRadius: 2, border: '1px solid #e5eaef', textAlign: 'center' }}>
@@ -186,108 +217,322 @@ export default function SitemapPage() {
       </Grid>
 
       <Grid container spacing={3}>
-        {/* Static Pages Table */}
+        {/* Sitemap Sections */}
         <Grid size={{ xs: 12, lg: 8 }}>
-          <Paper elevation={1} sx={{ borderRadius: 3, border: '1px solid #e5eaef', overflow: 'hidden' }}>
-            <Box sx={{ p: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #e5eaef' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <IconMap size={20} style={{ color: '#1A4FD6' }} />
-                <Typography variant="h6" sx={{ fontWeight: 700 }}>Static Pages</Typography>
-              </Box>
-              <Button
-                size="small"
-                startIcon={<IconPlus size={16} />}
-                onClick={() => setAddDialogOpen(true)}
-                variant="outlined"
-                sx={{ textTransform: 'none', fontWeight: 600, borderRadius: 2 }}
-              >
-                Add URL
-              </Button>
-            </Box>
-            <TableContainer>
-              <Table size="small">
-                <TableHead>
-                  <TableRow sx={{ backgroundColor: '#F8FAFC' }}>
-                    <TableCell sx={{ fontWeight: 700, width: 40 }}>On</TableCell>
-                    <TableCell sx={{ fontWeight: 700 }}>Page Path</TableCell>
-                    <TableCell sx={{ fontWeight: 700, minWidth: 200 }}>Canonical URL Override</TableCell>
-                    <TableCell sx={{ fontWeight: 700, minWidth: 130 }}>Frequency</TableCell>
-                    <TableCell sx={{ fontWeight: 700, minWidth: 160 }}>Priority</TableCell>
-                    <TableCell align="right" sx={{ fontWeight: 700 }}></TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {config.staticPages.map((page, idx) => (
-                    <TableRow key={page.path} sx={{ '&:last-child td': { border: 0 }, opacity: page.enabled === false ? 0.45 : 1 }}>
-                      <TableCell>
-                        <Switch
-                          size="small"
-                          checked={page.enabled !== false}
-                          onChange={(e) => updatePage(idx, 'enabled', e.target.checked)}
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <Typography variant="body2" sx={{ fontFamily: 'monospace', fontWeight: 500 }}>
-                          {page.path}
-                        </Typography>
-                      </TableCell>
-                      <TableCell>
-                        <TextField
-                          size="small"
-                          placeholder="Default URL"
-                          value={page.canonical || ''}
-                          onChange={(e) => updatePage(idx, 'canonical', e.target.value)}
-                          inputProps={{ style: { fontSize: '0.82rem', fontFamily: 'monospace' } }}
-                          fullWidth
-                        />
-                      </TableCell>
-                      <TableCell>
-                        <FormControl size="small" fullWidth>
-                          <Select
-                            value={page.changeFrequency}
-                            onChange={(e) => updatePage(idx, 'changeFrequency', e.target.value)}
-                            sx={{ fontSize: '0.82rem' }}
-                          >
-                            {FREQ_OPTIONS.map((f) => (
-                              <MenuItem key={f} value={f}>{f}</MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </TableCell>
-                      <TableCell>
-                        <Box sx={{ px: 1, display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                          <Slider
-                            size="small"
-                            min={0}
-                            max={1}
-                            step={0.1}
-                            value={Number(page.priority)}
-                            onChange={(_, v) => updatePage(idx, 'priority', v)}
-                            sx={{ flex: 1, color: '#1A4FD6' }}
-                          />
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+
+            {/* Static Pages — collapsible */}
+            <Accordion
+              defaultExpanded
+              elevation={1}
+              sx={{
+                borderRadius: '12px !important',
+                border: '1px solid #e5eaef',
+                '&:before': { display: 'none' },
+                overflow: 'hidden',
+              }}
+            >
+              <AccordionSummary expandIcon={<IconChevronDown size={18} />} sx={{ px: 3, py: 1.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', pr: 2 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <IconMap size={20} style={{ color: '#1A4FD6' }} />
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.2 }}>Static Pages</Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {enabledStaticCount} of {totalStaticPages} enabled
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Button
+                    component="span"
+                    role="button"
+                    tabIndex={0}
+                    size="small"
+                    startIcon={<IconPlus size={16} />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setAddDialogOpen(true);
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setAddDialogOpen(true);
+                      }
+                    }}
+                    variant="outlined"
+                    sx={{ textTransform: 'none', fontWeight: 600, borderRadius: 2, cursor: 'pointer' }}
+                  >
+                    Add URL
+                  </Button>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ p: 0 }}>
+                <TableContainer>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow sx={{ backgroundColor: '#F8FAFC' }}>
+                        <TableCell sx={{ fontWeight: 700, width: 40 }}>On</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Page Path</TableCell>
+                        <TableCell sx={{ fontWeight: 700, minWidth: 200 }}>Canonical URL Override</TableCell>
+                        <TableCell sx={{ fontWeight: 700, minWidth: 130 }}>Frequency</TableCell>
+                        <TableCell sx={{ fontWeight: 700, minWidth: 160 }}>Priority</TableCell>
+                        <TableCell align="right" sx={{ fontWeight: 700 }}></TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {config.staticPages.map((page, idx) => (
+                        <TableRow key={page.path} sx={{ '&:last-child td': { border: 0 }, opacity: page.enabled === false ? 0.45 : 1 }}>
+                          <TableCell>
+                            <Switch
+                              size="small"
+                              checked={page.enabled !== false}
+                              onChange={(e) => updatePage(idx, 'enabled', e.target.checked)}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <Typography variant="body2" sx={{ fontFamily: 'monospace', fontWeight: 500 }}>
+                              {page.path}
+                            </Typography>
+                          </TableCell>
+                          <TableCell>
+                            <TextField
+                              size="small"
+                              placeholder="Default URL"
+                              value={page.canonical || ''}
+                              onChange={(e) => updatePage(idx, 'canonical', e.target.value)}
+                              slotProps={{
+                                input: { style: { fontSize: '0.82rem', fontFamily: 'monospace' } },
+                              }}
+                              fullWidth
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <FormControl size="small" fullWidth>
+                              <Select
+                                value={page.changeFrequency}
+                                onChange={(e) => updatePage(idx, 'changeFrequency', e.target.value)}
+                                sx={{ fontSize: '0.82rem' }}
+                              >
+                                {FREQ_OPTIONS.map((f) => (
+                                  <MenuItem key={f} value={f}>{f}</MenuItem>
+                                ))}
+                              </Select>
+                            </FormControl>
+                          </TableCell>
+                          <TableCell>
+                            <Box sx={{ px: 1, display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                              <Slider
+                                size="small"
+                                min={0}
+                                max={1}
+                                step={0.1}
+                                value={Number(page.priority)}
+                                onChange={(_, v) => updatePage(idx, 'priority', v)}
+                                sx={{ flex: 1, color: '#1A4FD6' }}
+                              />
+                              <Chip
+                                label={Number(page.priority).toFixed(1)}
+                                size="small"
+                                sx={{ fontSize: '0.73rem', minWidth: 40, backgroundColor: '#EFF6FF', color: '#1A4FD6', fontWeight: 700 }}
+                              />
+                            </Box>
+                          </TableCell>
+                          <TableCell align="right">
+                            <Tooltip title="Remove page">
+                              <IconButton size="small" color="error" onClick={() => removePage(idx)}>
+                                <IconTrash size={15} />
+                              </IconButton>
+                            </Tooltip>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </AccordionDetails>
+            </Accordion>
+
+            {/* Blog Posts — dynamic & collapsible */}
+            <Accordion
+              defaultExpanded
+              elevation={1}
+              sx={{
+                borderRadius: '12px !important',
+                border: '1px solid #e5eaef',
+                '&:before': { display: 'none' },
+                overflow: 'hidden',
+              }}
+            >
+              <AccordionSummary expandIcon={<IconChevronDown size={18} />} sx={{ px: 3, py: 1.5 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', pr: 2 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <IconFileText size={20} style={{ color: '#7C3AED' }} />
+                    <Box>
+                      <Typography variant="h6" sx={{ fontWeight: 700, lineHeight: 1.2 }}>Blog Posts</Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {blogInSitemapCount} published posts in sitemap · auto-generated from your blog
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Button
+                    component="span"
+                    role="button"
+                    tabIndex={refreshingBlogs ? -1 : 0}
+                    aria-disabled={refreshingBlogs}
+                    size="small"
+                    startIcon={refreshingBlogs ? <CircularProgress size={14} /> : <IconRefresh size={16} />}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!refreshingBlogs) refreshBlogs();
+                    }}
+                    onKeyDown={(e) => {
+                      if (refreshingBlogs) return;
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        refreshBlogs();
+                      }
+                    }}
+                    variant="outlined"
+                    sx={{
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      borderRadius: 2,
+                      cursor: refreshingBlogs ? 'default' : 'pointer',
+                      opacity: refreshingBlogs ? 0.6 : 1,
+                      pointerEvents: refreshingBlogs ? 'none' : 'auto',
+                    }}
+                  >
+                    Refresh
+                  </Button>
+                </Box>
+              </AccordionSummary>
+              <AccordionDetails sx={{ px: 3, pb: 3 }}>
+                <Alert severity="info" sx={{ mb: 2.5, borderRadius: 2, fontSize: '0.82rem' }}>
+                  Published blog posts are added to sitemap.xml automatically. Posts with indexing turned off in the blog editor are excluded.
+                </Alert>
+
+                <Paper variant="outlined" sx={{ p: 2.5, mb: 2.5, borderRadius: 2, backgroundColor: '#FAFBFD' }}>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 2 }}>
+                    Default settings for all blog URLs
+                  </Typography>
+                  <Grid container spacing={2}>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <FormControl fullWidth size="small">
+                        <InputLabel>Change Frequency</InputLabel>
+                        <Select
+                          value={config.blogDefaults?.changeFrequency || 'weekly'}
+                          label="Change Frequency"
+                          onChange={(e) =>
+                            setConfig((prev) => ({
+                              ...prev,
+                              blogDefaults: { ...prev.blogDefaults, changeFrequency: e.target.value },
+                            }))
+                          }
+                        >
+                          {FREQ_OPTIONS.map((f) => (
+                            <MenuItem key={f} value={f}>{f}</MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6 }}>
+                      <Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
+                          <Typography variant="body2" sx={{ fontWeight: 600 }}>Priority</Typography>
                           <Chip
-                            label={Number(page.priority).toFixed(1)}
+                            label={Number(config.blogDefaults?.priority || 0.6).toFixed(1)}
                             size="small"
-                            sx={{ fontSize: '0.73rem', minWidth: 40, backgroundColor: '#EFF6FF', color: '#1A4FD6', fontWeight: 700 }}
+                            sx={{ fontSize: '0.73rem', backgroundColor: '#F3E8FF', color: '#7C3AED', fontWeight: 700 }}
                           />
                         </Box>
-                      </TableCell>
-                      <TableCell align="right">
-                        <Tooltip title="Remove page">
-                          <IconButton size="small" color="error" onClick={() => removePage(idx)}>
-                            <IconTrash size={15} />
-                          </IconButton>
-                        </Tooltip>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Paper>
+                        <Slider
+                          min={0}
+                          max={1}
+                          step={0.1}
+                          marks={PRIORITY_MARKS}
+                          value={Number(config.blogDefaults?.priority || 0.6)}
+                          onChange={(_, v) =>
+                            setConfig((prev) => ({ ...prev, blogDefaults: { ...prev.blogDefaults, priority: v } }))
+                          }
+                          sx={{ color: '#7C3AED' }}
+                        />
+                      </Box>
+                    </Grid>
+                  </Grid>
+                </Paper>
+
+                {publishedBlogs.length === 0 ? (
+                  <Box sx={{ py: 5, textAlign: 'center' }}>
+                    <Typography variant="body2" color="text.secondary">
+                      No published blog posts yet. Publish a post and it will appear here automatically.
+                    </Typography>
+                  </Box>
+                ) : (
+                  <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: 2 }}>
+                    <Table size="small">
+                      <TableHead>
+                        <TableRow sx={{ backgroundColor: '#F8FAFC' }}>
+                          <TableCell sx={{ fontWeight: 700 }}>Title</TableCell>
+                          <TableCell sx={{ fontWeight: 700 }}>URL Path</TableCell>
+                          <TableCell sx={{ fontWeight: 700 }}>Last Updated</TableCell>
+                          <TableCell sx={{ fontWeight: 700 }}>Frequency</TableCell>
+                          <TableCell sx={{ fontWeight: 700 }}>Priority</TableCell>
+                          <TableCell sx={{ fontWeight: 700 }}>Sitemap</TableCell>
+                        </TableRow>
+                      </TableHead>
+                      <TableBody>
+                        {publishedBlogs.map((blog) => (
+                          <TableRow key={blog.id} sx={{ opacity: blog.inSitemap ? 1 : 0.5 }}>
+                            <TableCell>
+                              <Link
+                                href={`/admin/dashboard/blogs/${blog.id}/edit`}
+                                style={{ color: '#1A4FD6', textDecoration: 'none', fontWeight: 600, fontSize: '0.85rem' }}
+                              >
+                                {blog.title}
+                              </Link>
+                            </TableCell>
+                            <TableCell>
+                              <Typography variant="body2" sx={{ fontFamily: 'monospace', fontSize: '0.8rem' }}>
+                                {blog.path}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Typography variant="caption" color="text.secondary">
+                                {formatDate(blog.lastModified)}
+                              </Typography>
+                            </TableCell>
+                            <TableCell>
+                              <Chip label={blog.changeFrequency} size="small" sx={{ fontSize: '0.72rem' }} />
+                            </TableCell>
+                            <TableCell>
+                              <Chip
+                                label={Number(blog.priority).toFixed(1)}
+                                size="small"
+                                sx={{ fontSize: '0.72rem', backgroundColor: '#F3E8FF', color: '#7C3AED', fontWeight: 700 }}
+                              />
+                            </TableCell>
+                            <TableCell>
+                              <Chip
+                                label={blog.inSitemap ? 'Included' : 'No Index'}
+                                size="small"
+                                color={blog.inSitemap ? 'success' : 'default'}
+                                sx={{ fontSize: '0.72rem', fontWeight: 600 }}
+                              />
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
+                )}
+              </AccordionDetails>
+            </Accordion>
+          </Box>
         </Grid>
 
-        {/* Blog Defaults + Info */}
+        {/* Sidebar Settings */}
         <Grid size={{ xs: 12, lg: 4 }}>
           {/* Global SEO Settings */}
           <Paper elevation={1} sx={{ p: 3, borderRadius: 3, border: '1px solid #e5eaef', mb: 3 }}>
@@ -314,54 +559,6 @@ export default function SitemapPage() {
             />
           </Paper>
 
-          <Paper elevation={1} sx={{ p: 3, borderRadius: 3, border: '1px solid #e5eaef', mb: 3 }}>
-            <Typography variant="h6" sx={{ fontWeight: 700, mb: 0.5 }}>Blog Post Defaults</Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-              Applied to all published blog posts in the sitemap.
-            </Typography>
-
-            <FormControl fullWidth size="small" sx={{ mb: 3 }}>
-              <InputLabel>Change Frequency</InputLabel>
-              <Select
-                value={config.blogDefaults?.changeFrequency || 'weekly'}
-                label="Change Frequency"
-                onChange={(e) =>
-                  setConfig((prev) => ({ ...prev, blogDefaults: { ...prev.blogDefaults, changeFrequency: e.target.value } }))
-                }
-              >
-                {FREQ_OPTIONS.map((f) => (
-                  <MenuItem key={f} value={f}>{f}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <Box>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" sx={{ fontWeight: 600 }}>Priority</Typography>
-                <Chip
-                  label={Number(config.blogDefaults?.priority || 0.6).toFixed(1)}
-                  size="small"
-                  sx={{ fontSize: '0.73rem', backgroundColor: '#EFF6FF', color: '#1A4FD6', fontWeight: 700 }}
-                />
-              </Box>
-              <Slider
-                min={0}
-                max={1}
-                step={0.1}
-                marks={PRIORITY_MARKS}
-                value={Number(config.blogDefaults?.priority || 0.6)}
-                onChange={(_, v) =>
-                  setConfig((prev) => ({ ...prev, blogDefaults: { ...prev.blogDefaults, priority: v } }))
-                }
-                sx={{ color: '#1A4FD6' }}
-              />
-              <Typography variant="caption" color="text.secondary">
-                Recommended: 0.6–0.8 for blog posts
-              </Typography>
-            </Box>
-          </Paper>
-
-          {/* Info card */}
           <Paper elevation={0} sx={{ p: 3, borderRadius: 3, border: '1px solid #e5eaef', backgroundColor: '#F8FAFC' }}>
             <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1.5 }}>Priority Guide</Typography>
             {[

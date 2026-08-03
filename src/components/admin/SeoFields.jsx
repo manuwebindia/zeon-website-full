@@ -18,6 +18,9 @@ export default function SeoFields({
   allowIndexing,
   autoSlug,
   onChange,
+  hideSlug = false,
+  indexingLabel = 'Allow Indexing',
+  indexingHelper = 'If unchecked, search engines will not index this page (adds a noindex tag).',
 }) {
   const handleSlugChange = (e) => {
     const value = e.target.value;
@@ -45,24 +48,25 @@ export default function SeoFields({
       </Typography>
 
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-        {/* URL Slug */}
-        <TextField
-          fullWidth
-          label="URL Slug"
-          variant="outlined"
-          value={slug}
-          onChange={handleSlugChange}
-          helperText={autoSlug ? "Auto-generated from title. Edit to customize." : "Custom slug entered."}
-          slotProps={{
-            input: {
-              startAdornment: (
-                <InputAdornment position="start" sx={{ opacity: 0.8 }}>
-                  /blog/
-                </InputAdornment>
-              ),
-            }
-          }}
-        />
+        {!hideSlug && (
+          <TextField
+            fullWidth
+            label="URL Slug"
+            variant="outlined"
+            value={slug}
+            onChange={handleSlugChange}
+            helperText={autoSlug ? "Auto-generated from title. Edit to customize." : "Custom slug entered."}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start" sx={{ opacity: 0.8 }}>
+                    /blog/
+                  </InputAdornment>
+                ),
+              }
+            }}
+          />
+        )}
 
         {/* SEO Title */}
         <Box>
@@ -133,10 +137,10 @@ export default function SeoFields({
             label={
               <Box>
                 <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                  Allow Indexing
+                  {indexingLabel}
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
-                  If unchecked, search engines will not index this blog post (adds a noindex tag).
+                  {indexingHelper}
                 </Typography>
               </Box>
             }

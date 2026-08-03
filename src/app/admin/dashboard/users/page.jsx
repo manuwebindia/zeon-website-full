@@ -74,6 +74,10 @@ function UserFormDialog({ open, onClose, onSave, editingUser, groups }) {
       setError('Password must be at least 8 characters'); return;
     }
     if (!groupId) { setError('Please select a group'); return; }
+    if (!editingUser && !email.trim()) {
+      setError('Email is required — login credentials are sent by email');
+      return;
+    }
     setSaving(true);
     setError('');
 
@@ -87,7 +91,7 @@ function UserFormDialog({ open, onClose, onSave, editingUser, groups }) {
       const res = await fetch(url, { method, headers: authHeaders(), body: JSON.stringify(body) });
       const data = await res.json();
       if (!res.ok) { setError(data.error || 'Failed to save'); return; }
-      onSave();
+      onSave(data);
       onClose();
     } catch {
       setError('Network error — please try again');
@@ -117,6 +121,8 @@ function UserFormDialog({ open, onClose, onSave, editingUser, groups }) {
           <TextField
             fullWidth label="Email" type="email" value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required={!editingUser}
+            helperText={editingUser ? 'Optional when editing' : 'Required — username, password, and login link are emailed here'}
           />
           <TextField
             fullWidth
@@ -126,14 +132,16 @@ function UserFormDialog({ open, onClose, onSave, editingUser, groups }) {
             onChange={(e) => setPassword(e.target.value)}
             required={!editingUser}
             helperText="Minimum 8 characters"
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)} size="small">
-                    {showPassword ? <IconEyeOff size={18} /> : <IconEye size={18} />}
-                  </IconButton>
-                </InputAdornment>
-              ),
+            slotProps={{
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShowPassword(!showPassword)} size="small">
+                      {showPassword ? <IconEyeOff size={18} /> : <IconEye size={18} />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
             }}
           />
           <FormControl fullWidth required>
@@ -344,7 +352,16 @@ export default function UsersPage() {
       <UserFormDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        onSave={() => { fetchData(); showSnackbar(editingUser ? 'User updated' : 'User created'); }}
+        onSave={(result) => {
+          fetchData();
+          if (result?.emailSent) {
+            showSnackbar('User created and welcome email sent');
+          } else if (result?.emailError) {
+            showSnackbar(result.emailError, 'warning');
+          } else {
+            showSnackbar(editingUser ? 'User updated' : 'User created');
+          }
+        }}
         editingUser={editingUser}
         groups={groups}
       />

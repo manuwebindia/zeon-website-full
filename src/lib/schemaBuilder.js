@@ -1,15 +1,12 @@
 // src/lib/schemaBuilder.js
 // Generates JSON-LD structured data objects for blog posts
-// Conditionally outputs Article, FAQPage, or HowTo schema based on articleType
+
+import { normalizeSchemaBlocks } from './schemaBlocks';
 
 const DOMAIN = process.env.SITE_URL || 'https://admission.zeonacademy.com';
 const LOGO_URL = `${DOMAIN}/zeon-logo.png`;
 const ORG_NAME = 'Zeon Academy';
 
-/**
- * Safely converts a date value (string or Date) to ISO string.
- * Returns undefined if null/invalid.
- */
 function toISO(date) {
   if (!date) return undefined;
   try {
@@ -19,9 +16,6 @@ function toISO(date) {
   }
 }
 
-/**
- * Shared publisher/author block used across all schema types.
- */
 const PUBLISHER = {
   '@type': 'Organization',
   name: ORG_NAME,
@@ -32,10 +26,6 @@ const PUBLISHER = {
   },
 };
 
-/**
- * Standard BlogPosting / Article schema.
- * Used when articleType is 'Article' (default).
- */
 export function buildArticleSchema(blog) {
   const articleUrl = `${DOMAIN}/blog/${blog.slug}`;
   const imageUrl = blog.featuredImage
@@ -59,22 +49,14 @@ export function buildArticleSchema(blog) {
   };
 }
 
-/**
- * FAQPage schema.
- * Used when articleType is 'FAQPage'.
- * schemaFaqItems: [{ question: string, answer: string }]
- */
-export function buildFaqSchema(blog) {
+export function buildFaqSchema(blog, { fallbackToArticle = true } = {}) {
   const faqItems = Array.isArray(blog.schemaFaqItems) ? blog.schemaFaqItems : [];
-
-  // Filter out incomplete items
   const validItems = faqItems.filter(
     (item) => item.question?.trim() && item.answer?.trim()
   );
 
   if (validItems.length === 0) {
-    // Fallback to article schema if no valid FAQ items
-    return buildArticleSchema(blog);
+    return fallbackToArticle ? buildArticleSchema(blog) : null;
   }
 
   return {
@@ -91,22 +73,14 @@ export function buildFaqSchema(blog) {
   };
 }
 
-/**
- * HowTo schema.
- * Used when articleType is 'HowTo'.
- * schemaHowToSteps: [{ name: string, text: string }]
- */
-export function buildHowToSchema(blog) {
+export function buildHowToSchema(blog, { fallbackToArticle = true } = {}) {
   const steps = Array.isArray(blog.schemaHowToSteps) ? blog.schemaHowToSteps : [];
-
-  // Filter incomplete steps
   const validSteps = steps.filter(
     (step) => step.name?.trim() && step.text?.trim()
   );
 
   if (validSteps.length === 0) {
-    // Fallback to article schema if no valid steps
-    return buildArticleSchema(blog);
+    return fallbackToArticle ? buildArticleSchema(blog) : null;
   }
 
   const imageUrl = blog.featuredImage
@@ -128,17 +102,34 @@ export function buildHowToSchema(blog) {
   };
 }
 
-/**
- * Main entry point — selects the correct schema builder based on articleType.
- */
-export function buildJsonLd(blog) {
-  switch (blog.articleType) {
+function buildSchemaForBlock(blog, block) {
+  const blogWithBlock = {
+    ...blog,
+    articleType: block.type,
+    schemaFaqItems: block.faqItems,
+    schemaHowToSteps: block.howToSteps,
+  };
+
+  switch (block.type) {
     case 'FAQPage':
-      return buildFaqSchema(blog);
+      return buildFaqSchema(blogWithBlock, { fallbackToArticle: false });
     case 'HowTo':
-      return buildHowToSchema(blog);
+      return buildHowToSchema(blogWithBlock, { fallbackToArticle: false });
     case 'Article':
     default:
-      return buildArticleSchema(blog);
+      return buildArticleSchema(blogWithBlock);
   }
+}
+
+export function buildJsonLdList(blog) {
+  const blocks = normalizeSchemaBlocks(blog);
+  const schemas = blocks
+    .map((block) => buildSchemaForBlock(blog, block))
+    .filter(Boolean);
+
+  return schemas.length > 0 ? schemas : [buildArticleSchema(blog)];
+}
+
+export function buildJsonLd(blog) {
+  return buildJsonLdList(blog)[0];
 }

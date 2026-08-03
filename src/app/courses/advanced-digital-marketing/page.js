@@ -10,17 +10,16 @@ import FreeDemoForm from "../../../components/FreeDemoForm";
 import CourseTestimonials from "../../../components/CourseTestimonials";
 import Footer from "../../../components/Footer";
 import BrochureDownloadButton from "../../../components/BrochureDownloadButton";
+import GoogleReviewsLabel from "../../../components/GoogleReviewsLabel";
 
 const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
 
-export const metadata = {
-  title: "Advanced Digital Marketing Course in Kochi | Zeon Academy",
-  description: "Join our Advanced Digital Marketing Course to learn SEO, Social Media Marketing, Google Ads, and WordPress. Complete with an internship and placement assistance.",
-  alternates: {
-    canonical: "/courses/advanced-digital-marketing",
-  },
-};
+import { buildPageMetadata } from "@/lib/pageSeo";
+
+export async function generateMetadata() {
+  return buildPageMetadata("/courses/advanced-digital-marketing");
+}
 
 export default function AdvancedDigitalMarketingPage() {
   const whatYouWillLearn = [
@@ -67,8 +66,9 @@ export default function AdvancedDigitalMarketingPage() {
             <Image
               src="/courses/courses-fin.webp"
               alt="Zeon Academy Courses Banner"
-              sizes="1600px"
+              sizes="100vw"
               fill
+              
               priority
               className="object-cover object-center opacity-100 pointer-events-none"
             />
@@ -104,7 +104,7 @@ export default function AdvancedDigitalMarketingPage() {
                       <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                     </div>
                   </div>
-                  <span className="text-body font-medium text-[0.95rem]">Google Reviews</span>
+                  <GoogleReviewsLabel />
                 </div>
               </div>
             </div>

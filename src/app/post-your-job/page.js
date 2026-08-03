@@ -198,15 +198,15 @@ export default function PostYourJobPage() {
                 <div className="w-16 h-16 rounded-full bg-green-50 border border-green-200 flex items-center justify-center mx-auto mb-5">
                   <FaCheckCircle className="text-green-500 text-3xl" />
                 </div>
-                <h2 className="text-[1.8rem] font-extrabold text-[#222831] mb-3">Job Posted Successfully!</h2>
+                <h2 className="text-[1.8rem] font-extrabold text-[#222831] mb-3">Submission Received!</h2>
                 <p className="text-[#555] text-[1rem] leading-relaxed mb-7 max-w-md mx-auto">
-                  Thank you! Our placement team will review your listing and get in touch with you shortly.
+                  Thank you! Your job listing is pending admin review. Once approved, it will appear on our Placements page.
                 </p>
                 <Link
-                  href="/placements"
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-primary text-white font-bold text-[0.95rem] hover:bg-primary/90 transition-all duration-300 shadow-[0_4px_20px_rgba(255,68,68,0.25)]"
+                  href="/"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-border text-heading font-bold text-[0.95rem] hover:border-primary hover:text-primary transition-all duration-300"
                 >
-                  View Placement Cell
+                  Back to Home
                 </Link>
               </div>
             ) : (
@@ -237,7 +237,7 @@ export default function PostYourJobPage() {
                         <FaBuilding className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#aaa] text-sm" />
                         <input
                           type="text"
-                          placeholder="e.g. Acme Digital Pvt. Ltd."
+                          placeholder="Company Name"
                           value={form.companyName}
                           onChange={set("companyName")}
                           className={inputCls(errors.companyName) + " pl-9"}

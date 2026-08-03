@@ -6,7 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:push": "node --env-file=.env.local node_modules/prisma/build/index.js db push",
+    "db:seed": "node --env-file=.env.local node_modules/prisma/build/index.js db seed",
+    "db:generate": "node --env-file=.env.local node_modules/prisma/build/index.js generate",
+    "postinstall": "node node_modules/prisma/build/index.js generate"
+  },
+  "prisma": {
+    "seed": "node --env-file=.env.local prisma/seed.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

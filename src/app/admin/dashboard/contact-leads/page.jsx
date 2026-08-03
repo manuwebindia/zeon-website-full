@@ -302,7 +302,7 @@ export default function ContactLeadsPage() {
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Name</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Phone / Email</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Source</TableCell>
-                <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Service / Plan</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Message</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem', minWidth: 140 }}>Status</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Date</TableCell>
                 <TableCell align="right" sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Actions</TableCell>
@@ -345,8 +345,21 @@ export default function ContactLeadsPage() {
                         )}
                       </Box>
                     ) : (
-                      <Typography variant="body2" sx={{ fontSize: '0.82rem' }}>
-                        {lead.service || '—'}
+                      <Typography
+                        variant="body2"
+                        title={lead.message?.trim() || undefined}
+                        sx={{
+                          fontSize: '0.82rem',
+                          color: 'text.secondary',
+                          lineHeight: 1.4,
+                          maxWidth: 280,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {lead.message?.trim() || '—'}
                       </Typography>
                     )}
                   </TableCell>
@@ -443,15 +456,9 @@ export default function ContactLeadsPage() {
 
                 {/* Source-specific fields */}
                 {detailLead.source === 'contact' ? (
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
-                    <Box>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', fontSize: '0.65rem' }}>Service</Typography>
-                      <Typography variant="body2" sx={{ mt: 0.3 }}>{detailLead.service || '—'}</Typography>
-                    </Box>
-                    <Box>
-                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', fontSize: '0.65rem' }}>Message</Typography>
-                      <Typography variant="body2" sx={{ mt: 0.3, whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{detailLead.message || '—'}</Typography>
-                    </Box>
+                  <Box>
+                    <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', fontSize: '0.65rem' }}>Message</Typography>
+                    <Typography variant="body2" sx={{ mt: 0.3, whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{detailLead.message || '—'}</Typography>
                   </Box>
                 ) : (
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>

@@ -1,16 +1,95 @@
 {
   "staticPages": [
-    { "path": "/", "changeFrequency": "weekly", "priority": 1.0, "enabled": true, "canonical": "" },
-    { "path": "/about", "changeFrequency": "monthly", "priority": 0.8, "enabled": true, "canonical": "" },
-    { "path": "/courses", "changeFrequency": "monthly", "priority": 0.8, "enabled": true, "canonical": "" },
-    { "path": "/blog", "changeFrequency": "daily", "priority": 0.9, "enabled": true, "canonical": "" },
-    { "path": "/contact", "changeFrequency": "monthly", "priority": 0.7, "enabled": true, "canonical": "" }
+    {
+      "path": "/",
+      "changeFrequency": "weekly",
+      "priority": 1,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/about",
+      "changeFrequency": "monthly",
+      "priority": 0.8,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/courses",
+      "changeFrequency": "monthly",
+      "priority": 0.8,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/blog",
+      "changeFrequency": "daily",
+      "priority": 0.9,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/contact",
+      "changeFrequency": "monthly",
+      "priority": 0.7,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/courses/seo-specialist",
+      "changeFrequency": "monthly",
+      "priority": 0.75,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/courses/ads-specialist",
+      "changeFrequency": "monthly",
+      "priority": 0.75,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/courses/advanced-digital-marketing",
+      "changeFrequency": "monthly",
+      "priority": 0.75,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/placements",
+      "changeFrequency": "monthly",
+      "priority": 0.7,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/testimonials",
+      "changeFrequency": "monthly",
+      "priority": 0.6,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/post-your-job",
+      "changeFrequency": "monthly",
+      "priority": 0.6,
+      "enabled": true,
+      "canonical": ""
+    },
+    {
+      "path": "/thank-you",
+      "changeFrequency": "yearly",
+      "priority": 0.3,
+      "enabled": false,
+      "canonical": ""
+    }
   ],
   "blogDefaults": {
     "changeFrequency": "weekly",
     "priority": 0.6
   },
   "globalSettings": {
-    "canonicalBaseUrl": "https://admission.zeonacademy.com"
+    "canonicalBaseUrl": "https://new.zeonacademy.com"
   }
 }

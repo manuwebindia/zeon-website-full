@@ -55,6 +55,7 @@ import SeoScorePanel from './SeoScorePanel';
 import TocPreview from './TocPreview';
 import SocialFields from './SocialFields';
 import SchemaMarkupFields from './SchemaMarkupFields';
+import { createEmptySchemaBlock, normalizeSchemaBlocks, syncLegacySchemaFields } from '@/lib/schemaBlocks';
 
 export default function BlogEditor({ mode, initialData }) {
   const router = useRouter();
@@ -84,9 +85,7 @@ export default function BlogEditor({ mode, initialData }) {
   const [canonicalUrl, setCanonicalUrl] = useState('');
 
   // ── Phase 4: Schema Markup ─────────────────────────────────
-  const [articleType, setArticleType] = useState('Article');
-  const [schemaFaqItems, setSchemaFaqItems] = useState([]);
-  const [schemaHowToSteps, setSchemaHowToSteps] = useState([]);
+  const [schemaBlocks, setSchemaBlocks] = useState([createEmptySchemaBlock('Article')]);
 
   // ── Auto-save (Auto-draft) state and refs ─────────────────
   const [autoDraftId, setAutoDraftId] = useState(initialData?.id || null);
@@ -146,9 +145,7 @@ export default function BlogEditor({ mode, initialData }) {
       setOgImage(initialData.ogImage || '');
       setCanonicalUrl(initialData.canonicalUrl || '');
       // Phase 4
-      setArticleType(initialData.articleType || 'Article');
-      setSchemaFaqItems(Array.isArray(initialData.schemaFaqItems) ? initialData.schemaFaqItems : []);
-      setSchemaHowToSteps(Array.isArray(initialData.schemaHowToSteps) ? initialData.schemaHowToSteps : []);
+      setSchemaBlocks(normalizeSchemaBlocks(initialData));
       
       const t = setTimeout(() => {
         hasLoadedData.current = true;
@@ -187,9 +184,7 @@ export default function BlogEditor({ mode, initialData }) {
       ogDescription,
       ogImage,
       canonicalUrl,
-      articleType,
-      schemaFaqItems,
-      schemaHowToSteps,
+      schemaBlocks,
       autoDraftId,
       isDirty,
     };
@@ -210,9 +205,7 @@ export default function BlogEditor({ mode, initialData }) {
     ogDescription,
     ogImage,
     canonicalUrl,
-    articleType,
-    schemaFaqItems,
-    schemaHowToSteps,
+    schemaBlocks,
     autoDraftId,
     isDirty,
   ]);
@@ -239,9 +232,7 @@ export default function BlogEditor({ mode, initialData }) {
     ogDescription,
     ogImage,
     canonicalUrl,
-    articleType,
-    schemaFaqItems,
-    schemaHowToSteps,
+    schemaBlocks,
   ]);
 
   // ── Silent Auto-Save API Dispatcher ───────────────────────
@@ -301,9 +292,7 @@ export default function BlogEditor({ mode, initialData }) {
         ogDescription: state.ogDescription,
         ogImage: state.ogImage,
         canonicalUrl: state.canonicalUrl,
-        articleType: state.articleType,
-        schemaFaqItems: state.schemaFaqItems,
-        schemaHowToSteps: state.schemaHowToSteps,
+        ...syncLegacySchemaFields(state.schemaBlocks),
         isAutoDraft: true, // Decision 6: informs API to bypass revalidatePath
       };
 
@@ -391,9 +380,7 @@ export default function BlogEditor({ mode, initialData }) {
     ogDescription,
     ogImage,
     canonicalUrl,
-    articleType,
-    schemaFaqItems,
-    schemaHowToSteps,
+    schemaBlocks,
   ]);
 
   // ── Tab Close / Navigation Warn Guard ─────────────────────
@@ -602,9 +589,7 @@ export default function BlogEditor({ mode, initialData }) {
       case 'ogImage':        setOgImage(value);         break;
       case 'canonicalUrl':   setCanonicalUrl(value);   break;
       // Phase 4 — Schema
-      case 'articleType':       setArticleType(value);       break;
-      case 'schemaFaqItems':    setSchemaFaqItems(value);    break;
-      case 'schemaHowToSteps':  setSchemaHowToSteps(value);  break;
+      case 'schemaBlocks': setSchemaBlocks(value); break;
       default: break;
     }
   };
@@ -679,9 +664,7 @@ export default function BlogEditor({ mode, initialData }) {
       ogImage,
       canonicalUrl,
       // Phase 4
-      articleType,
-      schemaFaqItems,
-      schemaHowToSteps,
+      ...syncLegacySchemaFields(schemaBlocks),
     };
 
     try {
@@ -869,9 +852,7 @@ export default function BlogEditor({ mode, initialData }) {
 
           {/* Phase 4 — Schema Markup */}
           <SchemaMarkupFields
-            articleType={articleType}
-            schemaFaqItems={schemaFaqItems}
-            schemaHowToSteps={schemaHowToSteps}
+            schemaBlocks={schemaBlocks}
             onChange={handleFieldChange}
           />
         </Grid>

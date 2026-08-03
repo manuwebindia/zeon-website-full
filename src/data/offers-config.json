@@ -1,0 +1,41 @@
+{
+  "popup": {
+    "enabled": true,
+    "delaySeconds": 2,
+    "durationMinutes": 5,
+    "badgeText": "Limited Time Offer",
+    "headline": "Get",
+    "headlineAccent": "₹3,000 OFF",
+    "subtitle": "on Your Digital Marketing Course",
+    "description": "Use code at enquiry — seats are limited!",
+    "offerCode": "OFFER-2026",
+    "ctaText": "Claim Offer on WhatsApp",
+    "secondaryCtaText": "Not Now",
+    "footerText": "No spam · Code sent instantly via WhatsApp",
+    "whatsappPhone": "917558888252",
+    "miniBannerText": "Exclusive Offer Expiring Soon!",
+    "miniBannerTextMobile": "Offer Expiring Soon!",
+    "miniBannerCta": "CLAIM"
+  },
+  "page": {
+    "title": "Offers & Free Resources",
+    "subtitle": "Download handbooks, guides, and exclusive resources from Zeon Academy.",
+    "heroTagline": "Exclusive Downloads"
+  },
+  "offers": [
+    {
+      "id": "free-handbook-2026",
+      "enabled": true,
+      "image": "/uploads/blog/blog-1785760243897-993387859.webp",
+      "tagline": "Download",
+      "heading": "Free Handbook",
+      "downloadButtonText": "DOWNLOAD NOW!!!",
+      "downloadUrl": "/brochures/Advanced_Digital Marketing_Zeon_Academy.pdf",
+      "text": "Get Free Handbook",
+      "validUntil": "2026-08-28",
+      "validUntilLabel": "Valid til:",
+      "showDownloadButton": true,
+      "sortOrder": 0
+    }
+  ]
+}

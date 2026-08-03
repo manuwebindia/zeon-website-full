@@ -26,6 +26,7 @@ export default function AdminSettingsPage() {
   const [authorName, setAuthorName] = React.useState('Zeon Academy');
   const [authorImage, setAuthorImage] = React.useState('');
   const [universalNoIndex, setUniversalNoIndex] = React.useState(false);
+  const [adminLoginUrl, setAdminLoginUrl] = React.useState('');
   const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState(false);
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -46,6 +47,7 @@ export default function AdminSettingsPage() {
           setAuthorName(data.authorName || 'Zeon Academy');
           setAuthorImage(data.authorImage || '');
           setUniversalNoIndex(data.universalNoIndex || false);
+          setAdminLoginUrl(data.adminLoginUrl || '');
           
           // Seed local storage as well for fast load fallback
           localStorage.setItem('zeon_author_name', data.authorName || 'Zeon Academy');
@@ -77,6 +79,7 @@ export default function AdminSettingsPage() {
           authorName: authorName.trim(),
           authorImage: authorImage.trim(),
           universalNoIndex,
+          adminLoginUrl: adminLoginUrl.trim(),
         }),
       });
 
@@ -265,6 +268,57 @@ export default function AdminSettingsPage() {
                 </Button>
               </Box>
             </Box>
+          </Paper>
+        </Grid>
+
+        {/* Admin Access Settings */}
+        <Grid size={{ xs: 12 }}>
+          <Paper
+            elevation={1}
+            sx={{
+              p: 4,
+              borderRadius: 3,
+              border: '1px solid #e5eaef',
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
+              <IconLayoutSidebar size={24} style={{ color: '#FF4444' }} />
+              <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                Admin Access
+              </Typography>
+            </Box>
+
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+              Set the admin panel login URL. This link is included in welcome emails when new admin users are created.
+            </Typography>
+
+            <TextField
+              fullWidth
+              label="Admin Login URL"
+              variant="outlined"
+              value={adminLoginUrl}
+              onChange={(e) => setAdminLoginUrl(e.target.value)}
+              placeholder="https://yourdomain.com/admin"
+              helperText="Must start with http:// or https://. Leave blank to use the default site URL + /admin."
+              sx={{ mb: 3 }}
+            />
+
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSave}
+              disabled={saving}
+              sx={{
+                py: 1.4,
+                px: 4,
+                textTransform: 'none',
+                borderRadius: 2,
+                fontWeight: 600,
+                boxShadow: '0 4px 12px rgba(255, 68, 68, 0.2)',
+              }}
+            >
+              {saving ? 'Saving...' : 'Save Admin Access Settings'}
+            </Button>
           </Paper>
         </Grid>
       </Grid>

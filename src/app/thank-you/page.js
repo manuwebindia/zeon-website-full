@@ -17,17 +17,11 @@ import Navbar from "../../components/Navbar";
 
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
-export const metadata = {
-  title: "Thank You | Zeon Academy",
-  description: "Thank you for reaching out to Zeon Academy. Our team will get back to you shortly.",
-  alternates: {
-    canonical: "/thank-you",
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
-};
+import { buildPageMetadata } from "@/lib/pageSeo";
+
+export async function generateMetadata() {
+  return buildPageMetadata("/thank-you");
+}
 
 export default function ThankYouPage() {
   return (

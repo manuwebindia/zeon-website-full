@@ -20,13 +20,11 @@ import ScrollReveal from "../../components/ScrollReveal";
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
-export const metadata = {
-  title: "About Us | Zeon Academy Kochi",
-  description: "Learn about Zeon Academy, the leading digital marketing training institute in Kochi, Kerala. An offshoot of Web India Solutions (WIS) with 17+ years of experience.",
-  alternates: {
-    canonical: "/about",
-  },
-};
+import { buildPageMetadata } from "@/lib/pageSeo";
+
+export async function generateMetadata() {
+  return buildPageMetadata("/about");
+}
 
 export default function AboutPage() {
   return (
@@ -76,13 +74,15 @@ export default function AboutPage() {
                   <div className="absolute -top-6 -left-6 w-24 h-24 bg-dots-pattern opacity-40" />
                   <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-dots-pattern opacity-40" />
 
-                  <div className="bg-surface border border-border p-6 rounded-[28px] shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative z-10">
-                    <div className="relative w-full h-[320px] rounded-2xl overflow-hidden">
+                  <div className="bg-surface shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative z-10">
+                    <div className="relative w-full h-[360px] md:h-[480px] overflow-hidden">
                       <Image
-                        src="/live-demo.webp"
+                        src="/about/zeon-aboutus.jpeg"
                         alt="WIS & Zeon Office Environment"
                         fill
-                        className="object-cover"
+                        sizes="100vw"
+                        quality={100}
+                        className="object-cover  rounded-2xl md:rounded-l-3xl"
                       />
                     </div>
                   </div>

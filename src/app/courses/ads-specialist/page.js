@@ -12,6 +12,7 @@ import FreeDemoForm from "../../../components/FreeDemoForm";
 import CourseTestimonials from "../../../components/CourseTestimonials";
 import Footer from "../../../components/Footer";
 import BrochureDownloadButton from "../../../components/BrochureDownloadButton";
+import GoogleReviewsLabel from "../../../components/GoogleReviewsLabel";
 
 const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
@@ -65,8 +66,9 @@ export default function AdSpecialistPage() {
             <Image
               src="/courses/courses-fin.webp"
               alt="Zeon Academy Courses Banner"
-              sizes="1000px"
+              sizes="100vw"
               fill
+              
               priority
               className="object-cover object-center opacity-100 pointer-events-none"
             />
@@ -102,7 +104,7 @@ export default function AdSpecialistPage() {
                       <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
                     </div>
                   </div>
-                  <span className="text-body font-medium text-[0.95rem]">Google Reviews</span>
+                  <GoogleReviewsLabel />
                 </div>
               </div>
             </div>

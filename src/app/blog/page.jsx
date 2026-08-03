@@ -6,11 +6,11 @@ import Footer from '@/components/Footer';
 import prisma from '@/lib/db';
 import { ArrowRight, Clock, Calendar, BookOpen } from 'lucide-react';
 
-export const metadata = {
-  title: 'Digital Marketing Blog | Tips, Guides & Insights | Zeon Academy',
-  description:
-    'Explore expert insights on digital marketing, SEO, Google Ads, Meta Ads, and career growth strategies from Kerala\'s #1 digital marketing academy — Zeon.',
-};
+import { buildPageMetadata } from '@/lib/pageSeo';
+
+export async function generateMetadata() {
+  return buildPageMetadata('/blog');
+}
 
 const getPublishedBlogs = unstable_cache(
   async () => {

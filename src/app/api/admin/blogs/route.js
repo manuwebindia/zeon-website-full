@@ -4,6 +4,7 @@ import prisma from '@/lib/db';
 import { requirePermission } from '@/lib/auth';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { revalidatePath, revalidateTag } from 'next/cache';
+import { resolveSchemaPayload } from '@/lib/schemaBlocks';
 
 // GET all blogs for admin list
 export async function GET(request) {
@@ -64,11 +65,19 @@ export async function POST(request) {
       ogDescription,
       ogImage,
       canonicalUrl,
+      schemaBlocks,
       articleType,
       schemaFaqItems,
       schemaHowToSteps,
       isAutoDraft,
     } = data;
+
+    const schemaData = resolveSchemaPayload({
+      schemaBlocks,
+      articleType,
+      schemaFaqItems,
+      schemaHowToSteps,
+    });
 
     // Validation for title
     if (!title || (isAutoDraft && title.trim().length < 3)) {
@@ -133,9 +142,7 @@ export async function POST(request) {
         ogDescription: ogDescription || null,
         ogImage: ogImage || null,
         canonicalUrl: canonicalUrl || null,
-        articleType: articleType || 'Article',
-        schemaFaqItems: schemaFaqItems || null,
-        schemaHowToSteps: schemaHowToSteps || null,
+        ...schemaData,
       }
     });
 
@@ -143,6 +150,7 @@ export async function POST(request) {
       try {
         revalidatePath('/blog');
         revalidatePath(`/blog/${slug}`);
+        revalidatePath('/sitemap.xml');
         revalidateTag('blogs');
       } catch (err) {
         console.error('Revalidation failed after creation:', err);

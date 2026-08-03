@@ -1,11 +1,11 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useMediaQuery, Box, Drawer, Avatar, Typography, IconButton } from '@mui/material';
 import {
-  Logo,
   Sidebar as MUISidebar,
   MenuItem,
 } from 'react-mui-sidebar';
@@ -28,6 +28,8 @@ import {
   IconMessage,
   IconChartBar,
   IconMail,
+  IconBriefcase,
+  IconGift,
 } from '@tabler/icons-react';
 
 // ── Permission helpers ────────────────────────────────────────────────────────
@@ -89,30 +91,6 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
     const displayName = user.displayName || user.username || 'Zeon Admin';
     const avatarUrl = user.avatarUrl || '';
 
-    // ── Chatbot Leads badge (new leads count) ──────────────────────────────
-    const [newLeadsCount, setNewLeadsCount] = React.useState(0);
-    React.useEffect(() => {
-      if (!can('chatbot-leads.view')) return;
-      const token = typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
-      if (!token) return;
-      const fetchCount = async () => {
-        try {
-          const res = await fetch('/api/admin/chatbot-leads/count', {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          if (res.ok) {
-            const data = await res.json();
-            setNewLeadsCount(data.count ?? 0);
-          }
-        } catch {
-          // silently fail — badge is non-critical
-        }
-      };
-      fetchCount();
-      const interval = setInterval(fetchCount, 60_000);
-      return () => clearInterval(interval);
-    }, []);
-
     // ── Contact Leads badge (new leads count) ──────────────────────────────
     const [newContactCount, setNewContactCount] = React.useState(0);
     React.useEffect(() => {
@@ -135,6 +113,30 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
       return () => clearInterval(interval);
     }, []);
 
+    // ── Job Postings badge (pending count) ───────────────────────────────
+    const [pendingJobsCount, setPendingJobsCount] = React.useState(0);
+    React.useEffect(() => {
+      if (!can('job-postings.view')) return;
+      const token = typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
+      if (!token) return;
+      const fetchCount = async () => {
+        try {
+          const res = await fetch('/api/admin/job-postings/count', {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          if (res.ok) {
+            const data = await res.json();
+            setPendingJobsCount(data.count ?? 0);
+          }
+        } catch {
+          // silently fail
+        }
+      };
+      fetchCount();
+      const interval = setInterval(fetchCount, 60_000);
+      return () => clearInterval(interval);
+    }, []);
+
     return (
       <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <MUISidebar
@@ -145,8 +147,19 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           style={{ flexGrow: 1 }}
         >
           {/* Logo */}
-          <Box sx={{ px: 2, py: 3, display: 'flex', justifyContent: 'center' }}>
-            <TypographyVariantWrapper isCollapsed={isCollapsed} />
+          <Box
+            sx={{
+              px: isCollapsed ? 1 : 2,
+              py: isCollapsed ? 2 : 3,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              minHeight: isCollapsed ? 56 : 'auto',
+              position: 'relative',
+              zIndex: 1,
+            }}
+          >
+            <AdminSidebarLogo isCollapsed={isCollapsed} />
           </Box>
 
           {/* ── Always visible ─────────────────────── */}
@@ -204,86 +217,6 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                 component={Link}
               >
                 {!isCollapsed && "Media Library"}
-              </MenuItem>
-            </Box>
-          )}
-
-          {/* ── Chatbot Leads ───────────────────────── */}
-          {can('chatbot-leads.view') && (
-            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
-              <MenuItem
-                isSelected={pathname === '/admin/dashboard/chatbot-leads'}
-                borderRadius="8px"
-                icon={
-                  <Box sx={{ position: 'relative', display: 'inline-flex' }}>
-                    <IconMessage stroke={1.5} size="1.3rem" />
-                    {newLeadsCount > 0 && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: -6,
-                          right: -8,
-                          minWidth: 16,
-                          height: 16,
-                          borderRadius: '8px',
-                          backgroundColor: '#EF4444',
-                          color: '#fff',
-                          fontSize: '0.6rem',
-                          fontWeight: 700,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          px: '3px',
-                          lineHeight: 1,
-                        }}
-                      >
-                        {newLeadsCount > 99 ? '99+' : newLeadsCount}
-                      </Box>
-                    )}
-                  </Box>
-                }
-                link="/admin/dashboard/chatbot-leads"
-                component={Link}
-              >
-                {!isCollapsed && (
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: '100%', justifyContent: 'space-between' }}>
-                    <span>Chatbot Leads</span>
-                    {newLeadsCount > 0 && (
-                      <Box
-                        sx={{
-                          minWidth: 20,
-                          height: 18,
-                          borderRadius: '9px',
-                          backgroundColor: '#EF4444',
-                          color: '#fff',
-                          fontSize: '0.65rem',
-                          fontWeight: 700,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          px: '5px',
-                        }}
-                      >
-                        {newLeadsCount > 99 ? '99+' : newLeadsCount}
-                      </Box>
-                    )}
-                  </Box>
-                )}
-              </MenuItem>
-            </Box>
-          )}
-
-          {/* ── Chat Analytics ──────────────────────── */}
-          {can('chat-analytics.view') && (
-            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
-              <MenuItem
-                isSelected={pathname === '/admin/dashboard/chat-analytics'}
-                borderRadius="8px"
-                icon={<IconChartBar stroke={1.5} size="1.3rem" />}
-                link="/admin/dashboard/chat-analytics"
-                component={Link}
-              >
-                {!isCollapsed && 'Chat Analytics'}
               </MenuItem>
             </Box>
           )}
@@ -349,7 +282,97 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
             </Box>
           )}
 
+          {/* ── Job Postings ────────────────────────── */}
+          {can('job-postings.view') && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              <MenuItem
+                isSelected={pathname === '/admin/dashboard/job-postings'}
+                borderRadius="8px"
+                icon={
+                  <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+                    <IconBriefcase stroke={1.5} size="1.3rem" />
+                    {pendingJobsCount > 0 && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: -6, right: -8,
+                          minWidth: 16, height: 16,
+                          borderRadius: '8px',
+                          backgroundColor: '#EF4444',
+                          color: '#fff',
+                          fontSize: '0.6rem',
+                          fontWeight: 700,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          px: '3px', lineHeight: 1,
+                        }}
+                      >
+                        {pendingJobsCount > 99 ? '99+' : pendingJobsCount}
+                      </Box>
+                    )}
+                  </Box>
+                }
+                link="/admin/dashboard/job-postings"
+                component={Link}
+              >
+                {!isCollapsed && (
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, width: '100%', justifyContent: 'space-between' }}>
+                    <span>Job Postings</span>
+                    {pendingJobsCount > 0 && (
+                      <Box
+                        sx={{
+                          minWidth: 20, height: 18,
+                          borderRadius: '9px',
+                          backgroundColor: '#EF4444',
+                          color: '#fff',
+                          fontSize: '0.65rem',
+                          fontWeight: 700,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          px: '5px',
+                        }}
+                      >
+                        {pendingJobsCount > 99 ? '99+' : pendingJobsCount}
+                      </Box>
+                    )}
+                  </Box>
+                )}
+              </MenuItem>
+            </Box>
+          )}
+
+          {/* ── Offers ──────────────────────────────── */}
+          {can('offers.manage') && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              <MenuItem
+                isSelected={pathname === '/admin/dashboard/offers'}
+                borderRadius="8px"
+                icon={<IconGift stroke={1.5} size="1.3rem" />}
+                link="/admin/dashboard/offers"
+                component={Link}
+              >
+                {!isCollapsed && "Offers"}
+              </MenuItem>
+            </Box>
+          )}
+
           {/* ── SEO / Sitemap ───────────────────────── */}
+          {can('seo.manage') && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              <MenuItem
+                isSelected={pathname === '/admin/dashboard/pages'}
+                borderRadius="8px"
+                icon={<IconFiles stroke={1.5} size="1.3rem" />}
+                link="/admin/dashboard/pages"
+                component={Link}
+              >
+                {!isCollapsed && "Pages"}
+              </MenuItem>
+            </Box>
+          )}
+
           {can('seo.manage') && (
             <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
               <MenuItem
@@ -441,38 +464,27 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
 
           {/* ── Divider & Coming Soon section ──────── */}
           {!isCollapsed ? (
-            <Box px={3} py={1} mt={2} mb={1}>
+            <Box
+              px={3}
+              mt={3}
+              mb={2}
+              pt={2.5}
+              pb={2}
+              sx={{ borderTop: '1px solid #eff2f7' }}
+            >
               <Typography variant="caption" sx={{ textTransform: 'uppercase', fontWeight: 700, color: 'text.secondary', letterSpacing: '1px', fontSize: '0.68rem', opacity: 0.8, display: 'flex', justifyContent: 'center' }}>
                 Coming Soon
               </Typography>
             </Box>
           ) : (
-            <Box sx={{ borderBottom: '1px solid #eff2f7', my: 2, mx: 2 }} />
+            <Box sx={{ borderBottom: '1px solid #eff2f7', my: 3, mx: 2 }} />
           )}
-
-          {/* ── Pages (Coming Soon) ─────────────────── */}
-          <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
-            <MenuItem
-              isSelected={false}
-              borderRadius="8px"
-              icon={<IconFiles stroke={1.5} size="1.3rem" />}
-              link="/admin/dashboard/settings"
-              component={Link}
-            >
-              {!isCollapsed && (
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
-                  <span>All Pages</span>
-                  <span style={{ fontSize: '0.62rem', backgroundColor: '#EFF6FF', color: '#1A4FD6', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>SOON</span>
-                </Box>
-              )}
-            </MenuItem>
-          </Box>
 
           {/* ── Analytics (Coming Soon) ─────────────── */}
           {can('analytics.view') && (
             <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
               <MenuItem
-                isSelected={pathname === '/admin/dashboard/insights'}
+                isSelected={false}
                 borderRadius="8px"
                 icon={<IconChartLine stroke={1.5} size="1.3rem" />}
                 link="/admin/dashboard/settings"
@@ -481,6 +493,46 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                 {!isCollapsed && (
                   <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
                     <span>Insights</span>
+                    <span style={{ fontSize: '0.62rem', backgroundColor: '#EFF6FF', color: '#1A4FD6', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>SOON</span>
+                  </Box>
+                )}
+              </MenuItem>
+            </Box>
+          )}
+
+          {/* ── Chatbot Leads (Coming Soon) ──────────── */}
+          {can('chatbot-leads.view') && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              <MenuItem
+                isSelected={false}
+                borderRadius="8px"
+                icon={<IconMessage stroke={1.5} size="1.3rem" />}
+                link="/admin/dashboard/settings"
+                component={Link}
+              >
+                {!isCollapsed && (
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <span>Chatbot Leads</span>
+                    <span style={{ fontSize: '0.62rem', backgroundColor: '#EFF6FF', color: '#1A4FD6', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>SOON</span>
+                  </Box>
+                )}
+              </MenuItem>
+            </Box>
+          )}
+
+          {/* ── Chat Analytics (Coming Soon) ────────── */}
+          {can('chat-analytics.view') && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              <MenuItem
+                isSelected={false}
+                borderRadius="8px"
+                icon={<IconChartBar stroke={1.5} size="1.3rem" />}
+                link="/admin/dashboard/settings"
+                component={Link}
+              >
+                {!isCollapsed && (
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+                    <span>Chat Analytics</span>
                     <span style={{ fontSize: '0.62rem', backgroundColor: '#EFF6FF', color: '#1A4FD6', padding: '2px 6px', borderRadius: '4px', fontWeight: 800 }}>SOON</span>
                   </Box>
                 )}
@@ -579,8 +631,8 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           sx={{
             position: 'absolute',
             right: '-14px',
-            top: '24px',
-            zIndex: 1201, // Float above fixed Drawer (default zIndex 1200)
+            top: isCollapsed ? 76 : 28,
+            zIndex: 1201,
             color: 'primary.main',
             border: '1px solid #e5eaef',
             borderRadius: '50%',
@@ -588,7 +640,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
             boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
             width: 28,
             height: 28,
-            transition: 'background-color 0.2s',
+            transition: 'top 0.2s, background-color 0.2s',
             '&:hover': {
               backgroundColor: '#f8fafc',
             },
@@ -619,23 +671,36 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
   );
 };
 
-const TypographyVariantWrapper = ({ isCollapsed }) => (
-  <Box sx={{ textAlign: 'center' }}>
-    <Link href="/admin/dashboard" style={{ textDecoration: 'none' }}>
-      <span
-        style={{
-          fontSize: isCollapsed ? '1.5rem' : '1.25rem',
-          fontWeight: 800,
-          letterSpacing: '0.5px',
-          background: 'linear-gradient(90deg, #FF4444 0%, #CC2222 100%)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}
-      >
-        {isCollapsed ? "Z" : "ZEON ADMIN"}
-      </span>
-    </Link>
-  </Box>
+const AdminSidebarLogo = ({ isCollapsed }) => (
+  <Link
+    href="/admin/dashboard/overview"
+    style={{
+      textDecoration: 'none',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+    {isCollapsed ? (
+      <Image
+        src="/favicon.webp"
+        alt="Zeon Academy"
+        width={28}
+        height={28}
+        priority
+        style={{ objectFit: 'contain', display: 'block' }}
+      />
+    ) : (
+      <Image
+        src="/LOGOblack.png"
+        alt="Zeon Academy Admin"
+        width={120}
+        height={36}
+        priority
+        style={{ width: 'auto', height: 'auto', maxWidth: '100%', objectFit: 'contain' }}
+      />
+    )}
+  </Link>
 );
 
 export default AdminSidebar;
