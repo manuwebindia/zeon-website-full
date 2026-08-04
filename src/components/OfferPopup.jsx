@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { usePathname } from "next/navigation";
 import { createPortal } from "react-dom";
 import { FaTimes, FaWhatsapp, FaTag, FaChevronUp } from "react-icons/fa";
 
@@ -34,6 +35,8 @@ function formatTime(ms) {
 }
 
 export default function OfferPopup() {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith("/admin");
   const [mounted, setMounted] = useState(false);
   const [popupConfig, setPopupConfig] = useState(DEFAULT_POPUP);
   const [showPopup, setShowPopup] = useState(false);
@@ -56,6 +59,8 @@ export default function OfferPopup() {
 
   useEffect(() => {
     setMounted(true);
+    if (isAdmin) return;
+
     fetch("/api/offers?type=popup")
       .then((res) => res.json())
       .then((data) => {
@@ -65,10 +70,10 @@ export default function OfferPopup() {
         }
       })
       .catch(() => {});
-  }, []);
+  }, [isAdmin]);
 
   useEffect(() => {
-    if (!mounted || !popupConfig.enabled) return;
+    if (!mounted || !popupConfig.enabled || isAdmin) return;
 
     const todayStr = new Date().toDateString();
 
@@ -103,7 +108,7 @@ export default function OfferPopup() {
     }, popupDelayMs);
 
     return () => clearTimeout(delay);
-  }, [mounted, popupConfig.enabled, durationMs, popupDelayMs]);
+  }, [mounted, popupConfig.enabled, durationMs, popupDelayMs, isAdmin]);
 
   useEffect(() => {
     if (dismissed || expired) return;
@@ -138,13 +143,18 @@ export default function OfferPopup() {
   }, [minimised]);
 
   useEffect(() => {
+    if (isAdmin) {
+      document.documentElement.classList.remove("has-mini-banner");
+      return;
+    }
+
     if (minimised && !expired && !dismissed) {
       document.documentElement.classList.add("has-mini-banner");
     } else {
       document.documentElement.classList.remove("has-mini-banner");
     }
     return () => document.documentElement.classList.remove("has-mini-banner");
-  }, [minimised, expired, dismissed]);
+  }, [minimised, expired, dismissed, isAdmin]);
 
   const handleMinimise = useCallback(() => {
     setShowPopup(false);
@@ -171,7 +181,7 @@ export default function OfferPopup() {
     window.open(buildWhatsAppUrl(), "_blank", "noopener,noreferrer");
   }, [buildWhatsAppUrl]);
 
-  if (!mounted || !popupConfig.enabled) return null;
+  if (!mounted || isAdmin || !popupConfig.enabled) return null;
   if (dismissed) return null;
 
   const miniBanner = minimised && !expired ? (

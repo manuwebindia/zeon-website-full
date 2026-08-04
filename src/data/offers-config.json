@@ -36,6 +36,34 @@
       "validUntilLabel": "Valid til:",
       "showDownloadButton": true,
       "sortOrder": 0
+    },
+    {
+      "id": "refer-a-friend-2026",
+      "enabled": true,
+      "image": "/offers/girl1.webp",
+      "tagline": "Refer a friend",
+      "heading": "Win ₹1,000/-",
+      "downloadButtonText": "REFER NOW!",
+      "downloadUrl": "/contact",
+      "text": "Refer A Friend",
+      "validUntil": "2026-08-28",
+      "validUntilLabel": "Valid til:",
+      "showDownloadButton": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "free-demo-class-2026",
+      "enabled": true,
+      "image": "/offers/boy1.webp",
+      "tagline": "Determine to become a Digital Marketer?",
+      "heading": "Free\nDemo Class",
+      "downloadButtonText": "Register Now!",
+      "downloadUrl": "/contact",
+      "text": "Free Demo Class",
+      "validUntil": "2026-08-28",
+      "validUntilLabel": "Valid til:",
+      "showDownloadButton": true,
+      "sortOrder": 2
     }
   ]
 }

@@ -433,7 +433,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           )}
 
           {/* ── View Live Site — always visible ────── */}
-          <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+          <Box sx={{ px: isCollapsed ? 1.5 : 3, mb: 2, ...(isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}) }}>
             <Link
               href="/"
               target="_blank"
@@ -465,14 +465,29 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           {/* ── Divider & Coming Soon section ──────── */}
           {!isCollapsed ? (
             <Box
-              px={3}
-              mt={3}
-              mb={2}
-              pt={2.5}
-              pb={2}
-              sx={{ borderTop: '1px solid #eff2f7' }}
+              sx={{
+                px: 3,
+                mt: 3,
+                mb: 2.5,
+                pt: 3,
+                pb: 3,
+                borderTop: '1px solid #eff2f7',
+              }}
             >
-              <Typography variant="caption" sx={{ textTransform: 'uppercase', fontWeight: 700, color: 'text.secondary', letterSpacing: '1px', fontSize: '0.68rem', opacity: 0.8, display: 'flex', justifyContent: 'center' }}>
+              <Typography
+                variant="caption"
+                sx={{
+                  textTransform: 'uppercase',
+                  fontWeight: 700,
+                  color: 'text.secondary',
+                  letterSpacing: '1px',
+                  fontSize: '0.68rem',
+                  opacity: 0.8,
+                  display: 'block',
+                  textAlign: 'center',
+                  lineHeight: 1.8,
+                }}
+              >
                 Coming Soon
               </Typography>
             </Box>
@@ -482,7 +497,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
 
           {/* ── Analytics (Coming Soon) ─────────────── */}
           {can('analytics.view') && (
-            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+            <Box sx={{ px: isCollapsed ? 1.5 : 3, mb: 1, mt: !isCollapsed ? 0.5 : 0, ...(isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}) }}>
               <MenuItem
                 isSelected={false}
                 borderRadius="8px"
