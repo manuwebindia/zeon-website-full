@@ -11,23 +11,13 @@ export default function OfferCard({ offer }) {
     ? new Date(`${offer.validUntil}T12:00:00`).toLocaleDateString('en-GB')
     : null;
 
-  const isExternal = offer.downloadUrl?.startsWith('http');
   const buttonText = offer.downloadButtonText?.trim() || 'DOWNLOAD NOW!';
   const validUntilLabel = offer.validUntilLabel?.trim() || 'Valid til:';
   const showButton = offer.showDownloadButton !== false;
+  const innerHref = offer.slug ? `/offers/${offer.slug}` : '/offers';
 
-  const downloadButton = offer.downloadUrl ? (
-    <a
-      href={offer.downloadUrl}
-      target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'noopener noreferrer' : undefined}
-      download={!isExternal ? '' : undefined}
-      className={downloadButtonClass}
-    >
-      {buttonText}
-    </a>
-  ) : (
-    <Link href="/contact" className={downloadButtonClass}>
+  const downloadButton = (
+    <Link href={innerHref} className={downloadButtonClass}>
       {buttonText}
     </Link>
   );
@@ -67,7 +57,11 @@ export default function OfferCard({ offer }) {
 
       <div className="px-4 py-3.5 sm:px-5 sm:py-4 md:px-6 md:py-5 border-t border-border bg-white flex-1 flex flex-col justify-center">
         {offer.text && (
-          <h4 className="text-[1.05rem] sm:text-[1.2rem] md:text-[1.35rem] font-extrabold text-heading mb-1 md:mb-2">{offer.text}</h4>
+          <h4 className="text-[1.05rem] sm:text-[1.2rem] md:text-[1.35rem] font-extrabold text-heading mb-1 md:mb-2">
+            <Link href={innerHref} className="hover:text-primary transition-colors">
+              {offer.text}
+            </Link>
+          </h4>
         )}
         {validLabel && (
           <p className="text-[0.82rem] sm:text-[0.88rem] md:text-[0.95rem] text-body font-medium">

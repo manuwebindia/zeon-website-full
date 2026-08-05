@@ -177,7 +177,7 @@ export default function PostYourJobPage() {
               {[
                 { value: "500+", label: "Successful Placements" },
                 { value: "100+", label: "Hiring Partners" },
-                { value: "Kochi & Across Kerala", label: "Talent Pool" },
+                { value: "Kerala", label: "And Beyond" },
               ].map((s, i) => (
                 <div key={i} className="text-center">
                   <p className="text-[2rem] font-extrabold text-heading leading-none mb-1">{s.value}</p>

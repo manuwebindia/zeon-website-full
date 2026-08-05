@@ -25,44 +25,94 @@
   "offers": [
     {
       "id": "free-handbook-2026",
+      "slug": "free-handbook",
       "enabled": true,
       "image": "/uploads/blog/blog-1785760243897-993387859.webp",
       "tagline": "Download",
       "heading": "Free Handbook",
-      "downloadButtonText": "DOWNLOAD NOW!!!",
+      "downloadButtonText": "DOWNLOAD NOW!",
       "downloadUrl": "/brochures/Advanced_Digital Marketing_Zeon_Academy.pdf",
       "text": "Get Free Handbook",
       "validUntil": "2026-08-28",
       "validUntilLabel": "Valid til:",
       "showDownloadButton": true,
+      "aboutTitle": "About The Offer",
+      "aboutPoints": [
+        "A beginner's guide to Digital Marketing",
+        "Fundamentals concepts",
+        "Practical tips & Strategies",
+        "For business owners, marketers, & more",
+        "Topics like digital marketing strategy, SEO, & more"
+      ],
+      "howToAvailTitle": "How To Avail The Offer",
+      "howToAvailSteps": [
+        "Fill in your name, email address and phone number",
+        "Click the download button and access the pdf"
+      ],
+      "showBrochureForm": true,
+      "showDemoForm": true,
       "sortOrder": 0
     },
     {
       "id": "refer-a-friend-2026",
+      "slug": "refer-a-friend",
       "enabled": true,
       "image": "/offers/girl1.webp",
       "tagline": "Refer a friend",
       "heading": "Win ₹1,000/-",
       "downloadButtonText": "REFER NOW!",
-      "downloadUrl": "/contact",
+      "downloadUrl": "",
       "text": "Refer A Friend",
       "validUntil": "2026-08-28",
       "validUntilLabel": "Valid til:",
       "showDownloadButton": true,
+      "aboutTitle": "About The Offer",
+      "aboutPoints": [
+        "Refer a friend who joins any Zeon Academy course",
+        "Earn ₹1,000 when your referral enrolls",
+        "No limit on the number of referrals",
+        "Valid for new admissions only",
+        "Reward processed after successful enrollment"
+      ],
+      "howToAvailTitle": "How To Avail The Offer",
+      "howToAvailSteps": [
+        "Fill in your name, email address and phone number",
+        "Share your friend's details with our team",
+        "Get rewarded once they complete enrollment"
+      ],
+      "showBrochureForm": false,
+      "showDemoForm": true,
       "sortOrder": 1
     },
     {
       "id": "free-demo-class-2026",
+      "slug": "free-demo-class",
       "enabled": true,
       "image": "/offers/boy1.webp",
       "tagline": "Determine to become a Digital Marketer?",
       "heading": "Free\nDemo Class",
       "downloadButtonText": "Register Now!",
-      "downloadUrl": "/contact",
+      "downloadUrl": "",
       "text": "Free Demo Class",
       "validUntil": "2026-08-28",
       "validUntilLabel": "Valid til:",
       "showDownloadButton": true,
+      "aboutTitle": "About The Offer",
+      "aboutPoints": [
+        "Experience a live digital marketing demo class",
+        "Learn from working professionals at Zeon Academy",
+        "Understand course structure and career outcomes",
+        "Ask questions directly to trainers",
+        "No payment required to attend the demo"
+      ],
+      "howToAvailTitle": "How To Avail The Offer",
+      "howToAvailSteps": [
+        "Fill in your name, email address and phone number",
+        "Choose your preferred demo batch slot",
+        "Receive confirmation from our admissions team"
+      ],
+      "showBrochureForm": false,
+      "showDemoForm": true,
       "sortOrder": 2
     }
   ]

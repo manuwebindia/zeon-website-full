@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { requirePermission } from '@/lib/auth';
-import { readOffersConfig, writeOffersConfig } from '@/lib/offers';
+import { readOffersConfig, writeOffersConfig, getActiveOfferSlugs } from '@/lib/offers';
 
 export async function GET(request) {
   try {
@@ -26,6 +26,11 @@ export async function POST(request) {
 
     try {
       revalidatePath('/offers');
+      const slugs = await getActiveOfferSlugs();
+      for (const slug of slugs) {
+        revalidatePath(`/offers/${slug}`);
+      }
+      revalidatePath('/sitemap.xml');
     } catch {
       // non-fatal
     }

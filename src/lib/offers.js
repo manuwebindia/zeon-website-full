@@ -1,5 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { formatOfferDate } from '@/lib/offerFormat';
+
+export { formatOfferDate };
 
 const OFFERS_CONFIG_PATH = path.join(process.cwd(), 'src/data/offers-config.json');
 
@@ -30,19 +33,52 @@ export const DEFAULT_OFFERS_CONFIG = {
   offers: [],
 };
 
+function deriveOfferSlug(id = '') {
+  return String(id)
+    .trim()
+    .toLowerCase()
+    .replace(/-20\d{2}$/i, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
+
+function normalizeStringList(value) {
+  if (Array.isArray(value)) {
+    return value.map((item) => String(item || '').trim()).filter(Boolean);
+  }
+  if (typeof value === 'string') {
+    return value
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
+  }
+  return [];
+}
+
 function normalizeOffer(offer, index = 0) {
+  const id = String(offer.id || `offer-${index + 1}`).trim();
+  const downloadUrl = String(offer.downloadUrl || '').trim();
+  const isPdfDownload = /\.pdf($|\?)/i.test(downloadUrl);
+
   return {
-    id: String(offer.id || `offer-${index + 1}`).trim(),
+    id,
+    slug: String(offer.slug || deriveOfferSlug(id)).trim(),
     enabled: offer.enabled !== false,
     image: String(offer.image || '').trim(),
     tagline: String(offer.tagline || 'Download').trim(),
     heading: String(offer.heading || '').trim(),
     downloadButtonText: String(offer.downloadButtonText ?? 'DOWNLOAD NOW!').trim(),
-    downloadUrl: String(offer.downloadUrl || '').trim(),
+    downloadUrl,
     text: String(offer.text || '').trim(),
     validUntil: String(offer.validUntil || '').trim(),
     validUntilLabel: String(offer.validUntilLabel ?? 'Valid til:').trim(),
     showDownloadButton: offer.showDownloadButton !== false,
+    aboutTitle: String(offer.aboutTitle || 'About The Offer').trim(),
+    aboutPoints: normalizeStringList(offer.aboutPoints),
+    howToAvailTitle: String(offer.howToAvailTitle || 'How To Avail The Offer').trim(),
+    howToAvailSteps: normalizeStringList(offer.howToAvailSteps),
+    showBrochureForm: offer.showBrochureForm !== false && isPdfDownload,
+    showDemoForm: offer.showDemoForm !== false,
     sortOrder: Number.isFinite(Number(offer.sortOrder)) ? Number(offer.sortOrder) : index,
   };
 }
@@ -90,15 +126,6 @@ export function isOfferActive(offer, now = new Date()) {
   return !Number.isNaN(expiry.getTime()) && expiry >= now;
 }
 
-export function formatOfferDate(dateStr) {
-  if (!dateStr) return '';
-  const date = new Date(`${dateStr}T12:00:00`);
-  if (Number.isNaN(date.getTime())) return dateStr;
-  const dd = String(date.getDate()).padStart(2, '0');
-  const mm = String(date.getMonth() + 1).padStart(2, '0');
-  const yyyy = date.getFullYear();
-  return `${dd}/${mm}/${yyyy}`;
-}
 
 export async function getPublicOffersPayload() {
   const config = await readOffersConfig();
@@ -112,4 +139,19 @@ export async function getPublicOffersPayload() {
 export async function getPopupConfig() {
   const config = await readOffersConfig();
   return config.popup;
+}
+
+export async function getOfferBySlug(slug) {
+  const normalizedSlug = String(slug || '').trim().toLowerCase();
+  if (!normalizedSlug) return null;
+
+  const config = await readOffersConfig();
+  const offer = config.offers.find((item) => item.slug === normalizedSlug);
+  if (!offer || !isOfferActive(offer)) return null;
+  return offer;
+}
+
+export async function getActiveOfferSlugs() {
+  const config = await readOffersConfig();
+  return config.offers.filter((offer) => isOfferActive(offer)).map((offer) => offer.slug);
 }

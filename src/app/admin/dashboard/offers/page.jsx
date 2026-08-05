@@ -30,6 +30,7 @@ function can(key) {
 
 const EMPTY_OFFER = {
   id: '',
+  slug: '',
   enabled: true,
   image: '',
   tagline: 'Download',
@@ -40,8 +41,26 @@ const EMPTY_OFFER = {
   validUntil: '',
   validUntilLabel: 'Valid til:',
   showDownloadButton: true,
+  aboutTitle: 'About The Offer',
+  aboutPoints: [],
+  howToAvailTitle: 'How To Avail The Offer',
+  howToAvailSteps: [],
+  showBrochureForm: true,
+  showDemoForm: true,
   sortOrder: 0,
 };
+
+function listToTextarea(value) {
+  if (Array.isArray(value)) return value.join('\n');
+  return typeof value === 'string' ? value : '';
+}
+
+function textareaToList(value) {
+  return String(value || '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
 
 export default function AdminOffersPage() {
   const router = useRouter();
@@ -230,6 +249,7 @@ export default function AdminOffersPage() {
                         <Typography sx={{ fontWeight: 700 }}>{offer.text || offer.heading}</Typography>
                         <Typography variant="body2" color="text.secondary" noWrap>{offer.heading}</Typography>
                         <Box sx={{ display: 'flex', gap: 1, mt: 0.5, flexWrap: 'wrap' }}>
+                          {offer.slug && <Chip label={`/offers/${offer.slug}`} size="small" variant="outlined" />}
                           {offer.validUntil && <Chip label={`Valid til ${offer.validUntil}`} size="small" />}
                           <Chip label={offer.enabled ? 'Enabled' : 'Disabled'} size="small" color={offer.enabled ? 'success' : 'default'} />
                         </Box>
@@ -303,7 +323,7 @@ export default function AdminOffersPage() {
       <Dialog
         open={Boolean(editOffer)}
         onClose={() => setEditOffer(null)}
-        maxWidth="sm"
+        maxWidth="md"
         fullWidth
         slotProps={{ paper: { sx: { borderRadius: 3 } } }}
       >
@@ -358,7 +378,36 @@ export default function AdminOffersPage() {
                     helperText="Text on the black CTA pill. Used for download and contact links."
                   />
                 )}
-                <TextField label="Download URL" value={editOffer.downloadUrl} onChange={(e) => setEditOffer((p) => ({ ...p, downloadUrl: e.target.value }))} placeholder="/brochures/handbook.pdf" helperText="PDF or file path. Leave empty to link to contact page." />
+                <TextField label="URL Slug" value={editOffer.slug ?? ''} onChange={(e) => setEditOffer((p) => ({ ...p, slug: e.target.value }))} placeholder="free-handbook" helperText="Inner page URL: /offers/your-slug" />
+                <TextField label="Download URL" value={editOffer.downloadUrl} onChange={(e) => setEditOffer((p) => ({ ...p, downloadUrl: e.target.value }))} placeholder="/brochures/handbook.pdf" helperText="PDF path for brochure download form on the inner page." />
+                <Divider />
+                <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>Inner Page Content</Typography>
+                <TextField label="About Section Title" value={editOffer.aboutTitle ?? ''} onChange={(e) => setEditOffer((p) => ({ ...p, aboutTitle: e.target.value }))} placeholder="About The Offer" />
+                <TextField
+                  label="About Points (one per line)"
+                  value={listToTextarea(editOffer.aboutPoints)}
+                  onChange={(e) => setEditOffer((p) => ({ ...p, aboutPoints: textareaToList(e.target.value) }))}
+                  multiline
+                  minRows={4}
+                  placeholder={'A beginner\'s guide to Digital Marketing\nFundamentals concepts'}
+                />
+                <TextField label="How To Avail Title" value={editOffer.howToAvailTitle ?? ''} onChange={(e) => setEditOffer((p) => ({ ...p, howToAvailTitle: e.target.value }))} placeholder="How To Avail The Offer" />
+                <TextField
+                  label="How To Avail Steps (one per line)"
+                  value={listToTextarea(editOffer.howToAvailSteps)}
+                  onChange={(e) => setEditOffer((p) => ({ ...p, howToAvailSteps: textareaToList(e.target.value) }))}
+                  multiline
+                  minRows={3}
+                  placeholder={'Fill in your name, email address and phone number\nClick the download button and access the pdf'}
+                />
+                <FormControlLabel
+                  control={<Switch checked={editOffer.showBrochureForm !== false} onChange={(e) => setEditOffer((p) => ({ ...p, showBrochureForm: e.target.checked }))} />}
+                  label="Show brochure download form (PDF offers)"
+                />
+                <FormControlLabel
+                  control={<Switch checked={editOffer.showDemoForm !== false} onChange={(e) => setEditOffer((p) => ({ ...p, showDemoForm: e.target.checked }))} />}
+                  label="Show free demo enquiry form"
+                />
                 <Divider />
                 <TextField label="Card Title (below banner)" value={editOffer.text} onChange={(e) => setEditOffer((p) => ({ ...p, text: e.target.value }))} placeholder="Get Free Handbook" />
                 <TextField label="Valid Until" type="date" value={editOffer.validUntil} onChange={(e) => setEditOffer((p) => ({ ...p, validUntil: e.target.value }))} slotProps={{ inputLabel: { shrink: true } }} />

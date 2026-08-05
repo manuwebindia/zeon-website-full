@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import prisma from '@/lib/db';
 import { readSettings } from '@/lib/settings';
+import { getActiveOfferSlugs } from '@/lib/offers';
 
 const CONFIG_PATH = path.join(process.cwd(), 'src/data/sitemap-config.json');
 const PAGE_SEO_PATH = path.join(process.cwd(), 'src/data/page-seo.json');
@@ -112,11 +113,12 @@ export function mapBlogToSitemapPreview(blog, config) {
 }
 
 export async function buildSitemapEntries() {
-  const [config, settings, blogs, pageSeoOverrides] = await Promise.all([
+  const [config, settings, blogs, pageSeoOverrides, offerSlugs] = await Promise.all([
     readSitemapConfig(),
     readSettings(),
     getPublishedBlogEntries(),
     readPageSeoOverridesForSitemap(),
+    getActiveOfferSlugs(),
   ]);
 
   if (settings.universalNoIndex) {
@@ -144,5 +146,12 @@ export async function buildSitemapEntries() {
       priority: Number(blogDefaults.priority),
     }));
 
-  return [...staticEntries, ...blogEntries];
+  const offerEntries = offerSlugs.map((slug) => ({
+    url: `${baseUrl}/offers/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.65,
+  }));
+
+  return [...staticEntries, ...offerEntries, ...blogEntries];
 }

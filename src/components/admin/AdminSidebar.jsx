@@ -8,6 +8,7 @@ import { useMediaQuery, Box, Drawer, Avatar, Typography, IconButton } from '@mui
 import {
   Sidebar as MUISidebar,
   MenuItem,
+  Submenu,
 } from 'react-mui-sidebar';
 import {
   IconLayoutDashboard,
@@ -177,32 +178,47 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
             </Box>
           )}
 
-          {/* ── Blogs ──────────────────────────────── */}
-          {can('blogs.view') && (
+          {/* ── Blogs (collapsible) ─────────────────── */}
+          {(can('blogs.view') || can('blogs.create')) && (
             <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
-              <MenuItem
-                isSelected={pathname === '/admin/dashboard'}
-                borderRadius="8px"
-                icon={<IconFileText stroke={1.5} size="1.3rem" />}
-                link="/admin/dashboard"
-                component={Link}
-              >
-                {!isCollapsed && "All Blogs"}
-              </MenuItem>
-            </Box>
-          )}
-
-          {can('blogs.create') && (
-            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
-              <MenuItem
-                isSelected={pathname === '/admin/dashboard/blogs/new'}
-                borderRadius="8px"
-                icon={<IconPlus stroke={1.5} size="1.3rem" />}
-                link="/admin/dashboard/blogs/new"
-                component={Link}
-              >
-                {!isCollapsed && "New Post"}
-              </MenuItem>
+              {isCollapsed ? (
+                <MenuItem
+                  isSelected={pathname === '/admin/dashboard' || pathname.startsWith('/admin/dashboard/blogs')}
+                  borderRadius="8px"
+                  icon={<IconFileText stroke={1.5} size="1.3rem" />}
+                  link="/admin/dashboard"
+                  component={Link}
+                />
+              ) : (
+                <Submenu
+                  title="Blogs"
+                  icon={<IconFileText stroke={1.5} size="1.3rem" />}
+                  borderRadius="8px"
+                >
+                  {can('blogs.view') && (
+                    <MenuItem
+                      isSelected={pathname === '/admin/dashboard'}
+                      borderRadius="8px"
+                      icon={<IconFileText stroke={1.5} size="1.1rem" />}
+                      link="/admin/dashboard"
+                      component={Link}
+                    >
+                      All Blogs
+                    </MenuItem>
+                  )}
+                  {can('blogs.create') && (
+                    <MenuItem
+                      isSelected={pathname === '/admin/dashboard/blogs/new'}
+                      borderRadius="8px"
+                      icon={<IconPlus stroke={1.5} size="1.1rem" />}
+                      link="/admin/dashboard/blogs/new"
+                      component={Link}
+                    >
+                      New Post
+                    </MenuItem>
+                  )}
+                </Submenu>
+              )}
             </Box>
           )}
 
