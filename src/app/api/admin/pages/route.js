@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
 import { requirePermission } from '@/lib/auth';
 import {
-  getSitePage,
   getAdminPagesPayload,
-  readPageSeoOverrides,
-  writePageSeoOverrides,
-  sanitizePageOverride,
-  isEmptyOverride,
+  saveAdminPageSeo,
+  resolveAdminPage,
 } from '@/lib/pageSeo';
 
 export async function GET(request) {
@@ -35,31 +31,19 @@ export async function POST(request) {
       return NextResponse.json({ error: 'path is required' }, { status: 400 });
     }
 
-    const sitePage = getSitePage(pagePath);
+    const sitePage = await resolveAdminPage(pagePath);
     if (!sitePage) {
       return NextResponse.json({ error: `Unknown page path: ${pagePath}` }, { status: 400 });
     }
 
-    const allOverrides = await readPageSeoOverrides();
-
-    if (clear) {
-      delete allOverrides[pagePath];
-    } else {
-      const sanitized = sanitizePageOverride(override || {});
-      if (isEmptyOverride(sanitized)) {
-        delete allOverrides[pagePath];
-      } else {
-        allOverrides[pagePath] = sanitized;
-      }
+    if (sitePage.type === 'offer') {
+      return NextResponse.json(
+        { error: 'Offer page SEO is managed under Admin → Offers.' },
+        { status: 400 }
+      );
     }
 
-    await writePageSeoOverrides(allOverrides);
-
-    try {
-      revalidatePath(pagePath);
-    } catch {
-      // Non-fatal
-    }
+    await saveAdminPageSeo(pagePath, override, { clear: Boolean(clear) });
 
     const pages = await getAdminPagesPayload();
     const updated = pages.find((page) => page.path === pagePath);

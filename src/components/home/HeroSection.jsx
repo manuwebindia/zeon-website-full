@@ -21,12 +21,12 @@ export default function HeroSection({ nextBatchDate }) {
                 {/* Headline */}
                 <h1 className="text-[clamp(2.2rem,4.5vw,3.4rem)] font-extrabold leading-[1.15] text-heading mb-5 tracking-tight drop-shadow-sm">
                   Become a{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">Certified Digital Marketer</span>{" "}
+                  <span className="text-transparent bg-clip-text bg-primary">Certified Digital Marketer</span>{" "}
                   with 100% Placement Support
                 </h1>
 
                 {/* Sub-copy */}
-                <p className="text-base text-body leading-[1.7] mb-8 max-w-[460px] max-[1024px]:max-w-full max-[1024px]:mb-0">
+                <p className="text-base !text-[#333333] leading-[1.7] mb-8 max-w-[460px] max-[1024px]:max-w-full max-[1024px]:mb-0">
                   Start your career with Kerala&apos;s most practical, job-driven
                   Digital Marketing Program. Real projects. Real skills. Real jobs.
                 </p>

@@ -17,6 +17,8 @@ model Blog {
   seoDescription   String?   @map("seo_description")
   featuredImage    String?   @map("featured_image")
   featuredImageAlt String?   @map("featured_image_alt")
+  bannerImage      String?   @map("banner_image")
+  bannerImageAlt   String?   @map("banner_image_alt")
   content          Json      // Array of content blocks
   excerpt          String?
   status           String    @default("draft") // "draft" | "published"
@@ -42,7 +44,30 @@ model Blog {
   schemaHowToSteps Json?     @map("schema_how_to_steps") // legacy HowTo steps
   schemaBlocks     Json?     @map("schema_blocks")       // [{ type, faqItems?, howToSteps? }]
 
+  wpPostId         Int?      @unique @map("wp_post_id")
+
   @@map("blogs")
+}
+
+// ── CMS Pages (imported WP pages, non-frozen routes) ─────────────────────────
+model Page {
+  id             String    @id @default(cuid())
+  title          String
+  slug           String    @unique
+  content        Json
+  excerpt        String?   @db.Text
+  status         String    @default("draft")
+  seoTitle       String?   @map("seo_title")
+  seoDescription String?   @map("seo_description") @db.Text
+  featuredImage  String?   @map("featured_image")
+  allowIndexing  Boolean   @default(true) @map("allow_indexing")
+  wpPostId       Int?      @unique @map("wp_post_id")
+  publishedAt    DateTime? @map("published_at")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  @@index([status])
+  @@map("pages")
 }
 
 // ── RBAC: Groups (custom, user-defined — no hardcoded seeds) ─────────────────
@@ -159,5 +184,42 @@ model JobPosting {
 
   @@index([status, createdAt])
   @@map("job_postings")
+}
+
+// ── Gallery albums (events / celebrations) ───────────────────────────────────
+model GalleryAlbum {
+  id             String         @id @default(cuid())
+  title          String
+  slug           String         @unique
+  description    String?        @db.Text
+  coverImage     String?        @map("cover_image")
+  seoTitle       String?        @map("seo_title")
+  seoDescription String?        @map("seo_description") @db.Text
+  allowIndexing  Boolean        @default(true) @map("allow_indexing")
+  status         String         @default("draft") // draft | published
+  sortOrder      Int            @default(0) @map("sort_order")
+  eventDate      DateTime?      @map("event_date")
+  publishedAt    DateTime?      @map("published_at")
+  wpPostId       Int?           @map("wp_post_id")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  images         GalleryImage[]
+
+  @@index([status, sortOrder])
+  @@map("gallery_albums")
+}
+
+model GalleryImage {
+  id        String       @id @default(cuid())
+  albumId   String       @map("album_id")
+  album     GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  src       String
+  alt       String?
+  caption   String?      @db.Text
+  sortOrder Int          @default(0) @map("sort_order")
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  @@index([albumId, sortOrder])
+  @@map("gallery_images")
 }
 

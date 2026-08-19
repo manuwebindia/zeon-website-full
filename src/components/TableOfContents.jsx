@@ -17,10 +17,10 @@ export default function TableOfContents({ headings = [] }) {
 
           const textStyle =
             h.level === 2
-              ? 'font-semibold text-slate-800 text-sm'
+              ? 'font-semibold text-heading text-sm'
               : h.level === 3
-              ? 'font-medium text-slate-600 text-sm'
-              : 'font-normal text-slate-500 text-xs';
+              ? 'font-medium text-body text-sm'
+              : 'font-normal text-body/80 text-xs';
 
           const bullet =
             h.level === 2 ? '→' : h.level === 3 ? '·' : '–';
@@ -28,14 +28,14 @@ export default function TableOfContents({ headings = [] }) {
           return (
             <li key={index} className={`${indent} flex items-start gap-2`}>
               <span
-                className="mt-0.5 shrink-0 text-[#1A4FD6] font-bold"
+                className="mt-0.5 shrink-0 font-bold text-primary"
                 style={{ fontSize: h.level === 2 ? '0.75rem' : '0.65rem' }}
               >
                 {bullet}
               </span>
               <a
                 href={`#${h.id}`}
-                className={`toc-link ${textStyle} transition-colors duration-150 hover:text-[#1A4FD6]`}
+                className={`toc-link ${textStyle} transition-colors duration-150 hover:text-primary`}
               >
                 {h.text}
               </a>

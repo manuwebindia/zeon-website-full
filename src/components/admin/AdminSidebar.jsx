@@ -20,6 +20,7 @@ import {
   IconPuzzle,
   IconFiles,
   IconFileText,
+  IconFile,
   IconPhoto,
   IconUsers,
   IconShield,
@@ -31,6 +32,7 @@ import {
   IconMail,
   IconBriefcase,
   IconGift,
+  IconLibraryPhoto,
 } from '@tabler/icons-react';
 
 // ── Permission helpers ────────────────────────────────────────────────────────
@@ -215,6 +217,94 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                       component={Link}
                     >
                       New Post
+                    </MenuItem>
+                  )}
+                </Submenu>
+              )}
+            </Box>
+          )}
+
+          {/* ── Site Pages (CMS) ─────────────────────── */}
+          {(can('pages.view') || can('pages.create')) && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              {isCollapsed ? (
+                <MenuItem
+                  isSelected={pathname.startsWith('/admin/dashboard/site-pages')}
+                  borderRadius="8px"
+                  icon={<IconFile stroke={1.5} size="1.3rem" />}
+                  link="/admin/dashboard/site-pages"
+                  component={Link}
+                />
+              ) : (
+                <Submenu
+                  title="Site Pages"
+                  icon={<IconFile stroke={1.5} size="1.3rem" />}
+                  borderRadius="8px"
+                >
+                  {can('pages.view') && (
+                    <MenuItem
+                      isSelected={pathname === '/admin/dashboard/site-pages'}
+                      borderRadius="8px"
+                      icon={<IconFile stroke={1.5} size="1.1rem" />}
+                      link="/admin/dashboard/site-pages"
+                      component={Link}
+                    >
+                      All Pages
+                    </MenuItem>
+                  )}
+                  {can('pages.create') && (
+                    <MenuItem
+                      isSelected={pathname === '/admin/dashboard/site-pages/new/edit'}
+                      borderRadius="8px"
+                      icon={<IconPlus stroke={1.5} size="1.1rem" />}
+                      link="/admin/dashboard/site-pages/new/edit"
+                      component={Link}
+                    >
+                      New Page
+                    </MenuItem>
+                  )}
+                </Submenu>
+              )}
+            </Box>
+          )}
+
+          {/* ── Gallery (collapsible) ───────────────── */}
+          {(can('gallery.view') || can('gallery.create')) && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              {isCollapsed ? (
+                <MenuItem
+                  isSelected={pathname.startsWith('/admin/dashboard/gallery')}
+                  borderRadius="8px"
+                  icon={<IconLibraryPhoto stroke={1.5} size="1.3rem" />}
+                  link="/admin/dashboard/gallery"
+                  component={Link}
+                />
+              ) : (
+                <Submenu
+                  title="Gallery"
+                  icon={<IconLibraryPhoto stroke={1.5} size="1.3rem" />}
+                  borderRadius="8px"
+                >
+                  {can('gallery.view') && (
+                    <MenuItem
+                      isSelected={pathname === '/admin/dashboard/gallery'}
+                      borderRadius="8px"
+                      icon={<IconLibraryPhoto stroke={1.5} size="1.1rem" />}
+                      link="/admin/dashboard/gallery"
+                      component={Link}
+                    >
+                      All Albums
+                    </MenuItem>
+                  )}
+                  {can('gallery.create') && (
+                    <MenuItem
+                      isSelected={pathname === '/admin/dashboard/gallery/new/edit'}
+                      borderRadius="8px"
+                      icon={<IconPlus stroke={1.5} size="1.1rem" />}
+                      link="/admin/dashboard/gallery/new/edit"
+                      component={Link}
+                    >
+                      Add Album
                     </MenuItem>
                   )}
                 </Submenu>

@@ -25,6 +25,9 @@ export default function FeaturedImageUpload({
   alt,
   onImageChange,
   onAltChange,
+  label = 'Featured Image',
+  altLabel = 'Featured Image Alt Text',
+  pickerTitle = 'Choose Featured Image',
 }) {
   const fileInputRef = useRef(null);
   const [uploading, setUploading] = useState(false);
@@ -134,7 +137,7 @@ export default function FeaturedImageUpload({
       }}
     >
       <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-        Featured Image
+        {label}
       </Typography>
 
       <input
@@ -272,7 +275,7 @@ export default function FeaturedImageUpload({
           {/* Image Alt Tag */}
           <TextField
             fullWidth
-            label="Featured Image Alt Text"
+            label={altLabel}
             variant="outlined"
             size="small"
             value={alt}
@@ -312,7 +315,7 @@ export default function FeaturedImageUpload({
           }}
         >
           <Typography variant="h6" sx={{ fontWeight: 700 }}>
-            Choose Featured Image
+            {pickerTitle}
           </Typography>
           <Button variant="text" size="small" onClick={() => setMediaPickerOpen(false)} sx={{ textTransform: 'none' }}>
             Cancel

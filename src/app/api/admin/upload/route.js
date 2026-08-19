@@ -13,6 +13,8 @@ export async function POST(request) {
 
     const formData = await request.formData();
     const file = formData.get('file');
+    const folder = String(formData.get('folder') || 'blog').trim().toLowerCase();
+    const uploadFolder = folder === 'gallery' ? 'gallery' : 'blog';
 
     if (!file) {
       return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
@@ -40,21 +42,21 @@ export async function POST(request) {
       .toBuffer();
 
     // 2. Setup save paths
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'blog');
+    const uploadDir = path.join(process.cwd(), 'public', 'uploads', uploadFolder);
     
     // Ensure dir exists
     await fs.mkdir(uploadDir, { recursive: true });
 
     // Generate unique file name
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const filename = `blog-${uniqueSuffix}.webp`;
+    const filename = `${uploadFolder}-${uniqueSuffix}.webp`;
     const filepath = path.join(uploadDir, filename);
 
     // 3. Write file to filesystem
     await fs.writeFile(filepath, processedBuffer);
 
     // Return the relative URL path
-    const url = `/uploads/blog/${filename}`;
+    const url = `/uploads/${uploadFolder}/${filename}`;
 
     return NextResponse.json({ url }, { status: 200 });
   } catch (error) {

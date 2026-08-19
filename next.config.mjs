@@ -7,7 +7,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['gsap'],
   },
-  allowedDevOrigins: ["192.168.1.41", "localhost"],
+  allowedDevOrigins: ["192.168.29.152", "localhost"],
   async headers() {
     return [
       {

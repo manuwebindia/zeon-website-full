@@ -10,6 +10,17 @@
     "db:push": "node --env-file=.env.local node_modules/prisma/build/index.js db push",
     "db:seed": "node --env-file=.env.local node_modules/prisma/build/index.js db seed",
     "db:generate": "node --env-file=.env.local node_modules/prisma/build/index.js generate",
+    "wp:import-gallery": "node --env-file=.env.local scripts/wp-migrate/gallery-import.js --commit",
+    "wp:import-gallery:scan": "node --env-file=.env.local scripts/wp-migrate/gallery-import.js --commit --scan-sql",
+    "wp:import-gallery:reset": "node --env-file=.env.local scripts/wp-migrate/gallery-import.js --commit --scan-sql --reset",
+    "wp:import-gallery:dry": "node --env-file=.env.local scripts/wp-migrate/gallery-import.js --dry-run",
+    "wp:import-blog": "node --env-file=.env.local scripts/wp-migrate/blog-import.js --commit",
+    "wp:import-blog:dry": "node --env-file=.env.local scripts/wp-migrate/blog-import.js --dry-run",
+    "wp:import-blog:reset": "node --env-file=.env.local scripts/wp-migrate/blog-import.js --commit --reset",
+    "wp:import-pages": "node --env-file=.env.local scripts/wp-migrate/pages-import.js --commit",
+    "wp:import-pages:dry": "node --env-file=.env.local scripts/wp-migrate/pages-import.js --dry-run",
+    "wp:import-pages:reset": "node --env-file=.env.local scripts/wp-migrate/pages-import.js --commit --reset",
+    "wp:import-pages:update": "node --env-file=.env.local scripts/wp-migrate/pages-import.js --commit --update",
     "postinstall": "node node_modules/prisma/build/index.js generate"
   },
   "prisma": {

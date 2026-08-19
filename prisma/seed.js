@@ -30,6 +30,16 @@ const ALL_PERMISSIONS = [
   'job-postings.edit',
   'job-postings.delete',
   'offers.manage',
+  'gallery.view',
+  'gallery.create',
+  'gallery.edit',
+  'gallery.delete',
+  'gallery.publish',
+  'pages.view',
+  'pages.create',
+  'pages.edit',
+  'pages.delete',
+  'pages.publish',
 ];
 
 const prisma = new PrismaClient();

@@ -4,8 +4,9 @@ import React, { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight, BookOpen, Calendar, Clock } from 'lucide-react';
+import { getBlogCardImage } from '@/lib/blogArchive';
 
-export default function RelatedPostsCarousel({ posts = [], authorName = 'WDK Admin', authorImage = '' }) {
+export default function RelatedPostsCarousel({ posts = [], authorName = 'Zeon Admin', authorImage = '' }) {
   const scrollRef = useRef(null);
 
   if (posts.length === 0) return null;
@@ -72,14 +73,14 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'WDK Adm
   };
 
   return (
-    <section className="mt-16 pt-16 border-t border-slate-100 relative">
-      <div className="flex items-center justify-between mb-8">
+    <section className="relative mt-16 border-t border-border pt-16">
+      <div className="mb-8 flex items-center justify-between">
         <div>
-          <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#1A4FD6] mb-1.5 block">
+          <span className="mb-1.5 block text-[0.82rem] font-bold uppercase tracking-[0.22em] text-primary">
             Continue Reading
           </span>
-          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">
-            More From WDK Blog
+          <h3 className="text-2xl font-extrabold tracking-tight text-heading sm:text-3xl">
+            More From Zeon Academy
           </h3>
         </div>
 
@@ -111,17 +112,20 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'WDK Adm
           msOverflowStyle: 'none',
         }}
       >
-        {posts.map((post) => (
+        {posts.map((post) => {
+          const cardImage = getBlogCardImage(post);
+
+          return (
           <article
             key={post.id}
             className="group flex flex-col overflow-hidden rounded-[24px] border border-slate-100 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.05)] hover:border-slate-200/50 w-[280px] sm:w-[320px] md:w-[360px] shrink-0 snap-start"
           >
-            {/* Card Thumbnail */}
+            {/* Card Thumbnail — banner (inner) image when available */}
             <Link href={`/blog/${post.slug}`} className="block relative aspect-video w-full overflow-hidden bg-slate-50 border-b border-slate-50/50">
-              {post.featuredImage ? (
+              {cardImage ? (
                 <Image
-                  src={post.featuredImage}
-                  alt={post.featuredImageAlt || post.title}
+                  src={cardImage.src}
+                  alt={cardImage.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, 360px"
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
@@ -187,7 +191,8 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'WDK Adm
               </div>
             </div>
           </article>
-        ))}
+          );
+        })}
         {/* iOS Safari Right Padding Spacer */}
         <div className="shrink-0 w-px" aria-hidden="true"></div>
       </div>

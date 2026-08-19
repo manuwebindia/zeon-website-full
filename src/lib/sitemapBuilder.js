@@ -3,6 +3,8 @@ import path from 'path';
 import prisma from '@/lib/db';
 import { readSettings } from '@/lib/settings';
 import { getActiveOfferSlugs } from '@/lib/offers';
+import { getPublishedAlbumSlugs } from '@/lib/gallery';
+import { getPublishedPageSlugs } from '@/lib/pages';
 
 const CONFIG_PATH = path.join(process.cwd(), 'src/data/sitemap-config.json');
 const PAGE_SEO_PATH = path.join(process.cwd(), 'src/data/page-seo.json');
@@ -23,6 +25,7 @@ export const DEFAULT_SITEMAP_CONFIG = {
     { path: '/testimonials', changeFrequency: 'monthly', priority: 0.6, enabled: true, canonical: '' },
     { path: '/post-your-job', changeFrequency: 'monthly', priority: 0.6, enabled: true, canonical: '' },
     { path: '/offers', changeFrequency: 'weekly', priority: 0.7, enabled: true, canonical: '' },
+    { path: '/gallery', changeFrequency: 'monthly', priority: 0.65, enabled: true, canonical: '' },
     { path: '/thank-you', changeFrequency: 'yearly', priority: 0.3, enabled: false, canonical: '' },
   ],
   blogDefaults: { changeFrequency: 'weekly', priority: 0.6 },
@@ -113,12 +116,14 @@ export function mapBlogToSitemapPreview(blog, config) {
 }
 
 export async function buildSitemapEntries() {
-  const [config, settings, blogs, pageSeoOverrides, offerSlugs] = await Promise.all([
+  const [config, settings, blogs, pageSeoOverrides, offerSlugs, gallerySlugs, sitePageSlugs] = await Promise.all([
     readSitemapConfig(),
     readSettings(),
     getPublishedBlogEntries(),
     readPageSeoOverridesForSitemap(),
     getActiveOfferSlugs(),
+    getPublishedAlbumSlugs(),
+    getPublishedPageSlugs(),
   ]);
 
   if (settings.universalNoIndex) {
@@ -153,5 +158,19 @@ export async function buildSitemapEntries() {
     priority: 0.65,
   }));
 
-  return [...staticEntries, ...offerEntries, ...blogEntries];
+  const galleryEntries = gallerySlugs.map((slug) => ({
+    url: `${baseUrl}/gallery/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
+  const sitePageEntries = sitePageSlugs.map((slug) => ({
+    url: `${baseUrl}/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly',
+    priority: 0.55,
+  }));
+
+  return [...staticEntries, ...offerEntries, ...galleryEntries, ...sitePageEntries, ...blogEntries];
 }

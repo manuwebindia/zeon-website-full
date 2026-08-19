@@ -30,7 +30,7 @@
   --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.06);
 
   /* Font Family */
-  --font-sans: var(--font-open-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
   /* Animations */
   --animate-fade-in-up: fadeInUp 0.8s ease both;
@@ -105,6 +105,9 @@
   }
   .bg-zeon-banner {
     background-image: url('/zeon-banner-bg.webp');
+  }
+  .font-inter {
+    font-family: var(--font-sans);
   }
 }
 
@@ -282,6 +285,23 @@ html.has-mini-banner main {
 html.has-mini-banner .sticky[class*="top-"] {
   top: calc(7rem + 40px) !important;
 }
+
+/* Blog post — pinned table of contents sidebar */
+.blog-toc-sticky {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+.blog-toc-sticky::-webkit-scrollbar {
+  width: 4px;
+}
+.blog-toc-sticky::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+}
+html.has-mini-banner .blog-toc-sticky {
+  top: calc(7rem + 40px) !important;
+  max-height: calc(100vh - 7rem - 40px) !important;
+}
 @media (min-width: 768px) {
   html.has-mini-banner header {
     top: 60px !important;
@@ -291,5 +311,9 @@ html.has-mini-banner .sticky[class*="top-"] {
   }
   html.has-mini-banner .sticky[class*="top-"] {
     top: calc(7rem + 44px) !important;
+  }
+  html.has-mini-banner .blog-toc-sticky {
+    top: calc(7rem + 44px) !important;
+    max-height: calc(100vh - 7rem - 44px) !important;
   }
 }

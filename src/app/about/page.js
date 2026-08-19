@@ -52,7 +52,7 @@ export default function AboutPage() {
             </span>
             <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight">
               We Are Not An Ordinary <br className="hidden md:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">
+              <span className="text-transparent bg-clip-text text-primary drop-shadow-sm">
                 Digital Marketing Institute
               </span>
             </h1>
@@ -95,8 +95,8 @@ export default function AboutPage() {
                   WIS & Zeon Academy
                 </span>
                 <h2 className="text-[2.2rem] md:text-[2.8rem] font-extrabold text-heading leading-[1.15] mb-6">
-                  Studying is Inseparable from <br className="hidden sm:inline" />
-                  <span className="text-primary">Working at WIS</span>
+                  Studying is Inseparable from
+                  <span className="text-primary"> Working at WIS</span>
                 </h2>
                 <p className="text-base md:text-[1.05rem] text-body leading-[1.7] font-medium mb-6">
                   We are not an ordinary digital marketing training institute in Kochi. Zeon Academy stands out as it is an offshoot of Web India Solutions fondly known as <strong>WIS</strong>, a web development and digital marketing company with 18 years of experience in the business.

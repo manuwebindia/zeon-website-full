@@ -2,13 +2,13 @@ import Image from 'next/image';
 import { sanitizeHtml } from '@/lib/sanitize';
 import { addIdsToHtml } from '@/lib/tocUtils';
 
-export default function BlogContent({ content }) {
+export default function BlogContent({ content, className = 'mx-auto max-w-3xl' }) {
   if (!Array.isArray(content)) {
     return null;
   }
 
   return (
-    <div className="mx-auto max-w-3xl font-inter">
+    <div className={`font-sans ${className}`}>
       {content.map((block) => {
         if (block.type === 'text') {
           // Sanitize first, then inject heading anchor IDs for TOC scroll links
@@ -17,7 +17,7 @@ export default function BlogContent({ content }) {
           return (
             <div
               key={block.id}
-              className="prose-custom text-base md:text-lg leading-relaxed text-slate-700"
+              className="prose-custom text-[1.05rem] leading-relaxed text-body md:text-[1.1rem]"
               dangerouslySetInnerHTML={{ __html: cleanHtml }}
             />
           );
@@ -25,11 +25,11 @@ export default function BlogContent({ content }) {
 
         if (block.type === 'image' && block.src) {
           return (
-            <figure key={block.id} className="my-8 overflow-hidden rounded-2xl border border-slate-100 shadow-lg">
+            <figure key={block.id} className="my-8 overflow-hidden rounded-2xl border border-border shadow-card">
               <div className="relative aspect-video w-full">
                 <Image
                   src={block.src}
-                  alt={block.alt || 'WDK Blog content image'}
+                  alt={block.alt || 'Zeon Blog content image'}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 768px"
                   className="object-cover transition-transform duration-500 hover:scale-102"
@@ -37,7 +37,7 @@ export default function BlogContent({ content }) {
                 />
               </div>
               {block.caption && (
-                <figcaption className="bg-slate-50 border-t border-slate-100 py-3 px-4 text-center text-sm font-medium text-slate-500">
+                <figcaption className="border-t border-border bg-surface px-4 py-3 text-center text-sm font-medium text-body">
                   {block.caption}
                 </figcaption>
               )}
@@ -52,50 +52,53 @@ export default function BlogContent({ content }) {
       <style dangerouslySetInnerHTML={{ __html: `
         .prose-custom p {
           margin-bottom: 1rem;
-          color: #334155; /* slate-700 */
+          color: var(--color-body);
         }
         .prose-custom p:last-child {
           margin-bottom: 0;
         }
         .prose-custom h2 {
-          font-size: 1.75rem;
+          font-size: clamp(1.5rem, 2.5vw, 1.85rem);
           font-weight: 800;
-          color: #0f172a; /* slate-900 */
+          color: var(--color-heading);
           margin-top: 2rem;
           margin-bottom: 0.875rem;
           line-height: 1.35;
           letter-spacing: -0.02em;
+          scroll-margin-top: 7rem;
         }
         .prose-custom h3 {
-          font-size: 1.4rem;
+          font-size: clamp(1.25rem, 2vw, 1.45rem);
           font-weight: 700;
-          color: #0f172a;
+          color: var(--color-heading);
           margin-top: 1.5rem;
           margin-bottom: 0.75rem;
           line-height: 1.4;
+          scroll-margin-top: 7rem;
         }
         .prose-custom h4 {
-          font-size: 1.2rem;
+          font-size: 1.15rem;
           font-weight: 600;
-          color: #1e293b;
+          color: var(--color-heading);
           margin-top: 1.25rem;
           margin-bottom: 0.5rem;
+          scroll-margin-top: 7rem;
         }
         .prose-custom strong {
           font-weight: 700;
-          color: #0f172a;
+          color: var(--color-heading);
         }
         .prose-custom em {
           font-style: italic;
         }
         .prose-custom a {
-          color: #1A4FD6;
+          color: var(--color-primary);
           text-decoration: underline;
           font-weight: 600;
           transition: color 0.2s;
         }
         .prose-custom a:hover {
-          color: #17C653;
+          color: var(--color-primary-hover);
         }
         .prose-custom ul {
           list-style-type: disc;
@@ -111,11 +114,11 @@ export default function BlogContent({ content }) {
           margin-bottom: 0.375rem;
         }
         .prose-custom blockquote {
-          border-left: 4px solid #1A4FD6;
+          border-left: 4px solid var(--color-primary);
           padding-left: 1.5rem;
           font-style: italic;
-          color: #475569; /* slate-600 */
-          background-color: #f8fafc;
+          color: var(--color-body);
+          background-color: var(--color-surface);
           padding-top: 0.5rem;
           padding-bottom: 0.5rem;
           margin: 1.5rem 0;

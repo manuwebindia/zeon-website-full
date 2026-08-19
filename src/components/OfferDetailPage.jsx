@@ -1,16 +1,16 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { FaCheckCircle, FaChevronRight } from 'react-icons/fa';
+import { FaCheckCircle } from 'react-icons/fa';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ScrollReveal from './ScrollReveal';
+import InnerPageHero from './InnerPageHero';
 import BrochureDownloadButton from './BrochureDownloadButton';
 import FreeDemoForm from './FreeDemoForm';
 import OfferCard from './OfferCard';
 import { formatOfferDate } from '@/lib/offerFormat';
+import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
 
 const WhatsAppFloat = dynamic(() => import('./WhatsAppFloat'));
 
@@ -25,50 +25,27 @@ export default function OfferDetailPage({ offer, otherOffers = [] }) {
       <WhatsAppFloat />
 
       <main className="bg-surface pb-20">
-        <section className="relative pt-24 pb-12 lg:pt-28 lg:pb-16 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
-          <div className="absolute inset-0 z-1">
-            <Image
-              src="/courses/courses-fin.webp"
-              alt="Zeon Academy Offers Banner"
-              sizes="100vw"
-              fill
-              priority
-              className="object-cover object-center opacity-100 pointer-events-none"
-            />
-          </div>
-          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+        <InnerPageHero
+          banner={INNER_HERO_BANNERS.default}
+          bannerAlt="Zeon Academy Offers Banner"
+          breadcrumbs={[
+            { label: 'Home', href: '/' },
+            { label: 'Offers', href: '/offers' },
+            { label: displayTitle },
+          ]}
+          tagline={offer.tagline}
+          title={offer.heading}
+        >
+          {validLabel && (
+            <p className="text-[0.95rem] text-body font-medium">
+              {offer.validUntilLabel}{' '}
+              <span className="font-bold text-heading">{validLabel}</span>
+            </p>
+          )}
+        </InnerPageHero>
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
-            <div className="animate-fade-in-up text-center lg:text-left">
-              <nav className="flex items-center justify-center lg:justify-start gap-2 flex-wrap text-[0.88rem] font-semibold text-body my-6">
-                <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-                <FaChevronRight className="text-body/30 text-[0.65rem]" />
-                <Link href="/offers" className="hover:text-primary transition-colors">Offers</Link>
-                <FaChevronRight className="text-body/30 text-[0.65rem]" />
-                <span className="text-primary font-bold">{displayTitle}</span>
-              </nav>
-
-              {offer.tagline && (
-                <span className="inline-block text-primary text-[0.82rem] font-bold mb-3 tracking-[0.22em] uppercase">
-                  {offer.tagline}
-                </span>
-              )}
-              <h1 className="text-[2rem] md:text-[2.8rem] font-extrabold text-heading leading-tight mb-4 whitespace-pre-line">
-                {offer.heading}
-              </h1>
-              {validLabel && (
-                <p className="text-[0.95rem] text-body font-medium">
-                  {offer.validUntilLabel}{' '}
-                  <span className="font-bold text-heading">{validLabel}</span>
-                </p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-12 md:py-16 relative">
-          <div className="w-full max-w-[1200px] mx-auto px-6">
+        <section className={INNER_PAGE.section}>
+          <div className={INNER_PAGE.container}>
             <div className="flex flex-col lg:flex-row gap-10">
               <div className="flex-1 lg:w-2/3">
                 {offer.aboutPoints?.length > 0 && (
@@ -154,7 +131,7 @@ export default function OfferDetailPage({ offer, otherOffers = [] }) {
 
         {otherOffers.length > 0 && (
           <section className="py-16 bg-white border-t border-border">
-            <div className="w-full max-w-[1200px] mx-auto px-6">
+            <div className={INNER_PAGE.container}>
               <h2 className="text-[2rem] font-extrabold text-heading mb-10 text-center">More Offers</h2>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {otherOffers.map((item, idx) => (

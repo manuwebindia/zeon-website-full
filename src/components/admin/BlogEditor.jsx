@@ -68,6 +68,8 @@ export default function BlogEditor({ mode, initialData }) {
   const [seoDescription, setSeoDescription] = useState('');
   const [featuredImage, setFeaturedImage] = useState(null);
   const [featuredImageAlt, setFeaturedImageAlt] = useState('');
+  const [bannerImage, setBannerImage] = useState(null);
+  const [bannerImageAlt, setBannerImageAlt] = useState('');
   const [excerpt, setExcerpt] = useState('');
   const [content, setContent] = useState([]);
   const [status, setStatus] = useState('draft');
@@ -131,6 +133,8 @@ export default function BlogEditor({ mode, initialData }) {
       setSeoDescription(initialData.seoDescription || '');
       setFeaturedImage(initialData.featuredImage || null);
       setFeaturedImageAlt(initialData.featuredImageAlt || '');
+      setBannerImage(initialData.bannerImage || null);
+      setBannerImageAlt(initialData.bannerImageAlt || '');
       setExcerpt(initialData.excerpt || '');
       setContent(initialData.content || []);
       setStatus(initialData.status || 'draft');
@@ -174,6 +178,8 @@ export default function BlogEditor({ mode, initialData }) {
       excerpt,
       featuredImage,
       featuredImageAlt,
+      bannerImage,
+      bannerImageAlt,
       seoTitle,
       seoDescription,
       tags,
@@ -195,6 +201,8 @@ export default function BlogEditor({ mode, initialData }) {
     excerpt,
     featuredImage,
     featuredImageAlt,
+    bannerImage,
+    bannerImageAlt,
     seoTitle,
     seoDescription,
     tags,
@@ -222,6 +230,8 @@ export default function BlogEditor({ mode, initialData }) {
     excerpt,
     featuredImage,
     featuredImageAlt,
+    bannerImage,
+    bannerImageAlt,
     seoTitle,
     seoDescription,
     tags,
@@ -276,6 +286,8 @@ export default function BlogEditor({ mode, initialData }) {
         seoDescription: state.seoDescription || state.excerpt,
         featuredImage: state.featuredImage,
         featuredImageAlt: state.featuredImageAlt,
+        bannerImage: state.bannerImage,
+        bannerImageAlt: state.bannerImageAlt,
         content: state.content,
         excerpt:
           state.excerpt ||
@@ -370,6 +382,8 @@ export default function BlogEditor({ mode, initialData }) {
     excerpt,
     featuredImage,
     featuredImageAlt,
+    bannerImage,
+    bannerImageAlt,
     seoTitle,
     seoDescription,
     tags,
@@ -644,6 +658,8 @@ export default function BlogEditor({ mode, initialData }) {
       seoDescription: seoDescription || excerpt,
       featuredImage,
       featuredImageAlt,
+      bannerImage,
+      bannerImageAlt,
       content,
       excerpt:
         excerpt ||
@@ -951,12 +967,26 @@ export default function BlogEditor({ mode, initialData }) {
             </Stack>
           </Paper>
 
-          {/* Featured Image */}
+          {/* Cover image (listing cards) */}
           <FeaturedImageUpload
             image={featuredImage}
             alt={featuredImageAlt}
             onImageChange={setFeaturedImage}
             onAltChange={setFeaturedImageAlt}
+            label="Cover Image"
+            altLabel="Cover Image Alt Text"
+            pickerTitle="Choose Cover Image"
+          />
+
+          {/* Banner image (article hero) */}
+          <FeaturedImageUpload
+            image={bannerImage}
+            alt={bannerImageAlt}
+            onImageChange={setBannerImage}
+            onAltChange={setBannerImageAlt}
+            label="Banner Image"
+            altLabel="Banner Image Alt Text"
+            pickerTitle="Choose Banner Image"
           />
 
           {/* Phase 2 — Live SEO Score */}

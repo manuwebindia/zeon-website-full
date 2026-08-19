@@ -24,46 +24,52 @@ export default function CoursesPage() {
       <WhatsAppFloat />
       <BookDemoModal />
 
-      <main className="bg-white">
+      <main className="bg-gradient-to-r from-[#940101] via-primary to-[#940101]">
+        {/* <div className="absolute bg-blend-overlay bg-black opacity-20 inset-0 z-10" /> */}
         {/* BREADCRUMB & HEADER SECTION */}
-        <section className="relative pt-24 pb-16 md:pt-28 md:pb-20 overflow-hidden">
-          {/* Background Image Banner */}
-          <div className="absolute inset-0 z-1">
-            <Image
-              src="/courses/courss.webp"
-              alt="Zeon Academy Courses Banner"
-              fill
-              priority
-              className="object-cover object-center opacity-100 pointer-events-none"
-            />
-            {/* <div className="absolute inset-0 bg-gradient-to-b from-[#161B2A]/10 via-[#161B2A]/30 to-[#161B2A]/10" /> */}
-          </div>
+        <section className="relative pt-24 pb-0 md:pt-28 overflow-visible">
           {/* Orbs */}
           <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
           <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
-            {/* Breadcrumbs */}
-            <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body mb-5">
-              <Link href="/" className="hover:text-primary transition-colors">
-                Home
-              </Link>
-              <span className="text-border">/</span>
-              <span className="text-primary font-bold">Courses</span>
+          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in-up pb-8 md:pb-10">
+            <div className="relative max-w-2xl lg:max-w-3xl text-left">
+              {/* Breadcrumbs */}
+              <div className="flex items-center justify-start gap-2.5 text-[0.88rem] font-semibold text-white/80 mb-5 !mt-5 md:mt-0">
+                <Link href="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+                <span className="text-white/80">/</span>
+                <span className="text-white/80 font-bold">Courses</span>
+              </div>
+
+              <span className="inline-block text-white text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
+                Start your journey here!
+              </span>
+              <h1 className="text-[clamp(2.2rem,5vw,3.2rem)] font-extrabold leading-[1.2] text-white mb-5 tracking-tight">
+                Looking for a sure-shot way to <br className="hidden sm:inline" />
+                <span className="text-white drop-shadow-sm">
+                  pump up your digital marketing career?
+                </span>
+              </h1>
+              <p className="text-[1.1rem] md:text-[1.15rem] text-white/80 leading-relaxed font-medium mb-5">
+                Save hundreds of hours by learning from working professionals with the best digital marketing course in Kochi, Kerala.
+              </p>
             </div>
 
-            <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
-              Start your journey here!
-            </span>
-            <h1 className="text-[clamp(2.2rem,5vw,3.2rem)] font-extrabold leading-[1.2] text-heading mb-5 tracking-tight max-w-4xl mx-auto">
-              Looking for a sure-shot way to <br className="hidden sm:inline" />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">
-                pump up your digital marketing career?
-              </span>
-            </h1>
-            <p className="text-[1.1rem] md:text-[1.15rem] text-body leading-relaxed font-medium max-w-3xl mx-auto">
-              Save hundreds of hours by learning from working professionals with the best digital marketing course in Kochi, Kerala.
-            </p>
+            <div className="pointer-events-none absolute bottom-0 right-0 z-[1] hidden sm:flex items-end justify-end">
+              <div className="relative w-[min(65vw,340px)] md:w-[360px] lg:w-[400px] h-[240px] sm:h-[280px] md:h-[380px] lg:h-[440px]">
+                <Image
+                  src="/offers/offers-girl.png"
+                  alt="Zeon Academy Courses Banner"
+                  fill
+                  unoptimized
+                  priority
+                  className="object-contain object-right-bottom"
+                  sizes="(max-width: 1024px) 72vw, 400px"
+                />
+              </div>
+            </div>
           </div>
         </section>
 
@@ -77,7 +83,7 @@ export default function CoursesPage() {
                   mode="online"
                   title="Advanced Digital Marketing Course"
                   duration="2 Months + 1 Month Internship"
-                  image="/courses/digitalmarketing-course.webp"
+                  image="/courses/a1.jpg"
                   slug="/courses/advanced-digital-marketing"
                   certifications="15+ Certifications (Google, Meta, HubSpot)"
                   placement="Guaranteed Internship & 100% Placement"
@@ -107,7 +113,7 @@ export default function CoursesPage() {
                   mode="online"
                   title="SEO Specialist Course"
                   duration="15 Days + 1 Month Internship"
-                  image="/courses/seo-course.webp"
+                  image="/courses/s2.jpg"
                   slug="/courses/seo-specialist"
                   certifications="Zeon & Google Certifications"
                   placement="1-Month Agency Internship Support"
@@ -136,7 +142,7 @@ export default function CoursesPage() {
                   mode="online"
                   title="Ads Specialist Course"
                   duration="10 Days"
-                  image="/courses/ads-course.webp"
+                  image="/courses/a1.jpg"
                   slug="/courses/ads-specialist"
                   certifications="Google & Meta Ads Certifications"
                   placement="Placement Drive Eligibility"

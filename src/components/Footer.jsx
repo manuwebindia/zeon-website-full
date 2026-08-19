@@ -56,6 +56,7 @@ export default function Footer() {
                 { label: "Courses", href: "/courses" },
                 { label: "Job Vacancy", href: "/placements" },
                 { label: "Blog", href: "/blog" },
+                { label: "Gallery", href: "/gallery" },
                 { label: "Contact Us", href: "/contact" },
               ].map(({ label, href }) => (
                 <li key={label}>
@@ -127,7 +128,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-4 pt-6 border-t border-white/10 text-[0.85rem]">
           <p className="m-0 text-[#c3c8cf] text-center sm:text-left">
-            © 2026 Zeon Academy. All Rights Reserved | <span className="whitespace-nowrap">Powered by <a href="https://webindiasolutions.com/" target="_blank" rel="noopener noreferrer" className="text-white no-underline hover:text-primary transition-all duration-300">Web India Solutions</a></span>
+            © 2026 Zeon Academy. All Rights Reserved | <span className="whitespace-nowrap">Powered by <a href="https://webindiasolutions.com/" target="_blank" rel="noopener noreferrer" className="text-[#c3c8cf]] no-underline hover:text-white transition-all duration-300">Web India Solutions</a></span>
           </p>
           <div className="flex gap-6">
             <LegalButtons />

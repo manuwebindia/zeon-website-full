@@ -58,16 +58,13 @@ export default function AdminPagesPage() {
   const showSnackbar = (message, severity = 'success') =>
     setSnackbar({ open: true, message, severity });
 
-  const fetchPages = useCallback(async (selectFirst = false) => {
+  const fetchPages = useCallback(async () => {
     setLoading(true);
     try {
       const res = await fetch('/api/admin/pages', { headers: authHeaders() });
       const data = await res.json();
       if (res.ok) {
         setPages(data.pages || []);
-        if (selectFirst && data.pages?.length) {
-          setSelectedPath(data.pages[0].path);
-        }
       } else {
         showSnackbar(data.error || 'Failed to load pages', 'error');
       }
@@ -79,7 +76,7 @@ export default function AdminPagesPage() {
   }, []);
 
   useEffect(() => {
-    fetchPages(true);
+    fetchPages();
   }, [fetchPages]);
 
   const selectedPage = useMemo(
@@ -90,15 +87,31 @@ export default function AdminPagesPage() {
   useEffect(() => {
     if (!selectedPage) return;
     const override = selectedPage.override || {};
+
+    if (selectedPage.source === 'static') {
+      setForm({
+        seoTitle: override.seoTitle || '',
+        seoDescription: override.seoDescription || '',
+        allowIndexing:
+          override.allowIndexing !== undefined
+            ? override.allowIndexing
+            : selectedPage.defaults.allowIndexing !== false,
+        canonicalUrl: override.canonicalUrl || '',
+        ogTitle: override.ogTitle || '',
+        ogDescription: override.ogDescription || '',
+        ogImage: override.ogImage || '',
+      });
+      return;
+    }
+
     setForm({
-      seoTitle: override.seoTitle || '',
-      seoDescription: override.seoDescription || '',
-      allowIndexing:
-        override.allowIndexing !== undefined ? override.allowIndexing : selectedPage.defaults.allowIndexing !== false,
-      canonicalUrl: override.canonicalUrl || '',
-      ogTitle: override.ogTitle || '',
-      ogDescription: override.ogDescription || '',
-      ogImage: override.ogImage || '',
+      seoTitle: override.seoTitle || selectedPage.effective.title || '',
+      seoDescription: override.seoDescription || selectedPage.effective.description || '',
+      allowIndexing: selectedPage.effective.allowIndexing !== false,
+      canonicalUrl: '',
+      ogTitle: '',
+      ogDescription: '',
+      ogImage: '',
     });
   }, [selectedPage]);
 
@@ -181,28 +194,32 @@ export default function AdminPagesPage() {
     );
   }
 
+  const showList = !selectedPath;
+
   return (
-    <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1400, mx: 'auto' }}>
+    <Box sx={{ p: { xs: 2, md: 3 }, maxWidth: 1100, mx: 'auto' }}>
       <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', mb: 3, gap: 2, flexWrap: 'wrap' }}>
         <Box>
           <Typography variant="h4" sx={{ fontWeight: 700, mb: 0.5 }}>
             Pages
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Override SEO title, meta description, canonical URL, indexing, and social sharing tags for each site page.
+            Manage SEO for built pages, imported site pages, gallery albums, and offers.
           </Typography>
         </Box>
-        <Button
-          variant="outlined"
-          startIcon={<IconRefresh size={16} />}
-          onClick={fetchPages}
-          sx={{ textTransform: 'none', borderRadius: 2 }}
-        >
-          Refresh
-        </Button>
+        {showList && (
+          <Button
+            variant="outlined"
+            startIcon={<IconRefresh size={16} />}
+            onClick={fetchPages}
+            sx={{ textTransform: 'none', borderRadius: 2 }}
+          >
+            Refresh
+          </Button>
+        )}
       </Box>
 
-      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', lg: '320px 1fr' }, gap: 3, alignItems: 'start' }}>
+      {showList ? (
         <Paper elevation={0} sx={{ border: '1px solid #e5eaef', borderRadius: 3, overflow: 'hidden' }}>
           <Box sx={{ p: 2, borderBottom: '1px solid #e5eaef' }}>
             <TextField
@@ -223,7 +240,7 @@ export default function AdminPagesPage() {
             />
           </Box>
 
-          <Box sx={{ maxHeight: '70vh', overflowY: 'auto' }}>
+          <Box>
             {Object.entries(groupedPages).map(([group, groupPages]) => (
               <Box key={group}>
                 <Typography
@@ -245,95 +262,138 @@ export default function AdminPagesPage() {
                   {groupPages.map((page) => (
                     <ListItemButton
                       key={page.path}
-                      selected={page.path === selectedPath}
                       onClick={() => setSelectedPath(page.path)}
-                      sx={{ py: 1.25, px: 2 }}
+                      sx={{
+                        py: 1.5,
+                        px: 2,
+                        borderBottom: '1px solid #f1f5f9',
+                        '&:hover': { bgcolor: '#FFF5F5' },
+                      }}
                     >
                       <ListItemText
                         primary={page.label}
                         secondary={page.path}
                         slotProps={{
-                          primary: { sx: { fontWeight: 600, fontSize: '0.9rem' } },
-                          secondary: { sx: { fontSize: '0.75rem' } },
+                          primary: { sx: { fontWeight: 600, fontSize: '0.95rem' } },
+                          secondary: { sx: { fontSize: '0.8rem' } },
                         }}
                       />
                       {page.hasOverride && (
-                        <Chip label="Custom" size="small" color="primary" variant="outlined" sx={{ ml: 1, height: 22, fontSize: '0.65rem' }} />
+                        <Chip
+                          label="Custom SEO"
+                          size="small"
+                          color="primary"
+                          variant="outlined"
+                          sx={{ ml: 1, height: 24, fontSize: '0.7rem' }}
+                        />
+                      )}
+                      {page.source && page.source !== 'static' && (
+                        <Chip
+                          label={page.group}
+                          size="small"
+                          variant="outlined"
+                          sx={{ ml: 1, height: 24, fontSize: '0.7rem' }}
+                        />
                       )}
                     </ListItemButton>
                   ))}
                 </List>
               </Box>
             ))}
+            {!filteredPages.length && (
+              <Box sx={{ p: 4, textAlign: 'center' }}>
+                <Typography color="text.secondary">No pages match your search.</Typography>
+              </Box>
+            )}
           </Box>
         </Paper>
+      ) : selectedPage ? (
+        <>
+          <Button
+            startIcon={<IconArrowBack size={16} />}
+            onClick={() => setSelectedPath('')}
+            sx={{ mb: 2, textTransform: 'none', borderRadius: 2 }}
+          >
+            Back to Pages
+          </Button>
 
-        <Box>
-          {!selectedPage ? (
-            <Paper elevation={0} sx={{ border: '1px solid #e5eaef', borderRadius: 3, p: 4, textAlign: 'center' }}>
-              <Typography color="text.secondary">Select a page to edit its SEO settings.</Typography>
-            </Paper>
-          ) : (
+          <Paper elevation={0} sx={{ border: '1px solid #e5eaef', borderRadius: 3, p: 3, mb: 3 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2, flexWrap: 'wrap' }}>
+              <Box>
+                <Typography variant="h5" sx={{ fontWeight: 700 }}>
+                  {selectedPage.label}
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                  {selectedPage.path}
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+                <Button
+                  component={Link}
+                  href={selectedPage.path}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="outlined"
+                  startIcon={<IconExternalLink size={16} />}
+                  sx={{ textTransform: 'none', borderRadius: 2 }}
+                >
+                  View Page
+                </Button>
+                {selectedPage.editUrl && (
+                  <Button
+                    component={Link}
+                    href={selectedPage.editUrl}
+                    variant="outlined"
+                    sx={{ textTransform: 'none', borderRadius: 2 }}
+                  >
+                    {selectedPage.source === 'site-page' ? 'Edit Content' : 'Manage in Admin'}
+                  </Button>
+                )}
+                {selectedPage.hasOverride && !selectedPage.readOnly && (
+                  <Button
+                    variant="outlined"
+                    color="warning"
+                    onClick={handleReset}
+                    disabled={saving}
+                    sx={{ textTransform: 'none', borderRadius: 2 }}
+                  >
+                    Reset to Default
+                  </Button>
+                )}
+                {!selectedPage.readOnly && (
+                  <Button
+                    variant="contained"
+                    startIcon={saving ? <CircularProgress size={16} color="inherit" /> : <IconDeviceFloppy size={16} />}
+                    onClick={handleSave}
+                    disabled={saving}
+                    sx={{ textTransform: 'none', borderRadius: 2 }}
+                  >
+                    Save Changes
+                  </Button>
+                )}
+              </Box>
+            </Box>
+
+            <Divider sx={{ my: 2.5 }} />
+
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1 }}>
+              {selectedPage.source === 'static' ? 'Default SEO (from code)' : 'Current SEO'}
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+              <strong>Title:</strong> {selectedPage.effective.title}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              <strong>Description:</strong> {selectedPage.effective.description}
+            </Typography>
+            {selectedPage.readOnly && (
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                Offer pages are read-only here. Update content under Admin → Offers.
+              </Typography>
+            )}
+          </Paper>
+
+          {!selectedPage.readOnly && (
             <>
-              <Paper elevation={0} sx={{ border: '1px solid #e5eaef', borderRadius: 3, p: 3, mb: 3 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 2, flexWrap: 'wrap' }}>
-                  <Box>
-                    <Typography variant="h5" sx={{ fontWeight: 700 }}>
-                      {selectedPage.label}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                      {selectedPage.path}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
-                    <Button
-                      component={Link}
-                      href={selectedPage.path}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      variant="outlined"
-                      startIcon={<IconExternalLink size={16} />}
-                      sx={{ textTransform: 'none', borderRadius: 2 }}
-                    >
-                      View Page
-                    </Button>
-                    {selectedPage.hasOverride && (
-                      <Button
-                        variant="outlined"
-                        color="warning"
-                        startIcon={<IconArrowBack size={16} />}
-                        onClick={handleReset}
-                        disabled={saving}
-                        sx={{ textTransform: 'none', borderRadius: 2 }}
-                      >
-                        Reset to Default
-                      </Button>
-                    )}
-                    <Button
-                      variant="contained"
-                      startIcon={saving ? <CircularProgress size={16} color="inherit" /> : <IconDeviceFloppy size={16} />}
-                      onClick={handleSave}
-                      disabled={saving}
-                      sx={{ textTransform: 'none', borderRadius: 2 }}
-                    >
-                      Save Changes
-                    </Button>
-                  </Box>
-                </Box>
-
-                <Divider sx={{ my: 2.5 }} />
-
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1 }}>
-                  Default SEO (from code)
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
-                  <strong>Title:</strong> {selectedPage.defaults.title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Description:</strong> {selectedPage.defaults.description}
-                </Typography>
-              </Paper>
-
               <SeoFields
                 hideSlug
                 seoTitle={form.seoTitle}
@@ -341,16 +401,22 @@ export default function AdminPagesPage() {
                 allowIndexing={form.allowIndexing}
                 onChange={handleFieldChange}
                 indexingLabel="Allow Search Engine Indexing"
-                indexingHelper="Leave blank fields to use the page defaults. Uncheck to add a noindex tag for this page."
+                indexingHelper={
+                  selectedPage.source === 'static'
+                    ? 'Leave blank fields to use the page defaults. Uncheck to add a noindex tag for this page.'
+                    : 'Leave blank to use the page title and excerpt as defaults.'
+                }
               />
 
-              <SocialFields
-                ogTitle={form.ogTitle}
-                ogDescription={form.ogDescription}
-                ogImage={form.ogImage}
-                canonicalUrl={form.canonicalUrl}
-                onChange={handleFieldChange}
-              />
+              {selectedPage.source === 'static' && (
+                <SocialFields
+                  ogTitle={form.ogTitle}
+                  ogDescription={form.ogDescription}
+                  ogImage={form.ogImage}
+                  canonicalUrl={form.canonicalUrl}
+                  onChange={handleFieldChange}
+                />
+              )}
 
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
                 <Button
@@ -365,8 +431,8 @@ export default function AdminPagesPage() {
               </Box>
             </>
           )}
-        </Box>
-      </Box>
+        </>
+      ) : null}
 
       <Snackbar
         open={snackbar.open}

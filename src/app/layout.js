@@ -1,4 +1,4 @@
-import { Open_Sans } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Script from "next/script";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -7,10 +7,10 @@ import LegalModal from "@/components/LegalModal";
 import DownloadBrochureModal from "@/components/DownloadBrochureModal";
 import { buildPageMetadata } from "@/lib/pageSeo";
 
-const openSans = Open_Sans({
-  variable: "--font-open-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "600", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
 });
 
@@ -47,7 +47,7 @@ export async function generateMetadata() {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={openSans.variable}>
+    <html lang="en" className={inter.variable}>
       <body>
         <style>{`.grecaptcha-badge { display: none !important; }`}</style>
         <OfferPopup />

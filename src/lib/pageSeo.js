@@ -1,7 +1,10 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { revalidatePath } from 'next/cache';
+import prisma from '@/lib/db';
 import { readSettings } from '@/lib/settings';
 import { readSitemapConfig, getSitemapBaseUrl } from '@/lib/sitemapBuilder';
+import { readOffersConfig, isOfferActive } from '@/lib/offers';
 
 const PAGE_SEO_PATH = path.join(process.cwd(), 'src/data/page-seo.json');
 
@@ -152,6 +155,18 @@ export const SITE_PAGES = [
     },
   },
   {
+    path: '/gallery',
+    label: 'Gallery',
+    group: 'Other',
+    defaults: {
+      title: 'Gallery | Zeon Academy Kochi',
+      description:
+        'Photos from celebrations, graduations, and campus life at Zeon Academy — Kerala\'s leading digital marketing institute.',
+      canonical: '/gallery',
+      allowIndexing: true,
+    },
+  },
+  {
     path: '/thank-you',
     label: 'Thank You',
     group: 'Other',
@@ -166,6 +181,268 @@ export const SITE_PAGES = [
 
 export function getSitePage(pathname) {
   return SITE_PAGES.find((page) => page.path === pathname) || null;
+}
+
+export const ADMIN_PAGE_GROUP_ORDER = ['Main', 'Courses', 'Other', 'Site Pages', 'Gallery', 'Offers'];
+
+function buildAdminPageEntry({
+  path,
+  label,
+  group,
+  source,
+  defaults,
+  override,
+  editUrl = null,
+  readOnly = false,
+}) {
+  const effective = mergePageSeo(path, defaults, override);
+  const hasOverride =
+    source === 'static'
+      ? Boolean(override && !isEmptyOverride(override))
+      : Boolean(
+          override?.seoTitle ||
+            override?.seoDescription ||
+            override?.allowIndexing === false
+        );
+
+  return {
+    path,
+    label,
+    group,
+    source,
+    defaults,
+    override: override && !isEmptyOverride(override) ? override : override || null,
+    effective,
+    hasOverride,
+    editUrl,
+    readOnly,
+  };
+}
+
+async function getCmsSitePageEntries() {
+  try {
+    const pages = await prisma.page.findMany({
+      where: { status: 'published' },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        seoTitle: true,
+        seoDescription: true,
+        allowIndexing: true,
+      },
+      orderBy: { title: 'asc' },
+    });
+
+    return pages.map((page) => {
+      const defaults = {
+        title: page.title,
+        description: page.excerpt || '',
+        canonical: `/${page.slug}`,
+        allowIndexing: page.allowIndexing !== false,
+      };
+      const override = {
+        seoTitle: page.seoTitle || '',
+        seoDescription: page.seoDescription || '',
+        allowIndexing: page.allowIndexing !== false,
+      };
+
+      return buildAdminPageEntry({
+        path: `/${page.slug}`,
+        label: page.title,
+        group: 'Site Pages',
+        source: 'site-page',
+        defaults,
+        override,
+        editUrl: `/admin/dashboard/site-pages/${page.id}/edit`,
+      });
+    });
+  } catch (error) {
+    console.error('Failed to load CMS site pages for admin:', error.message);
+    return [];
+  }
+}
+
+async function getGalleryPageEntries() {
+  try {
+    const albums = await prisma.galleryAlbum.findMany({
+      where: { status: 'published' },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        description: true,
+        seoTitle: true,
+        seoDescription: true,
+        allowIndexing: true,
+      },
+      orderBy: [{ sortOrder: 'asc' }, { title: 'asc' }],
+    });
+
+    return albums.map((album) => {
+      const defaults = {
+        title: `${album.title} | Gallery | Zeon Academy`,
+        description: album.description || `Photos from ${album.title} at Zeon Academy.`,
+        canonical: `/gallery/${album.slug}`,
+        allowIndexing: album.allowIndexing !== false,
+      };
+      const override = {
+        seoTitle: album.seoTitle || '',
+        seoDescription: album.seoDescription || '',
+        allowIndexing: album.allowIndexing !== false,
+      };
+
+      return buildAdminPageEntry({
+        path: `/gallery/${album.slug}`,
+        label: album.title,
+        group: 'Gallery',
+        source: 'gallery',
+        defaults,
+        override,
+        editUrl: `/admin/dashboard/gallery/${album.id}/edit`,
+      });
+    });
+  } catch (error) {
+    console.error('Failed to load gallery pages for admin:', error.message);
+    return [];
+  }
+}
+
+async function getOfferPageEntries() {
+  try {
+    const config = await readOffersConfig();
+    return config.offers
+      .filter((offer) => isOfferActive(offer))
+      .map((offer) => {
+        const heading = offer.heading?.replace(/\n/g, ' ').trim() || offer.slug;
+        const defaults = {
+          title: `${heading} | Offers | Zeon Academy`,
+          description: offer.aboutPoints?.[0] || `Claim ${heading} from Zeon Academy, Kochi.`,
+          canonical: `/offers/${offer.slug}`,
+          allowIndexing: true,
+        };
+
+        return buildAdminPageEntry({
+          path: `/offers/${offer.slug}`,
+          label: heading,
+          group: 'Offers',
+          source: 'offer',
+          defaults,
+          override: null,
+          editUrl: '/admin/dashboard/offers',
+          readOnly: true,
+        });
+      });
+  } catch (error) {
+    console.error('Failed to load offer pages for admin:', error.message);
+    return [];
+  }
+}
+
+export async function resolveAdminPage(pagePath) {
+  const staticPage = getSitePage(pagePath);
+  if (staticPage) {
+    return { type: 'static', staticPage };
+  }
+
+  const galleryMatch = pagePath.match(/^\/gallery\/([^/]+)$/);
+  if (galleryMatch) {
+    const album = await prisma.galleryAlbum.findFirst({
+      where: { slug: galleryMatch[1], status: 'published' },
+      select: { id: true, slug: true },
+    });
+    if (album) return { type: 'gallery', id: album.id, slug: album.slug };
+  }
+
+  if (pagePath.startsWith('/') && pagePath.indexOf('/', 1) === -1 && pagePath.length > 1) {
+    const slug = pagePath.slice(1);
+    const page = await prisma.page.findFirst({
+      where: { slug, status: 'published' },
+      select: { id: true, slug: true },
+    });
+    if (page) return { type: 'site-page', id: page.id, slug: page.slug };
+  }
+
+  const offerMatch = pagePath.match(/^\/offers\/([^/]+)$/);
+  if (offerMatch?.[1]) {
+    const config = await readOffersConfig();
+    const offer = config.offers.find(
+      (item) => item.slug === offerMatch[1] && isOfferActive(item)
+    );
+    if (offer) return { type: 'offer', slug: offer.slug };
+  }
+
+  return null;
+}
+
+export async function saveAdminPageSeo(pagePath, override, { clear = false } = {}) {
+  const resolved = await resolveAdminPage(pagePath);
+  if (!resolved) {
+    throw new Error(`Unknown page path: ${pagePath}`);
+  }
+
+  if (resolved.type === 'static') {
+    const allOverrides = await readPageSeoOverrides();
+    if (clear) {
+      delete allOverrides[pagePath];
+    } else {
+      const sanitized = sanitizePageOverride(override || {});
+      if (isEmptyOverride(sanitized)) {
+        delete allOverrides[pagePath];
+      } else {
+        allOverrides[pagePath] = sanitized;
+      }
+    }
+    await writePageSeoOverrides(allOverrides);
+    try {
+      revalidatePath(pagePath);
+    } catch {
+      // Non-fatal
+    }
+    return;
+  }
+
+  const sanitized = sanitizePageOverride(override || {});
+
+  if (resolved.type === 'site-page') {
+    await prisma.page.update({
+      where: { id: resolved.id },
+      data: clear
+        ? { seoTitle: null, seoDescription: null, allowIndexing: true }
+        : {
+            seoTitle: sanitized.seoTitle || null,
+            seoDescription: sanitized.seoDescription || null,
+            allowIndexing: sanitized.allowIndexing !== false,
+          },
+    });
+    try {
+      revalidatePath(`/${resolved.slug}`);
+      revalidatePath('/sitemap.xml');
+    } catch {
+      // Non-fatal
+    }
+    return;
+  }
+
+  if (resolved.type === 'gallery') {
+    await prisma.galleryAlbum.update({
+      where: { id: resolved.id },
+      data: clear
+        ? { seoTitle: null, seoDescription: null, allowIndexing: true }
+        : {
+            seoTitle: sanitized.seoTitle || null,
+            seoDescription: sanitized.seoDescription || null,
+            allowIndexing: sanitized.allowIndexing !== false,
+          },
+    });
+    try {
+      revalidatePath(`/gallery/${resolved.slug}`);
+      revalidatePath('/sitemap.xml');
+    } catch {
+      // Non-fatal
+    }
+  }
 }
 
 export async function readPageSeoOverrides() {
@@ -295,18 +572,38 @@ export async function buildPageMetadata(pagePath, defaultsInput) {
 
 export async function getAdminPagesPayload() {
   const overrides = await readPageSeoOverrides();
+  const [cmsPages, galleryPages, offerPages] = await Promise.all([
+    getCmsSitePageEntries(),
+    getGalleryPageEntries(),
+    getOfferPageEntries(),
+  ]);
 
-  return SITE_PAGES.map((page) => {
+  const staticPages = SITE_PAGES.map((page) => {
     const override = overrides[page.path] || null;
-    const effective = mergePageSeo(page.path, page.defaults, override);
-    return {
+    return buildAdminPageEntry({
       path: page.path,
       label: page.label,
       group: page.group,
+      source: 'static',
       defaults: page.defaults,
-      override: override && !isEmptyOverride(override) ? override : null,
-      effective,
-      hasOverride: Boolean(override && !isEmptyOverride(override)),
-    };
+      override,
+    });
   });
+
+  const seen = new Set(staticPages.map((page) => page.path));
+  const dynamicPages = [...cmsPages, ...galleryPages, ...offerPages].filter(
+    (page) => !seen.has(page.path)
+  );
+
+  const allPages = [...staticPages, ...dynamicPages];
+  allPages.sort((a, b) => {
+    const groupA = ADMIN_PAGE_GROUP_ORDER.indexOf(a.group);
+    const groupB = ADMIN_PAGE_GROUP_ORDER.indexOf(b.group);
+    const orderA = groupA === -1 ? 999 : groupA;
+    const orderB = groupB === -1 ? 999 : groupB;
+    if (orderA !== orderB) return orderA - orderB;
+    return a.label.localeCompare(b.label);
+  });
+
+  return allPages;
 }

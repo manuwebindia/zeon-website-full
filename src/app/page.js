@@ -51,18 +51,15 @@ export default function Home() {
 
       <main>
         <HeroSection nextBatchDate={nextBatchDate} />
-        <HeroDownBanner />
-        <CareerQuiz />
-        <WhyChooseZeon />
-        <OurCourses />
-        <Certifications />
-        <CareerLaunch />
+        {/* <HeroDownBanner /> */}
         
+        <OurCourses />
+        <OurPartners />
+        <PlacementsSection />
         <section id="placements">
-          <PlacementsSection />
+          
         </section>
 
-        <OurPartners />
 
         <section id="testimonials" className="py-10 md:py-14 lg:py-16 xl:py-20 bg-white">
           <div className="w-full max-w-[1200px] mx-auto px-6 text-center">
@@ -83,10 +80,13 @@ export default function Home() {
             <TestimonialsSlider />
           </div>
         </section>
-
+        <WhyChooseZeon />
+        <Certifications />
+        <CareerLaunch />
+        <CareerQuiz />
         <DemoSection />
-        <PricingSection />
-        <AdmissionProcess />
+        {/* <PricingSection /> */}
+        {/* <AdmissionProcess /> */}
         <StartJourney />
         <LocationMap />
       </main>

@@ -66,6 +66,14 @@ const PERMISSION_MATRIX = [
     label: 'Offers',
     cols: { view: null, create: null, edit: null, delete: null, publish: null, manage: 'offers.manage' },
   },
+  {
+    label: 'Gallery',
+    cols: { view: 'gallery.view', create: 'gallery.create', edit: 'gallery.edit', delete: 'gallery.delete', publish: 'gallery.publish', manage: null },
+  },
+  {
+    label: 'Site Pages',
+    cols: { view: 'pages.view', create: 'pages.create', edit: 'pages.edit', delete: 'pages.delete', publish: 'pages.publish', manage: null },
+  },
 ];
 
 const COL_LABELS = ['View', 'Create', 'Edit', 'Delete', 'Publish', 'Manage/Upload'];
