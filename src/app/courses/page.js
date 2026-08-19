@@ -46,11 +46,8 @@ export default function CoursesPage() {
               <span className="inline-block text-white text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
                 Start your journey here!
               </span>
-              <h1 className="text-[clamp(2.2rem,5vw,3rem)]  leading-[1.2] text-white mb-5 tracking-tight">
-                Looking for a sure-shot way to <br className="hidden sm:inline" />
-                <span className="text-white drop-shadow-sm">
-                  pump up your digital marketing career?
-                </span>
+              <h1 className="text-[clamp(2.2rem,5vw,2.8rem)]  leading-[1.2] text-white mb-5 tracking-tight">
+                Looking for a sure-shot way to pump up your digital marketing career?
               </h1>
               <p className="text-[1.1rem] md:text-[1.15rem] text-white/80 leading-relaxed font-medium mb-5">
                 Save hundreds of hours by learning from working professionals with the best<br className="hidden sm:inline" /> digital marketing course in Kochi, Kerala.
@@ -58,7 +55,7 @@ export default function CoursesPage() {
             </div>
 
             <div className="pointer-events-none absolute bottom-0 right-0 z-[1] hidden sm:flex items-end justify-end">
-              <div className="relative w-[min(65vw,340px)] md:w-[360px] lg:w-[400px] h-[240px] sm:h-[280px] md:h-[380px] lg:h-[440px]">
+              <div className="relative w-[min(65vw,240px)] md:w-[260px] lg:w-[350px] h-[240px] sm:h-[280px] md:h-[380px] lg:h-[440px]">
                 <Image
                   src="/offers/offers-girl.png"
                   alt="Zeon Academy Courses Banner"
@@ -96,7 +93,7 @@ export default function CoursesPage() {
                     "Meta Ads & Instagram Campaigns",
                     "Email Marketing & Automation Tools",
                   ]}
-                  isPopular={true}
+                  isPopular={false}
                   brochure="/brochures/Advanced_Digital Marketing_Zeon_Academy.pdf"
                   syllabus={[
                     { title: "Module 1: Intro to Digital Marketing & Graphic Design", topics: [] },
