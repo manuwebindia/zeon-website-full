@@ -19,6 +19,7 @@ export default function CourseCard({
   certifications,
   placement,
   brochure,
+  borderVariant = "theme",
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,10 +41,18 @@ export default function CourseCard({
   };
 
   const isOnline = mode === "online";
-  const theme = isOnline 
+  const greyBorder =
+    "border-2 border-border shadow-card hover:shadow-card-hover hover:border-primary/25";
+  const theme = isOnline
     ? {
-        borderPopular: "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
-        borderNormal: "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
+        borderPopular:
+          borderVariant === "grey"
+            ? greyBorder
+            : "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
+        borderNormal:
+          borderVariant === "grey"
+            ? greyBorder
+            : "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
         ribbonBg: "bg-[#0B5CFF]",
         textPrimary: "text-[#0B5CFF]",
         checkColor: "before:text-[#0B5CFF]",
@@ -52,8 +61,14 @@ export default function CourseCard({
         btnDetails: "hover:border-[#0B5CFF] hover:text-[#0B5CFF]",
       }
     : {
-        borderPopular: "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
-        borderNormal: "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
+        borderPopular:
+          borderVariant === "grey"
+            ? greyBorder
+            : "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
+        borderNormal:
+          borderVariant === "grey"
+            ? greyBorder
+            : "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
         ribbonBg: "bg-[#37d366]",
         textPrimary: "text-[#37d366]",
         checkColor: "before:text-[#37d366]",
@@ -107,11 +122,11 @@ export default function CourseCard({
       <div className="flex flex-col h-full p-7 pb-9">
         {/* Title & Duration */}
         {slug ? (
-          <Link href={slug} className={`text-[1.3rem] font-extrabold text-heading mb-2 leading-snug block hover:${theme.textPrimary} transition-colors duration-200`}>
+          <Link href={slug} className={`text-[1.3rem] font-bold text-heading mb-2 leading-snug block hover:${theme.textPrimary} transition-colors duration-200`}>
             {title}
           </Link>
         ) : (
-          <h3 className="text-[1.3rem] font-extrabold text-heading mb-2 leading-snug">
+          <h3 className="text-[1.3rem] font-bold text-heading mb-2 leading-snug">
             {title}
           </h3>
         )}

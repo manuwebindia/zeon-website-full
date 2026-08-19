@@ -24,7 +24,7 @@ export default function CoursesPage() {
       <WhatsAppFloat />
       <BookDemoModal />
 
-      <main className="bg-gradient-to-r from-[#940101] via-primary to-[#940101]">
+      <main className="bg-gradient-to-r from-[#2d2d2d] via-[#494949] to-[#2d2d2d]">
         {/* <div className="absolute bg-blend-overlay bg-black opacity-20 inset-0 z-10" /> */}
         {/* BREADCRUMB & HEADER SECTION */}
         <section className="relative pt-24 pb-0 md:pt-28 overflow-visible">
@@ -46,7 +46,7 @@ export default function CoursesPage() {
               <span className="inline-block text-white text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
                 Start your journey here!
               </span>
-              <h1 className="text-[clamp(2.2rem,5vw,3.2rem)] font-extrabold leading-[1.2] text-white mb-5 tracking-tight">
+              <h1 className="text-[clamp(2.2rem,5vw,3.2rem)]  leading-[1.2] text-white mb-5 tracking-tight">
                 Looking for a sure-shot way to <br className="hidden sm:inline" />
                 <span className="text-white drop-shadow-sm">
                   pump up your digital marketing career?
@@ -80,10 +80,11 @@ export default function CoursesPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {/* Course 1 */}
                 <CourseCard
+                  borderVariant="grey"
                   mode="online"
                   title="Advanced Digital Marketing Course"
                   duration="2 Months + 1 Month Internship"
-                  image="/courses/a1.jpg"
+                  image="/courses/d1.jpg"
                   slug="/courses/advanced-digital-marketing"
                   certifications="15+ Certifications (Google, Meta, HubSpot)"
                   placement="Guaranteed Internship & 100% Placement"
@@ -110,6 +111,7 @@ export default function CoursesPage() {
 
                 {/* Course 2 */}
                 <CourseCard
+                  borderVariant="grey"
                   mode="online"
                   title="SEO Specialist Course"
                   duration="15 Days + 1 Month Internship"
@@ -139,10 +141,11 @@ export default function CoursesPage() {
 
                 {/* Course 3 */}
                 <CourseCard
+                  borderVariant="grey"
                   mode="online"
                   title="Ads Specialist Course"
                   duration="10 Days"
-                  image="/courses/a1.jpg"
+                  image="/courses/a2.jpg"
                   slug="/courses/ads-specialist"
                   certifications="Google & Meta Ads Certifications"
                   placement="Placement Drive Eligibility"
