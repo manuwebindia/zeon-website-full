@@ -29,8 +29,8 @@ export default function CoursesPage() {
         {/* BREADCRUMB & HEADER SECTION */}
         <section className="relative pt-24 pb-0 md:pt-28 overflow-visible">
           {/* Orbs */}
-          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          {/* <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" /> */}
 
           <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in-up pb-8 md:pb-10">
             <div className="relative max-w-2xl lg:max-w-3xl text-left">
@@ -46,14 +46,14 @@ export default function CoursesPage() {
               <span className="inline-block text-white text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
                 Start your journey here!
               </span>
-              <h1 className="text-[clamp(2.2rem,5vw,3.2rem)]  leading-[1.2] text-white mb-5 tracking-tight">
+              <h1 className="text-[clamp(2.2rem,5vw,3rem)]  leading-[1.2] text-white mb-5 tracking-tight">
                 Looking for a sure-shot way to <br className="hidden sm:inline" />
                 <span className="text-white drop-shadow-sm">
                   pump up your digital marketing career?
                 </span>
               </h1>
               <p className="text-[1.1rem] md:text-[1.15rem] text-white/80 leading-relaxed font-medium mb-5">
-                Save hundreds of hours by learning from working professionals with the best digital marketing course in Kochi, Kerala.
+                Save hundreds of hours by learning from working professionals with the best<br className="hidden sm:inline" /> digital marketing course in Kochi, Kerala.
               </p>
             </div>
 
