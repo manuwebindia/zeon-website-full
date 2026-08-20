@@ -20,6 +20,7 @@ export default function CourseCard({
   placement,
   brochure,
   borderVariant = "theme",
+  buttonTheme = null,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -77,15 +78,19 @@ export default function CourseCard({
         btnDetails: "hover:border-[#37d366] hover:text-[#37d366]",
       };
 
+  const activeTheme = buttonTheme
+    ? { ...theme, ...buttonTheme }
+    : theme;
+
   return (
     <div
       className={`relative flex flex-col rounded-3xl bg-white text-left transition-all duration-300 hover:-translate-y-2 ${
-        isPopular ? theme.borderPopular : theme.borderNormal
+        isPopular ? activeTheme.borderPopular : activeTheme.borderNormal
       }${isOpen ? " self-start" : ""}`}
     >
       {/* Popular Ribbon */}
       {isPopular && (
-        <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 ${theme.ribbonBg} text-white text-[0.72rem] font-black px-4 py-1.5 rounded-full tracking-wider uppercase whitespace-nowrap z-10 shadow-sm`}>
+        <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 ${activeTheme.ribbonBg} text-white text-[0.72rem] font-black px-4 py-1.5 rounded-full tracking-wider uppercase whitespace-nowrap z-10 shadow-sm`}>
           Most Popular
         </div>
       )}
@@ -122,7 +127,7 @@ export default function CourseCard({
       <div className="flex flex-col h-full p-7 pb-9">
         {/* Title & Duration */}
         {slug ? (
-          <Link href={slug} className={`text-[1.3rem] font-bold text-heading mb-2 leading-snug block hover:${theme.textPrimary} transition-colors duration-200`}>
+          <Link href={slug} className={`text-[1.3rem] font-bold text-heading mb-2 leading-snug block hover:${activeTheme.textPrimary} transition-colors duration-200`}>
             {title}
           </Link>
         ) : (
@@ -143,20 +148,20 @@ export default function CourseCard({
 
         {/* Features */}
         <h4 className="text-[0.78rem] font-extrabold tracking-widest uppercase text-body mb-4 flex items-center gap-2">
-          <FiBookOpen className={`${theme.textPrimary} text-sm`} /> What You'll Learn
+          <FiBookOpen className={`${activeTheme.textPrimary} text-sm`} /> What You'll Learn
         </h4>
         
         <ul className="flex flex-col gap-2.5 mb-6 list-none p-0">
           {learnList.map((item, idx) => (
             <li
               key={idx}
-              className={`text-[0.9rem] text-body leading-snug flex items-start gap-2 relative before:content-['✓'] before:font-[800] before:text-[0.85rem] before:mt-[1px] before:flex-shrink-0 ${theme.checkColor}`}
+              className={`text-[0.9rem] text-body leading-snug flex items-start gap-2 relative before:content-['✓'] before:font-[800] before:text-[0.85rem] before:mt-[1px] before:flex-shrink-0 ${activeTheme.checkColor}`}
             >
               {item}
             </li>
           ))}
           {extraTopics && (
-            <li className={`text-[0.9rem] font-semibold text-heading flex items-start gap-2 relative before:content-['✓'] before:font-[800] before:text-[0.85rem] before:mt-[1px] before:flex-shrink-0 ${theme.checkColor}`}>
+            <li className={`text-[0.9rem] font-semibold text-heading flex items-start gap-2 relative before:content-['✓'] before:font-[800] before:text-[0.85rem] before:mt-[1px] before:flex-shrink-0 ${activeTheme.checkColor}`}>
               {extraTopics}
             </li>
           )}
@@ -173,7 +178,7 @@ export default function CourseCard({
               <span>View Full Syllabus</span>
               <FiChevronDown
                 className={`text-lg text-body transition-transform duration-300 ${
-                  isOpen ? `rotate-180 ${theme.textPrimary}` : ""
+                  isOpen ? `rotate-180 ${activeTheme.textPrimary}` : ""
                 }`}
               />
             </button>
@@ -220,7 +225,7 @@ export default function CourseCard({
               window.dispatchEvent(new CustomEvent("openBookDemo", { detail: { courseName: title } }));
             }}
             className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 whitespace-nowrap cursor-pointer w-full ${
-              isPopular ? theme.btnPopular : theme.btnNormal
+              isPopular ? activeTheme.btnPopular : activeTheme.btnNormal
             }`}
           >
             Book Free Demo
@@ -229,14 +234,14 @@ export default function CourseCard({
           {slug ? (
             <Link
               href={slug}
-              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${theme.btnDetails} whitespace-nowrap w-full text-center`}
+              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${activeTheme.btnDetails} whitespace-nowrap w-full text-center`}
             >
               View Details
             </Link>
           ) : (
             <a
               href="#fees"
-              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${theme.btnDetails} whitespace-nowrap w-full text-center`}
+              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${activeTheme.btnDetails} whitespace-nowrap w-full text-center`}
             >
               View Fee
             </a>

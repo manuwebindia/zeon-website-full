@@ -32,7 +32,7 @@ export default async function PlacementsPage() {
         {/* ── HERO BANNER ── */}
         <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
           <Image
-            src="/courses/courss.webp"
+            src="/banner-white.svg"
             alt="Zeon Academy Courses Banner"
             fill
             priority
@@ -54,7 +54,7 @@ export default async function PlacementsPage() {
               </span>
               <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight">
                 Job Vacancies for{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r text-primary drop-shadow-sm">
                   Digital Marketing
                 </span>{" "}
                 in Kerala
