@@ -60,7 +60,7 @@ export default async function OffersPage() {
               <div className="mt-auto md:mt-0 flex justify-end items-end relative z-[15]">
                 <div className="relative w-[min(78vw,300px)] sm:w-[min(70vw,360px)] md:w-full md:max-w-[360px] lg:max-w-[420px] h-[240px] sm:h-[280px] md:h-[380px] lg:h-[440px]">
                   <Image
-                    src="/offers/offers-girl.png"
+                    src="/offers/jk.png"
                     alt="Zeon Academy offers"
                     fill
                     priority

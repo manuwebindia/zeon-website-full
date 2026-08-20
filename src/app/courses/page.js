@@ -57,7 +57,7 @@ export default function CoursesPage() {
             <div className="pointer-events-none absolute bottom-0 right-0 z-[1] hidden sm:flex items-end justify-end">
               <div className="relative w-[min(65vw,240px)] md:w-[260px] lg:w-[350px] h-[240px] sm:h-[280px] md:h-[380px] lg:h-[440px]">
                 <Image
-                  src="/offers/offers-girl.png"
+                  src="/offers/jk.png"
                   alt="Zeon Academy Courses Banner"
                   fill
                   unoptimized

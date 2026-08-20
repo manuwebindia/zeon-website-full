@@ -28,7 +28,7 @@ export default function DemoSection() {
               {/* Live Demo Image */}
               <div className="relative  ">
                 <Image
-                  src="/live-demo.webp"
+                  src="/jkdemo.jpg"
                   alt="Live Demo Experience"
                   width={600}
                   height={800}
