@@ -202,7 +202,7 @@ export default function CareerQuiz() {
       <div className="pointer-events-none absolute inset-0 bg-dots-pattern" />
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6">
 
-        <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+        <div className="mx-auto mb-10 max-w-5xl text-center md:mb-12">
           <span className="mb-4 inline-block text-[0.85rem] font-semibold uppercase tracking-[0.2em] text-primary">
             Career Discovery
           </span>

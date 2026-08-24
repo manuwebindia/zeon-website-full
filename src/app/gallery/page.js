@@ -26,13 +26,18 @@ export default async function GalleryIndexPage() {
         <InnerPageHero
           banner={INNER_HERO_BANNERS.listing}
           bannerAlt="Zeon Academy Gallery"
-          align="center"
           breadcrumbs={[
             { label: 'Home', href: '/' },
             { label: 'Gallery' },
           ]}
           tagline="Memories from the Lens"
-          title="Gallery"
+          title={
+            <>
+              Photo & Video
+              <br />
+              <span className="text-primary">Gallery</span>
+            </>
+          }
           subtitle="Celebrations, graduations, and moments from life at Zeon Academy — beyond the classroom."
         />
 

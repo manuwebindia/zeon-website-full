@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaPlayCircle, FaTimes, FaStar, FaQuoteLeft } from "react-icons/fa";
+import { INNER_PAGE } from "@/lib/designLanguage";
 
 const testimonials = [
   {
@@ -86,49 +87,44 @@ export default function TestimonialsClient() {
     <main className="bg-white">
 
       {/* ── HERO ── */}
-      <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+      <section className={INNER_PAGE.heroSection}>
         <Image
-          src="/courses/courss.webp"
-          alt="Zeon Academy Courses Banner"
+          src="/banner-white.svg"
+          alt="Zeon Academy Testimonials Banner"
           fill
           priority
-          className="object-cover object-center opacity-100 pointer-events-none"
+          className={INNER_PAGE.heroBannerClass}
         />
-        {/* Orbs */}
-        <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-        <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+        <div className={INNER_PAGE.heroOverlay} />
 
-        <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
-          {/* Breadcrumb */}
-          <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body mb-5">
-            <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-            <span className="text-border">/</span>
-            <span className="text-primary font-bold">Testimonials</span>
+        <div className={INNER_PAGE.heroContent}>
+          <div className={INNER_PAGE.heroInner}>
+            <div className={INNER_PAGE.breadcrumb}>
+              <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
+              <span className={INNER_PAGE.breadcrumbSep}>/</span>
+              <span className={INNER_PAGE.breadcrumbCurrent}>Testimonials</span>
+            </div>
+
+            <span className={INNER_PAGE.tagline}>What our students say</span>
+
+            <h1 className={INNER_PAGE.title}>
+              Real Students. <br className="hidden md:inline" />
+              <span className="text-primary">Real Results.</span>
+            </h1>
+
+            <p className={INNER_PAGE.subtitle}>
+              Our students came from diverse backgrounds. But everyone had a common aim — build a successful career by getting into a lucrative digital marketing job. They searched for the best training institute in Kochi and found Zeon.
+            </p>
+
+            <div className="flex items-center justify-center gap-1.5 mb-3">
+              {[...Array(5)].map((_, i) => (
+                <FaStar key={i} className="text-[#fbbf24] text-xl" />
+              ))}
+            </div>
+            <p className="text-black/80 text-[0.9rem] font-semibold">
+              Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
+            </p>
           </div>
-
-          <span className="inline-block text-primary text-[0.85rem] font-semibold mb-5 tracking-[0.2em] uppercase">
-            What our students say
-          </span>
-
-          <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight max-w-3xl mx-auto">
-            Real Students. <br className="hidden md:inline" />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a] drop-shadow-sm">
-              Real Results.
-            </span>
-          </h1>
-
-          <p className="text-[1.15rem] text-body leading-relaxed font-medium max-w-3xl mx-auto mb-8">
-            Our students came from diverse backgrounds. But everyone had a common aim — build a successful career by getting into a lucrative digital marketing job. They searched for the best training institute in Kochi and found Zeon.
-          </p>
-
-          <div className="flex items-center justify-center gap-1.5 mb-3">
-            {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className="text-[#fbbf24] text-xl" />
-            ))}
-          </div>
-          <p className="text-body text-[0.9rem] font-semibold">
-            Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
-          </p>
         </div>
       </section>
 

@@ -21,6 +21,7 @@ const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
 import { buildPageMetadata } from "@/lib/pageSeo";
+import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/about");
@@ -34,31 +35,27 @@ export default function AboutPage() {
 
       <main className="bg-white">
         {/* HERO BANNER */}
-        <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+        <section className={INNER_PAGE.heroSection}>
           <Image
-            src="/courses/courss.webp"
-            alt="Zeon Academy Courses Banner"
+            src="/banner-white.svg"
+            alt="Zeon Academy About Banner"
             fill
             priority
-            className="object-cover object-center opacity-100 pointer-events-none"
+            className={INNER_PAGE.heroBannerClass}
           />
-          {/* Orbs */}
-          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          <div className={INNER_PAGE.heroOverlay} />
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
-            <span className="inline-block text-primary text-[0.85rem] font-semibold mb-5 tracking-[0.2em] uppercase">
-              Who We Are
-            </span>
-            <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight">
-              We Are Not An Ordinary <br className="hidden md:inline" />
-              <span className="text-transparent bg-clip-text text-primary drop-shadow-sm">
-                Digital Marketing Institute
-              </span>
-            </h1>
-            <p className="text-[1.15rem] text-body leading-relaxed font-medium max-w-3xl mx-auto">
-              Zeon Academy is an offshoot of Web India Solutions (WIS), a web development and digital marketing company with 18 years of experience in the business.
-            </p>
+          <div className={INNER_PAGE.heroContent}>
+            <div className={INNER_PAGE.heroInner}>
+              <span className={INNER_PAGE.tagline}>Who We Are</span>
+              <h1 className={INNER_PAGE.title}>
+                We Are Not An Ordinary <br className="hidden md:inline" />
+                <span className="text-primary">Digital Marketing Institute</span>
+              </h1>
+              <p className={INNER_PAGE.subtitle}>
+                Zeon Academy is an offshoot of Web India Solutions (WIS), a web development and digital marketing company with 18 years of experience in the business.
+              </p>
+            </div>
           </div>
         </section>
 

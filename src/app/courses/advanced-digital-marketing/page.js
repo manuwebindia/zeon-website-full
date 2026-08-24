@@ -16,6 +16,7 @@ const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"))
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
 
 import { buildPageMetadata } from "@/lib/pageSeo";
+import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/courses/advanced-digital-marketing");
@@ -60,44 +61,35 @@ export default function AdvancedDigitalMarketingPage() {
 
       <main className="bg-surface pb-20">
         {/* HEADER HERO */}
-        <section className="relative pt-24 pb-12 lg:pt-28 lg:pb-16 overflow-hidden border-b border-border">
-          {/* Background Image Banner */}
-          <div className="absolute inset-0 z-1">
-            <Image
-              src="/courses/courses-fin.webp"
-              alt="Zeon Academy Courses Banner"
-              sizes="100vw"
-              fill
-              
-              priority
-              className="object-cover object-center opacity-100 pointer-events-none"
-            />
-            {/* <div className="absolute inset-0 bg-gradient-to-b from-[#161B2A]/10 via-[#161B2A]/30 to-[#161B2A]/10" /> */}
-          </div>
-          {/* Orbs */}
-          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+        <section className={INNER_PAGE.heroSection}>
+          <Image
+            src="/banner-white.svg"
+            alt="Zeon Academy Courses Banner"
+            sizes="100vw"
+            fill
+            priority
+            className={INNER_PAGE.heroBannerClass}
+          />
+          <div className={INNER_PAGE.heroOverlay} />
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10">
-            <div className="flex flex-col lg:flex-row gap-12 lg:items-center">
-              <div className="flex-1 animate-fade-in-up">
-                {/* Breadcrumb */}
-                <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body my-6">
-                  <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-                  <span className="text-border">/</span>
-                  <Link href="/courses" className="hover:text-primary transition-colors">Courses</Link>
-                  <span className="text-border">/</span>
-                  <span className="text-primary font-bold">Advanced Digital Marketing Course</span>
-                </div>
+          <div className={INNER_PAGE.heroContent}>
+            <div className={`${INNER_PAGE.heroInner} animate-fade-in-up`}>
+              <nav className={INNER_PAGE.breadcrumb}>
+                <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
+                <span className={INNER_PAGE.breadcrumbSep}>/</span>
+                <Link href="/courses" className={INNER_PAGE.breadcrumbLink}>Courses</Link>
+                <span className={INNER_PAGE.breadcrumbSep}>/</span>
+                <span className={INNER_PAGE.breadcrumbCurrent}>Advanced Digital Marketing Course</span>
+              </nav>
 
-                <h1 className="text-[2.2rem] md:text-[3rem] font-extrabold text-heading leading-tight mb-4 text-center">
-                  Advanced <br />Digital Marketing Course
-                </h1>
-                <p className="text-[1.1rem] md:text-[1.2rem] text-body font-medium leading-relaxed mb-6 text-center">
-                  Social Media Marketing | Google & FB Ads | WordPress | SEO | Analytics & More
-                </p>
+              <h1 className={INNER_PAGE.title}>
+              <span className="text-primary">Advanced Digital Marketing</span><br /> Course
+              </h1>
+              <p className={INNER_PAGE.subtitle}>
+                Social Media Marketing | Google & FB Ads | WordPress | SEO | Analytics & More
+              </p>
 
-                <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-4">
                   <div className="flex items-center gap-1.5 bg-[#fff8e1] px-4 py-2 rounded-full border border-[#ffe082]">
                     <span className="font-extrabold text-heading">5.0</span>
                     <div className="flex text-gold text-sm">
@@ -106,7 +98,6 @@ export default function AdvancedDigitalMarketingPage() {
                   </div>
                   <GoogleReviewsLabel />
                 </div>
-              </div>
             </div>
           </div>
         </section>

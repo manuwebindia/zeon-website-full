@@ -1,13 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { FaChevronRight } from 'react-icons/fa';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import OfferCard from '../../components/OfferCard';
 import ScrollReveal from '../../components/ScrollReveal';
 import { buildPageMetadata } from '@/lib/pageSeo';
 import { getPublicOffersPayload } from '@/lib/offers';
+import { INNER_PAGE } from '@/lib/designLanguage';
 
 const WhatsAppFloat = dynamic(() => import('../../components/WhatsAppFloat'));
 
@@ -24,35 +24,32 @@ export default async function OffersPage() {
       <WhatsAppFloat />
 
       <main className="bg-white">
-        <section className="relative pt-24 pb-0 md:pt-28 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
-          <div className="absolute inset-0 z-1">
-            <Image
-              src="/courses/courss.webp"
-              alt="Zeon Academy Offers Banner"
-              sizes="1600px"
-              fill
-              priority
-              className="object-cover object-center opacity-100 pointer-events-none"
-            />
-          </div>
-          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+        <section className={INNER_PAGE.heroSection}>
+          <Image
+            src="/banner-white.svg"
+            alt="Zeon Academy Offers Banner"
+            sizes="1600px"
+            fill
+            priority
+            className={INNER_PAGE.heroBannerClass}
+          />
+          <div className={INNER_PAGE.heroOverlay} />
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in-up">
+          <div className={`${INNER_PAGE.heroContent} pb-0 md:pb-0`}>
             <div className="flex flex-col min-h-[380px] sm:min-h-[420px] md:min-h-0 md:grid md:grid-cols-[1.05fr_0.95fr] md:gap-10 lg:gap-12 md:items-end">
-              <div className="text-center md:text-left md:pb-12 lg:pb-20 shrink-0">
-                <nav className="flex items-center justify-center md:justify-start gap-2 mb-5 text-[0.88rem] font-semibold text-body">
-                  <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-                  <FaChevronRight className="text-body/30 text-[0.65rem]" />
-                  <span className="text-primary font-bold">Offers</span>
+              <div className={`${INNER_PAGE.heroInner} md:text-left md:mx-0 md:max-w-none md:pb-12 lg:pb-20 shrink-0`}>
+                <nav className={`${INNER_PAGE.breadcrumb} md:justify-start`}>
+                  <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
+                  <span className={INNER_PAGE.breadcrumbSep}>/</span>
+                  <span className={INNER_PAGE.breadcrumbCurrent}>Offers</span>
                 </nav>
-                <span className="inline-block text-primary text-[0.82rem] font-bold mb-3 tracking-[0.22em] uppercase">
+                <span className={`${INNER_PAGE.tagline} md:text-left`}>
                   {page.heroTagline || 'Exclusive Downloads'}
                 </span>
-                <h1 className="text-[clamp(2.2rem,4.5vw,3.4rem)] font-extrabold leading-[1.15] text-heading mb-5 tracking-tight">
+                <h1 className={`${INNER_PAGE.title} md:text-left`}>
                   {page.title || 'Offers & Free Resources'}
                 </h1>
-                <p className="text-[1.05rem] text-body leading-relaxed font-medium max-w-2xl mx-auto md:mx-0">
+                <p className={`${INNER_PAGE.subtitle} md:mx-0 md:text-left`}>
                   {page.subtitle || 'Download handbooks, guides, and exclusive resources from Zeon Academy.'}
                 </p>
               </div>

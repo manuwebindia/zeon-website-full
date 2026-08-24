@@ -250,11 +250,11 @@ export default async function BlogPostPage({ params }) {
           title={blog.title}
           subtitle={blog.excerpt || undefined}
         >
-          <div className="mt-6 flex items-center justify-center gap-4 lg:justify-start">
+          <div className="mt-6 flex items-center justify-center gap-4">
             <AuthorAvatar name={authorName} image={authorImage} />
             <div className="text-left">
-              <p className="mb-1.5 text-sm font-bold leading-none text-heading">{authorName}</p>
-              <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-body">
+              <p className="mb-1.5 text-sm font-bold leading-none text-black">{authorName}</p>
+              <div className="flex flex-wrap items-center gap-3 text-sm font-medium text-black/80">
                 <span className="inline-flex items-center gap-1.5">
                   <Calendar className="h-3.5 w-3.5 text-primary/70" />
                   {formatDate(blog.publishedAt)}

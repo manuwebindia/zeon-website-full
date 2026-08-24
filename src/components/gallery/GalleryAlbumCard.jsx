@@ -38,9 +38,9 @@ export default function GalleryAlbumCard({ album, index = 0 }) {
           <h3 className="text-[1.15rem] font-extrabold text-heading leading-snug mb-2 group-hover:text-primary transition-colors">
             {album.title}
           </h3>
-          <div className="flex items-center justify-between gap-2 text-[0.82rem] font-medium text-body">
+          <div className="flex items-center gap-4 text-[0.82rem] font-medium text-body">
             {dateLabel && <span>{dateLabel}</span>}
-            <span className="text-primary/80">{count} photo{count === 1 ? '' : 's'}</span>
+            <span className="text-body/80">|<span className="m-4">{count} photo{count === 1 ? '' : 's'}</span></span>
           </div>
         </div>
       </Link>

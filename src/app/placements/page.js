@@ -8,6 +8,7 @@ import OurPartners from "../../components/OurPartners";
 import ScrollReveal from "../../components/ScrollReveal";
 import PlacementsJobGrid from "../../components/PlacementsJobGrid";
 import { buildPageMetadata } from "@/lib/pageSeo";
+import { INNER_PAGE } from "@/lib/designLanguage";
 import { getApprovedJobs, mapJobToVacancy } from "@/lib/jobs";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
@@ -30,36 +31,30 @@ export default async function PlacementsPage() {
       <main className="bg-surface">
 
         {/* ── HERO BANNER ── */}
-        <section className="relative pt-24 pb-16 md:pt-28 md:pb-24 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
+        <section className={INNER_PAGE.heroSection}>
           <Image
             src="/banner-white.svg"
-            alt="Zeon Academy Courses Banner"
+            alt="Zeon Academy Placements Banner"
             fill
             priority
-            className="object-cover object-center opacity-100 pointer-events-none"
+            className={INNER_PAGE.heroBannerClass}
           />
-          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+          <div className={INNER_PAGE.heroOverlay} />
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
-            <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-body mb-5">
-              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-              <span className="text-border">/</span>
-              <span className="text-primary font-bold">Placement Cell</span>
-            </div>
+          <div className={INNER_PAGE.heroContent}>
+            <div className={INNER_PAGE.heroInner}>
+              <div className={INNER_PAGE.breadcrumb}>
+                <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
+                <span className={INNER_PAGE.breadcrumbSep}>/</span>
+                <span className={INNER_PAGE.breadcrumbCurrent}>Placement Cell</span>
+              </div>
 
-            <div className="max-w-3xl mx-auto">
-              <span className="inline-block text-primary text-[0.85rem] font-semibold mb-4 tracking-[0.2em] uppercase">
-                Placement Cell
-              </span>
-              <h1 className="text-[clamp(2.5rem,5vw,3.6rem)] font-extrabold leading-[1.15] text-heading mb-6 tracking-tight">
+              <span className={INNER_PAGE.tagline}>Placement Cell</span>
+              <h1 className={INNER_PAGE.title}>
                 Job Vacancies for{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r text-primary drop-shadow-sm">
-                  Digital Marketing
-                </span>{" "}
-                in Kerala
+                <span className="text-primary">Digital Marketing</span> in Kerala
               </h1>
-              <p className="text-[1.15rem] text-body leading-relaxed font-medium max-w-2xl mx-auto mb-8">
+              <p className={INNER_PAGE.subtitle}>
                 Live job openings sourced exclusively for Zeon Academy students and alumni. Apply directly through WhatsApp — our placement cell is here to connect you with top companies.
               </p>
 
@@ -68,7 +63,7 @@ export default async function PlacementsPage() {
                   <FaStar key={i} className="text-[#fbbf24] text-xl" />
                 ))}
               </div>
-              <p className="text-body text-[0.9rem] font-semibold">
+              <p className="text-black/80 text-[0.9rem] font-semibold">
                 Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
               </p>
             </div>

@@ -9,10 +9,10 @@ export default function LocationMap() {
                 <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
                   Find Us
                 </span>
-                <h2 className="text-[clamp(2rem,3.5vw,2.6rem)] font-extrabold text-heading mb-3 leading-tight">
+                <h2 className="text-5xl font-bold text-heading mb-3 leading-tight">
                   Our <span className="text-primary">Campus</span> Location
                 </h2>
-                <p className="text-[1rem] text-body max-w-[600px] mx-auto font-medium">
+                <p className="text-[1rem] text-body max-w-[600px] mx-auto font">
                   Visit us at our Kochi campus for a friendly chat, a free demo, and career counselling.
                 </p>
               </div>

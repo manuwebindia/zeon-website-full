@@ -45,13 +45,16 @@ export default async function BlogListingPage({ searchParams }) {
         <InnerPageHero
           banner={INNER_HERO_BANNERS.listing}
           bannerAlt="Zeon Academy Blog"
-          align="center"
           breadcrumbs={[
             { label: 'Home', href: '/' },
             { label: 'Blog' },
           ]}
           tagline="Insights & Guides"
-          title="Blog"
+          title={
+            <>
+              Blogs, Trends & <br /><span className="text-primary">Articles</span>
+            </>
+          }
           subtitle="Expert insights on digital marketing, SEO, Google Ads, and career growth from Kerala's #1 digital marketing academy."
         />
 

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { FaPhoneAlt, FaMapMarkerAlt, FaEnvelope, FaChevronRight, FaMapMarkedAlt } from "react-icons/fa";
+import { FaPhoneAlt, FaMapMarkerAlt, FaEnvelope, FaMapMarkedAlt } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
 import ScrollReveal from "../../components/ScrollReveal";
 import ContactForm from "../../components/ContactForm";
@@ -10,6 +10,7 @@ const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const Footer = dynamic(() => import("../../components/Footer"));
 
 import { buildPageMetadata } from "@/lib/pageSeo";
+import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/contact");
@@ -24,41 +25,34 @@ export default function ContactPage() {
       <main className="bg-white">
 
         {/* ─── HERO BANNER ─────────────────────────────── */}
-        <section className="relative pt-24 pb-16 md:pt-28 md:pb-20 bg-surface bg-grid-pattern overflow-hidden border-b border-border">
-          <div className="absolute inset-0 z-1">
-            <Image
-              src="/courses/courss.webp"
-              alt="Zeon Academy Courses Banner"
-              sizes="1600px"
-              fill
-              priority
-              className="object-cover object-center opacity-100 pointer-events-none"
-            />
-            {/* <div className="absolute inset-0 bg-gradient-to-b from-[#161B2A]/10 via-[#161B2A]/30 to-[#161B2A]/10" /> */}
-          </div>
-          <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
-          <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
+        <section className={INNER_PAGE.heroSection}>
+          <Image
+            src="/banner-white.svg"
+            alt="Zeon Academy Contact Banner"
+            sizes="1600px"
+            fill
+            priority
+            className={INNER_PAGE.heroBannerClass}
+          />
+          <div className={INNER_PAGE.heroOverlay} />
 
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 text-center animate-fade-in-up">
-            {/* Breadcrumbs */}
-            <nav className="flex items-center justify-center gap-2 mb-5 text-[0.88rem] font-semibold text-body">
-              <Link href="/" className="hover:text-primary transition-colors">Home</Link>
-              <FaChevronRight className="text-body/30 text-[0.65rem]" />
-              <span className="text-primary font-bold">Contact Us</span>
-            </nav>
+          <div className={INNER_PAGE.heroContent}>
+            <div className={INNER_PAGE.heroInner}>
+              <nav className={INNER_PAGE.breadcrumb}>
+                <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
+                <span className={INNER_PAGE.breadcrumbSep}>/</span>
+                <span className={INNER_PAGE.breadcrumbCurrent}>Contact Us</span>
+              </nav>
 
-            <span className="inline-block text-primary text-[0.82rem] font-bold mb-3 tracking-[0.22em] uppercase">
-              Get in Touch
-            </span>
-            <h1 className="text-[clamp(2.2rem,4.5vw,3.4rem)] font-extrabold leading-[1.15] text-heading mb-5 tracking-tight">
-              We&rsquo;d Love to{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a]">
-                Hear From You
-              </span>
-            </h1>
-            <p className="text-[1.05rem] text-body leading-relaxed font-medium max-w-2xl mx-auto">
-              Have questions about our courses, placement support, or admission process? Our team is here to help — reach out by phone, email, or just walk in.
-            </p>
+              <span className={INNER_PAGE.tagline}>Get in Touch</span>
+              <h1 className={INNER_PAGE.title}>
+                We&rsquo;d Love to{" "}
+                <span className="text-primary">Hear From You</span>
+              </h1>
+              <p className={INNER_PAGE.subtitle}>
+                Have questions about our courses, placement support, or admission process? Our team is here to help — reach out by phone, email, or just walk in.
+              </p>
+            </div>
           </div>
         </section>
 

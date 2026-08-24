@@ -37,9 +37,9 @@ export default function OfferDetailPage({ offer, otherOffers = [] }) {
           title={offer.heading}
         >
           {validLabel && (
-            <p className="text-[0.95rem] text-body font-medium">
+            <p className="text-[0.95rem] text-black/80 font-light">
               {offer.validUntilLabel}{' '}
-              <span className="font-bold text-heading">{validLabel}</span>
+              <span className="font-semibold text-black">{validLabel}</span>
             </p>
           )}
         </InnerPageHero>

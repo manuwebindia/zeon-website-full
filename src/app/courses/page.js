@@ -14,6 +14,7 @@ const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
 import { buildPageMetadata } from "@/lib/pageSeo";
+import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/courses");
@@ -21,12 +22,12 @@ export async function generateMetadata() {
 
 const COURSE_CARD_BUTTON_THEME = {
   btnPopular:
-    "bg-[#940101] border-2 border-transparent text-white hover:bg-[#7a0101] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(148,1,1,0.28)]",
+    "bg-[#D40303] border-2 border-transparent text-white hover:bg-[#7a0101] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(148,1,1,0.28)]",
   btnNormal:
-    "bg-[#940101] border-2 border-transparent text-white hover:bg-[#7a0101] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(148,1,1,0.28)]",
-  btnDetails: "hover:border-[#940101] hover:text-[#940101]",
-  textPrimary: "text-[#940101]",
-  checkColor: "before:text-[#940101]",
+    "bg-[#D40303] border-2 border-transparent text-white hover:bg-[#7a0101] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(148,1,1,0.28)]",
+  btnDetails: "hover:border-[#D40303] hover:text-[#D40303]",
+  textPrimary: "text-[#D40303]",
+  checkColor: "before:text-[#D40303]",
 };
 
 export default function CoursesPage() {
@@ -36,7 +37,7 @@ export default function CoursesPage() {
       <WhatsAppFloat />
       <BookDemoModal />
 
-      <main className="bg-gradient-to-r from-[#2d2d2d] via-[#494949] to-[#2d2d2d]">
+      <main className="">
         {/* <div className="absolute bg-blend-overlay bg-black opacity-20 inset-0 z-10" /> */}
         {/* BREADCRUMB & HEADER SECTION */}
         <section className="relative pt-24 pb-0 md:pt-28 overflow-visible">
@@ -50,7 +51,8 @@ export default function CoursesPage() {
             priority
             className="object-cover object-center opacity-100 pointer-events-none"
           />
-          <div className="w-full max-w-[1200px] mx-auto px-6 relative z-10 animate-fade-in-up pb-8 md:pb-10">
+          <div className={INNER_PAGE.heroOverlay} />
+          <div className={INNER_PAGE.heroContent}>
             <div className="relative max-w-3xl mx-auto text-center">
               {/* Breadcrumbs */}
               <div className="flex items-center justify-center gap-2.5 text-[0.88rem] font-semibold text-black/80 mb-5 !mt-5 md:mt-0">
