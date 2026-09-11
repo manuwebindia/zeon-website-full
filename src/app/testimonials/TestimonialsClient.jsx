@@ -12,7 +12,8 @@ const testimonials = [
     name: "Abhijith",
     thumbnail: "/testimonials/Abhijith_TestimonialV2.webp",
     videoId: "FE3eo98Z9PA",
-    quote: "Zeon gave me the practical skills and confidence to start my digital marketing career.",
+    quote:
+      "Zeon gave me the practical skills and confidence to start my digital marketing career.",
     role: "Digital Marketing Professional",
   },
   {
@@ -20,7 +21,8 @@ const testimonials = [
     name: "Ajitha",
     thumbnail: "/testimonials/Ajitha_TestimonialV2.webp",
     videoId: "wp6fpv_Hl-Y",
-    quote: "The trainers at Zeon are industry experts who gave real-world insights I couldn't find elsewhere.",
+    quote:
+      "The trainers at Zeon are industry experts who gave real-world insights I couldn't find elsewhere.",
     role: "Social Media Strategist",
   },
   {
@@ -28,7 +30,8 @@ const testimonials = [
     name: "Aparna",
     thumbnail: "/testimonials/Aparna_TestimonialV2.webp",
     videoId: "lJBBcCURt74",
-    quote: "From zero experience to a full-time digital marketing job — Zeon made it possible.",
+    quote:
+      "From zero experience to a full-time digital marketing job — Zeon made it possible.",
     role: "SEO Specialist",
   },
   {
@@ -36,7 +39,8 @@ const testimonials = [
     name: "Arya",
     thumbnail: "/testimonials/Arya_TestimonialV2.webp",
     videoId: "3U_8NbM5XPM",
-    quote: "Hands-on projects and internship support helped me stand out in every interview.",
+    quote:
+      "Hands-on projects and internship support helped me stand out in every interview.",
     role: "Performance Marketer",
   },
   {
@@ -44,7 +48,8 @@ const testimonials = [
     name: "Ashisha",
     thumbnail: "/testimonials/Ashisha_TestimonialV2.webp",
     videoId: "F-IwyRPPlpI",
-    quote: "Zeon's placement cell connected me with top companies. I landed my dream job within a month.",
+    quote:
+      "Zeon's placement cell connected me with top companies. I landed my dream job within a month.",
     role: "Digital Marketing Executive",
   },
   {
@@ -52,7 +57,8 @@ const testimonials = [
     name: "Greeshma",
     thumbnail: "/testimonials/Greeshma_TestimonialV2.webp",
     videoId: "qd2DQ1ff6F4",
-    quote: "The structured curriculum and expert mentors shaped me into a confident digital marketer.",
+    quote:
+      "The structured curriculum and expert mentors shaped me into a confident digital marketer.",
     role: "Content & SEO Specialist",
   },
   {
@@ -60,7 +66,8 @@ const testimonials = [
     name: "Nimisha",
     thumbnail: "/testimonials/Nimisha_TestimonialV2.webp",
     videoId: "W5Jd5PgG7c4",
-    quote: "I came with no background in marketing. Now I run campaigns for real brands.",
+    quote:
+      "I came with no background in marketing. Now I run campaigns for real brands.",
     role: "Social Media Manager",
   },
   {
@@ -68,7 +75,8 @@ const testimonials = [
     name: "Priyadharshini",
     thumbnail: "/testimonials/Priyadharshini_TestimonialV2.webp",
     videoId: "o7GqMRdTVts",
-    quote: "The practical training and 100% placement support gave me the edge I needed.",
+    quote:
+      "The practical training and 100% placement support gave me the edge I needed.",
     role: "Ads Specialist",
   },
 ];
@@ -85,7 +93,6 @@ export default function TestimonialsClient() {
 
   return (
     <main className="bg-white">
-
       {/* ── HERO ── */}
       <section className={INNER_PAGE.heroSection}>
         <Image
@@ -100,7 +107,9 @@ export default function TestimonialsClient() {
         <div className={INNER_PAGE.heroContent}>
           <div className={INNER_PAGE.heroInner}>
             <div className={INNER_PAGE.breadcrumb}>
-              <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
+              <Link href="/" className={INNER_PAGE.breadcrumbLink}>
+                Home
+              </Link>
               <span className={INNER_PAGE.breadcrumbSep}>/</span>
               <span className={INNER_PAGE.breadcrumbCurrent}>Testimonials</span>
             </div>
@@ -113,7 +122,10 @@ export default function TestimonialsClient() {
             </h1>
 
             <p className={INNER_PAGE.subtitle}>
-              Our students came from diverse backgrounds. But everyone had a common aim — build a successful career by getting into a lucrative digital marketing job. They searched for the best training institute in Kochi and found Zeon.
+              Our students came from diverse backgrounds. But everyone had a
+              common aim — build a successful career by getting into a lucrative
+              digital marketing job. They searched for the best training
+              institute in Kochi and found Zeon.
             </p>
 
             <div className="flex items-center justify-center gap-1.5 mb-3">
@@ -122,7 +134,8 @@ export default function TestimonialsClient() {
               ))}
             </div>
             <p className="text-black/80 text-[0.9rem] font-semibold">
-              Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
+              Rated 4.9 on Google — Kerala's Most Loved Digital Marketing
+              Institute
             </p>
           </div>
         </div>
@@ -134,8 +147,12 @@ export default function TestimonialsClient() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((s, i) => (
               <div key={i} className="text-center">
-                <p className="text-[2rem] font-extrabold text-heading leading-none mb-1">{s.value}</p>
-                <p className="text-[0.88rem] font-semibold text-body">{s.label}</p>
+                <p className="text-[2rem] font-extrabold text-heading leading-none mb-1">
+                  {s.value}
+                </p>
+                <p className="text-[0.88rem] font-semibold text-body">
+                  {s.label}
+                </p>
               </div>
             ))}
           </div>
@@ -145,15 +162,12 @@ export default function TestimonialsClient() {
       {/* ── VIDEO GRID ── */}
       <section className="py-16 md:py-24 bg-white">
         <div className="w-full max-w-[1200px] mx-auto px-6">
-
           <div className="text-center mb-14">
             <span className="inline-block text-primary text-[0.82rem] font-bold tracking-[0.2em] uppercase mb-3">
               Student Stories
             </span>
             <h2 className="text-[2rem] md:text-[2.5rem] font-extrabold text-heading leading-tight">
-              Hear It{" "}
-              <span className="text-primary">Directly</span>{" "}
-              From Them
+              Hear It <span className="text-primary">Directly</span> From Them
             </h2>
           </div>
 
@@ -165,7 +179,9 @@ export default function TestimonialsClient() {
                 onClick={() => setActiveVideo(t.videoId)}
                 role="button"
                 tabIndex={0}
-                onKeyDown={(e) => e.key === "Enter" && setActiveVideo(t.videoId)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" && setActiveVideo(t.videoId)
+                }
                 aria-label={`Play ${t.name}'s testimonial video`}
               >
                 {/* Thumbnail */}
@@ -206,22 +222,21 @@ export default function TestimonialsClient() {
             Join Hundreds of Happy Graduates
           </h2>
           <p className="text-[1.05rem] text-body font-medium leading-relaxed mb-8 max-w-xl mx-auto">
-            Be the next success story. Start your digital marketing journey with Kerala's most trusted institute.
+            Be the next success story. Start your digital marketing journey with
+            Kerala's most trusted institute.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() =>
-                window.dispatchEvent(new CustomEvent("openBookDemo", { detail: { courseName: "" } }))
-              }
+            <Link
+              href="/#admission"
               className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300"
             >
-              Book a Free Demo Class
-            </button>
+              Book Free Demo
+            </Link>
             <Link
               href="/courses"
               className="px-8 py-4 border-2 border-border text-heading font-bold text-[1rem] rounded-full hover:border-primary hover:text-primary transition-all duration-300"
             >
-              Explore Courses
+              Explore Programs
             </Link>
           </div>
         </div>

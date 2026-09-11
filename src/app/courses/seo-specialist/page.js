@@ -13,6 +13,7 @@ import CourseTestimonials from "../../../components/CourseTestimonials";
 import Footer from "../../../components/Footer";
 import BrochureDownloadButton from "../../../components/BrochureDownloadButton";
 import GoogleReviewsLabel from "../../../components/GoogleReviewsLabel";
+import CourseShareActions from "../../../components/CourseShareActions";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"));
@@ -245,14 +246,10 @@ export default function SeoSpecialistPage() {
                       </li>
                     </ul>
 
-                    <div className="flex gap-4 pt-4 border-t border-border/60">
-                      <button className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm bg-surface border border-border hover:bg-body/5 hover:border-body/20 transition-all text-heading">
-                        <FaShareAlt className="text-primary" /> Refer a Friend
-                      </button>
-                      <button className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-bold text-sm bg-surface border border-border hover:bg-body/5 hover:border-body/20 transition-all text-heading">
-                        <FaGift className="text-primary" /> Gift Course
-                      </button>
-                    </div>
+                    <CourseShareActions
+                      courseName="SEO Specialist Certification Course"
+                      courseSlug="seo-specialist"
+                    />
                   </div>
 
                   {/* Sticky Sidebar: Brochure + Demo Form */}
