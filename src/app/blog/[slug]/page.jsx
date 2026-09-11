@@ -287,7 +287,7 @@ export default async function BlogPostPage({ params }) {
               {/* Hero Banner Image (Clean standalone, NO text/content on the image) */}
               {heroBanner && (
                 <div className={`${INNER_PAGE.container} my-8 md:my-10`}>
-                  <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-hidden aspect-[9/3] md:aspect-auto">
+                  <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-hidden aspect-[8/3] md:aspect-auto">
                     <Image
                       src={heroBanner}
                       alt={
