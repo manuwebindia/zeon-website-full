@@ -287,7 +287,7 @@ export default async function BlogPostPage({ params }) {
               {/* Hero Banner Image (Clean standalone, NO text/content on the image) */}
               {heroBanner && (
                 <div className={`${INNER_PAGE.container} my-8 md:my-10`}>
-                  <div className="relative left-1/2 -translate-x-1/2  w-screen w-full overflow-hidden">
+                  <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-hidden aspect-[9/3] md:aspect-auto">
                     <Image
                       src={heroBanner}
                       alt={
@@ -299,7 +299,7 @@ export default async function BlogPostPage({ params }) {
                       height={290}
                       priority
                       sizes="100vw"
-                      className=" w-full h-auto object-contain"
+                      className="w-full h-full object-cover object-right md:h-auto md:object-contain"
                       unoptimized
                     />
                   </div>
@@ -308,13 +308,13 @@ export default async function BlogPostPage({ params }) {
 
               {/* Category Tag */}
               {blog.category && (
-                <span className="mb-4 inline-block rounded-full bg-primary/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                <span className="mb-4 inline-block rounded-full bg-primary/10 px-3.5 text-xs font-bold uppercase tracking-wider text-primary">
                   {blog.category}
                 </span>
               )}
 
               {/* Title */}
-              <h1 className="mb-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.2]">
+              <h1 className="sm:mb-0 mb-2 md:mb-4 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.2]">
                 {blog.title}
               </h1>
 
@@ -387,25 +387,25 @@ export default async function BlogPostPage({ params }) {
                     </div>
                   )}
                   {/* Author & Meta */}
-              <div className="flex items-start justify-left gap-3.5 pb-6">
-                <AuthorAvatar name={authorName} image={authorImage} />
-                <div className="text-left">
-                  <p className="text-sm font-bold leading-tight text-slate-900">
-                    {authorName}
-                  </p>
-                  <div className="mt-1 flex flex-wrap items-center gap-2.5 text-xs font-medium text-slate-500">
-                    <span className="inline-flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5 text-primary" />
-                      {formatDate(blog.publishedAt)}
-                    </span>
-                    <span className="h-1 w-1 rounded-full bg-slate-300" />
-                    <span className="inline-flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5 text-primary" />
-                      {readTime} min read
-                    </span>
+                  <div className="flex items-start justify-left gap-3.5 pb-6">
+                    <AuthorAvatar name={authorName} image={authorImage} />
+                    <div className="text-left">
+                      <p className="text-sm font-bold leading-tight text-slate-900">
+                        {authorName}
+                      </p>
+                      <div className="mt-1 flex flex-wrap items-center gap-2.5 text-xs font-medium text-slate-500">
+                        <span className="inline-flex items-center gap-1">
+                          <Calendar className="h-3.5 w-3.5 text-primary" />
+                          {formatDate(blog.publishedAt)}
+                        </span>
+                        <span className="h-1 w-1 rounded-full bg-slate-300" />
+                        <span className="inline-flex items-center gap-1">
+                          <Clock className="h-3.5 w-3.5 text-primary" />
+                          {readTime} min read
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
                   <BlogContent
                     content={blog.content}
                     className="w-full max-w-none"
