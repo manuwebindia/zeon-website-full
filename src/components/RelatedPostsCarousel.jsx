@@ -118,10 +118,10 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'Zeon Ad
           return (
           <article
             key={post.id}
-            className="group flex flex-col overflow-hidden rounded-[24px] border border-slate-100 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.05)] hover:border-slate-200/50 w-[280px] sm:w-[320px] md:w-[360px] shrink-0 snap-start"
+            className="group flex flex-col overflow-hidden  rounded-[24px] border border-slate-100 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.05)] hover:border-slate-200/50 w-[280px] sm:w-[320px] md:w-[360px] shrink-0 snap-start"
           >
-            {/* Card Thumbnail — banner (inner) image when available */}
-            <Link href={`/blog/${post.slug}`} className="block relative aspect-video w-full overflow-hidden bg-slate-50 border-b border-slate-50/50">
+            {/* Card Thumbnail — featured cover image when available, fallback to banner */}
+            <Link href={`/blog/${post.slug}`} className="block relative aspect-[2/1] w-full overflow-hidden bg-slate-50 border-b border-slate-50/50">
               {cardImage ? (
                 <Image
                   src={cardImage.src}

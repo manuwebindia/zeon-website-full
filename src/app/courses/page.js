@@ -14,21 +14,11 @@ const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
 import { buildPageMetadata } from "@/lib/pageSeo";
-import { INNER_PAGE } from "@/lib/designLanguage";
+import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/courses");
 }
-
-const COURSE_CARD_BUTTON_THEME = {
-  btnPopular:
-    "bg-[#D40303] border-2 border-transparent text-white hover:bg-[#7a0101] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(148,1,1,0.28)]",
-  btnNormal:
-    "bg-[#D40303] border-2 border-transparent text-white hover:bg-[#7a0101] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(148,1,1,0.28)]",
-  btnDetails: "hover:border-[#D40303] hover:text-[#D40303]",
-  textPrimary: "text-[#D40303]",
-  checkColor: "before:text-[#D40303]",
-};
 
 export default function CoursesPage() {
   return (

@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaCheckCircle, FaSpinner, FaArrowRight } from "react-icons/fa";
+import { FaCheckCircle, FaSpinner } from "react-icons/fa";
+import { COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 
 export default function AdmissionForm({ showHeader = true }) {
@@ -74,19 +75,21 @@ export default function AdmissionForm({ showHeader = true }) {
   };
 
   const inputClass =
-    "w-full px-4 py-3.5 border border-border rounded-xl bg-[#f8f9fa] font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-primary focus:ring-[3px] focus:ring-primary/10 focus:bg-white";
+    "w-full px-4 py-3.5 border border-border rounded-xl bg-[#f8f9fa] font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-[#D40303] focus:ring-[3px] focus:ring-[#D40303]/10 focus:bg-white";
 
   return (
-    <div id="apply" className="bg-white p-8 md:p-12 rounded-[20px] shadow-[0_20px_40px_rgba(0,0,0,0.04)] w-full max-w-[480px] lg:max-w-none lg:flex-[0_0_480px] max-lg:p-8 scroll-mt-24">
+    <div id="apply" className="bg-white p-8 md:p-12 rounded-3xl border-2 border-border shadow-card w-full max-w-[480px] lg:max-w-none lg:flex-[0_0_480px] max-lg:p-8 scroll-mt-24 transition-all duration-300 hover:shadow-card-hover hover:border-primary/25">
       {/* Header */}
+      {showHeader && (
       <div className="text-center mb-10">
-        <h2 className="text-[2.2rem] max-sm:text-[1.75rem] font-extrabold text-[#0f1629] mb-3.5">
+        <h2 className="text-[2.2rem] max-sm:text-[1.75rem] font-extrabold text-heading mb-3.5">
           Enquiry Form
         </h2>
-        <p className="text-[1.05rem] font-medium text-[#5c6475] leading-relaxed max-w-[600px] mx-auto">
+        <p className="text-[1.05rem] font-medium text-body leading-relaxed max-w-[600px] mx-auto">
           Fill out this quick form to receive course details, fees, and expert guidance.
         </p>
       </div>
+      )}
 
       {status === "success" ? (
         <div className="text-center py-8">
@@ -101,7 +104,7 @@ export default function AdmissionForm({ showHeader = true }) {
             Our career counsellor will contact you shortly.
           </p>
           <button
-            className="inline-flex items-center justify-center px-7 py-3 rounded-full font-semibold text-base text-heading border-[1.5px] border-border transition-all duration-300 hover:border-heading bg-transparent"
+            className="inline-flex items-center justify-center px-7 py-3 rounded-full font-semibold text-base text-heading border-2 border-border transition-all duration-300 hover:border-[#D40303] hover:text-[#D40303] bg-transparent"
             onClick={() => setStatus("")}
           >
             Submit Another Request
@@ -109,9 +112,9 @@ export default function AdmissionForm({ showHeader = true }) {
         </div>
       ) : (
         <form onSubmit={onSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="block space-y-5">
             <div className="text-left">
-              <label className="block font-semibold text-primary mb-2 text-[0.9rem]">
+              <label className="block font-semibold text-[#D40303] mb-2 text-[0.9rem]">
                 Name *
               </label>
               <input
@@ -126,7 +129,7 @@ export default function AdmissionForm({ showHeader = true }) {
             </div>
 
             <div className="text-left">
-              <label className="block font-semibold text-primary mb-2 text-[0.9rem]">
+              <label className="block font-semibold text-[#D40303] mb-2 text-[0.9rem]">
                 Email *
               </label>
               <input
@@ -139,7 +142,7 @@ export default function AdmissionForm({ showHeader = true }) {
             </div>
 
             <div className="text-left md:col-span-2">
-              <label className="block font-semibold text-primary mb-2 text-[0.9rem]">
+              <label className="block font-semibold text-[#D40303] mb-2 text-[0.9rem]">
                 Phone *
               </label>
               <div className="flex gap-2 items-center">
@@ -175,7 +178,7 @@ export default function AdmissionForm({ showHeader = true }) {
           <div className="mt-8">
             <button
               type="submit"
-              className="mt-auto flex items-center justify-center gap-2 w-full rounded-full py-4 px-8 font-bold text-[1rem] transition-all duration-300 bg-primary text-white hover:bg-primary-hover hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed border-none shadow-[0_8px_20px_rgba(255,68,68,0.25)]"
+              className={`mt-auto flex items-center justify-center gap-2 w-full rounded-full py-4 px-8 font-bold text-[1rem] transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed border-none ${COURSE_CARD_BUTTON_THEME.btnNormal}`}
               disabled={status === "submitting"}
             >
               {status === "submitting" ? (

@@ -174,7 +174,7 @@ export default function PostYourJobPage() {
                 { value: "Kerala", label: "And Beyond" },
               ].map((s, i) => (
                 <div key={i} className="text-center">
-                  <p className="text-[2rem] font-extrabold text-heading leading-none mb-1">{s.value}</p>
+                  <p className="text-[1.5rem] font-extrabold text-heading leading-none mb-1">{s.value}</p>
                   <p className="text-[0.88rem] font-semibold text-body">{s.label}</p>
                 </div>
               ))}

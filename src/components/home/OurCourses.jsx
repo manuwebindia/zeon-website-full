@@ -1,6 +1,12 @@
 import dynamic from "next/dynamic";
 import CourseCard from "../CourseCard";
 import ScrollReveal from "../ScrollReveal";
+import { COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
+
+const cardThemeProps = {
+  borderVariant: "grey",
+  buttonTheme: COURSE_CARD_BUTTON_THEME,
+};
 
 const CourseTabs = dynamic(() => import("../CourseTabs"));
 
@@ -29,6 +35,7 @@ export default function OurCourses() {
                 offlineCourses={
                   <>
                     <CourseCard
+                      {...cardThemeProps}
                       mode="offline"
                       title="Advanced Digital Marketing Course"
                       price="₹28,000"
@@ -64,6 +71,7 @@ export default function OurCourses() {
                     />
 
                     <CourseCard
+                      {...cardThemeProps}
                       mode="offline"
                       title="SEO Specialist Course"
                       price="₹11,999"
@@ -94,6 +102,7 @@ export default function OurCourses() {
                     />
 
                     <CourseCard
+                      {...cardThemeProps}
                       mode="offline"
                       title="AD Specialist Course"
                       price="₹9,999"
@@ -124,6 +133,7 @@ export default function OurCourses() {
                 onlineCourses={
                   <>
                     <CourseCard
+                      {...cardThemeProps}
                       mode="online"
                       title="Advanced Digital Marketing Course"
                       price="₹23,000"
@@ -159,6 +169,7 @@ export default function OurCourses() {
                     />
 
                     <CourseCard
+                      {...cardThemeProps}
                       mode="online"
                       title="SEO Specialist Course"
                       price="₹11,999"
@@ -189,6 +200,7 @@ export default function OurCourses() {
                     />
 
                     <CourseCard
+                      {...cardThemeProps}
                       mode="online"
                       title="AD Specialist Course"
                       price="₹9,999"

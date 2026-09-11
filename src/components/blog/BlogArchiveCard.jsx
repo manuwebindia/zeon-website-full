@@ -106,8 +106,8 @@ export function BlogArchiveCard({ blog, view = 'grid' }) {
       <article className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:shadow-md sm:flex-row">
         <CardImage
           blog={blog}
-          sizes="288px"
-          className="aspect-[16/10] w-full shrink-0 sm:aspect-auto sm:min-h-[200px] sm:w-80"
+          sizes="300px"
+          className="aspect-[16/9] w-full shrink-0 sm:aspect-auto sm:min-h-[200px] sm:w-80"
         />
         <div className="flex flex-1 flex-col p-6">
           <TagRow blog={blog} />
@@ -128,7 +128,7 @@ export function BlogArchiveCard({ blog, view = 'grid' }) {
       <CardImage
         blog={blog}
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="aspect-[16/10] w-full"
+        className="aspect-[2/1] w-full"
       />
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <TagRow blog={blog} />

@@ -31,8 +31,14 @@
 
   /* Font Family */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+/* h1 style */
+/* --font-h1: bold !important;
+--weight-h1: 700 !important; */
 
-  /* Animations */
+/* h2 style */
+/* --font-h2: bold !important; */
+
+/* Animations */
   --animate-fade-in-up: fadeInUp 0.8s ease both;
   --animate-fade-in-up-delay: fadeInUp 0.8s 0.15s ease both;
   --animate-pulse-badge: pulseBadge 2s ease-in-out infinite;

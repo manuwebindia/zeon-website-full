@@ -105,7 +105,7 @@ export default async function BlogListingPage({ searchParams }) {
             )}
 
             <section className="mt-16">
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1A4FD6] via-[#10309c] to-[#0a1a54] p-8 text-center shadow-xl md:p-14">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#2e0606] via-[#900202] to-[#2e0606] p-8 text-center shadow-xl md:p-14">
                 <div className="relative z-10 mx-auto max-w-2xl">
                   <h2 className="mb-3 text-2xl font-extrabold text-white sm:text-3xl">
                     Level Up Your Digital Marketing Career

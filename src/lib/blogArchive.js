@@ -32,13 +32,14 @@ export function formatPublishedDate(date) {
   });
 }
 
-/** Card/listing image: prefer inner banner, fall back to cover thumbnail. */
+/** Card/listing cover image: prefer featured cover image (featured_image in DB), fall back to banner. */
 export function getBlogCardImage(blog) {
-  if (blog.bannerImage) {
-    return { src: blog.bannerImage, alt: blog.bannerImageAlt || blog.title };
-  }
+  if (!blog) return null;
   if (blog.featuredImage) {
     return { src: blog.featuredImage, alt: blog.featuredImageAlt || blog.title };
+  }
+  if (blog.bannerImage) {
+    return { src: blog.bannerImage, alt: blog.bannerImageAlt || blog.title };
   }
   return null;
 }

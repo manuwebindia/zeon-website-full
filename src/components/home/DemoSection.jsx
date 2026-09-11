@@ -3,6 +3,7 @@ import { FaVideo } from "react-icons/fa";
 import { FiClock, FiUsers } from "react-icons/fi";
 import { SiGooglemeet } from "react-icons/si";
 import dynamic from "next/dynamic";
+import { COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 const BookDemoModal = dynamic(() => import("../BookDemoModal"));
 
@@ -40,18 +41,18 @@ export default function DemoSection() {
               </div>
 
               {/* Live Demo Card (Recommended) */}
-              <div className="bg-white rounded-2xl p-10 md:p-12 text-left border-2 border-[#0B5CFF] shadow-[0_10px_30px_rgba(11,92,255,0.1)] transition-all duration-300 relative flex flex-col hover:-translate-y-1.5 hover:shadow-[0_15px_40px_rgba(11,92,255,0.15)]">
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#0B5CFF] text-white px-5 py-1.5 rounded-full text-[0.85rem] font-extrabold tracking-wider uppercase z-10">
+              <div className="bg-white rounded-3xl p-10 md:p-12 text-left border-2 border-border shadow-card hover:shadow-card-hover hover:border-primary/25 transition-all duration-300 relative flex flex-col hover:-translate-y-2">
+                <div className={`absolute -top-3.5 left-1/2 -translate-x-1/2 ${COURSE_CARD_BUTTON_THEME.ribbonBg} text-white px-5 py-1.5 rounded-full text-[0.85rem] font-extrabold tracking-wider uppercase z-10 shadow-sm`}>
                   Recommended
                 </div>
                 <div className="flex gap-3 mb-6">
-                  <div className="bg-[#0B5CFF]/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
-                    <div className="flex items-center justify-center w-[24px] h-[24px] bg-[#0B5CFF] rounded-[6px] shadow-sm">
+                  <div className="bg-[#D40303]/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
+                    <div className="flex items-center justify-center w-[24px] h-[24px] bg-[#D40303] rounded-[6px] shadow-sm">
                       <FaVideo className="text-white text-[11px] inherit-text ml-px" fill="currentColor" />
                     </div>
                   </div>
-                  <div className="bg-[#00832D]/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
-                    <SiGooglemeet className="text-[1.6rem] text-[#00832D]" />
+                  <div className="bg-[#D40303]/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
+                    <SiGooglemeet className="text-[1.6rem] text-[#D40303]" />
                   </div>
                 </div>
                 <h3 className="text-2xl font-extrabold text-heading mb-1">
@@ -66,10 +67,10 @@ export default function DemoSection() {
                 </p>
                 <ul className="list-none p-0 m-0 mb-8">
                   <li className="flex items-center gap-2.5 mb-3 text-[0.95rem] text-heading font-medium">
-                    <FiClock className="text-[#0B5CFF] text-lg" /> Flexible Free Live Demo Scheduling
+                    <FiClock className="text-[#D40303] text-lg" /> Flexible Free Live Demo Scheduling
                   </li>
                   <li className="flex items-center gap-2.5 mb-3 text-[0.95rem] text-heading font-medium">
-                    <FiUsers className="text-[#0B5CFF] text-lg" /> Interactive
+                    <FiUsers className="text-[#D40303] text-lg" /> Interactive
                     Q &amp; A with trainers
                   </li>
                 </ul>
@@ -78,7 +79,7 @@ export default function DemoSection() {
                     e.preventDefault();
                     window.dispatchEvent(new CustomEvent("openBookDemo", { detail: { courseName: "Free Live Demo Class" } }));
                   }}
-                  className="w-full inline-flex items-center justify-center rounded-[36px] py-4 px-8 font-bold text-[0.95rem] transition-all duration-300 bg-[#0B5CFF] text-white hover:bg-[#084BCE] shadow-[0_4px_15px_rgba(11,92,255,0.25)] hover:-translate-y-0.5 cursor-pointer text-center"
+                  className={`w-full inline-flex items-center justify-center rounded-[36px] py-4 px-8 font-bold text-[0.95rem] transition-all duration-300 cursor-pointer text-center ${COURSE_CARD_BUTTON_THEME.btnNormal}`}
                 >
                   Book Free Demo
                 </button>

@@ -4,29 +4,22 @@ import { useState } from "react";
 import {
   FiArrowRight,
   FiRefreshCw,
-  FiBarChart2,
-  FiShoppingCart,
-  FiStar,
-  FiEye,
-  FiUsers,
-  FiFileText,
-  FiTrendingUp,
-  FiDollarSign,
-  FiAward,
-  FiBriefcase,
-  FiTarget,
-  FiEdit3,
-  FiZap,
   FiChevronRight,
+  FiUsers,
 } from "react-icons/fi";
 import {
-  LuTarget,
-  LuBookOpen,
+  LuSearch,
+  LuMegaphone,
   LuRocket,
-  LuPenLine,
-  LuChartBar,
   LuBriefcase,
+  LuRepeat,
+  LuSparkles,
+  LuChartBar,
+  LuSprout,
+  LuBookOpen,
+  LuWrench,
   LuTrophy,
+  LuTarget,
 } from "react-icons/lu";
 
 const questions = [
@@ -34,92 +27,139 @@ const questions = [
     id: 1,
     label: "Question 1 of 3",
     question: "What excites you the most?",
-    HeaderIcon: LuTarget,
+    sub: "Choose the area of digital marketing that interests you most.",
+    HeaderIcon: LuSparkles,
     options: [
-      { id: "a", text: "Creating content & storytelling", subtitle: "Words, visuals, and brand voice", icon: FiEdit3 },
-      { id: "b", text: "Numbers, analytics & strategy", subtitle: "Data-driven decisions and growth", icon: FiBarChart2 },
-      { id: "c", text: "Selling & convincing people", subtitle: "Offers, funnels, and conversions", icon: FiShoppingCart },
-      { id: "d", text: "Building my own brand", subtitle: "Personal brand and audience building", icon: FiStar },
+      {
+        id: "seo",
+        text: "Improving Search Rankings",
+        subtitle: "Keywords, Google rankings & website visibility",
+        icon: LuSearch,
+      },
+      {
+        id: "ads",
+        text: "Running Ads & Getting Results",
+        subtitle: "Google Ads, Meta Ads & paid campaigns",
+        icon: LuMegaphone,
+      },
+      {
+        id: "explore",
+        text: "Exploring Digital Marketing",
+        subtitle: "SEO, social media, content, ads & more",
+        icon: LuRocket,
+      },
     ],
   },
   {
     id: 2,
     label: "Question 2 of 3",
-    question: "How do you prefer to learn?",
-    HeaderIcon: LuBookOpen,
+    question: "What is your main goal?",
+    sub: "What is your main goal after learning digital marketing?",
+    HeaderIcon: LuTarget,
     options: [
-      { id: "a", text: "Hands-on projects", subtitle: "Learn by doing real campaigns", icon: FiZap },
-      { id: "b", text: "Watching & taking notes", subtitle: "Structured demos and walkthroughs", icon: FiEye },
-      { id: "c", text: "Group discussions", subtitle: "Collaborate and learn with peers", icon: FiUsers },
-      { id: "d", text: "Self-paced reading", subtitle: "Guides, playbooks, and resources", icon: FiFileText },
+      {
+        id: "career",
+        text: "Build a Career",
+        subtitle: "Develop skills for a digital marketing job",
+        icon: LuBriefcase,
+      },
+      {
+        id: "switch",
+        text: "Switch to Digital Marketing",
+        subtitle: "Start a new and exciting career",
+        icon: LuRepeat,
+      },
+      {
+        id: "specialist",
+        text: "Become a Specialist",
+        subtitle: "Master a specific area and grow your expertise",
+        icon: LuRocket,
+      },
+      {
+        id: "business",
+        text: "Grow My Business",
+        subtitle: "Use digital marketing to attract customers and grow",
+        icon: LuChartBar,
+      },
     ],
   },
   {
     id: 3,
     label: "Question 3 of 3",
-    question: "Your dream outcome in 6 months?",
-    HeaderIcon: LuRocket,
+    question: "How much do you already know?",
+    sub: "Tell us about your current digital marketing experience.",
+    HeaderIcon: LuBookOpen,
     options: [
-      { id: "a", text: "A high-paying agency job", subtitle: "Land a role at a top agency", icon: FiBriefcase },
-      { id: "b", text: "Freelance ₹50K+/month", subtitle: "Independent client work", icon: FiDollarSign },
-      { id: "c", text: "Run my own brand/agency", subtitle: "Build something of your own", icon: FiAward },
-      { id: "d", text: "Promotion at current job", subtitle: "Level up where you are now", icon: FiTrendingUp },
+      {
+        id: "beginner",
+        text: "I'm a Complete Beginner",
+        subtitle: "I'm starting from scratch",
+        icon: LuSprout,
+      },
+      {
+        id: "basics",
+        text: "I Know the Basics",
+        subtitle: "I have some knowledge of digital marketing",
+        icon: LuBookOpen,
+      },
+      {
+        id: "practical",
+        text: "I Have Practical Experience",
+        subtitle: "I've worked on campaigns, websites or marketing activities",
+        icon: LuWrench,
+      },
+      {
+        id: "working",
+        text: "I Already Work in Digital Marketing",
+        subtitle: "I want to upgrade and specialize my skills",
+        icon: LuTrophy,
+      },
     ],
   },
 ];
 
+const courses = {
+  seo: {
+    role: "SEO Specialist Course",
+    ResultIcon: LuSearch,
+    desc: "Become an SEO expert and master the skills needed to improve website visibility, rankings and organic traffic.",
+    color: "from-primary to-[#ff8c4a]",
+    suited: ["Students", "Freshers", "Career Changers", "Marketing Professionals"],
+  },
+  ads: {
+    role: "AD Specialist Course",
+    ResultIcon: LuMegaphone,
+    desc: "Master Google Ads and Meta Ads to create, manage and optimize high-performing advertising campaigns.",
+    color: "from-[#6366f1] to-[#8b5cf6]",
+    suited: ["Students", "Freshers", "Career Changers", "Entrepreneurs", "Working Professionals"],
+  },
+  advanced: {
+    role: "Advanced Digital Marketing Course",
+    ResultIcon: LuRocket,
+    desc: "Build a complete digital marketing skill set and learn how different marketing channels work together to drive business growth.",
+    color: "from-[#10b981] to-[#0ea5e9]",
+    suited: ["Aspiring Digital Marketers", "Freelancers", "Business Owners", "Marketing Professionals"],
+  },
+};
+
+// q1: seo | ads | explore
+// q2: career | switch | specialist | business
 const getResult = (answers) => {
   const [q1, q2] = answers;
-  if (q1 === "a" || q2 === "b") {
-    return {
-      role: "Content & Brand Strategist",
-      ResultIcon: LuPenLine,
-      desc: "You have a natural flair for storytelling and building brand identity. Content marketing, SEO writing, and brand strategy are your sweet spots.",
-      color: "from-primary to-[#ff8c4a]",
-      stats: [
-        { icon: FiTrendingUp, label: "Avg. Salary", value: "₹6–18 LPA" },
-        { icon: FiTarget, label: "Top Skill", value: "SEO & Content" },
-        { icon: FiStar, label: "Demand", value: "High" },
-      ],
-    };
+
+  if (q2 === "specialist") {
+    return courses[q1 === "ads" ? "ads" : "seo"];
   }
-  if (q1 === "b" || q2 === "a") {
-    return {
-      role: "Performance Marketing Specialist",
-      ResultIcon: LuChartBar,
-      desc: "Data excites you and you love optimizing campaigns for ROI. Google Ads, Meta Ads, and analytics dashboards are where you'll thrive.",
-      color: "from-[#6366f1] to-[#8b5cf6]",
-      stats: [
-        { icon: FiTrendingUp, label: "Avg. Salary", value: "₹8–22 LPA" },
-        { icon: FiTarget, label: "Top Skill", value: "Google & Meta Ads" },
-        { icon: FiStar, label: "Demand", value: "Very High" },
-      ],
-    };
+  if (q2 === "business") {
+    return courses[q1 === "ads" ? "ads" : "advanced"];
   }
-  if (q1 === "c") {
-    return {
-      role: "Digital Sales & Funnel Expert",
-      ResultIcon: LuBriefcase,
-      desc: "You're a natural closer. Email funnels, landing pages, and conversion optimization will help you build an unstoppable income stream.",
-      color: "from-[#0ea5e9] to-[#6366f1]",
-      stats: [
-        { icon: FiTrendingUp, label: "Avg. Salary", value: "₹7–20 LPA" },
-        { icon: FiTarget, label: "Top Skill", value: "CRO & Funnels" },
-        { icon: FiStar, label: "Demand", value: "Explosive" },
-      ],
-    };
+  if (q2 === "career" || q2 === "switch") {
+    return courses.advanced;
   }
-  return {
-    role: "Entrepreneur & Agency Owner",
-    ResultIcon: LuTrophy,
-    desc: "You think big. Full-stack digital marketing combined with business strategy will help you launch and scale your own brand or agency.",
-    color: "from-[#10b981] to-[#0ea5e9]",
-    stats: [
-      { icon: FiTrendingUp, label: "Earnings", value: "Unlimited" },
-      { icon: FiTarget, label: "Top Skill", value: "Full-Stack DM" },
-      { icon: FiStar, label: "Freedom", value: "Maximum" },
-    ],
-  };
+  // fallback based on q1 alone
+  if (q1 === "seo") return courses.seo;
+  if (q1 === "ads") return courses.ads;
+  return courses.advanced;
 };
 
 function OptionCard({ option, isSelected, onSelect, disabled }) {
@@ -211,7 +251,7 @@ export default function CareerQuiz() {
             <span className="text-primary">Career</span>
           </h2>
           <p className="text-[1.05rem] font-medium leading-relaxed text-body">
-            Answer 3 quick questions and we&apos;ll show you the role you&apos;re built for.
+            Answer 3 quick questions and we&apos;ll show you the course you&apos;re built for.
           </p>
         </div>
 
@@ -252,6 +292,9 @@ export default function CareerQuiz() {
                       <h3 className="text-[1.35rem] font-extrabold leading-tight text-heading sm:text-[1.55rem]">
                         {currentQ.question}
                       </h3>
+                      <p className="mt-1.5 text-[0.9rem] font-medium leading-relaxed text-body">
+                        {currentQ.sub}
+                      </p>
                     </div>
 
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary sm:h-14 sm:w-14">
@@ -290,7 +333,7 @@ export default function CareerQuiz() {
                       </div>
                     </div>
                     <p className="mb-2 text-[0.82rem] font-semibold uppercase tracking-[0.25em] text-white/80">
-                      You&apos;re built to be a
+                      Your recommended course
                     </p>
                     <h3 className="text-[1.8rem] font-extrabold leading-tight text-white md:text-[2.2rem]">
                       {result.role}
@@ -298,26 +341,29 @@ export default function CareerQuiz() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 divide-x divide-border border-b border-border">
-                  {result.stats.map((stat, i) => {
-                    const Icon = stat.icon;
-                    return (
-                      <div key={i} className="flex flex-col items-center gap-1.5 px-3 py-4">
-                        <Icon className="text-[1.1rem] text-primary" strokeWidth={2} />
-                        <span className="text-[0.72rem] font-semibold uppercase tracking-wide text-body">{stat.label}</span>
-                        <span className="text-[0.88rem] font-extrabold text-heading">{stat.value}</span>
-                      </div>
-                    );
-                  })}
-                </div>
-
                 <div className="p-6 sm:p-8 md:p-10">
-                  <p className="mx-auto mb-8 max-w-2xl text-left text-[1.02rem] font-medium leading-relaxed text-body">
-                    {result.desc}{" "}
-                    <span className="font-bold text-heading">
-                      Get a personalised 90-day roadmap to land your first role or freelancing client.
-                    </span>
+                  <p className="mx-auto mb-6 max-w-2xl text-left text-[1.02rem] font-medium leading-relaxed text-body">
+                    {result.desc}
                   </p>
+
+                  <div className="mb-8 rounded-2xl border border-border bg-surface px-5 py-4">
+                    <div className="mb-2.5 flex items-center gap-2 text-body/70">
+                      <FiUsers className="h-4 w-4" strokeWidth={2} />
+                      <span className="text-[0.78rem] font-bold uppercase tracking-wide">
+                        Best suited for
+                      </span>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {result.suited.map((tag) => (
+                        <span
+                          key={tag}
+                          className="rounded-full border border-border bg-white px-3 py-1 text-[0.82rem] font-semibold text-heading"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
                   <div className="mx-auto flex max-w-lg flex-col items-center justify-center gap-4 sm:flex-row">
                     <a

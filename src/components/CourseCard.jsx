@@ -240,7 +240,7 @@ export default function CourseCard({
             </Link>
           ) : (
             <a
-              href="#fees"
+              href="#admission"
               className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${activeTheme.btnDetails} whitespace-nowrap w-full text-center`}
             >
               View Fee
