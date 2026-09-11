@@ -41,8 +41,9 @@ export default function Navbar() {
     },
     {
       label: "Courses",
-      href: "/courses",
+      // href: "/courses",
       subItems: [
+        { href: "/courses", label: "All Courses" },
         { href: "/courses/advanced-digital-marketing", label: "Advanced DM" },
         { href: "/courses/seo-specialist", label: "SEO Specialist" },
         { href: "/courses/ads-specialist", label: "Ads Specialist" },
