@@ -9,14 +9,17 @@ import Image from "next/image";
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const Footer = dynamic(() => import("../../components/Footer"));
 
-import { buildPageMetadata } from "@/lib/pageSeo";
+import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/contact");
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const cms = await getPageCms("/contact");
+  const bannerImage = cms?.bannerImage || "/banner-white.svg";
+
   return (
     <>
       <Navbar />
@@ -27,7 +30,7 @@ export default function ContactPage() {
         {/* ─── HERO BANNER ─────────────────────────────── */}
         <section className={INNER_PAGE.heroSection}>
           <Image
-            src="/banner-white.svg"
+            src={bannerImage}
             alt="Zeon Academy Contact Banner"
             sizes="1600px"
             fill

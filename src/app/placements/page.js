@@ -7,7 +7,7 @@ import Footer from "../../components/Footer";
 import OurPartners from "../../components/OurPartners";
 import ScrollReveal from "../../components/ScrollReveal";
 import PlacementsJobGrid from "../../components/PlacementsJobGrid";
-import { buildPageMetadata } from "@/lib/pageSeo";
+import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
 import { getApprovedJobs, mapJobToVacancy } from "@/lib/jobs";
 
@@ -19,8 +19,12 @@ export async function generateMetadata() {
 }
 
 export default async function PlacementsPage() {
-  const approvedJobs = await getApprovedJobs();
+  const [approvedJobs, cms] = await Promise.all([
+    getApprovedJobs(),
+    getPageCms("/placements"),
+  ]);
   const vacancies = approvedJobs.map(mapJobToVacancy);
+  const bannerImage = cms?.bannerImage || "/banner-white.svg";
 
   return (
     <>
@@ -33,7 +37,7 @@ export default async function PlacementsPage() {
         {/* ── HERO BANNER ── */}
         <section className={INNER_PAGE.heroSection}>
           <Image
-            src="/banner-white.svg"
+            src={bannerImage}
             alt="Zeon Academy Placements Banner"
             fill
             priority

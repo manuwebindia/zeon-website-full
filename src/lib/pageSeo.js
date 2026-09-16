@@ -194,6 +194,12 @@ function buildAdminPageEntry({
   override,
   editUrl = null,
   readOnly = false,
+  id = null,
+  status = null,
+  bannerImage = '',
+  content = null,
+  title = '',
+  excerpt = '',
 }) {
   const effective = mergePageSeo(path, defaults, override);
   const hasOverride =
@@ -202,7 +208,9 @@ function buildAdminPageEntry({
       : Boolean(
           override?.seoTitle ||
             override?.seoDescription ||
-            override?.allowIndexing === false
+            override?.allowIndexing === false ||
+            bannerImage ||
+            (Array.isArray(content) && content.length > 0)
         );
 
   return {
@@ -216,18 +224,26 @@ function buildAdminPageEntry({
     hasOverride,
     editUrl,
     readOnly,
+    id,
+    status,
+    bannerImage: bannerImage || override?.bannerImage || defaults?.bannerImage || '',
+    content: content !== null ? content : (override?.content || defaults?.content || null),
+    title: title || label,
+    excerpt: excerpt || '',
   };
 }
 
 async function getCmsSitePageEntries() {
   try {
     const pages = await prisma.page.findMany({
-      where: { status: 'published' },
       select: {
         id: true,
         title: true,
         slug: true,
         excerpt: true,
+        content: true,
+        featuredImage: true,
+        status: true,
         seoTitle: true,
         seoDescription: true,
         allowIndexing: true,
@@ -241,11 +257,14 @@ async function getCmsSitePageEntries() {
         description: page.excerpt || '',
         canonical: `/${page.slug}`,
         allowIndexing: page.allowIndexing !== false,
+        bannerImage: page.featuredImage || '/banner-white.svg',
       };
       const override = {
         seoTitle: page.seoTitle || '',
         seoDescription: page.seoDescription || '',
         allowIndexing: page.allowIndexing !== false,
+        bannerImage: page.featuredImage || '',
+        content: page.content,
       };
 
       return buildAdminPageEntry({
@@ -256,6 +275,12 @@ async function getCmsSitePageEntries() {
         defaults,
         override,
         editUrl: `/admin/dashboard/site-pages/${page.id}/edit`,
+        id: page.id,
+        status: page.status,
+        bannerImage: page.featuredImage || '',
+        content: page.content,
+        title: page.title,
+        excerpt: page.excerpt || '',
       });
     });
   } catch (error) {
@@ -358,7 +383,7 @@ export async function resolveAdminPage(pagePath) {
   if (pagePath.startsWith('/') && pagePath.indexOf('/', 1) === -1 && pagePath.length > 1) {
     const slug = pagePath.slice(1);
     const page = await prisma.page.findFirst({
-      where: { slug, status: 'published' },
+      where: { slug },
       select: { id: true, slug: true },
     });
     if (page) return { type: 'site-page', id: page.id, slug: page.slug };
@@ -406,16 +431,42 @@ export async function saveAdminPageSeo(pagePath, override, { clear = false } = {
   const sanitized = sanitizePageOverride(override || {});
 
   if (resolved.type === 'site-page') {
-    await prisma.page.update({
-      where: { id: resolved.id },
-      data: clear
-        ? { seoTitle: null, seoDescription: null, allowIndexing: true }
-        : {
-            seoTitle: sanitized.seoTitle || null,
-            seoDescription: sanitized.seoDescription || null,
-            allowIndexing: sanitized.allowIndexing !== false,
-          },
-    });
+    if (clear) {
+      await prisma.page.update({
+        where: { id: resolved.id },
+        data: {
+          seoTitle: null,
+          seoDescription: null,
+          allowIndexing: true,
+        },
+      });
+    } else {
+      const updateData = {
+        seoTitle: sanitized.seoTitle || null,
+        seoDescription: sanitized.seoDescription || null,
+        allowIndexing: sanitized.allowIndexing !== false,
+      };
+      if (override.title !== undefined) updateData.title = String(override.title).trim();
+      if (override.excerpt !== undefined) updateData.excerpt = String(override.excerpt).trim();
+      if (override.bannerImage !== undefined || override.featuredImage !== undefined) {
+        updateData.featuredImage = String(override.bannerImage ?? override.featuredImage ?? '').trim() || null;
+      }
+      if (override.content !== undefined) {
+        updateData.content = Array.isArray(override.content)
+          ? override.content
+          : [{ id: '1', type: 'text', html: String(override.content || '') }];
+      }
+      if (override.status !== undefined) {
+        updateData.status = override.status;
+        if (override.status === 'published') {
+          updateData.publishedAt = new Date();
+        }
+      }
+      await prisma.page.update({
+        where: { id: resolved.id },
+        data: updateData,
+      });
+    }
     try {
       revalidatePath(`/${resolved.slug}`);
       revalidatePath('/sitemap.xml');
@@ -470,15 +521,32 @@ export function sanitizePageOverride(input = {}) {
     ogTitle: String(input.ogTitle || '').trim(),
     ogDescription: String(input.ogDescription || '').trim(),
     ogImage: String(input.ogImage || '').trim(),
+    bannerImage: String(input.bannerImage || '').trim(),
+    bannerTitle: String(input.bannerTitle || '').trim(),
+    bannerSubtitle: String(input.bannerSubtitle || '').trim(),
+    content: input.content !== undefined ? input.content : '',
   };
 }
 
 export function isEmptyOverride(override) {
   if (!override) return true;
   if (override.allowIndexing === false) return false;
-  return !['seoTitle', 'seoDescription', 'canonicalUrl', 'ogTitle', 'ogDescription', 'ogImage'].some(
-    (key) => Boolean(override[key])
+  return !['seoTitle', 'seoDescription', 'canonicalUrl', 'ogTitle', 'ogDescription', 'ogImage', 'bannerImage', 'bannerTitle', 'bannerSubtitle', 'content'].some(
+    (key) => {
+      const val = override[key];
+      if (Array.isArray(val)) return val.length > 0;
+      return Boolean(val);
+    }
   );
+}
+
+export async function getPageCms(pagePath) {
+  try {
+    const allOverrides = await readPageSeoOverrides();
+    return allOverrides[pagePath] || null;
+  } catch {
+    return null;
+  }
 }
 
 export function mergePageSeo(pagePath, defaults, override) {
@@ -585,8 +653,15 @@ export async function getAdminPagesPayload() {
       label: page.label,
       group: page.group,
       source: 'static',
-      defaults: page.defaults,
+      defaults: {
+        ...page.defaults,
+        bannerImage: '/banner-white.svg',
+      },
       override,
+      bannerImage: override?.bannerImage || '/banner-white.svg',
+      content: override?.content || null,
+      title: override?.bannerTitle || page.label,
+      excerpt: override?.bannerSubtitle || '',
     });
   });
 

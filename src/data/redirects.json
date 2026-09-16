@@ -1,0 +1,17 @@
+{
+  "redirects": [
+    {
+      "id": "red_1",
+      "source": "/courses/digital-marketing",
+      "destination": "/courses/advanced-digital-marketing",
+      "statusCode": 301,
+      "matchType": "exact",
+      "isActive": true,
+      "notes": "Redirect legacy digital marketing course URL to Advanced Digital Marketing",
+      "hits": 0,
+      "lastHitAt": null,
+      "createdAt": "2026-09-16T10:00:00.000Z",
+      "updatedAt": "2026-09-16T10:00:00.000Z"
+    }
+  ]
+}

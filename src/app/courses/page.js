@@ -13,14 +13,17 @@ const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
-import { buildPageMetadata } from "@/lib/pageSeo";
+import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/courses");
 }
 
-export default function CoursesPage() {
+export default async function CoursesPage() {
+  const cms = await getPageCms("/courses");
+  const bannerImage = cms?.bannerImage || "/banner-white.svg";
+
   return (
     <>
       <Navbar />
@@ -35,7 +38,7 @@ export default function CoursesPage() {
           {/* <div className="absolute top-10 left-10 w-[200px] h-[200px] bg-primary/10 rounded-full blur-3xl z-0 animate-pulse-glow" />
           <div className="absolute -bottom-10 right-10 w-[250px] h-[250px] bg-[#ff8c4a]/10 rounded-full blur-3xl z-0 animate-pulse-glow" /> */}
           <Image
-            src="/banner-white.svg"
+            src={bannerImage}
             alt="Zeon Academy Courses Banner"
             fill
             priority

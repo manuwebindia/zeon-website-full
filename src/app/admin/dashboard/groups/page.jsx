@@ -74,6 +74,10 @@ const PERMISSION_MATRIX = [
     label: 'Site Pages',
     cols: { view: 'pages.view', create: 'pages.create', edit: 'pages.edit', delete: 'pages.delete', publish: 'pages.publish', manage: null },
   },
+  {
+    label: 'Redirections',
+    cols: { view: 'redirects.view', create: 'redirects.create', edit: 'redirects.edit', delete: 'redirects.delete', publish: null, manage: null },
+  },
 ];
 
 const COL_LABELS = ['View', 'Create', 'Edit', 'Delete', 'Publish', 'Manage/Upload'];

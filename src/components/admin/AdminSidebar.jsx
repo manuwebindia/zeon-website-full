@@ -33,6 +33,7 @@ import {
   IconBriefcase,
   IconGift,
   IconLibraryPhoto,
+  IconArrowsExchange,
 } from '@tabler/icons-react';
 
 // ── Permission helpers ────────────────────────────────────────────────────────
@@ -84,8 +85,12 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
   }, []);
 
   const scrollbarStyles = {
-    '&::-webkit-scrollbar': { width: '7px' },
-    '&::-webkit-scrollbar-thumb': { backgroundColor: '#eff2f7', borderRadius: '15px' },
+    scrollbarWidth: 'thin',
+    scrollbarColor: '#cbd5e1 transparent',
+    '&::-webkit-scrollbar': { width: '5px' },
+    '&::-webkit-scrollbar-track': { background: 'transparent' },
+    '&::-webkit-scrollbar-thumb': { backgroundColor: '#cbd5e1', borderRadius: '10px' },
+    '&::-webkit-scrollbar-thumb:hover': { backgroundColor: '#94a3b8' },
   };
 
   const SidebarContent = () => {
@@ -141,29 +146,42 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
     }, []);
 
     return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <MUISidebar
-          width="100%"
-          showProfile={false}
-          themeColor="#FF4444"
-          themeSecondaryColor="#CC2222"
-          style={{ flexGrow: 1 }}
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden' }}>
+        {/* Logo (pinned at top) */}
+        <Box
+          sx={{
+            flexShrink: 0,
+            px: isCollapsed ? 1 : 2,
+            py: isCollapsed ? 2 : 3,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: isCollapsed ? 56 : 'auto',
+            position: 'relative',
+            zIndex: 2,
+            borderBottom: '1px solid #f1f5f9',
+          }}
         >
-          {/* Logo */}
-          <Box
-            sx={{
-              px: isCollapsed ? 1 : 2,
-              py: isCollapsed ? 2 : 3,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              minHeight: isCollapsed ? 56 : 'auto',
-              position: 'relative',
-              zIndex: 1,
-            }}
+          <AdminSidebarLogo isCollapsed={isCollapsed} />
+        </Box>
+
+        {/* Scrollable middle navigation container */}
+        <Box
+          sx={{
+            flex: '1 1 auto',
+            overflowY: 'auto',
+            overflowX: 'hidden',
+            minHeight: 0,
+            ...scrollbarStyles,
+          }}
+        >
+          <MUISidebar
+            width="100%"
+            showProfile={false}
+            themeColor="#FF4444"
+            themeSecondaryColor="#CC2222"
+            style={{ width: '100%' }}
           >
-            <AdminSidebarLogo isCollapsed={isCollapsed} />
-          </Box>
 
           {/* ── Always visible ─────────────────────── */}
           {can('dashboard.view') && (
@@ -493,6 +511,21 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
             </Box>
           )}
 
+          {/* ── Redirections ───────────────────────── */}
+          {(can('redirects.view') || can('seo.manage')) && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              <MenuItem
+                isSelected={pathname === '/admin/dashboard/redirects'}
+                borderRadius="8px"
+                icon={<IconArrowsExchange stroke={1.5} size="1.3rem" />}
+                link="/admin/dashboard/redirects"
+                component={Link}
+              >
+                {!isCollapsed && "Redirections"}
+              </MenuItem>
+            </Box>
+          )}
+
           {/* ── RBAC: Users ────────────────────────── */}
           {can('users.view') && (
             <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
@@ -539,7 +572,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           )}
 
           {/* ── View Live Site — always visible ────── */}
-          <Box sx={{ px: isCollapsed ? 1.5 : 3, mb: 2, ...(isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}) }}>
+          <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
             <Link
               href="/"
               target="_blank"
@@ -551,10 +584,10 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                   display: 'flex',
                   alignItems: 'center',
                   gap: 1.5,
-                  px: 2,
+                  px: 1.5,
                   py: 1,
                   borderRadius: '8px',
-                  color: 'text.primary',
+                  color: '#0000ff',
                   fontSize: '0.875rem',
                   fontWeight: 500,
                   transition: 'background-color 0.15s',
@@ -603,12 +636,12 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
 
           {/* ── Analytics (Coming Soon) ─────────────── */}
           {can('analytics.view') && (
-            <Box sx={{ px: isCollapsed ? 1.5 : 3, mb: 1, mt: !isCollapsed ? 0.5 : 0, ...(isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}) }}>
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
               <MenuItem
                 isSelected={false}
                 borderRadius="8px"
                 icon={<IconChartLine stroke={1.5} size="1.3rem" />}
-                link="/admin/dashboard/settings"
+                link="#"
                 component={Link}
               >
                 {!isCollapsed && (
@@ -628,7 +661,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                 isSelected={false}
                 borderRadius="8px"
                 icon={<IconMessage stroke={1.5} size="1.3rem" />}
-                link="/admin/dashboard/settings"
+                link="#"
                 component={Link}
               >
                 {!isCollapsed && (
@@ -648,7 +681,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                 isSelected={false}
                 borderRadius="8px"
                 icon={<IconChartBar stroke={1.5} size="1.3rem" />}
-                link="/admin/dashboard/settings"
+                link="#"
                 component={Link}
               >
                 {!isCollapsed && (
@@ -667,7 +700,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
               isSelected={pathname === '/admin/dashboard/scheduler'}
               borderRadius="8px"
               icon={<IconCalendarTime stroke={1.5} size="1.3rem" />}
-              link="/admin/dashboard/settings"
+              link="#"
               component={Link}
             >
               {!isCollapsed && (
@@ -685,7 +718,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
               isSelected={false}
               borderRadius="8px"
               icon={<IconPuzzle stroke={1.5} size="1.3rem" />}
-              link="/admin/dashboard/settings"
+              link="#"
               component={Link}
             >
               {!isCollapsed && (
@@ -697,102 +730,124 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
             </MenuItem>
           </Box>
         </MUISidebar>
-
-        {/* ── Logged-in user profile (bottom widget) ── */}
-        <Box sx={{ mt: 'auto', p: isCollapsed ? 1.5 : 3, borderTop: '1px solid #eff2f7', display: 'flex', alignItems: 'center', justifyContent: isCollapsed ? 'center' : 'flex-start', gap: 1.5, background: '#F8FAFC' }}>
-          <Avatar
-            src={avatarUrl || '/zeon-logo.png'}
-            alt={displayName}
-            sx={{ width: 40, height: 40, border: '2px solid #FF4444', boxShadow: '0 2px 8px rgba(255,68,68,0.1)' }}
-          />
-          {!isCollapsed && (
-            <Box sx={{ minWidth: 0, flexGrow: 1 }}>
-              <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'text.primary', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '0.825rem', lineHeight: 1.2 }}>
-                {displayName}
-              </Typography>
-              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
-                {user.groupName || 'Administrator'}
-              </Typography>
-            </Box>
-          )}
-        </Box>
       </Box>
-    );
-  };
 
-  if (lgUp) {
-    return (
-      <Box sx={{ width: sidebarWidth, flexShrink: 0, transition: 'width 0.2s', position: 'relative' }}>
-        <Drawer
-          anchor="left"
-          open={true}
-          variant="permanent"
-          slotProps={{
-            paper: {
-              sx: {
-                boxSizing: 'border-box',
-                ...scrollbarStyles,
-                width: sidebarWidth,
-                borderRight: '1px solid #e5eaef',
-                transition: 'width 0.2s',
-                overflow: 'visible',
-              },
+      {/* ── Logged-in user profile (pinned bottom widget) ── */}
+      <Box
+        sx={{
+          flexShrink: 0,
+          mt: 'auto',
+          p: isCollapsed ? 1.5 : 2,
+          borderTop: '1px solid #e2e8f0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: isCollapsed ? 'center' : 'flex-start',
+          gap: 1.5,
+          background: '#F8FAFC',
+          position: 'relative',
+          zIndex: 2,
+        }}
+      >
+        <Avatar
+          src={avatarUrl || '/zeon-logo.png'}
+          alt={displayName}
+          sx={{ width: 40, height: 40, border: '2px solid #FF4444', boxShadow: '0 2px 8px rgba(255,68,68,0.1)' }}
+        />
+        {!isCollapsed && (
+          <Box sx={{ minWidth: 0, flexGrow: 1 }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'text.primary', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '0.825rem', lineHeight: 1.2 }}>
+              {displayName}
+            </Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
+              {user.groupName || 'Administrator'}
+            </Typography>
+          </Box>
+        )}
+      </Box>
+    </Box>
+  );
+};
+
+if (lgUp) {
+  return (
+    <Box sx={{ width: sidebarWidth, flexShrink: 0, transition: 'width 0.2s', position: 'relative' }}>
+      <Drawer
+        anchor="left"
+        open={true}
+        variant="permanent"
+        slotProps={{
+          paper: {
+            sx: {
+              boxSizing: 'border-box',
+              width: sidebarWidth,
+              height: '100vh',
+              maxHeight: '100vh',
+              borderRight: '1px solid #e5eaef',
+              transition: 'width 0.2s',
+              overflow: 'hidden',
+            },
+          },
+        }}
+      >
+        <Box sx={{ height: '100%', position: 'relative', overflow: 'hidden' }}>
+          <SidebarContent />
+        </Box>
+      </Drawer>
+
+      {/* Floating fixed sidebar collapse button (does not scroll with page) */}
+      <Tooltip title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} placement="right">
+        <IconButton
+          onClick={toggleSidebarCollapse}
+          size="small"
+          aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          sx={{
+            position: 'fixed',
+            left: `calc(${sidebarWidth} - 14px)`,
+            top: isCollapsed ? 76 : 28,
+            zIndex: 1201,
+            color: 'primary.main',
+            border: '1px solid #e5eaef',
+            borderRadius: '50%',
+            backgroundColor: '#ffffff',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+            width: 28,
+            height: 28,
+            transition: 'left 0.2s, top 0.2s, background-color 0.2s',
+            '&:hover': {
+              backgroundColor: '#f8fafc',
             },
           }}
         >
-          <Box sx={{ height: '100%', position: 'relative' }}>
-            <SidebarContent />
-          </Box>
-        </Drawer>
-
-        {/* Floating fixed sidebar collapse button (does not scroll with page) */}
-        <Tooltip title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} placement="right">
-          <IconButton
-            onClick={toggleSidebarCollapse}
-            size="small"
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            sx={{
-              position: 'fixed',
-              left: `calc(${sidebarWidth} - 14px)`,
-              top: isCollapsed ? 76 : 28,
-              zIndex: 1201,
-              color: 'primary.main',
-              border: '1px solid #e5eaef',
-              borderRadius: '50%',
-              backgroundColor: '#ffffff',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-              width: 28,
-              height: 28,
-              transition: 'left 0.2s, top 0.2s, background-color 0.2s',
-              '&:hover': {
-                backgroundColor: '#f8fafc',
-              },
-            }}
-          >
-            {isCollapsed ? <IconChevronRight size="16" /> : <IconChevronLeft size="16" />}
-          </IconButton>
-        </Tooltip>
-      </Box>
-    );
-  }
-
-  return (
-    <Drawer
-      anchor="left"
-      open={isMobileSidebarOpen}
-      onClose={onSidebarClose}
-      variant="temporary"
-      slotProps={{
-        paper: {
-          sx: { boxShadow: (theme) => theme.shadows[8], ...scrollbarStyles, width: sidebarWidth },
-        },
-      }}
-    >
-      <Box sx={{ height: '100%' }}>
-        <SidebarContent />
-      </Box>
-    </Drawer>
+          {isCollapsed ? <IconChevronRight size="16" /> : <IconChevronLeft size="16" />}
+        </IconButton>
+      </Tooltip>
+    </Box>
   );
+}
+
+return (
+  <Drawer
+    anchor="left"
+    open={isMobileSidebarOpen}
+    onClose={onSidebarClose}
+    variant="temporary"
+    slotProps={{
+      paper: {
+        sx: {
+          boxShadow: (theme) => theme.shadows[8],
+          width: sidebarWidth,
+          height: '100vh',
+          maxHeight: '100vh',
+          overflow: 'hidden',
+        },
+      },
+    }}
+  >
+    <Box sx={{ height: '100%', overflow: 'hidden' }}>
+      <SidebarContent />
+    </Box>
+  </Drawer>
+);
 };
 
 const AdminSidebarLogo = ({ isCollapsed }) => (

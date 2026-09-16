@@ -20,14 +20,19 @@ import ScrollReveal from "../../components/ScrollReveal";
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 
-import { buildPageMetadata } from "@/lib/pageSeo";
+import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/about");
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const cms = await getPageCms("/about");
+  const bannerImage = cms?.bannerImage || "/banner-white.svg";
+  const heroTitle = cms?.bannerTitle;
+  const heroSubtitle = cms?.bannerSubtitle;
+
   return (
     <>
       <Navbar />
@@ -37,7 +42,7 @@ export default function AboutPage() {
         {/* HERO BANNER */}
         <section className={INNER_PAGE.heroSection}>
           <Image
-            src="/banner-white.svg"
+            src={bannerImage}
             alt="Zeon Academy About Banner"
             fill
             priority
@@ -49,15 +54,25 @@ export default function AboutPage() {
             <div className={INNER_PAGE.heroInner}>
               <span className={INNER_PAGE.tagline}>Who We Are</span>
               <h1 className={INNER_PAGE.title}>
-                We Are Not An Ordinary <br className="hidden md:inline" />
-                <span className="text-primary">Digital Marketing Institute</span>
+                {heroTitle ? heroTitle : (
+                  <>
+                    We Are Not An Ordinary <br className="hidden md:inline" />
+                    <span className="text-primary">Digital Marketing Institute</span>
+                  </>
+                )}
               </h1>
               <p className={INNER_PAGE.subtitle}>
-                Zeon Academy is an offshoot of Web India Solutions (WIS), a web development and digital marketing company with 18 years of experience in the business.
+                {heroSubtitle || "Zeon Academy is an offshoot of Web India Solutions (WIS), a web development and digital marketing company with 18 years of experience in the business."}
               </p>
             </div>
           </div>
         </section>
+
+        {cms?.content && (
+          <section className="py-8 bg-white border-b border-gray-100">
+            <div className="w-full max-w-[1200px] mx-auto px-6 prose max-w-none" dangerouslySetInnerHTML={{ __html: cms.content }} />
+          </section>
+        )}
 
         {/* SECTION 1: WIS CONNECTION */}
         <section className="py-16 md:py-24 bg-white relative overflow-hidden">

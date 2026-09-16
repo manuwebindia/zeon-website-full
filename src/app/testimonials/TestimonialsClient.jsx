@@ -88,7 +88,7 @@ const stats = [
   { value: "5+", label: "Years of Excellence" },
 ];
 
-export default function TestimonialsClient() {
+export default function TestimonialsClient({ bannerImage }) {
   const [activeVideo, setActiveVideo] = useState(null);
 
   return (
@@ -96,7 +96,7 @@ export default function TestimonialsClient() {
       {/* ── HERO ── */}
       <section className={INNER_PAGE.heroSection}>
         <Image
-          src="/banner-white.svg"
+          src={bannerImage || "/banner-white.svg"}
           alt="Zeon Academy Testimonials Banner"
           fill
           priority

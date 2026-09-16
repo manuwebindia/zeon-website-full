@@ -40,6 +40,10 @@ export const ALL_PERMISSIONS = [
   'pages.edit',
   'pages.delete',
   'pages.publish',
+  'redirects.view',
+  'redirects.create',
+  'redirects.edit',
+  'redirects.delete',
 ];
 
 export const VALID_PERMISSIONS = ALL_PERMISSIONS;
