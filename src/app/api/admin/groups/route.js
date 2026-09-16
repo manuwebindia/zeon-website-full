@@ -1,20 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/db';
 import { requirePermission } from '@/lib/auth';
-
-// Fixed permission key list — reject anything not in this list
-const VALID_PERMISSIONS = [
-  'dashboard.view',
-  'blogs.view', 'blogs.create', 'blogs.edit', 'blogs.delete', 'blogs.publish',
-  'media.view', 'media.upload',
-  'settings.view', 'settings.edit',
-  'users.view', 'users.create', 'users.edit', 'users.delete',
-  'groups.manage',
-  'analytics.view',
-  'seo.manage',
-  'chatbot-leads.view', 'chatbot-leads.edit', 'chatbot-leads.delete',
-  'chat-analytics.view',
-];
+import { VALID_PERMISSIONS } from '@/lib/permissions';
 
 // GET — list all groups with user count
 export async function GET(request) {

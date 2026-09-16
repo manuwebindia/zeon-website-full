@@ -13,7 +13,8 @@ import {
   Button,
   Alert,
 } from '@mui/material';
-import { IconChevronDown, IconBrandFacebook, IconCloudUpload, IconTrash } from '@tabler/icons-react';
+import { IconChevronDown, IconBrandFacebook, IconCloudUpload, IconTrash, IconFolder } from '@tabler/icons-react';
+import MediaPickerDialog from '@/components/admin/MediaPickerDialog';
 
 export default function SocialFields({
   ogTitle,
@@ -23,6 +24,7 @@ export default function SocialFields({
   onChange,
 }) {
   const fileInputRef = useRef(null);
+  const [mediaPickerOpen, setMediaPickerOpen] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState(null);
 
@@ -44,6 +46,7 @@ export default function SocialFields({
 
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('folder', 'blog');
 
     try {
       const token = localStorage.getItem('zeon_admin_token');
@@ -164,7 +167,7 @@ export default function SocialFields({
 
           {/* OG Image Upload */}
           <Box>
-            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 1 }}>
+            <Typography variant="subtitle2" sx={{ fontWeight: 600, mb: 0.5 }}>
               OG Image (Social Share Thumbnail)
             </Typography>
             <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1.5 }}>
@@ -186,7 +189,7 @@ export default function SocialFields({
                     position: 'relative',
                     borderRadius: 2,
                     overflow: 'hidden',
-                    height: '130px',
+                    height: '140px',
                     border: '1px solid #e5eaef',
                     mb: 1,
                   }}
@@ -201,11 +204,20 @@ export default function SocialFields({
                   <Button
                     size="small"
                     variant="outlined"
+                    startIcon={<IconFolder size={14} />}
+                    onClick={() => setMediaPickerOpen(true)}
+                    sx={{ textTransform: 'none', borderRadius: 2, fontSize: '0.75rem' }}
+                  >
+                    Media Library
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="outlined"
                     startIcon={<IconCloudUpload size={14} />}
                     onClick={() => fileInputRef.current?.click()}
                     sx={{ textTransform: 'none', borderRadius: 2, fontSize: '0.75rem' }}
                   >
-                    Replace
+                    Upload File
                   </Button>
                   <Button
                     size="small"
@@ -221,32 +233,60 @@ export default function SocialFields({
               </Box>
             ) : (
               <Box
-                onClick={!uploading ? () => fileInputRef.current?.click() : undefined}
                 sx={{
-                  height: '100px',
+                  py: 3,
+                  px: 2,
                   border: '2px dashed #b4c2d6',
                   borderRadius: 2,
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  cursor: uploading ? 'default' : 'pointer',
                   backgroundColor: '#F8FAFC',
+                  textAlign: 'center',
                   transition: 'all 0.2s',
                   '&:hover': {
-                    backgroundColor: uploading ? '#F8FAFC' : '#F1F5F9',
-                    borderColor: uploading ? '#b4c2d6' : '#1A4FD6',
+                    backgroundColor: '#F1F5F9',
+                    borderColor: '#1A4FD6',
                   },
                 }}
               >
                 {uploading ? (
-                  <CircularProgress size={24} />
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 1 }}>
+                    <CircularProgress size={24} sx={{ mb: 1 }} />
+                    <Typography variant="caption" color="text.secondary">
+                      Uploading image...
+                    </Typography>
+                  </Box>
                 ) : (
                   <>
-                    <IconCloudUpload size={28} stroke={1.5} style={{ color: '#7C8FAC', marginBottom: '6px' }} />
-                    <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 600 }}>
-                      Click to upload OG image
+                    <IconCloudUpload size={32} stroke={1.4} style={{ color: '#7C8FAC', marginBottom: '8px' }} />
+                    <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.primary', mb: 0.5 }}>
+                      Social Share Image
                     </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ mb: 1.5, maxWidth: 320 }}>
+                      Choose an image from your Media Library or upload a new file.
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                      <Button
+                        size="small"
+                        variant="contained"
+                        startIcon={<IconFolder size={14} />}
+                        onClick={() => setMediaPickerOpen(true)}
+                        sx={{ textTransform: 'none', fontSize: '0.75rem', borderRadius: 2 }}
+                      >
+                        Media Library
+                      </Button>
+                      <Button
+                        size="small"
+                        variant="outlined"
+                        startIcon={<IconCloudUpload size={14} />}
+                        onClick={() => fileInputRef.current?.click()}
+                        sx={{ textTransform: 'none', fontSize: '0.75rem', borderRadius: 2 }}
+                      >
+                        Upload
+                      </Button>
+                    </Box>
                   </>
                 )}
               </Box>
@@ -257,6 +297,18 @@ export default function SocialFields({
                 {uploadError}
               </Typography>
             )}
+
+            <MediaPickerDialog
+              open={mediaPickerOpen}
+              onClose={() => setMediaPickerOpen(false)}
+              selectedUrl={ogImage}
+              title="Choose Social Share Image"
+              defaultFolder="blog"
+              onSelect={(url) => {
+                onChange('ogImage', url);
+                setMediaPickerOpen(false);
+              }}
+            />
           </Box>
         </Box>
       </AccordionDetails>

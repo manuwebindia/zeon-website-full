@@ -36,6 +36,55 @@ export async function PATCH(request, { params }) {
   const validStatuses = ['pending', 'approved', 'rejected'];
   const data = {};
 
+  if (body.companyName !== undefined) {
+    if (!String(body.companyName).trim()) {
+      return NextResponse.json({ error: 'Company name cannot be empty' }, { status: 400 });
+    }
+    data.companyName = String(body.companyName).trim();
+  }
+
+  if (body.companyLogo !== undefined) {
+    data.companyLogo = body.companyLogo ? String(body.companyLogo).trim() : null;
+  }
+
+  if (body.jobTitle !== undefined) {
+    if (!String(body.jobTitle).trim()) {
+      return NextResponse.json({ error: 'Job title cannot be empty' }, { status: 400 });
+    }
+    data.jobTitle = String(body.jobTitle).trim();
+  }
+
+  if (body.phone !== undefined) {
+    if (!String(body.phone).trim()) {
+      return NextResponse.json({ error: 'Phone number cannot be empty' }, { status: 400 });
+    }
+    data.phone = String(body.phone).trim();
+  }
+
+  if (body.location !== undefined) {
+    data.location = body.location ? String(body.location).trim() : null;
+  }
+
+  if (body.aboutCompany !== undefined) {
+    data.aboutCompany = body.aboutCompany ? String(body.aboutCompany).trim() : null;
+  }
+
+  if (body.skillsRequired !== undefined) {
+    data.skillsRequired = body.skillsRequired ? String(body.skillsRequired).trim() : null;
+  }
+
+  if (body.eligibility !== undefined) {
+    data.eligibility = body.eligibility ? String(body.eligibility).trim() : null;
+  }
+
+  if (body.jobTypes !== undefined) {
+    data.jobTypes = body.jobTypes ? String(body.jobTypes).trim() : null;
+  }
+
+  if (body.shiftSchedule !== undefined) {
+    data.shiftSchedule = body.shiftSchedule ? String(body.shiftSchedule).trim() : null;
+  }
+
   if (body.status !== undefined) {
     if (!validStatuses.includes(body.status)) {
       return NextResponse.json({ error: 'Invalid status' }, { status: 400 });
@@ -54,7 +103,7 @@ export async function PATCH(request, { params }) {
   }
 
   if (body.adminNotes !== undefined) {
-    data.adminNotes = String(body.adminNotes).slice(0, 5000);
+    data.adminNotes = body.adminNotes ? String(body.adminNotes).slice(0, 5000) : null;
   }
 
   if (Object.keys(data).length === 0) {

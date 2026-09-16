@@ -60,7 +60,7 @@ const PERMISSION_MATRIX = [
   },
   {
     label: 'Job Postings',
-    cols: { view: 'job-postings.view', create: null, edit: 'job-postings.edit', delete: 'job-postings.delete', publish: null, manage: null },
+    cols: { view: 'job-postings.view', create: 'job-postings.create', edit: 'job-postings.edit', delete: 'job-postings.delete', publish: 'job-postings.publish', manage: null },
   },
   {
     label: 'Offers',

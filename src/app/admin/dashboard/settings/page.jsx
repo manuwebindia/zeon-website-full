@@ -20,11 +20,13 @@ import {
   Alert,
   CircularProgress,
 } from '@mui/material';
-import { IconUser, IconLayoutSidebar, IconLock } from '@tabler/icons-react';
+import { IconUser, IconLayoutSidebar, IconLock, IconFolder, IconPhoto } from '@tabler/icons-react';
+import MediaPickerDialog from '@/components/admin/MediaPickerDialog';
 
 export default function AdminSettingsPage() {
   const [authorName, setAuthorName] = React.useState('Zeon Academy');
   const [authorImage, setAuthorImage] = React.useState('');
+  const [mediaPickerOpen, setMediaPickerOpen] = React.useState(false);
   const [universalNoIndex, setUniversalNoIndex] = React.useState(false);
   const [adminLoginUrl, setAdminLoginUrl] = React.useState('');
   const [loading, setLoading] = React.useState(true);
@@ -172,14 +174,50 @@ export default function AdminSettingsPage() {
                 placeholder="e.g. Manu Dev"
                 helperText="Enter the name that will appear as the author on blog posts and the sidebar."
               />
-              <TextField
-                fullWidth
-                label="Author Profile Image URL"
-                variant="outlined"
-                value={authorImage}
-                onChange={(e) => setAuthorImage(e.target.value)}
-                placeholder="e.g. https://example.com/avatar.jpg"
-                helperText="Paste a URL for your avatar image, or leave blank to use the default Zeon logo."
+              <Box>
+                <TextField
+                  fullWidth
+                  label="Author Profile Image URL"
+                  variant="outlined"
+                  value={authorImage}
+                  onChange={(e) => setAuthorImage(e.target.value)}
+                  placeholder="e.g. https://example.com/avatar.jpg"
+                  helperText="Paste an avatar URL, or pick an existing image from your Media Library."
+                />
+                <Box sx={{ mt: 1, display: 'flex', gap: 1 }}>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    startIcon={<IconFolder size={15} />}
+                    onClick={() => setMediaPickerOpen(true)}
+                    sx={{ textTransform: 'none', borderRadius: 2, fontSize: '0.78rem' }}
+                  >
+                    Choose from Media Library
+                  </Button>
+                  {authorImage && (
+                    <Button
+                      size="small"
+                      variant="text"
+                      color="inherit"
+                      onClick={() => setAuthorImage('')}
+                      sx={{ textTransform: 'none', borderRadius: 2, fontSize: '0.78rem', color: '#94a3b8' }}
+                    >
+                      Clear Image
+                    </Button>
+                  )}
+                </Box>
+              </Box>
+
+              <MediaPickerDialog
+                open={mediaPickerOpen}
+                onClose={() => setMediaPickerOpen(false)}
+                selectedUrl={authorImage}
+                title="Choose Author Avatar"
+                defaultFolder="blog"
+                onSelect={(url) => {
+                  setAuthorImage(url);
+                  setMediaPickerOpen(false);
+                }}
               />
 
               <Box sx={{ mt: 'auto', pt: 2 }}>

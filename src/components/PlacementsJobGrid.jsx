@@ -30,9 +30,20 @@ export default function PlacementsJobGrid({ jobs = [] }) {
             <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-primary/60 via-primary to-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
             <div className="flex items-start justify-between gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                <FaBriefcase className="text-primary text-[0.95rem]" />
-              </div>
+              {job.logo ? (
+                <div className="w-10 h-10 rounded-xl border border-border/80 bg-white p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-sm">
+                  <img
+                    src={job.logo}
+                    alt={`${job.company} logo`}
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              ) : (
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <FaBriefcase className="text-primary text-[0.95rem]" />
+                </div>
+              )}
               <span className="inline-block text-[0.7rem] font-bold text-green-600 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full whitespace-nowrap">
                 🟢 Hiring
               </span>
@@ -60,7 +71,7 @@ export default function PlacementsJobGrid({ jobs = [] }) {
               href={buildApplyUrl(job.title, job.company)}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-auto flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-bold text-[0.9rem] text-white bg-primary hover:bg-primary-hover shadow-glow hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-200"
+              className="mt-auto flex items-center justify-center gap-2 w-full py-2.5 rounded-xl font-bold text-[0.9rem] text-base bg-transparent text-heading border border-black/50 transition-all duration-300 hover:border-primary hover:text-primary hover:bg-primary-light whitespace-nowrap w-full sm:w-auto"
             >
               Apply Now
               <FaArrowRight className="text-[0.75rem]" />

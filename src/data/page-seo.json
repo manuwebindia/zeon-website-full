@@ -1,3 +1,13 @@
 {
-  "overrides": {}
+  "overrides": {
+    "/": {
+      "seoTitle": "Best Digital Marketing Institute in Kochi, Kerala | Zeon",
+      "seoDescription": "Zeon is the best digital marketing institute in Kochi, Kerala. Learn from experienced instructors & Start your career with our hands-on training.",
+      "allowIndexing": true,
+      "canonicalUrl": "",
+      "ogTitle": "",
+      "ogDescription": "",
+      "ogImage": ""
+    }
+  }
 }

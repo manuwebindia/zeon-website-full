@@ -128,7 +128,7 @@ export default function TestimonialsClient() {
               institute in Kochi and found Zeon.
             </p>
 
-            <div className="flex items-center justify-center gap-1.5 mb-3">
+            {/* <div className="flex items-center justify-center gap-1.5 mb-3">
               {[...Array(5)].map((_, i) => (
                 <FaStar key={i} className="text-[#fbbf24] text-xl" />
               ))}
@@ -136,7 +136,7 @@ export default function TestimonialsClient() {
             <p className="text-black/80 text-[0.9rem] font-semibold">
               Rated 4.9 on Google — Kerala's Most Loved Digital Marketing
               Institute
-            </p>
+            </p> */}
           </div>
         </div>
       </section>

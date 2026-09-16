@@ -231,21 +231,29 @@ export default function CourseCard({
             Book Free Demo
           </button>
           
-          {slug ? (
-            <Link
-              href={slug}
-              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${activeTheme.btnDetails} whitespace-nowrap w-full text-center`}
-            >
-              View Details
-            </Link>
-          ) : (
-            <a
-              href="#admission"
-              className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${activeTheme.btnDetails} whitespace-nowrap w-full text-center`}
-            >
-              View Fee
-            </a>
-          )}
+          {(() => {
+            const resolveCourseSlug = (courseTitle, courseSlug) => {
+              if (courseSlug && typeof courseSlug === "string" && !courseSlug.includes(",")) {
+                return courseSlug;
+              }
+              const t = (courseTitle || "").toLowerCase();
+              if (t.includes("seo")) return "/courses/seo-specialist";
+              if (t.includes("ad") || t.includes("performance marketing")) return "/courses/ads-specialist";
+              if (t.includes("digital marketing")) return "/courses/advanced-digital-marketing";
+              return "/courses";
+            };
+
+            const targetSlug = resolveCourseSlug(title, slug);
+
+            return (
+              <Link
+                href={targetSlug}
+                className={`inline-flex items-center justify-center rounded-[36px] py-3.5 px-4 font-bold text-[0.88rem] leading-tight transition-all duration-300 bg-transparent border-2 border-black/50 text-heading ${activeTheme.btnDetails} whitespace-nowrap w-full text-center`}
+              >
+                View Details
+              </Link>
+            );
+          })()}
         </div>
 
         {/* Download Brochure */}

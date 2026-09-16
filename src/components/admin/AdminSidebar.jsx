@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useMediaQuery, Box, Drawer, Avatar, Typography, IconButton } from '@mui/material';
+import { useMediaQuery, Box, Drawer, Avatar, Typography, IconButton, Tooltip } from '@mui/material';
 import {
   Sidebar as MUISidebar,
   MenuItem,
@@ -225,7 +225,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           )}
 
           {/* ── Site Pages (CMS) ─────────────────────── */}
-          {(can('pages.view') || can('pages.create')) && (
+          {/* {(can('pages.view') || can('pages.create')) && (
             <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
               {isCollapsed ? (
                 <MenuItem
@@ -266,7 +266,7 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                 </Submenu>
               )}
             </Box>
-          )}
+          )} */}
 
           {/* ── Gallery (collapsible) ───────────────── */}
           {(can('gallery.view') || can('gallery.create')) && (
@@ -745,30 +745,33 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           </Box>
         </Drawer>
 
-        {/* Floating absolute sidebar collapse button */}
-        <IconButton
-          onClick={toggleSidebarCollapse}
-          size="small"
-          sx={{
-            position: 'absolute',
-            right: '-14px',
-            top: isCollapsed ? 76 : 28,
-            zIndex: 1201,
-            color: 'primary.main',
-            border: '1px solid #e5eaef',
-            borderRadius: '50%',
-            backgroundColor: '#ffffff',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-            width: 28,
-            height: 28,
-            transition: 'top 0.2s, background-color 0.2s',
-            '&:hover': {
-              backgroundColor: '#f8fafc',
-            },
-          }}
-        >
-          {isCollapsed ? <IconChevronRight size="16" /> : <IconChevronLeft size="16" />}
-        </IconButton>
+        {/* Floating fixed sidebar collapse button (does not scroll with page) */}
+        <Tooltip title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'} placement="right">
+          <IconButton
+            onClick={toggleSidebarCollapse}
+            size="small"
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            sx={{
+              position: 'fixed',
+              left: `calc(${sidebarWidth} - 14px)`,
+              top: isCollapsed ? 76 : 28,
+              zIndex: 1201,
+              color: 'primary.main',
+              border: '1px solid #e5eaef',
+              borderRadius: '50%',
+              backgroundColor: '#ffffff',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              width: 28,
+              height: 28,
+              transition: 'left 0.2s, top 0.2s, background-color 0.2s',
+              '&:hover': {
+                backgroundColor: '#f8fafc',
+              },
+            }}
+          >
+            {isCollapsed ? <IconChevronRight size="16" /> : <IconChevronLeft size="16" />}
+          </IconButton>
+        </Tooltip>
       </Box>
     );
   }

@@ -24,8 +24,15 @@ export default function BlogContent({ content, className = 'mx-auto max-w-3xl' }
         }
 
         if (block.type === 'image' && block.src) {
+          const alignmentClass =
+            block.alignment === 'compact'
+              ? 'max-w-md mx-auto'
+              : block.alignment === 'wide'
+              ? 'max-w-2xl mx-auto'
+              : 'w-full';
+
           return (
-            <figure key={block.id} className="my-8 overflow-hidden rounded-2xl border border-border shadow-card">
+            <figure key={block.id} className={`my-8 overflow-hidden rounded-2xl border border-border shadow-card ${alignmentClass}`}>
               <div className="relative aspect-video w-full">
                 <Image
                   src={block.src}

@@ -122,7 +122,15 @@ export async function POST(request) {
     }
 
     const isPublished = resolvedStatus === 'published';
-    const publishedAt = isPublished ? new Date() : null;
+    let resolvedPublishedAt = null;
+    if (data.publishedAt) {
+      const parsed = new Date(data.publishedAt);
+      if (!isNaN(parsed.getTime())) {
+        resolvedPublishedAt = parsed;
+      }
+    } else if (isPublished) {
+      resolvedPublishedAt = new Date();
+    }
 
     const newBlog = await prisma.blog.create({
       data: {
@@ -138,7 +146,7 @@ export async function POST(request) {
         excerpt: excerpt || null,
         status: resolvedStatus,
         allowIndexing: allowIndexing !== undefined ? allowIndexing : true,
-        publishedAt,
+        publishedAt: resolvedPublishedAt,
         focusKeyword: focusKeyword || null,
         category: category || null,
         tags: Array.isArray(tags) ? tags.map((t) => t.toLowerCase().trim()) : null,

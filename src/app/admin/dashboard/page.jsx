@@ -25,8 +25,9 @@ import {
   Alert,
   TextField,
   InputAdornment,
+  Tooltip,
 } from '@mui/material';
-import { IconPlus, IconEdit, IconTrash, IconFileText, IconSearch } from '@tabler/icons-react';
+import { IconPlus, IconEdit, IconTrash, IconFileText, IconSearch, IconCalendar } from '@tabler/icons-react';
 
 export default function AdminDashboardPage() {
   const [blogs, setBlogs] = useState([]);
@@ -36,6 +37,12 @@ export default function AdminDashboardPage() {
   const [deleting, setDeleting] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   
+  // Date override state
+  const [dateDialogOpen, setDateDialogOpen] = useState(false);
+  const [dateBlog, setDateBlog] = useState(null);
+  const [customDate, setCustomDate] = useState('');
+  const [savingDate, setSavingDate] = useState(false);
+
   // Notification snackbar state
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -86,6 +93,56 @@ export default function AdminDashboardPage() {
 
   const handleCloseSnackbar = () => {
     setSnackbar((prev) => ({ ...prev, open: false }));
+  };
+
+  const handleOpenDateModal = (blog) => {
+    setDateBlog(blog);
+    const dateVal = blog.publishedAt || blog.createdAt;
+    if (dateVal) {
+      const d = new Date(dateVal);
+      const offsetMs = d.getTimezoneOffset() * 60000;
+      setCustomDate(new Date(d.getTime() - offsetMs).toISOString().slice(0, 16));
+    } else {
+      setCustomDate('');
+    }
+    setDateDialogOpen(true);
+  };
+
+  const handleSaveDate = async () => {
+    if (!dateBlog) return;
+    setSavingDate(true);
+    try {
+      const token = localStorage.getItem('zeon_admin_token');
+      const res = await fetch(`/api/admin/blogs/${dateBlog.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          publishedAt: customDate ? new Date(customDate).toISOString() : null,
+        }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Failed to update published date');
+      }
+
+      setBlogs((prev) =>
+        prev.map((b) =>
+          b.id === dateBlog.id
+            ? { ...b, publishedAt: customDate ? new Date(customDate).toISOString() : null }
+            : b
+        )
+      );
+      showSnackbar('Published date updated successfully');
+      setDateDialogOpen(false);
+    } catch (err) {
+      showSnackbar(err.message, 'error');
+    } finally {
+      setSavingDate(false);
+    }
   };
 
   const handleDeleteClick = (blog) => {
@@ -313,9 +370,20 @@ export default function AdminDashboardPage() {
                             variant={blog.status === 'published' ? 'filled' : 'outlined'}
                             sx={{ fontWeight: 600, fontSize: '0.75rem' }}
                           />
-                          <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
-                            {formatDate(blog.publishedAt || blog.createdAt)}
-                          </Typography>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
+                              {formatDate(blog.publishedAt || blog.createdAt)}
+                            </Typography>
+                            <Tooltip title="Quick override published date" arrow>
+                              <IconButton
+                                size="small"
+                                onClick={() => handleOpenDateModal(blog)}
+                                sx={{ p: 0.3, color: '#64748b', '&:hover': { color: '#2563eb' } }}
+                              >
+                                <IconCalendar size={13} />
+                              </IconButton>
+                            </Tooltip>
+                          </Box>
                         </Box>
                       </TableCell>
                       <TableCell>
@@ -389,6 +457,99 @@ export default function AdminDashboardPage() {
             }}
           >
             {deleting ? 'Deleting...' : 'Delete Permanently'}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Quick Published Date Override Dialog */}
+      <Dialog
+        open={dateDialogOpen}
+        onClose={() => setDateDialogOpen(false)}
+        maxWidth="xs"
+        fullWidth
+        slotProps={{
+          paper: { sx: { borderRadius: 3, p: 1 } },
+        }}
+      >
+        <DialogTitle sx={{ fontWeight: 700, pb: 1 }}>
+          Override Published Date
+        </DialogTitle>
+        <DialogContent sx={{ pb: 1 }}>
+          <DialogContentText sx={{ mb: 2, fontSize: '0.85rem' }}>
+            Set a custom published date for <strong>"{dateBlog?.title}"</strong>. This will be shown on the public post, archives, and sitemap.
+          </DialogContentText>
+
+          <TextField
+            type="datetime-local"
+            size="small"
+            fullWidth
+            value={customDate}
+            onChange={(e) => setCustomDate(e.target.value)}
+            helperText="Leave empty to use automatic publish date."
+            slotProps={{
+              formHelperText: { sx: { fontSize: '0.7rem', mt: 0.5 } },
+            }}
+            sx={{
+              backgroundColor: '#fff',
+              '& .MuiInputBase-input': { fontSize: '0.85rem' },
+            }}
+          />
+
+          <Box sx={{ display: 'flex', gap: 1, mt: 1.5, flexWrap: 'wrap' }}>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                const now = new Date();
+                const offsetMs = now.getTimezoneOffset() * 60000;
+                setCustomDate(new Date(now.getTime() - offsetMs).toISOString().slice(0, 16));
+              }}
+              sx={{ textTransform: 'none', fontSize: '0.72rem', borderRadius: 1.5, py: 0.3 }}
+            >
+              Set to Now
+            </Button>
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                const today = new Date();
+                today.setHours(9, 0, 0, 0);
+                const offsetMs = today.getTimezoneOffset() * 60000;
+                setCustomDate(new Date(today.getTime() - offsetMs).toISOString().slice(0, 16));
+              }}
+              sx={{ textTransform: 'none', fontSize: '0.72rem', borderRadius: 1.5, py: 0.3 }}
+            >
+              Today 9:00 AM
+            </Button>
+            {customDate && (
+              <Button
+                size="small"
+                variant="text"
+                color="error"
+                onClick={() => setCustomDate('')}
+                sx={{ textTransform: 'none', fontSize: '0.72rem', py: 0.3 }}
+              >
+                Clear
+              </Button>
+            )}
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2 }}>
+          <Button
+            onClick={() => setDateDialogOpen(false)}
+            variant="outlined"
+            disabled={savingDate}
+            sx={{ textTransform: 'none', borderRadius: 2 }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleSaveDate}
+            variant="contained"
+            disabled={savingDate}
+            sx={{ textTransform: 'none', borderRadius: 2 }}
+          >
+            {savingDate ? 'Saving...' : 'Save Date'}
           </Button>
         </DialogActions>
       </Dialog>

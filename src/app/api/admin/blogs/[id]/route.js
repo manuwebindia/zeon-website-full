@@ -119,7 +119,16 @@ export async function PUT(request, { params }) {
     }
 
     let publishedAt = blog.publishedAt;
-    if (resolvedStatus === 'published' && oldStatus !== 'published') {
+    if (data.publishedAt !== undefined) {
+      if (data.publishedAt === null || data.publishedAt === '') {
+        publishedAt = resolvedStatus === 'published' ? new Date() : null;
+      } else {
+        const parsed = new Date(data.publishedAt);
+        if (!isNaN(parsed.getTime())) {
+          publishedAt = parsed;
+        }
+      }
+    } else if (resolvedStatus === 'published' && oldStatus !== 'published') {
       publishedAt = new Date();
     } else if (resolvedStatus === 'draft') {
       publishedAt = null;
@@ -249,6 +258,7 @@ export async function PATCH(request, { params }) {
       'ogDescription',
       'ogImage',
       'canonicalUrl',
+      'publishedAt',
       'schemaBlocks',
       'articleType',
       'schemaFaqItems',
@@ -263,15 +273,24 @@ export async function PATCH(request, { params }) {
     }
 
     allowedFields.forEach((field) => {
-      if (field.startsWith('schema') || field === 'articleType') return;
+      if (field.startsWith('schema') || field === 'articleType' || field === 'publishedAt') return;
       if (data[field] !== undefined) {
         updateData[field] = data[field];
       }
     });
 
-    if (targetStatus !== undefined) {
+    // Handle publishedAt
+    if (data.publishedAt !== undefined) {
+      if (data.publishedAt === null || data.publishedAt === '') {
+        updateData.publishedAt = existingBlog.status === 'published' ? new Date() : null;
+      } else {
+        const parsed = new Date(data.publishedAt);
+        if (!isNaN(parsed.getTime())) {
+          updateData.publishedAt = parsed;
+        }
+      }
+    } else if (targetStatus !== undefined) {
       updateData.status = targetStatus;
-      // Handle publishedAt
       if (targetStatus === 'published' && existingBlog.status !== 'published') {
         updateData.publishedAt = new Date();
       } else if (targetStatus === 'draft') {
@@ -334,6 +353,7 @@ export async function PATCH(request, { params }) {
         title: updatedBlog.title,
         slug: updatedBlog.slug,
         status: updatedBlog.status,
+        publishedAt: updatedBlog.publishedAt,
         updatedAt: updatedBlog.updatedAt,
       }
     }, { status: 200 });

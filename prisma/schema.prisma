@@ -166,6 +166,7 @@ model RateLimit {
 model JobPosting {
   id             String    @id @default(cuid())
   companyName    String    @map("company_name")
+  companyLogo    String?   @map("company_logo")
   jobTitle       String    @map("job_title")
   phone          String
   location       String?

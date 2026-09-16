@@ -38,6 +38,7 @@ export default function OurCourses() {
                       {...cardThemeProps}
                       mode="offline"
                       title="Advanced Digital Marketing Course"
+                      slug="/courses/advanced-digital-marketing"
                       price="₹28,000"
                       duration="2 Months + 1 Month Internship"
                       targetGroup="Beginners, freshers, job seekers, and career switchers who want complete 360-degree digital marketing training."
@@ -74,6 +75,7 @@ export default function OurCourses() {
                       {...cardThemeProps}
                       mode="offline"
                       title="SEO Specialist Course"
+                      slug="/courses/seo-specialist"
                       price="₹11,999"
                       duration="15 Days + 1 Month Internship"
                       // hasGST={true}
@@ -105,6 +107,7 @@ export default function OurCourses() {
                       {...cardThemeProps}
                       mode="offline"
                       title="AD Specialist Course"
+                      slug="/courses/ads-specialist"
                       price="₹9,999"
                       // hasGST={true}
                       duration="10 Days"
@@ -136,6 +139,7 @@ export default function OurCourses() {
                       {...cardThemeProps}
                       mode="online"
                       title="Advanced Digital Marketing Course"
+                      slug="/courses/advanced-digital-marketing"
                       price="₹23,000"
                       duration="2 Months + 1 Month Internship"
                       targetGroup="Beginners, freshers, job seekers, and career switchers who want complete 360-degree digital marketing training."
@@ -172,6 +176,7 @@ export default function OurCourses() {
                       {...cardThemeProps}
                       mode="online"
                       title="SEO Specialist Course"
+                      slug="/courses/seo-specialist"
                       price="₹11,999"
                       duration="15 Days + 1 Month Internship"
                       // hasGST={true}
@@ -203,6 +208,7 @@ export default function OurCourses() {
                       {...cardThemeProps}
                       mode="online"
                       title="AD Specialist Course"
+                      slug="/courses/ads-specialist"
                       price="₹9,999"
                       duration="10 Days"
                       // hasGST={true}

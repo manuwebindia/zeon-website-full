@@ -9,6 +9,7 @@ export async function getApprovedJobs() {
       id: true,
       jobTitle: true,
       companyName: true,
+      companyLogo: true,
       location: true,
       aboutCompany: true,
       skillsRequired: true,
@@ -30,6 +31,7 @@ export function mapJobToVacancy(job) {
     id: job.id,
     title: job.jobTitle,
     company: job.companyName,
+    logo: job.companyLogo || null,
     location: job.location || 'Kerala',
     description: parts[0] || `${job.companyName} is hiring for ${job.jobTitle}.`,
   };

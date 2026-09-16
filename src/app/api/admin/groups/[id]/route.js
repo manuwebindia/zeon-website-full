@@ -1,17 +1,7 @@
 import { NextResponse } from 'next/server';
 import prisma from '@/lib/db';
 import { requirePermission } from '@/lib/auth';
-
-const VALID_PERMISSIONS = [
-  'dashboard.view',
-  'blogs.view', 'blogs.create', 'blogs.edit', 'blogs.delete', 'blogs.publish',
-  'media.view', 'media.upload',
-  'settings.view', 'settings.edit',
-  'users.view', 'users.create', 'users.edit', 'users.delete',
-  'groups.manage',
-  'analytics.view',
-  'seo.manage',
-];
+import { VALID_PERMISSIONS } from '@/lib/permissions';
 
 // GET — fetch a single group
 export async function GET(request, { params }) {

@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { getPrismaClient } from '@/lib/db';
 import { requirePermission } from '@/lib/auth';
 
@@ -9,7 +10,20 @@ export async function GET(request) {
 
   const { searchParams } = new URL(request.url);
   const statusFilter = searchParams.get('status') || null;
-  const where = statusFilter ? { status: statusFilter } : {};
+  const search = (searchParams.get('search') || searchParams.get('q') || '').trim();
+
+  const where = {};
+  if (statusFilter && statusFilter !== 'all') {
+    where.status = statusFilter;
+  }
+
+  if (search) {
+    where.OR = [
+      { jobTitle: { contains: search, mode: 'insensitive' } },
+      { companyName: { contains: search, mode: 'insensitive' } },
+      { location: { contains: search, mode: 'insensitive' } },
+    ];
+  }
 
   try {
     const prisma = getPrismaClient();
@@ -37,3 +51,77 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+export async function POST(request) {
+  const user = requirePermission(request, 'job-postings.create') || requirePermission(request, 'job-postings.edit');
+  if (!user) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const {
+    companyName,
+    companyLogo,
+    jobTitle,
+    phone,
+    location,
+    aboutCompany,
+    skillsRequired,
+    eligibility,
+    jobTypes,
+    shiftSchedule,
+    status = 'approved',
+    adminNotes,
+  } = body;
+
+  if (!companyName?.trim() || !jobTitle?.trim() || !phone?.trim()) {
+    return NextResponse.json(
+      { error: 'Job title, company name, and phone number are required.' },
+      { status: 400 }
+    );
+  }
+
+  const validStatuses = ['pending', 'approved', 'rejected'];
+  const finalStatus = validStatuses.includes(status) ? status : 'approved';
+
+  try {
+    const prisma = getPrismaClient();
+    const posting = await prisma.jobPosting.create({
+      data: {
+        companyName: String(companyName).trim(),
+        companyLogo: companyLogo ? String(companyLogo).trim() : null,
+        jobTitle: String(jobTitle).trim(),
+        phone: String(phone).trim(),
+        location: location ? String(location).trim() : null,
+        aboutCompany: aboutCompany ? String(aboutCompany).trim() : null,
+        skillsRequired: skillsRequired ? String(skillsRequired).trim() : null,
+        eligibility: eligibility ? String(eligibility).trim() : null,
+        jobTypes: jobTypes ? String(jobTypes).trim() : null,
+        shiftSchedule: shiftSchedule ? String(shiftSchedule).trim() : null,
+        status: finalStatus,
+        approvedAt: finalStatus === 'approved' ? new Date() : null,
+        rejectedAt: finalStatus === 'rejected' ? new Date() : null,
+        adminNotes: adminNotes ? String(adminNotes).trim() : null,
+        source: 'admin',
+      },
+    });
+
+    try {
+      revalidatePath('/placements');
+    } catch {
+      // non-fatal
+    }
+
+    return NextResponse.json({ job: posting }, { status: 201 });
+  } catch (err) {
+    console.error('[admin/job-postings] POST error:', err);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}
+

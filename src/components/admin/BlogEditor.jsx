@@ -74,6 +74,7 @@ export default function BlogEditor({ mode, initialData }) {
   const [content, setContent] = useState([]);
   const [status, setStatus] = useState('draft');
   const [allowIndexing, setAllowIndexing] = useState(true);
+  const [publishedAt, setPublishedAt] = useState('');
 
   // ── Phase 1: Taxonomy & Focus Keyword ─────────────────────
   const [focusKeyword, setFocusKeyword] = useState('');
@@ -139,6 +140,14 @@ export default function BlogEditor({ mode, initialData }) {
       setContent(initialData.content || []);
       setStatus(initialData.status || 'draft');
       setAllowIndexing(initialData.allowIndexing !== undefined ? initialData.allowIndexing : true);
+      if (initialData.publishedAt) {
+        const d = new Date(initialData.publishedAt);
+        const offsetMs = d.getTimezoneOffset() * 60000;
+        const localISODate = new Date(d.getTime() - offsetMs).toISOString().slice(0, 16);
+        setPublishedAt(localISODate);
+      } else {
+        setPublishedAt('');
+      }
       // Phase 1
       setFocusKeyword(initialData.focusKeyword || '');
       setCategory(initialData.category || '');
@@ -184,6 +193,7 @@ export default function BlogEditor({ mode, initialData }) {
       seoDescription,
       tags,
       status,
+      publishedAt,
       focusKeyword,
       category,
       ogTitle,
@@ -236,6 +246,7 @@ export default function BlogEditor({ mode, initialData }) {
     seoDescription,
     tags,
     allowIndexing,
+    publishedAt,
     focusKeyword,
     category,
     ogTitle,
@@ -297,6 +308,7 @@ export default function BlogEditor({ mode, initialData }) {
             .slice(0, 150) ||
           '',
         allowIndexing: state.allowIndexing,
+        publishedAt: state.publishedAt ? new Date(state.publishedAt).toISOString() : null,
         focusKeyword: state.focusKeyword,
         category: state.category,
         tags: state.tags,
@@ -670,6 +682,7 @@ export default function BlogEditor({ mode, initialData }) {
         '',
       status: targetStatus || status,
       allowIndexing,
+      publishedAt: publishedAt ? new Date(publishedAt).toISOString() : null,
       // Phase 1
       focusKeyword,
       category,
@@ -916,11 +929,11 @@ export default function BlogEditor({ mode, initialData }) {
               </Fade>
             </Box>
 
-            <Box sx={{ mb: 3 }}>
+            <Box sx={{ mb: 2.5 }}>
               <Typography
                 variant="body2"
                 color="text.secondary"
-                sx={{ display: 'flex', gap: 1, mb: 1 }}
+                sx={{ display: 'flex', gap: 1, mb: 1.5 }}
               >
                 Status:{' '}
                 <strong
@@ -932,6 +945,63 @@ export default function BlogEditor({ mode, initialData }) {
                   {status}
                 </strong>
               </Typography>
+
+              {/* CMS Published Date Picker */}
+              <Box sx={{ p: 1.5, backgroundColor: '#f8fafc', borderRadius: 2, border: '1px solid #e2e8f0' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                  <Typography variant="caption" sx={{ fontWeight: 700, color: '#475569', textTransform: 'uppercase', fontSize: '0.68rem', letterSpacing: '0.5px' }}>
+                    Published Date
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 0.5 }}>
+                    <Button
+                      size="small"
+                      variant="text"
+                      onClick={() => {
+                        const now = new Date();
+                        const offsetMs = now.getTimezoneOffset() * 60000;
+                        const localISODate = new Date(now.getTime() - offsetMs).toISOString().slice(0, 16);
+                        setPublishedAt(localISODate);
+                        setIsDirty(true);
+                      }}
+                      sx={{ textTransform: 'none', fontSize: '0.7rem', py: 0.2, px: 0.8, minWidth: 'auto', color: '#2563eb' }}
+                    >
+                      Now
+                    </Button>
+                    {publishedAt && (
+                      <Button
+                        size="small"
+                        variant="text"
+                        onClick={() => {
+                          setPublishedAt('');
+                          setIsDirty(true);
+                        }}
+                        sx={{ textTransform: 'none', fontSize: '0.7rem', py: 0.2, px: 0.8, minWidth: 'auto', color: '#94a3b8' }}
+                      >
+                        Clear
+                      </Button>
+                    )}
+                  </Box>
+                </Box>
+                <TextField
+                  type="datetime-local"
+                  size="small"
+                  fullWidth
+                  value={publishedAt}
+                  onChange={(e) => {
+                    setPublishedAt(e.target.value);
+                    setIsDirty(true);
+                  }}
+                  helperText={publishedAt ? 'Custom published date active' : 'Auto-assigned on publish'}
+                  slotProps={{
+                    formHelperText: { sx: { fontSize: '0.68rem', m: 0, mt: 0.5 } },
+                  }}
+                  sx={{
+                    backgroundColor: '#fff',
+                    borderRadius: 1,
+                    '& .MuiInputBase-input': { fontSize: '0.82rem', py: 0.9 },
+                  }}
+                />
+              </Box>
             </Box>
 
             <Stack spacing={2}>
