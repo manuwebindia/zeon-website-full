@@ -34,6 +34,7 @@ import {
   IconGift,
   IconLibraryPhoto,
   IconArrowsExchange,
+  IconStar,
 } from '@tabler/icons-react';
 
 // ── Permission helpers ────────────────────────────────────────────────────────
@@ -522,6 +523,21 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
                 component={Link}
               >
                 {!isCollapsed && "Redirections"}
+              </MenuItem>
+            </Box>
+          )}
+
+          {/* ── Google Reviews ─────────────────────── */}
+          {(can('reviews.view') || can('reviews.manage') || can('settings.view') || can('seo.manage') || can('dashboard.view')) && (
+            <Box px={isCollapsed ? 1.5 : 3} mb={1} sx={isCollapsed ? { display: 'flex', justifyContent: 'center' } : {}}>
+              <MenuItem
+                isSelected={pathname === '/admin/dashboard/reviews'}
+                borderRadius="8px"
+                icon={<IconStar stroke={1.5} size="1.3rem" />}
+                link="/admin/dashboard/reviews"
+                component={Link}
+              >
+                {!isCollapsed && "Google Reviews"}
               </MenuItem>
             </Box>
           )}

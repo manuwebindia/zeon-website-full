@@ -44,6 +44,11 @@ export const ALL_PERMISSIONS = [
   'redirects.create',
   'redirects.edit',
   'redirects.delete',
+  'reviews.view',
+  'reviews.create',
+  'reviews.edit',
+  'reviews.delete',
+  'reviews.manage',
 ];
 
 export const VALID_PERMISSIONS = ALL_PERMISSIONS;

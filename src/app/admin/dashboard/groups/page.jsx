@@ -78,6 +78,10 @@ const PERMISSION_MATRIX = [
     label: 'Redirections',
     cols: { view: 'redirects.view', create: 'redirects.create', edit: 'redirects.edit', delete: 'redirects.delete', publish: null, manage: null },
   },
+  {
+    label: 'Google Reviews',
+    cols: { view: 'reviews.view', create: 'reviews.create', edit: 'reviews.edit', delete: 'reviews.delete', publish: null, manage: 'reviews.manage' },
+  },
 ];
 
 const COL_LABELS = ['View', 'Create', 'Edit', 'Delete', 'Publish', 'Manage/Upload'];

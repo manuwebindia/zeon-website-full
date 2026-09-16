@@ -3,6 +3,12 @@ const nextConfig = {
   serverExternalPackages: ['@prisma/client', 'prisma'],
   images: {
     qualities: [100, 75, 70],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.googleusercontent.com',
+      },
+    ],
   },
   experimental: {
     optimizePackageImports: ['gsap'],
