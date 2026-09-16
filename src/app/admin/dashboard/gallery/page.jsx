@@ -41,8 +41,9 @@ import {
   IconFolder,
   IconCheck,
   IconClock,
+  IconCalendar,
 } from '@tabler/icons-react';
-
+import Tooltip from '@mui/material/Tooltip';
 function getToken() {
   return typeof window !== 'undefined' ? localStorage.getItem('zeon_admin_token') : '';
 }
@@ -67,6 +68,8 @@ export default function AdminGalleryListPage() {
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [deleteDialog, setDeleteDialog] = useState({ open: false, album: null });
   const [deleting, setDeleting] = useState(false);
+  const [dateDialog, setDateDialog] = useState({ open: false, album: null, date: '' });
+  const [savingDate, setSavingDate] = useState(false);
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
   const showSnackbar = (message, severity = 'success') =>
@@ -155,6 +158,30 @@ export default function AdminGalleryListPage() {
       showSnackbar('Network error while deleting', 'error');
     } finally {
       setDeleting(false);
+    }
+  };
+
+  const handleSaveDateOverride = async () => {
+    if (!dateDialog.album) return;
+    setSavingDate(true);
+    try {
+      const res = await fetch(`/api/admin/gallery/${dateDialog.album.id}`, {
+        method: 'PATCH',
+        headers: authHeaders(),
+        body: JSON.stringify({ eventDate: dateDialog.date || null }),
+      });
+      if (res.ok) {
+        showSnackbar(`Date overridden for "${dateDialog.album.title}"`);
+        setDateDialog({ open: false, album: null, date: '' });
+        fetchAlbums();
+      } else {
+        const data = await res.json();
+        showSnackbar(data.error || 'Failed to override date', 'error');
+      }
+    } catch {
+      showSnackbar('Network error while overriding date', 'error');
+    } finally {
+      setSavingDate(false);
     }
   };
 
@@ -440,11 +467,47 @@ export default function AdminGalleryListPage() {
                       />
                     </TableCell>
                     <TableCell>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.82rem' }}>
-                        {album.eventDate
-                          ? new Date(album.eventDate).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
-                          : '—'}
-                      </Typography>
+                      <Tooltip title="Click to override date">
+                        <Box
+                          component="button"
+                          type="button"
+                          onClick={() =>
+                            setDateDialog({
+                              open: true,
+                              album,
+                              date: album.eventDate ? album.eventDate.slice(0, 10) : '',
+                            })
+                          }
+                          sx={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 0.8,
+                            cursor: 'pointer',
+                            px: 1.2,
+                            py: 0.6,
+                            borderRadius: 1.5,
+                            border: '1px solid',
+                            borderColor: album.eventDate ? '#e2e8f0' : '#f1f5f9',
+                            bgcolor: album.eventDate ? '#fff' : '#f8fafc',
+                            transition: 'all 0.15s',
+                            '&:hover': { bgcolor: '#f1f5f9', borderColor: '#cbd5e1' },
+                          }}
+                        >
+                          <IconCalendar size={14} style={{ color: album.eventDate ? '#1A4FD6' : '#94a3b8' }} />
+                          <Typography
+                            variant="body2"
+                            sx={{
+                              fontSize: '0.8rem',
+                              fontWeight: album.eventDate ? 600 : 500,
+                              color: album.eventDate ? 'text.primary' : 'text.secondary',
+                            }}
+                          >
+                            {album.eventDate
+                              ? new Date(album.eventDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+                              : 'Set Date'}
+                          </Typography>
+                        </Box>
+                      </Tooltip>
                     </TableCell>
                     <TableCell align="right">
                       <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
@@ -488,6 +551,104 @@ export default function AdminGalleryListPage() {
           </Table>
         </TableContainer>
       )}
+
+      {/* Quick Date Override Dialog */}
+      <Dialog
+        open={dateDialog.open}
+        onClose={() => setDateDialog({ open: false, album: null, date: '' })}
+        maxWidth="xs"
+        fullWidth
+        slotProps={{ paper: { sx: { borderRadius: 3 } } }}
+      >
+        <DialogTitle sx={{ fontWeight: 700, pb: 1 }}>
+          Override Album Date
+        </DialogTitle>
+        <DialogContent sx={{ pt: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            Set the event / display date for <strong>&quot;{dateDialog.album?.title}&quot;</strong>. This overrides the published date on /gallery and the album page.
+          </Typography>
+          <TextField
+            fullWidth
+            type="date"
+            label="Album Date"
+            value={dateDialog.date}
+            onChange={(e) => setDateDialog((p) => ({ ...p, date: e.target.value }))}
+            slotProps={{
+              inputLabel: { shrink: true },
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <IconCalendar size={18} />
+                  </InputAdornment>
+                ),
+              },
+            }}
+            helperText={
+              dateDialog.date
+                ? `Display: ${new Date(dateDialog.date + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}`
+                : 'Leave empty to use publish date'
+            }
+          />
+          <Box sx={{ display: 'flex', gap: 0.8, flexWrap: 'wrap', mt: 1.5, alignItems: 'center' }}>
+            <Typography variant="caption" color="text.secondary" sx={{ mr: 0.5, fontSize: '0.72rem' }}>
+              Quick:
+            </Typography>
+            <Chip
+              label="Today"
+              size="small"
+              variant="outlined"
+              clickable
+              onClick={() => setDateDialog((p) => ({ ...p, date: new Date().toISOString().slice(0, 10) }))}
+              sx={{ height: 22, fontSize: '0.7rem' }}
+            />
+            {['2025', '2024', '2023', '2022'].map((year) => (
+              <Chip
+                key={year}
+                label={year}
+                size="small"
+                variant="outlined"
+                clickable
+                onClick={() => {
+                  if (dateDialog.date && dateDialog.date.length >= 10) {
+                    const parts = dateDialog.date.split('-');
+                    setDateDialog((p) => ({ ...p, date: `${year}-${parts[1]}-${parts[2]}` }));
+                  } else {
+                    setDateDialog((p) => ({ ...p, date: `${year}-01-01` }));
+                  }
+                }}
+                sx={{ height: 22, fontSize: '0.7rem' }}
+              />
+            ))}
+            {dateDialog.date && (
+              <Chip
+                label="Clear"
+                size="small"
+                color="error"
+                variant="outlined"
+                clickable
+                onClick={() => setDateDialog((p) => ({ ...p, date: '' }))}
+                sx={{ height: 22, fontSize: '0.7rem' }}
+              />
+            )}
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ px: 3, pb: 2.5 }}>
+          <Button
+            onClick={() => setDateDialog({ open: false, album: null, date: '' })}
+            sx={{ textTransform: 'none' }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleSaveDateOverride}
+            disabled={savingDate}
+            sx={{ textTransform: 'none', borderRadius: 2 }}
+          >
+            {savingDate ? 'Saving...' : 'Save Date'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {/* Delete Confirmation Dialog */}
       <Dialog open={deleteDialog.open} onClose={() => setDeleteDialog({ open: false, album: null })}>

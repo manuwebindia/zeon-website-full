@@ -25,6 +25,7 @@ import {
   DialogContent,
   DialogActions,
   Tooltip,
+  InputAdornment,
 } from '@mui/material';
 import {
   IconDeviceFloppy,
@@ -41,6 +42,7 @@ import {
   IconArrowRight as IconMoveRight,
   IconExternalLink,
   IconPlus,
+  IconCalendar,
 } from '@tabler/icons-react';
 import MediaPickerDialog from '@/components/admin/MediaPickerDialog';
 import { getYouTubeId, getYouTubeThumbnail } from '@/lib/youtube';
@@ -502,11 +504,70 @@ export default function AdminGalleryEditPage() {
                 <TextField
                   fullWidth
                   type="date"
-                  label="Event Date"
+                  label="Album Date (Overrides Published Date)"
                   value={form.eventDate}
                   onChange={(e) => setForm((p) => ({ ...p, eventDate: e.target.value }))}
-                  slotProps={{ inputLabel: { shrink: true } }}
+                  slotProps={{
+                    inputLabel: { shrink: true },
+                    input: {
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <IconCalendar size={18} />
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
+                  helperText={
+                    form.eventDate
+                      ? `Preview on public site: ${new Date(form.eventDate + 'T00:00:00').toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}`
+                      : 'Overrides the display date on /gallery. If empty, published date is used.'
+                  }
                 />
+                <Box sx={{ display: 'flex', gap: 0.8, flexWrap: 'wrap', mt: 1, alignItems: 'center' }}>
+                  <Typography variant="caption" color="text.secondary" sx={{ mr: 0.5, fontSize: '0.72rem' }}>
+                    Quick presets:
+                  </Typography>
+                  <Chip
+                    label="Today"
+                    size="small"
+                    variant="outlined"
+                    clickable
+                    onClick={() => {
+                      const today = new Date().toISOString().slice(0, 10);
+                      setForm((p) => ({ ...p, eventDate: today }));
+                    }}
+                    sx={{ height: 22, fontSize: '0.7rem' }}
+                  />
+                  {['2025', '2024', '2023', '2022'].map((year) => (
+                    <Chip
+                      key={year}
+                      label={year}
+                      size="small"
+                      variant="outlined"
+                      clickable
+                      onClick={() => {
+                        if (form.eventDate && form.eventDate.length >= 10) {
+                          const parts = form.eventDate.split('-');
+                          setForm((p) => ({ ...p, eventDate: `${year}-${parts[1]}-${parts[2]}` }));
+                        } else {
+                          setForm((p) => ({ ...p, eventDate: `${year}-01-01` }));
+                        }
+                      }}
+                      sx={{ height: 22, fontSize: '0.7rem' }}
+                    />
+                  ))}
+                  {form.eventDate && (
+                    <Chip
+                      label="Clear"
+                      size="small"
+                      color="error"
+                      variant="outlined"
+                      clickable
+                      onClick={() => setForm((p) => ({ ...p, eventDate: '' }))}
+                      sx={{ height: 22, fontSize: '0.7rem' }}
+                    />
+                  )}
+                </Box>
               </Grid>
               <Grid size={12}>
                 <TextField
@@ -989,6 +1050,7 @@ export default function AdminGalleryEditPage() {
         onClose={() => setMediaPickerOpen(false)}
         selectedUrl={mediaTarget === 'cover' ? form.coverImage : ''}
         title={mediaTarget === 'cover' ? 'Select Album Cover' : mediaTarget === 'videoCover' ? 'Select Video Cover Image' : 'Select Photos'}
+        defaultFolder="gallery"
         onSelect={(url) => {
           if (mediaTarget === 'cover') {
             setForm((p) => ({ ...p, coverImage: url }));

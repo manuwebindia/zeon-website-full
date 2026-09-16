@@ -3,7 +3,8 @@ import fs from 'fs/promises';
 import path from 'path';
 import { requirePermission } from '@/lib/auth';
 
-const UPLOAD_DIR_PATH = path.join(process.cwd(), 'public', 'uploads', 'blog');
+const UPLOADS_ROOT = path.join(process.cwd(), 'public', 'uploads');
+const IMAGE_EXTENSIONS = new Set(['.webp', '.jpg', '.jpeg', '.png', '.gif', '.svg', '.avif']);
 
 export async function GET(request) {
   try {
@@ -12,33 +13,76 @@ export async function GET(request) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
     }
 
+    const { searchParams } = new URL(request.url);
+    const folderParam = searchParams.get('folder')?.trim().toLowerCase();
+
     try {
-      // Check if folder exists
-      await fs.access(UPLOAD_DIR_PATH);
+      // Check if uploads folder exists
+      await fs.access(UPLOADS_ROOT);
     } catch {
-      // Return empty array if upload folder does not exist yet
       return NextResponse.json({ media: [] }, { status: 200 });
     }
 
-    // Read files
-    const filenames = await fs.readdir(UPLOAD_DIR_PATH);
-    
-    // Process only files, fetch stats
     const mediaFiles = [];
-    for (const filename of filenames) {
-      // Ignore hidden files like .DS_Store
-      if (filename.startsWith('.')) continue;
+    const entries = await fs.readdir(UPLOADS_ROOT, { withFileTypes: true });
 
-      const filepath = path.join(UPLOAD_DIR_PATH, filename);
-      const stat = await fs.stat(filepath);
+    const foldersToScan = [];
+    for (const entry of entries) {
+      if (entry.isDirectory() && !entry.name.startsWith('.')) {
+        foldersToScan.push(entry.name);
+      } else if (entry.isFile() && !entry.name.startsWith('.')) {
+        const ext = path.extname(entry.name).toLowerCase();
+        if (IMAGE_EXTENSIONS.has(ext)) {
+          if (!folderParam || folderParam === 'all' || folderParam === 'uploads') {
+            const filepath = path.join(UPLOADS_ROOT, entry.name);
+            try {
+              const stat = await fs.stat(filepath);
+              mediaFiles.push({
+                name: entry.name,
+                url: `/uploads/${entry.name}`,
+                folder: 'uploads',
+                sizeBytes: stat.size,
+                createdAt: stat.mtime,
+              });
+            } catch {
+              // Ignore stat error
+            }
+          }
+        }
+      }
+    }
 
-      if (stat.isFile()) {
-        mediaFiles.push({
-          name: filename,
-          url: `/uploads/blog/${filename}`,
-          sizeBytes: stat.size,
-          createdAt: stat.mtime, // use modification time as upload time
-        });
+    // Ensure 'gallery', 'blog', 'pages' are checked even if empty or just created
+    for (const folderName of foldersToScan) {
+      if (folderParam && folderParam !== 'all' && folderParam !== folderName) {
+        continue;
+      }
+
+      const folderPath = path.join(UPLOADS_ROOT, folderName);
+      try {
+        const files = await fs.readdir(folderPath, { withFileTypes: true });
+        for (const file of files) {
+          if (!file.isFile() || file.name.startsWith('.')) continue;
+
+          const ext = path.extname(file.name).toLowerCase();
+          if (!IMAGE_EXTENSIONS.has(ext)) continue;
+
+          const filepath = path.join(folderPath, file.name);
+          try {
+            const stat = await fs.stat(filepath);
+            mediaFiles.push({
+              name: file.name,
+              url: `/uploads/${folderName}/${file.name}`,
+              folder: folderName,
+              sizeBytes: stat.size,
+              createdAt: stat.mtime,
+            });
+          } catch {
+            // Ignore stat error for individual file
+          }
+        }
+      } catch (err) {
+        console.error(`Error reading upload folder ${folderName}:`, err);
       }
     }
 
@@ -51,3 +95,4 @@ export async function GET(request) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+

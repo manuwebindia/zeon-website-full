@@ -9,6 +9,7 @@ import InnerPageHero from '../InnerPageHero';
 import GalleryAlbumCard from './GalleryAlbumCard';
 import GalleryLightbox from './GalleryLightbox';
 import ScrollReveal from '../ScrollReveal';
+import { formatGalleryDate } from '@/lib/galleryFormat';
 import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
 
 const WhatsAppFloat = dynamic(() => import('../WhatsAppFloat'));
@@ -21,6 +22,8 @@ export default function GalleryAlbumPage({ album, otherAlbums = [] }) {
     setLightboxIndex(idx);
     setLightboxOpen(true);
   };
+
+  const dateLabel = formatGalleryDate(album.eventDate || album.publishedAt);
 
   return (
     <>
@@ -36,6 +39,7 @@ export default function GalleryAlbumPage({ album, otherAlbums = [] }) {
             { label: 'Gallery', href: '/gallery' },
             { label: album.title },
           ]}
+          tagline={dateLabel || 'Gallery Album'}
           title={album.title}
           subtitle={album.description}
         />
