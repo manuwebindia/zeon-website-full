@@ -60,6 +60,7 @@ export async function PATCH(request, { params }) {
       data: {
         title: data.title?.trim() ?? existing.title,
         slug,
+        category: data.category !== undefined ? (data.category?.trim() || null) : undefined,
         description: data.description !== undefined ? (data.description?.trim() || null) : undefined,
         coverImage: data.coverImage !== undefined ? (data.coverImage?.trim() || null) : undefined,
         seoTitle: data.seoTitle !== undefined ? (data.seoTitle?.trim() || null) : undefined,
@@ -79,7 +80,10 @@ export async function PATCH(request, { params }) {
         await prisma.galleryImage.createMany({
           data: data.images.map((img, idx) => ({
             albumId: id,
-            src: img.src,
+            type: img.type === 'video' ? 'video' : 'image',
+            src: img.src || img.thumbnail || '',
+            videoUrl: img.videoUrl?.trim() || null,
+            thumbnail: img.thumbnail?.trim() || (img.type === 'video' ? img.src : null),
             alt: img.alt?.trim() || null,
             caption: img.caption?.trim() || null,
             sortOrder: Number.isFinite(Number(img.sortOrder)) ? Number(img.sortOrder) : idx,

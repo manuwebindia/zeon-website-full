@@ -3,9 +3,9 @@ import dynamic from 'next/dynamic';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import InnerPageHero from '../../components/InnerPageHero';
-import GalleryAlbumCard from '../../components/gallery/GalleryAlbumCard';
+import GalleryListingView from '../../components/gallery/GalleryListingView';
 import { buildPageMetadata } from '@/lib/pageSeo';
-import { getPublishedAlbums } from '@/lib/gallery';
+import { getPublishedAlbums, getGalleryCategories } from '@/lib/gallery';
 import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
 
 const WhatsAppFloat = dynamic(() => import('../../components/WhatsAppFloat'));
@@ -15,7 +15,10 @@ export async function generateMetadata() {
 }
 
 export default async function GalleryIndexPage() {
-  const albums = await getPublishedAlbums();
+  const [albums, categories] = await Promise.all([
+    getPublishedAlbums(),
+    getGalleryCategories(),
+  ]);
 
   return (
     <>
@@ -55,11 +58,7 @@ export default async function GalleryIndexPage() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                {albums.map((album, idx) => (
-                  <GalleryAlbumCard key={album.id} album={album} index={idx} />
-                ))}
-              </div>
+              <GalleryListingView albums={albums} categories={categories} />
             )}
           </div>
         </section>

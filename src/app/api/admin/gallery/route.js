@@ -9,11 +9,25 @@ export async function GET(request) {
     const user = requirePermission(request, 'gallery.view');
     if (!user) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
-    const albums = await prisma.galleryAlbum.findMany({
+    const rawAlbums = await prisma.galleryAlbum.findMany({
       orderBy: [{ sortOrder: 'asc' }, { updatedAt: 'desc' }],
       include: {
+        images: {
+          select: { id: true, type: true },
+        },
         _count: { select: { images: true } },
       },
+    });
+
+    const albums = rawAlbums.map((album) => {
+      const photosCount = album.images.filter((img) => img.type !== 'video').length;
+      const videosCount = album.images.filter((img) => img.type === 'video').length;
+      const { images, ...rest } = album;
+      return {
+        ...rest,
+        photosCount,
+        videosCount,
+      };
     });
 
     return NextResponse.json({ albums }, { status: 200 });
@@ -45,6 +59,7 @@ export async function POST(request) {
       data: {
         title,
         slug,
+        category: data.category?.trim() || null,
         description: data.description?.trim() || null,
         coverImage: data.coverImage?.trim() || null,
         seoTitle: data.seoTitle?.trim() || null,
@@ -57,7 +72,10 @@ export async function POST(request) {
         images: Array.isArray(data.images)
           ? {
               create: data.images.map((img, idx) => ({
-                src: img.src,
+                type: img.type === 'video' ? 'video' : 'image',
+                src: img.src || img.thumbnail || '',
+                videoUrl: img.videoUrl?.trim() || null,
+                thumbnail: img.thumbnail?.trim() || (img.type === 'video' ? img.src : null),
                 alt: img.alt?.trim() || null,
                 caption: img.caption?.trim() || null,
                 sortOrder: Number.isFinite(Number(img.sortOrder)) ? Number(img.sortOrder) : idx,

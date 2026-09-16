@@ -191,6 +191,7 @@ model GalleryAlbum {
   id             String         @id @default(cuid())
   title          String
   slug           String         @unique
+  category       String?        // e.g. Celebrations, Graduations, Events, Videos
   description    String?        @db.Text
   coverImage     String?        @map("cover_image")
   seoTitle       String?        @map("seo_title")
@@ -213,7 +214,10 @@ model GalleryImage {
   id        String       @id @default(cuid())
   albumId   String       @map("album_id")
   album     GalleryAlbum @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  type      String       @default("image") // "image" | "video"
   src       String
+  videoUrl  String?      @map("video_url")
+  thumbnail String?      @map("thumbnail")
   alt       String?
   caption   String?      @db.Text
   sortOrder Int          @default(0) @map("sort_order")
