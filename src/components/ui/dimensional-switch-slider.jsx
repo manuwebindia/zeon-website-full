@@ -16,7 +16,7 @@ const prefersReducedMotion = () =>
 const DEFAULT_ITEMS = [
   { image: "/hero/graduation2025.webp", text: "27k+ LinkedIn Jobs" },
   { image: "/hero/Hero02.webp", text: "100% Placements" },
-  { image: "/hero/Hero03.webp", text: "Free Internships" },
+  { image: "/hero/Hero03.webp", text: "Agency Internships" },
   { image: "/hero/Hero04.webp", text: "₹10 LPA Packages" },
 ];
 
