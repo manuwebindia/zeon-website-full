@@ -307,7 +307,7 @@ const DimensionalSwitchSlider = ({
               alt={items[frontIndex].text}
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none z-1" />
           </div>
           <div
             className={`absolute inset-0 h-full w-full overflow-hidden backface-hidden next-card-face shadow-2xl ${
@@ -322,7 +322,7 @@ const DimensionalSwitchSlider = ({
               className="object-cover"
               alt={items[backIndex].text}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/0 via-black/0 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none z-1" />
           </div>
         </div>
 
