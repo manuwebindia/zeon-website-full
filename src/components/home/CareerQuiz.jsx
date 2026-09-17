@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import {
   FiArrowRight,
   FiRefreshCw,
@@ -255,135 +257,153 @@ export default function CareerQuiz() {
           </p>
         </div>
 
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-card">
+            <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch lg:min-h-[500px]">
+              {/* Left Column: Career Image inside the card (Hidden on mobile) */}
+              <div className="hidden lg:block lg:col-span-5 relative w-full lg:h-auto lg:min-h-full overflow-hidden bg-slate-50 border-r border-border">
+                <Image
+                  src="/career.webp"
+                  alt="Find Your Perfect Marketing Career with Zeon Academy"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 450px"
+                  className="object-cover object-center"
+                  unoptimized
+                  priority
+                />
+              </div>
 
-            {step >= 1 && step <= 3 && currentQ && (
-              <div className={`transition-opacity duration-200 ${animating ? "opacity-0" : "opacity-100"}`}>
-                <div className="border-b border-border px-6 py-6 sm:px-8 sm:py-7">
-                  <div className="mb-5 h-1 w-full overflow-hidden rounded-full bg-surface">
-                    <div
-                      className="h-full rounded-full bg-gradient-to-r from-primary to-[#ff8c4a] transition-all duration-500 ease-out"
-                      style={{ width: `${(step / 3) * 100}%` }}
-                    />
+              {/* Right Column: Quiz Questions & Result */}
+              <div className="w-full lg:col-span-7 flex flex-col justify-between">
+                {step >= 1 && step <= 3 && currentQ && (
+                  <div className={`flex flex-col justify-between h-full transition-opacity duration-200 ${animating ? "opacity-0" : "opacity-100"}`}>
+                    <div>
+                      <div className="border-b border-border px-6 py-6 sm:px-8 sm:py-7">
+                        <div className="mb-5 h-1 w-full overflow-hidden rounded-full bg-surface">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-primary to-[#ff8c4a] transition-all duration-500 ease-out"
+                            style={{ width: `${(step / 3) * 100}%` }}
+                          />
+                        </div>
+
+                        <div className="flex items-start justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="mb-3 flex items-center gap-3">
+                              <span className="text-[0.75rem] font-bold uppercase tracking-[0.2em] text-body/60">
+                                {currentQ.label}
+                              </span>
+                              <div className="flex gap-1.5">
+                                {[1, 2, 3].map((i) => (
+                                  <span
+                                    key={i}
+                                    className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                                      i < step
+                                        ? "bg-primary"
+                                        : i === step
+                                          ? "scale-125 bg-primary ring-2 ring-primary/20"
+                                          : "bg-border"
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                            <h3 className="text-[1.35rem] font-extrabold leading-tight text-heading sm:text-[1.55rem]">
+                              {currentQ.question}
+                            </h3>
+                            <p className="mt-1.5 text-[0.9rem] font-medium leading-relaxed text-body">
+                              {currentQ.sub}
+                            </p>
+                          </div>
+
+                          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary sm:h-14 sm:w-14">
+                            <currentQ.HeaderIcon className="text-[1.5rem] sm:text-[1.65rem]" strokeWidth={1.5} />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-3 p-4 sm:space-y-4 sm:p-6">
+                        {currentQ.options.map((opt) => (
+                          <OptionCard
+                            key={opt.id}
+                            option={opt}
+                            isSelected={selected === opt.id}
+                            onSelect={handleSelect}
+                            disabled={Boolean(selected) || animating}
+                          />
+                        ))}
+                      </div>
+                    </div>
+
+                    <p className="border-t border-border px-6 py-4 text-center text-[0.8rem] font-medium text-body/60 mt-auto">
+                      Tap an option to continue — no right or wrong answers
+                    </p>
                   </div>
+                )}
 
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex-1">
-                      <div className="mb-3 flex items-center gap-3">
-                        <span className="text-[0.75rem] font-bold uppercase tracking-[0.2em] text-body/60">
-                          {currentQ.label}
-                        </span>
-                        <div className="flex gap-1.5">
-                          {[1, 2, 3].map((i) => (
+                {step === 4 && result && (
+                  <div className="animate-fade-in flex flex-col justify-between h-full">
+                    <div className={`relative overflow-hidden bg-gradient-to-br ${result.color} px-8 py-10 text-center md:px-10 md:py-10`}>
+                      <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/15 blur-2xl" />
+                      <div className="pointer-events-none absolute -bottom-8 -left-8 h-36 w-36 rounded-full bg-white/10 blur-2xl" />
+                      <div className="relative z-10">
+                        <div className="mb-4 flex justify-center">
+                          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 shadow-lg backdrop-blur">
+                            <result.ResultIcon className="text-[2rem] text-white" strokeWidth={1.5} />
+                          </div>
+                        </div>
+                        <p className="mb-2 text-[0.82rem] font-semibold uppercase tracking-[0.25em] text-white/80">
+                          Your recommended course
+                        </p>
+                        <h3 className="text-[1.8rem] font-extrabold leading-tight text-white md:text-[2.2rem]">
+                          {result.role}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <div className="p-6 sm:p-8">
+                      <p className="mb-6 text-left text-[1.02rem] font-medium leading-relaxed text-body">
+                        {result.desc}
+                      </p>
+
+                      <div className="mb-8 rounded-2xl border border-border bg-surface px-5 py-4">
+                        <div className="mb-2.5 flex items-center gap-2 text-body/70">
+                          <FiUsers className="h-4 w-4" strokeWidth={2} />
+                          <span className="text-[0.78rem] font-bold uppercase tracking-wide">
+                            Best suited for
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {result.suited.map((tag) => (
                             <span
-                              key={i}
-                              className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                                i < step
-                                  ? "bg-primary"
-                                  : i === step
-                                    ? "scale-125 bg-primary ring-2 ring-primary/20"
-                                    : "bg-border"
-                              }`}
-                            />
+                              key={tag}
+                              className="rounded-full border border-border bg-white px-3 py-1 text-[0.82rem] font-semibold text-heading"
+                            >
+                              {tag}
+                            </span>
                           ))}
                         </div>
                       </div>
-                      <h3 className="text-[1.35rem] font-extrabold leading-tight text-heading sm:text-[1.55rem]">
-                        {currentQ.question}
-                      </h3>
-                      <p className="mt-1.5 text-[0.9rem] font-medium leading-relaxed text-body">
-                        {currentQ.sub}
-                      </p>
-                    </div>
 
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary-light text-primary sm:h-14 sm:w-14">
-                      <currentQ.HeaderIcon className="text-[1.5rem] sm:text-[1.65rem]" strokeWidth={1.5} />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3 p-4 sm:space-y-4 sm:p-6">
-                  {currentQ.options.map((opt) => (
-                    <OptionCard
-                      key={opt.id}
-                      option={opt}
-                      isSelected={selected === opt.id}
-                      onSelect={handleSelect}
-                      disabled={Boolean(selected) || animating}
-                    />
-                  ))}
-                </div>
-
-                <p className="border-t border-border px-6 py-4 text-center text-[0.8rem] font-medium text-body/60">
-                  Tap an option to continue — no right or wrong answers
-                </p>
-              </div>
-            )}
-
-            {step === 4 && result && (
-              <div className="animate-fade-in">
-                <div className={`relative overflow-hidden bg-gradient-to-br ${result.color} px-8 py-10 text-center md:px-12 md:py-12`}>
-                  <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full bg-white/15 blur-2xl" />
-                  <div className="pointer-events-none absolute -bottom-8 -left-8 h-36 w-36 rounded-full bg-white/10 blur-2xl" />
-                  <div className="relative z-10">
-                    <div className="mb-4 flex justify-center">
-                      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 shadow-lg backdrop-blur">
-                        <result.ResultIcon className="text-[2rem] text-white" strokeWidth={1.5} />
+                      <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                        <Link
+                          href="/#apply"
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-center text-[0.98rem] font-bold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-glow-hover sm:w-auto"
+                        >
+                          Get My Free Roadmap <FiArrowRight className="text-lg" />
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={handleRetake}
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-border bg-transparent py-3.5 pl-3 pr-8 text-center text-[0.98rem] font-bold text-body transition-all duration-300 hover:border-primary hover:text-primary sm:w-auto"
+                        >
+                          <FiRefreshCw className="text-base" /> Retake
+                        </button>
                       </div>
                     </div>
-                    <p className="mb-2 text-[0.82rem] font-semibold uppercase tracking-[0.25em] text-white/80">
-                      Your recommended course
-                    </p>
-                    <h3 className="text-[1.8rem] font-extrabold leading-tight text-white md:text-[2.2rem]">
-                      {result.role}
-                    </h3>
                   </div>
-                </div>
-
-                <div className="p-6 sm:p-8 md:p-10">
-                  <p className="mx-auto mb-6 max-w-2xl text-left text-[1.02rem] font-medium leading-relaxed text-body">
-                    {result.desc}
-                  </p>
-
-                  <div className="mb-8 rounded-2xl border border-border bg-surface px-5 py-4">
-                    <div className="mb-2.5 flex items-center gap-2 text-body/70">
-                      <FiUsers className="h-4 w-4" strokeWidth={2} />
-                      <span className="text-[0.78rem] font-bold uppercase tracking-wide">
-                        Best suited for
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {result.suited.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-border bg-white px-3 py-1 text-[0.82rem] font-semibold text-heading"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mx-auto flex max-w-lg flex-col items-center justify-center gap-4 sm:flex-row">
-                    <a
-                      href="/#apply"
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-8 py-3.5 text-center text-[0.98rem] font-bold text-white shadow-glow transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary-hover hover:shadow-glow-hover sm:w-auto"
-                    >
-                      Get My Free Roadmap <FiArrowRight className="text-lg" />
-                    </a>
-                    <button
-                      type="button"
-                      onClick={handleRetake}
-                      className="inline-flex w-full items-center justify-center gap-2 rounded-full border-2 border-border bg-transparent py-3.5 pl-3 pr-8 text-center text-[0.98rem] font-bold text-body transition-all duration-300 hover:border-primary hover:text-primary sm:w-auto"
-                    >
-                      <FiRefreshCw className="text-base" /> Retake
-                    </button>
-                  </div>
-                </div>
+                )}
               </div>
-            )}
-
+            </div>
           </div>
         </div>
       </div>
