@@ -21,7 +21,7 @@ const nextConfig = {
     ],
     cpus: 1,
   },
-  // allowedDevOrigins: ["192.168.29.152", "localhost"],
+  // allowedDevOrigins: ["192.168.29.152", "localhosts"],
   async headers() {
     return [
       {
