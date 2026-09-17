@@ -306,6 +306,7 @@ const DimensionalSwitchSlider = ({
               className="object-cover"
               alt={items[frontIndex].text}
               priority
+              quality={100}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none z-1" />
           </div>
@@ -321,6 +322,7 @@ const DimensionalSwitchSlider = ({
               sizes="(max-width: 1024px) 90vw, 680px"
               className="object-cover"
               alt={items[backIndex].text}
+              quality={100}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/20 to-transparent pointer-events-none z-1" />
           </div>
