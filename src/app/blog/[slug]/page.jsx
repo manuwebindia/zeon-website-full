@@ -142,6 +142,7 @@ export async function generateStaticParams() {
     const blogs = await prisma.blog.findMany({
       where: { status: "published" },
       select: { slug: true },
+      take: 10,
     });
     return blogs.map((blog) => ({ slug: blog.slug }));
   } catch (error) {

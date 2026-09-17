@@ -3,9 +3,16 @@ import OfferDetailPage from '@/components/OfferDetailPage';
 import { getOfferBySlug, getActiveOfferSlugs, getPublicOffersPayload } from '@/lib/offers';
 import { buildPageMetadata } from '@/lib/pageSeo';
 
+export const dynamicParams = true;
+export const revalidate = 60;
+
 export async function generateStaticParams() {
-  const slugs = await getActiveOfferSlugs();
-  return slugs.map((slug) => ({ slug }));
+  try {
+    const slugs = await getActiveOfferSlugs();
+    return (slugs || []).slice(0, 5).map((slug) => ({ slug }));
+  } catch {
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }) {

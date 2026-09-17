@@ -5,6 +5,10 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 const placements = [
+  { name: "Greeshma N Vinod", role: "Social Media Manager", company: "LIVIT INTERIOR", image: "/placements/Greshma.jpg" },
+  { name: "Priyadharshini G", role: "Content Writer", company: "HEDGE GROUP OF COMPANIES", image: "/placements/Priyanandhini.jpg" },
+  { name: "Ashisha Baiju", role: "Digital Marketer", company: "Joys Institute of advanced dental technology", image: "/placements/Ashisha.jpg" },
+
   { name: "Naveen K George", role: "Digital Marketing Executive", company: "INMAKES INFOTECH", image: "/placements/naveen.webp" },
   { name: "Elsa Rose Biju", role: "Content Writer & Creator", company: "NEYNDRA SOLUTIONS", image: "/placements/elsa.webp" },
   { name: "Saniga Suresh", role: "SEO Executive", company: "REATEAM HACKER ACADEMY", image: "/placements/sanigha.webp" },

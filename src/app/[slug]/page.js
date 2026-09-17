@@ -8,10 +8,13 @@ import { getPublishedPageBySlug, getAllPublishedPagesForStaticParams } from '@/l
 import { INNER_HERO_BANNERS } from '@/lib/designLanguage';
 import prisma from '@/lib/db';
 
+export const dynamicParams = true;
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   try {
     const pages = await getAllPublishedPagesForStaticParams();
-    return pages.map((p) => ({ slug: p.slug }));
+    return (pages || []).slice(0, 5).map((p) => ({ slug: p.slug }));
   } catch {
     return [];
   }

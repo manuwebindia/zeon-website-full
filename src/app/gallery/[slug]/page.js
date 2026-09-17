@@ -3,10 +3,13 @@ import GalleryAlbumPage from '@/components/gallery/GalleryAlbumPage';
 import { getAlbumBySlug, getPublishedAlbumSlugs, getOtherAlbums } from '@/lib/gallery';
 import { buildPageMetadata } from '@/lib/pageSeo';
 
+export const dynamicParams = true;
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   try {
     const slugs = await getPublishedAlbumSlugs();
-    return slugs.map((slug) => ({ slug }));
+    return (slugs || []).slice(0, 5).map((slug) => ({ slug }));
   } catch {
     return [];
   }

@@ -11,7 +11,15 @@ const nextConfig = {
     ],
   },
   experimental: {
-    optimizePackageImports: ['gsap'],
+    optimizePackageImports: [
+      'gsap',
+      '@mui/material',
+      '@mui/icons-material',
+      '@tabler/icons-react',
+      'lucide-react',
+      'react-icons',
+    ],
+    cpus: 1,
   },
   // allowedDevOrigins: ["192.168.29.152", "localhost"],
   async headers() {
