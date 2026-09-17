@@ -89,7 +89,7 @@ export default async function AboutPage() {
                   <div className="bg-surface shadow-[0_20px_50px_rgba(0,0,0,0.04)] relative z-10">
                     <div className="relative w-full h-[360px] md:h-[480px] overflow-hidden">
                       <Image
-                        src="/about/zeon-aboutus.jpeg"
+                        src="/hero/Hero04.webp"
                         alt="WIS & Zeon Office Environment"
                         fill
                         sizes="100vw"
