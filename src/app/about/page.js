@@ -94,7 +94,7 @@ export default async function AboutPage() {
                         fill
                         sizes="100vw"
                         quality={100}
-                        className="object-cover  rounded-2xl md:rounded-l-3xl"
+                        className="object-cover rounded-2xl md:rounded-l-3xl"
                       />
                     </div>
                   </div>
