@@ -4,7 +4,7 @@ export default function LocationMap() {
   return (
         <section id="contact-us" className="py-12 bg-surface bg-dots-pattern relative overflow-hidden">
           <div className="w-full max-w-[1200px] mx-auto px-6">
-            <ScrollReveal direction="up" distance={40}>
+            <ScrollReveal direction="up" distance={20}>
               <div className="text-center mb-8">
                 <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
                   Find Us
@@ -18,7 +18,7 @@ export default function LocationMap() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" distance={50} delay={0.1}>
+            <ScrollReveal direction="up" distance={25}>
               <div className="relative rounded-[24px] overflow-hidden shadow-[0_15px_45px_rgba(0,0,0,0.08)] border border-border bg-white p-3 md:p-4 group">
                 <div className="relative w-full h-[350px] md:h-[450px] rounded-[18px] overflow-hidden">
                   <iframe

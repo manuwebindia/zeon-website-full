@@ -14,7 +14,7 @@ export default function OurCourses() {
   return (
         <section id="program" className="py-10 md:py-14 lg:py-16 xl:py-20 bg-surface bg-grid-pattern">
           <div className="w-full max-w-[1200px] mx-auto px-6">
-            <ScrollReveal direction="up" distance={40}>
+            <ScrollReveal direction="up" distance={20}>
               <div className="text-center mb-[4.5rem] max-w-6xl mx-auto">
                 <span className="inline-block text-primary text-[0.85rem] font-semibold mb-5 tracking-[0.2em] uppercase">
                   Our Courses
@@ -30,7 +30,7 @@ export default function OurCourses() {
               </div>
             </ScrollReveal>
 
-            <ScrollReveal direction="up" distance={50} delay={0.1}>
+            <ScrollReveal direction="up" distance={25}>
               <CourseTabs
                 offlineCourses={
                   <>

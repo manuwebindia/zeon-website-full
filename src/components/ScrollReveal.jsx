@@ -8,8 +8,10 @@ export default function ScrollReveal({
   children, 
   direction = "up", 
   delay = 0, 
-  duration = 0.45,
-  distance = 50,
+  duration = 0.35,
+  distance = 25,
+  start = "top 96%",
+  once = true,
   className = "" 
 }) {
   const ref = useRef(null);
@@ -21,9 +23,8 @@ export default function ScrollReveal({
     let yOffset = direction === "up" ? distance : direction === "down" ? -distance : 0;
     let xOffset = direction === "left" ? distance : direction === "right" ? -distance : 0;
 
-    // Use a small timeout to ensure the DOM is fully painted and measured
-    const timer = setTimeout(() => {
-      const anim = gsap.fromTo(
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
         ref.current,
         { opacity: 0, y: yOffset, x: xOffset },
         {
@@ -32,23 +33,19 @@ export default function ScrollReveal({
           x: 0,
           duration: duration,
           delay: delay,
-          ease: "power3.out",
+          ease: "power2.out",
           scrollTrigger: {
             trigger: ref.current,
-            start: "top 88%", // Trigger when top of element hits 85% from top of viewport
-            toggleActions: "play none none reverse", // Play on scroll down, reverse on scroll up
+            start: start,
+            once: once,
+            toggleActions: once ? "play none none none" : "play none none reverse",
           },
         }
       );
+    }, ref);
 
-      return () => {
-        anim.scrollTrigger?.kill();
-        anim.kill();
-      };
-    }, 100);
-
-    return () => clearTimeout(timer);
-  }, [direction, delay, duration, distance]);
+    return () => ctx.revert();
+  }, [direction, delay, duration, distance, start, once]);
 
   return (
     <div ref={ref} className={`will-change-transform ${className}`}>

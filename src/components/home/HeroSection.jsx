@@ -1,7 +1,8 @@
-import Image from "next/image";
-import { FaCheckCircle, FaGraduationCap, FaLinkedin, FaMoneyBillAlt } from "react-icons/fa";
-import { FiClock } from "react-icons/fi";
+"use client";
+
+import { FaCheckCircle, FaGraduationCap } from "react-icons/fa";
 import NextBatchDate from "../NextBatchDate";
+import DimensionalSwitchSlider from "@/components/ui/dimensional-switch-slider";
 
 export default function HeroSection({ nextBatchDate }) {
   return (
@@ -19,14 +20,14 @@ export default function HeroSection({ nextBatchDate }) {
                 </div>
 
                 {/* Headline */}
-                <h1 className="text-[clamp(2.2rem,4.5vw,3.4rem)] font-extrabold leading-[1.15] text-heading mb-5 tracking-tight drop-shadow-sm">
+                <h1 className="text-[clamp(2.2rem,4.5vw,3.0rem)] font-extrabold leading-[1.15] text-heading mb-5 tracking-tight drop-shadow-sm">
                   Become a{" "}
                   <span className="text-transparent bg-clip-text bg-primary">Certified Digital Marketer</span>{" "}
                   with 100% Placement Support
                 </h1>
 
                 {/* Sub-copy */}
-                <p className="text-base !text-[#333333] leading-[1.7] mb-8 max-w-[460px] max-[1024px]:max-w-full max-[1024px]:mb-0">
+                <p className="text-base !text-[#333333] leading-[1.7] mb-8 max-w-[560px] max-[1024px]:max-w-full max-[1024px]:mb-0">
                   Start your career with Kerala&apos;s most practical, job-driven
                   Digital Marketing Program. Real projects. Real skills. Real jobs.
                 </p>
@@ -68,49 +69,21 @@ export default function HeroSection({ nextBatchDate }) {
               <div className="absolute top-10 -left-10 w-[200px] h-[200px] bg-primary/20 rounded-full blur-3xl z-[-1] animate-pulse-glow" />
               <div className="absolute -bottom-10 -right-10 w-[250px] h-[250px] bg-[#ff8c4a]/20 rounded-full blur-3xl z-[-1] animate-pulse-glow hover:bg-primary/30" />
               
-              {/* Image Frame with Stats */}
-              <div className="bg-white rounded-[24px] p-2.5 pb-0 shadow-[0_20px_50px_rgba(0,0,0,0.15)] ring-4 ring-white/60 animate-[float_6s_ease-in-out_infinite] group flex flex-col relative">
-                {/* Image Section */}
-                <div className="relative w-full h-[280px] md:h-[320px] rounded-[16px] overflow-hidden">
-                  <Image
-                    src="/hero/graduation2025.webp"
-                    alt="Zeon Digital Marketing Academy — Graduation 2025"
-                    width={560}
-                    height={420}
-                    priority
-                    className="block w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                  />
-                  {/* Top-to-bottom shading for lower text, if necessary */}
-                  <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none" />
-                  
-                  {/* Overlay Badge */}
-                  <div className="absolute bottom-4 left-5 right-5 text-white z-10 flex items-center">
-                    <span className="flex items-center gap-2 text-white font-extrabold text-[1.15rem]">
-                      <FiClock className="text-primary text-[1.4rem]" strokeWidth={2.5} /> 2-Month Intensive Course
-                    </span>
-                  </div>
-                </div>
-
-                {/* Stats Section */}
-                <div className="flex bg-white pt-6 pb-7">
-                  {/* Left Stat */}
-                  <div className="flex-1 flex flex-col items-center justify-center border-r-[1.5px] border-surface">
-                    <FaLinkedin className="text-[#0a66c2] text-[2.2rem] mb-2" />
-                    <span className="text-[1.6rem] font-black text-heading leading-tight tracking-tight">27,000+</span>
-                    <span className="text-[0.95rem] font-semibold text-body/80 mt-1">LinkedIn Jobs</span>
-                  </div>
-                  {/* Right Stat */}
-                  <div className="flex-1 flex flex-col items-center justify-center">
-                    <span className="flex items-center justify-center bg-slate-200 text-slate-500 rounded px-2.5 py-1 mb-2 border border-slate-300">
-                      <FaMoneyBillAlt className="text-[1.1rem]" />
-                    </span>
-                    <span className="text-[1.6rem] font-black text-heading leading-tight tracking-tight">₹10 LPA</span>
-                    <span className="text-[0.95rem] font-semibold text-body/80 mt-1">Max Salary</span>
-                  </div>
-                </div>
-              </div>
+              <DimensionalSwitchSlider
+                infinite
+                direction="horizontal"
+                autoplay
+                autoplayDelay={2600}
+                textColor="#ffffff"
+                textSize={30}
+                cardWidth={680}
+                cardHeight={460}
+                cardBorderRadius={16}
+              />
             </div>
           </div>
         </section>
   );
 }
+
+

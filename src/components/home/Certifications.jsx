@@ -14,7 +14,7 @@ export default function Certifications() {
   return (
         <section className="py-10 md:py-14 lg:py-16 xl:py-20 bg-white bg-diagonal-pattern">
           <div className="w-full max-w-[1200px] mx-auto px-6 text-center">
-            <ScrollReveal direction="up" distance={40}>
+            <ScrollReveal direction="up" distance={20}>
               <div className="text-center mb-[4.5rem] max-w-6xl mx-auto">
                 <span className="inline-block text-primary text-[0.85rem] font-semibold mb-5 tracking-[0.2em] uppercase">
                   Recognitions
@@ -33,7 +33,7 @@ export default function Certifications() {
             </ScrollReveal>
 
             {/* Certifications Layout */}
-            <ScrollReveal direction="up" distance={60} delay={0.1}>
+            <ScrollReveal direction="up" distance={25}>
               <div className="flex gap-6 mt-12 max-lg:flex-col">
                 {/* Main Zeon Cert Card */}
                 <div className="flex-[0_0_320px] max-lg:flex-auto max-lg:w-full bg-white border border-border rounded-2xl flex flex-col items-center justify-center p-12 shadow-[0_8px_30px_rgba(0,0,0,0.04)] text-center transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(255,68,68,0.12)] hover:border-primary/40 relative overflow-hidden group">
