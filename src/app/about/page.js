@@ -16,6 +16,7 @@ import {
 import { FiClock, FiMonitor } from "react-icons/fi";
 import Navbar from "../../components/Navbar";
 import ScrollReveal from "../../components/ScrollReveal";
+import TestimonialSection from "@/components/home/TestimonialsSection";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
@@ -205,6 +206,7 @@ export default async function AboutPage() {
             </div>
           </div>
         </section>
+        <TestimonialSection />
 
         {/* SECTION 3: OUR TEAM */}
         <section className="py-16 md:py-24 bg-surface bg-dots-pattern border-t border-border overflow-hidden">

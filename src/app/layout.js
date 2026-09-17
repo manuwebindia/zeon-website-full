@@ -49,16 +49,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
       <body>
-        <style>{`.grecaptcha-badge { display: none !important; }`}</style>
         <OfferPopup />
         {children}
         <LegalModal />
         <DownloadBrochureModal />
         <ScrollToTop />
-        <Script 
-          src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} 
-          strategy="beforeInteractive" 
-        />
+        {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+          <Script 
+            src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} 
+            strategy="afterInteractive" 
+          />
+        )}
       </body>
     </html>
   );

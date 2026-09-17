@@ -12,11 +12,11 @@ import CareerQuiz from "../components/home/CareerQuiz";
 import WhyChooseZeon from "../components/home/WhyChooseZeon";
 import OurCourses from "../components/home/OurCourses";
 import Certifications from "../components/home/Certifications";
+import TestimonialsSection from "../components/home/TestimonialsSection";
 
 const CareerLaunch = dynamic(() => import("../components/home/CareerLaunch"));
 const PlacementsSection = dynamic(() => import("../components/PlacementsSection"));
 const OurPartners = dynamic(() => import("../components/OurPartners"));
-const TestimonialsSlider = dynamic(() => import("../components/TestimonialsSlider"));
 const DemoSection = dynamic(() => import("../components/home/DemoSection"));
 const PricingSection = dynamic(() => import("../components/home/PricingSection"));
 const AdmissionProcess = dynamic(() => import("../components/home/AdmissionProcess"));
@@ -61,25 +61,7 @@ export default function Home() {
         </section>
 
 
-        <section id="testimonials" className="py-10 md:py-14 lg:py-16 xl:py-20 bg-white">
-          <div className="w-full max-w-[1200px] mx-auto px-6 text-center">
-            <div className="text-center mb-[4.5rem] max-w-6xl mx-auto">
-              <span className="inline-block text-primary text-[0.85rem] font-semibold mb-5 tracking-[0.2em] uppercase">
-                Reviews
-              </span>
-              <h2 className="text-[clamp(2.2rem,4vw,3rem)] font-extrabold text-heading mb-4 leading-tight">
-                What Our Students Say About{" "}
-                <span className="text-primary">Zeon Academy</span>
-              </h2>
-              <p className="text-[1.15rem] text-body leading-relaxed font-medium">
-                Real experiences from students who completed the Digital
-                Marketing Career Program.
-              </p>
-            </div>
-
-            <TestimonialsSlider />
-          </div>
-        </section>
+        <TestimonialsSection />
         <WhyChooseZeon />
         <Certifications />
         <CareerLaunch />

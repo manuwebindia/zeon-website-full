@@ -35,6 +35,7 @@ import {
   IconLibraryPhoto,
   IconArrowsExchange,
   IconStar,
+  IconUser,
 } from '@tabler/icons-react';
 
 // ── Permission helpers ────────────────────────────────────────────────────────
@@ -97,8 +98,10 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
   const SidebarContent = () => {
     // Read inside the component so re-renders pick up fresh values
     const user = getLoggedInUser();
-    const displayName = user.displayName || user.username || 'Zeon Admin';
-    const avatarUrl = user.avatarUrl || '';
+    const authorImage = typeof window !== 'undefined' ? localStorage.getItem('zeon_author_image') : '';
+    const avatarUrl = user.avatarUrl || user.avatar || user.photoUrl || user.image || authorImage || '';
+    const displayName = user.displayName || user.username || (typeof window !== 'undefined' ? localStorage.getItem('zeon_author_name') : '') || 'Admin';
+    const userInitial = displayName ? displayName.charAt(0).toUpperCase() : '';
 
     // ── Contact Leads badge (new leads count) ──────────────────────────────
     const [newContactCount, setNewContactCount] = React.useState(0);
@@ -764,11 +767,24 @@ const AdminSidebar = ({ isMobileSidebarOpen, onSidebarClose, isCollapsed, toggle
           zIndex: 2,
         }}
       >
-        <Avatar
-          src={avatarUrl || '/zeon-logo.png'}
-          alt={displayName}
-          sx={{ width: 40, height: 40, border: '2px solid #FF4444', boxShadow: '0 2px 8px rgba(255,68,68,0.1)' }}
-        />
+        <Tooltip title={displayName} placement="right" disableHoverListener={!isCollapsed}>
+          <Avatar
+            src={avatarUrl || undefined}
+            alt={displayName}
+            sx={{
+              width: 38,
+              height: 38,
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              color: '#ffffff',
+              background: avatarUrl ? undefined : 'linear-gradient(135deg, #FF4444 0%, #D92323 100%)',
+              border: '2px solid #FF4444',
+              boxShadow: '0 2px 8px rgba(255,68,68,0.15)',
+            }}
+          >
+            {userInitial || <IconUser size={20} />}
+          </Avatar>
+        </Tooltip>
         {!isCollapsed && (
           <Box sx={{ minWidth: 0, flexGrow: 1 }}>
             <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'text.primary', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', fontSize: '0.825rem', lineHeight: 1.2 }}>

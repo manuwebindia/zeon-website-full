@@ -25,41 +25,49 @@ export default function DashboardLayout({ children }) {
   const router = useRouter();
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('zeon_sidebar_collapsed') === 'true';
+    }
+    return false;
+  });
 
   useEffect(() => {
-    const token = localStorage.getItem('zeon_admin_token');
-    if (!token) {
-      router.push('/admin');
-      return;
-    }
-
-    // Client-side expiry check (server still verifies on every API call)
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      if (payload.exp * 1000 < Date.now()) {
-        // Token expired — clear all keys and redirect
-        ['zeon_admin_token', 'zeon_admin_user', 'zeon_admin_permissions',
-         'zeon_author_name', 'zeon_author_image'].forEach((k) =>
-          localStorage.removeItem(k)
-        );
+    const checkTokenExpiry = () => {
+      const token = localStorage.getItem('zeon_admin_token');
+      if (!token) {
         router.push('/admin');
         return;
       }
-    } catch {
-      // Malformed token
-      localStorage.removeItem('zeon_admin_token');
-      router.push('/admin');
-      return;
-    }
 
-    // Load sidebar collapse preference
-    const saved = localStorage.getItem('zeon_sidebar_collapsed');
-    if (saved === 'true') {
-      setIsSidebarCollapsed(true);
-    }
+      // Client-side expiry check (server still verifies on every API call)
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (payload.exp * 1000 < Date.now()) {
+          // Token expired (6 hours passed) — clear all keys and redirect
+          ['zeon_admin_token', 'zeon_admin_user', 'zeon_admin_permissions',
+           'zeon_author_name', 'zeon_author_image'].forEach((k) =>
+            localStorage.removeItem(k)
+          );
+          router.push('/admin');
+          return;
+        }
+      } catch {
+        // Malformed token
+        localStorage.removeItem('zeon_admin_token');
+        router.push('/admin');
+        return;
+      }
 
-    setCheckingAuth(false);
+      setCheckingAuth((prev) => (prev ? false : prev));
+    };
+
+    const timer = setTimeout(checkTokenExpiry, 0);
+    const expiryInterval = setInterval(checkTokenExpiry, 30_000);
+    return () => {
+      clearTimeout(timer);
+      clearInterval(expiryInterval);
+    };
   }, [router]);
 
   const toggleSidebarCollapse = () => {

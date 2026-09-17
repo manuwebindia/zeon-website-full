@@ -12,6 +12,7 @@ import TestimonialsSlider from "../../components/TestimonialsSlider";
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
+import TestimonialsSection from "@/components/home/TestimonialsSection";
 
 import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
@@ -192,7 +193,7 @@ export default async function CoursesPage() {
         </section>
 
 
-        <section id="testimonials" className="py-10 md:py-14 lg:py-16 xl:py-20 bg-white">
+        {/* <section id="testimonials" className="py-10 md:py-14 lg:py-16 xl:py-20 bg-white">
           <div className="w-full max-w-[1200px] mx-auto px-6 text-center">
             <div className="text-center mb-[4.5rem] max-w-6xl mx-auto">
               <span className="inline-block text-primary text-[0.85rem] font-semibold mb-5 tracking-[0.2em] uppercase">
@@ -210,7 +211,9 @@ export default async function CoursesPage() {
 
             <TestimonialsSlider />
           </div>
-        </section>
+        </section> */}
+
+        <TestimonialsSection />
 
         {/* SECTION: MEET OUR MENTORS */}
         <section className="py-16 md:py-24 bg-surface bg-dots-pattern border-t border-border">

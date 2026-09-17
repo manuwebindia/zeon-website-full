@@ -25,7 +25,22 @@ export default function AdminLoginPage() {
     // Check if token already exists in localStorage
     const token = localStorage.getItem('zeon_admin_token');
     if (token) {
-      router.push('/admin/dashboard/overview');
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        if (payload.exp * 1000 < Date.now()) {
+          // Token expired (6 hours passed) — clear and allow login
+          ['zeon_admin_token', 'zeon_admin_user', 'zeon_admin_permissions',
+           'zeon_author_name', 'zeon_author_image'].forEach((k) =>
+            localStorage.removeItem(k)
+          );
+          setCheckingAuth(false);
+        } else {
+          router.push('/admin/dashboard/overview');
+        }
+      } catch {
+        localStorage.removeItem('zeon_admin_token');
+        setCheckingAuth(false);
+      }
     } else {
       setCheckingAuth(false);
     }

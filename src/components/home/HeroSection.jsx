@@ -1,10 +1,40 @@
 "use client";
 
-import { FaCheckCircle, FaGraduationCap } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { FaCheckCircle, FaGraduationCap, FaLinkedin, FaMoneyBillAlt } from "react-icons/fa";
+import { FiClock } from "react-icons/fi";
 import NextBatchDate from "../NextBatchDate";
-import DimensionalSwitchSlider from "@/components/ui/dimensional-switch-slider";
+
+const HERO_IMAGES = [
+  {
+    src: "/hero/graduation2025.webp",
+    alt: "Zeon Digital Marketing Academy — Graduation 2025",
+  },
+  {
+    src: "/hero/Hero02.webp",
+    alt: "Zeon Digital Marketing Academy — Practical Training",
+  },
+  {
+    src: "/hero/Hero03.webp",
+    alt: "Zeon Digital Marketing Academy — Real Client Projects",
+  },
+  {
+    src: "/hero/Hero04.webp",
+    alt: "Zeon Digital Marketing Academy — Agency Experience",
+  },
+];
 
 export default function HeroSection({ nextBatchDate }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
         <section className="pt-24 pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36 xl:pb-16 bg-white xl:bg-zeon-banner bg-no-repeat bg-center bg-cover relative overflow-x-hidden">
           <div className="w-full max-w-[1200px] mx-auto px-6 flex items-center justify-between gap-14 max-[1024px]:flex-col max-[1024px]:text-center max-[1024px]:gap-0">
@@ -69,17 +99,78 @@ export default function HeroSection({ nextBatchDate }) {
               <div className="absolute top-10 -left-10 w-[200px] h-[200px] bg-primary/20 rounded-full blur-3xl z-[-1] animate-pulse-glow" />
               <div className="absolute -bottom-10 -right-10 w-[250px] h-[250px] bg-[#ff8c4a]/20 rounded-full blur-3xl z-[-1] animate-pulse-glow hover:bg-primary/30" />
               
-              <DimensionalSwitchSlider
-                infinite
-                direction="horizontal"
-                autoplay
-                autoplayDelay={2600}
-                textColor="#ffffff"
-                textSize={30}
-                cardWidth={680}
-                cardHeight={460}
-                cardBorderRadius={16}
-              />
+              {/* Image Frame with Stats */}
+              <div className="bg-white rounded-[24px] p-2.5 pb-0 shadow-[0_20px_50px_rgba(0,0,0,0.15)] ring-4 ring-white/60 animate-[float_6s_ease-in-out_infinite] group flex flex-col relative">
+                {/* Image Section */}
+                <div className="relative w-full h-[280px] md:h-[320px] rounded-[16px] overflow-hidden bg-slate-100">
+                  {HERO_IMAGES.map((img, idx) => {
+                    const isActive = idx === currentImageIndex;
+                    return (
+                      <div
+                        key={img.src}
+                        className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
+                          isActive
+                            ? "opacity-100 scale-100 z-[1]"
+                            : "opacity-0 scale-105 pointer-events-none z-0"
+                        }`}
+                      >
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          fill
+                          quality={100}
+                          priority={idx === 0}
+                          sizes="(max-width: 768px) 100vw, 560px"
+                          className="object-cover object-top"
+                        />
+                      </div>
+                    );
+                  })}
+                  
+                  {/* Subtle Gradient Overly on Bottom of Image */}
+                  <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none z-[5]" />
+                  
+                  {/* Floating Overlay Badge on Bottom Left of Image & Dots on Right */}
+                  <div className="absolute bottom-4 left-5 right-5 text-white z-10 flex items-center justify-between">
+                    <span className="flex items-center gap-2 text-white font-extrabold text-[1.15rem] drop-shadow-md">
+                      <FiClock className="text-primary text-[1.4rem]" strokeWidth={2.5} /> 2-Month AI Marketing Course
+                    </span>
+
+                    {/* Autoplay Slide Indicator Dots */}
+                    <div className="flex items-center gap-1.5 bg-black/35 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-white/15">
+                      {HERO_IMAGES.map((_, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setCurrentImageIndex(idx)}
+                          aria-label={`Go to image ${idx + 1}`}
+                          className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
+                            idx === currentImageIndex
+                              ? "w-4 bg-primary"
+                              : "w-1.5 bg-white/50 hover:bg-white/80"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Stats Section */}
+                <div className="flex bg-white pt-6 pb-7">
+                  <div className="flex-1 flex flex-col items-center justify-center border-r-[1.5px] border-surface">
+                    <FaLinkedin className="text-[#0a66c2] text-[2.2rem] mb-2" />
+                    <span className="text-[1.6rem] font-black text-heading leading-tight tracking-tight">27,000+</span>
+                    <span className="text-[0.95rem] font-semibold text-body/80 mt-1">LinkedIn Jobs</span>
+                  </div>
+                  <div className="flex-1 flex flex-col items-center justify-center">
+                    <span className="flex items-center justify-center bg-slate-200 text-slate-500 rounded px-2.5 py-1 mb-2 border border-slate-300">
+                      <FaMoneyBillAlt className="text-[1.1rem]" />
+                    </span>
+                    <span className="text-[1.6rem] font-black text-heading leading-tight tracking-tight">₹10 LPA</span>
+                    <span className="text-[0.95rem] font-semibold text-body/80 mt-1">Max Salary</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>

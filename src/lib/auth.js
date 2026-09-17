@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-zeon-blog-dev-
  *   DB users:         { userId: cuid, username, permissions: ['blogs.view',...] }
  */
 export function signToken(payload) {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn: '24h' });
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: '6h' });
 }
 
 /**
