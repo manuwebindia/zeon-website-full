@@ -8,20 +8,21 @@ const nextConfig = {
         protocol: 'https',
         hostname: '**.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.zeonacademy.com',
+      },
     ],
   },
-  experimental: {
-    optimizePackageImports: [
-      'gsap',
-      '@mui/material',
-      '@mui/icons-material',
-      '@tabler/icons-react',
-      'lucide-react',
-      'react-icons',
-    ],
-    cpus: 1,
-  },
-  // allowedDevOrigins: ["192.168.29.152", "localhosts"],
+  // allowedDevOrigins: ["192.168.29.152", "localhost"],
   async headers() {
     return [
       {

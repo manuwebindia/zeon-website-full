@@ -30,9 +30,9 @@ export default function OfferCard({ offer }) {
             src={offer.image}
             alt={offer.text || offer.heading || 'Offer'}
             fill
-            quality={100}
             className="object-cover object-center scale-[1.03] transition-transform duration-500"
             sizes="(max-width: 1024px) 100vw, 560px"
+            unoptimized={typeof offer.image === 'string' && offer.image.startsWith('http')}
           />
         ) : (
           <div className="absolute inset-0" />

@@ -5,9 +5,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-
-gsap.registerPlugin(CustomEase);
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(CustomEase);
+}
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" &&
