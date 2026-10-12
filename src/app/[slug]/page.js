@@ -51,6 +51,45 @@ function getCachedPage(slug) {
 
 export default async function SitePage({ params }) {
   const { slug } = await params;
+  const PLACEMENT_PAGE_SLUGS = new Set([
+    'digital-marketing-specialist-and-graphic-designer',
+    'digital-marketing-trainees',
+    'digital-marketer-maad-concepts',
+    'digital-marketing-intern-oppiatec-consulting-pvt-ltd',
+    'junior-seo-analyst',
+    'digital-marketing-intern',
+    'digital-marketing-executive-2',
+    'digital-marketer-black-onyx-international-llc-2',
+    'digital-marketing-vintage-events-pvt-ltd',
+    'digital-marketing-intern-infinity-ideas',
+    'online-sales-personnel',
+    'digital-marketer-whitesean-news',
+    'digital-marketing-executive',
+    'digital-marketer',
+    'digital-marketer-ialim-edge',
+    'digital-marketer-black-onyx-international-llc',
+    'digital-marketer-ialm-edge',
+    'digital-marketing-manager-thanima-farm-life',
+    'digital-marketing-neuflo-solutions',
+    'digital-marketing-trainee-adox-global-pvt-ltd',
+    'digital-marketing-intern-classic-digital-solutions',
+    'video-editor-ishkhan-aviation-academy',
+    'digital-marketing-intern-global-visa-online',
+    'digital-marketing-interns-peraka-media',
+    'content-creator-evolux-solutions',
+    'social-media-and-digital-marketing-intern-capsdata-technologies',
+    'marketing-executive-ye-stack',
+    'video-editor-social-media-content-creator-pepebbq',
+    'digital-marketing-intern-find-my-hostel',
+    'digital-marketing-trainee-indo-european-institute-of-engineering',
+    'digital-marketing-trainee-indo-european-institute-of-engineering-2',
+    'seo-junior-specialist',
+  ]);
+
+  if (PLACEMENT_PAGE_SLUGS.has(slug)) {
+    redirect(`/placement-cell/${slug}`);
+  }
+
   const page = await getCachedPage(slug);
   if (!page) {
     const blog = await prisma.blog.findFirst({

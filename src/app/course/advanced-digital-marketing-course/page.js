@@ -20,7 +20,7 @@ import { buildPageMetadata } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
-  return buildPageMetadata("/courses/advanced-digital-marketing");
+  return buildPageMetadata("/course/advanced-digital-marketing-course");
 }
 
 export default function AdvancedDigitalMarketingPage() {
@@ -78,7 +78,7 @@ export default function AdvancedDigitalMarketingPage() {
               <nav className={INNER_PAGE.breadcrumb}>
                 <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
                 <span className={INNER_PAGE.breadcrumbSep}>/</span>
-                <Link href="/courses" className={INNER_PAGE.breadcrumbLink}>Courses</Link>
+                <Link href="/course" className={INNER_PAGE.breadcrumbLink}>Courses</Link>
                 <span className={INNER_PAGE.breadcrumbSep}>/</span>
                 <span className={INNER_PAGE.breadcrumbCurrent}>Advanced Digital Marketing Course</span>
               </nav>
@@ -228,7 +228,7 @@ export default function AdvancedDigitalMarketingPage() {
 
                     <CourseShareActions
                       courseName="Advanced Digital Marketing Course"
-                      courseSlug="advanced-digital-marketing"
+                      courseSlug="advanced-digital-marketing-course"
                     />
                   </div>
 
@@ -292,7 +292,7 @@ export default function AdvancedDigitalMarketingPage() {
                 title="SEO Specialist Course"
                 duration="15 Days + 1 Month Internship"
                 image="/courses/seo-course.webp"
-                slug="/courses/seo-specialist"
+                slug="/course/search-engine-optimization"
                 certifications="Zeon & Google Certifications"
                 placement="1-Month Agency Internship Support"
                 description="A fast-track SEO program designed to build strong search optimization skills in just 15 days."
@@ -308,7 +308,7 @@ export default function AdvancedDigitalMarketingPage() {
                 title="Ads Specialist Course"
                 duration="10 Days"
                 image="/courses/ads-course.webp"
-                slug="/courses/ads-specialist"
+                slug="/course/ad-specialist"
                 certifications="Google & Meta Ads Certifications"
                 placement="Placement Drive Eligibility"
                 description="A 10-day intensive training focused on creating, managing, and optimizing high-performance social media ad campaigns."

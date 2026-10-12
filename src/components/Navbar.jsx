@@ -34,31 +34,30 @@ export default function Navbar() {
     {
       label: "Why Zeon",
       subItems: [
-        { href: "/about", label: "About Us" },
-        { href: "/testimonials", label: "Testimonials" },
+        { href: "/about-us", label: "About Us" },
+        { href: "/testimonial", label: "Testimonials" },
         { href: "/gallery", label: "Photo Gallery" },
       ],
     },
     {
       label: "Courses",
-      // href: "/courses",
       subItems: [
-        { href: "/courses", label: "All Courses" },
-        { href: "/courses/advanced-digital-marketing", label: "Advanced DM" },
-        { href: "/courses/seo-specialist", label: "SEO Specialist" },
-        { href: "/courses/ads-specialist", label: "Ads Specialist" },
+        { href: "/course", label: "All Courses" },
+        { href: "/course/advanced-digital-marketing-course", label: "Advanced DM" },
+        { href: "/course/search-engine-optimization", label: "SEO Specialist" },
+        { href: "/course/ad-specialist", label: "Ads Specialist" },
       ],
     },
     {
       label: "Job Vacancy",
       href: "",
       subItems: [
-        { href: "/placements", label: "Placement Cell" },
+        { href: "/placement-cell", label: "Placement Cell" },
         { href: "/post-your-job", label: "Post Your Job" },
       ],
     },
     { href: "/blog", label: "Blog" },
-    { href: "/contact", label: "Contact" },
+    { href: "/contact-us", label: "Contact" },
   ];
 
   const toggleMobileDropdown = (label) => {

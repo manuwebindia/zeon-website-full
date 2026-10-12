@@ -78,7 +78,7 @@ export default function AdSpecialistPage() {
               <nav className={INNER_PAGE.breadcrumb}>
                 <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
                 <span className={INNER_PAGE.breadcrumbSep}>/</span>
-                <Link href="/courses" className={INNER_PAGE.breadcrumbLink}>Courses</Link>
+                <Link href="/course" className={INNER_PAGE.breadcrumbLink}>Courses</Link>
                 <span className={INNER_PAGE.breadcrumbSep}>/</span>
                 <span className={INNER_PAGE.breadcrumbCurrent}>Ad Specialist Course</span>
               </nav>
@@ -231,7 +231,7 @@ export default function AdSpecialistPage() {
 
                     <CourseShareActions
                       courseName="Google & Meta Ads Specialist Course"
-                      courseSlug="ads-specialist"
+                      courseSlug="ad-specialist"
                     />
                   </div>
 
@@ -293,7 +293,7 @@ export default function AdSpecialistPage() {
                 title="Advanced Digital Marketing Course"
                 duration="2 Months + 1 Month Internship"
                 image="/courses/digitalmarketing-course.webp"
-                slug="/courses/advanced-digital-marketing"
+                slug="/course/advanced-digital-marketing-course"
                 certifications="15+ Certifications (Google, Meta, HubSpot)"
                 placement="Guaranteed Internship & 100% Placement"
                 description="A complete, practical 60-day program that teaches all major areas of digital marketing using real tools, real campaigns, and placement-focused training."
@@ -309,7 +309,7 @@ export default function AdSpecialistPage() {
                 title="SEO Specialist Course"
                 duration="15 Days + 1 Month Internship"
                 image="/courses/seo-course.webp"
-                slug="/courses/seo-specialist"
+                slug="/course/search-engine-optimization"
                 certifications="Zeon & Google Certifications"
                 placement="1-Month Agency Internship Support"
                 description="A fast-track SEO program designed to build strong search optimization skills in just 15 days."

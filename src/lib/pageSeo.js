@@ -23,26 +23,26 @@ export const SITE_PAGES = [
     },
   },
   {
-    path: '/about',
+    path: '/about-us',
     label: 'About Us',
     group: 'Main',
     defaults: {
       title: 'About Us | Zeon Academy Kochi',
       description:
         'Learn about Zeon Academy, the leading digital marketing training institute in Kochi, Kerala. An offshoot of Web India Solutions (WIS) with 17+ years of experience.',
-      canonical: '/about',
+      canonical: '/about-us',
       allowIndexing: true,
     },
   },
   {
-    path: '/courses',
+    path: '/course',
     label: 'Courses',
     group: 'Main',
     defaults: {
       title: 'Professional Digital Marketing Courses in Kochi | Zeon Academy',
       description:
         'Save hundreds of hours by learning from working professionals with the best digital marketing course in Kochi, Kerala. Browse our courses.',
-      canonical: '/courses',
+      canonical: '/course',
       allowIndexing: true,
     },
   },
@@ -59,74 +59,74 @@ export const SITE_PAGES = [
     },
   },
   {
-    path: '/contact',
+    path: '/contact-us',
     label: 'Contact',
     group: 'Main',
     defaults: {
       title: 'Contact Us | Zeon Academy Kochi',
       description:
         "Get in touch with Zeon Academy, Kerala's leading digital marketing training institute in Kochi. Call us at +91 7558888252, or visit our Vennala campus today.",
-      canonical: '/contact',
+      canonical: '/contact-us',
       allowIndexing: true,
     },
   },
   {
-    path: '/courses/seo-specialist',
+    path: '/course/search-engine-optimization',
     label: 'SEO Specialist Course',
     group: 'Courses',
     defaults: {
       title: 'SEO Specialist Course in Kochi | Zeon Academy',
       description:
         'Master keyword research, technical SEO, on-page optimization, and organic traffic growth with the SEO Specialist Course at Zeon Academy, Kochi.',
-      canonical: '/courses/seo-specialist',
+      canonical: '/course/search-engine-optimization',
       allowIndexing: true,
     },
   },
   {
-    path: '/courses/ads-specialist',
+    path: '/course/ad-specialist',
     label: 'Ads Specialist Course',
     group: 'Courses',
     defaults: {
       title: 'Ads Specialist Course in Kochi | Zeon Academy',
       description:
         'Learn Facebook, Instagram, and social media ad management with the Ads Specialist Course at Zeon Academy. Practical training with placement support.',
-      canonical: '/courses/ads-specialist',
+      canonical: '/course/ad-specialist',
       allowIndexing: true,
     },
   },
   {
-    path: '/courses/advanced-digital-marketing',
+    path: '/course/advanced-digital-marketing-course',
     label: 'Advanced Digital Marketing',
     group: 'Courses',
     defaults: {
       title: 'Advanced Digital Marketing Course in Kochi | Zeon Academy',
       description:
         'Join our Advanced Digital Marketing Course to learn SEO, Social Media Marketing, Google Ads, and WordPress. Complete with an internship and placement assistance.',
-      canonical: '/courses/advanced-digital-marketing',
+      canonical: '/course/advanced-digital-marketing-course',
       allowIndexing: true,
     },
   },
   {
-    path: '/placements',
-    label: 'Placements',
+    path: '/placement-cell',
+    label: 'Placement Cell',
     group: 'Other',
     defaults: {
       title: 'Job Vacancies | Digital Marketing Jobs in Kerala | Zeon Academy Placement Cell',
       description:
         "Explore live digital marketing job vacancies in Kerala through Zeon Academy's Placement Cell. Find openings in Kochi, Ernakulam, and across Kerala for freshers and experienced professionals.",
-      canonical: '/placements',
+      canonical: '/placement-cell',
       allowIndexing: true,
     },
   },
   {
-    path: '/testimonials',
+    path: '/testimonial',
     label: 'Testimonials',
     group: 'Other',
     defaults: {
       title: 'Student Testimonials | Zeon Academy',
       description:
         "Hear from our students about their journey at Zeon Academy — Kerala's #1 digital marketing institute. Real stories, real career transformations.",
-      canonical: '/testimonials',
+      canonical: '/testimonial',
       allowIndexing: true,
     },
   },

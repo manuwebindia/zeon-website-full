@@ -1,7 +1,7 @@
 import { buildPageMetadata } from '@/lib/pageSeo';
 
 export async function generateMetadata() {
-  return buildPageMetadata('/courses/ads-specialist');
+  return buildPageMetadata('/course/ad-specialist');
 }
 
 export default function AdsSpecialistLayout({ children }) {

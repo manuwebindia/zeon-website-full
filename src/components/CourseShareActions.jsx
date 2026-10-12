@@ -57,9 +57,9 @@ export default function CourseShareActions({
 
   const getCourseUrl = () => {
     if (typeof window !== "undefined") {
-      return `${window.location.origin}/courses/${courseSlug}`;
+      return `${window.location.origin}/course/${courseSlug}`;
     }
-    return `https://admission.zeonacademy.com/courses/${courseSlug}`;
+    return `https://admission.zeonacademy.com/course/${courseSlug}`;
   };
 
   const getWhatsAppReferMessage = () => {

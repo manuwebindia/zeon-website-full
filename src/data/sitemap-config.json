@@ -8,14 +8,14 @@
       "canonical": ""
     },
     {
-      "path": "/about",
+      "path": "/about-us",
       "changeFrequency": "monthly",
       "priority": 0.8,
       "enabled": true,
       "canonical": ""
     },
     {
-      "path": "/courses",
+      "path": "/course",
       "changeFrequency": "monthly",
       "priority": 0.8,
       "enabled": true,
@@ -29,42 +29,42 @@
       "canonical": ""
     },
     {
-      "path": "/contact",
+      "path": "/contact-us",
       "changeFrequency": "monthly",
       "priority": 0.7,
       "enabled": true,
       "canonical": ""
     },
     {
-      "path": "/courses/seo-specialist",
+      "path": "/course/search-engine-optimization",
       "changeFrequency": "monthly",
       "priority": 0.75,
       "enabled": true,
       "canonical": ""
     },
     {
-      "path": "/courses/ads-specialist",
+      "path": "/course/ad-specialist",
       "changeFrequency": "monthly",
       "priority": 0.75,
       "enabled": true,
       "canonical": ""
     },
     {
-      "path": "/courses/advanced-digital-marketing",
+      "path": "/course/advanced-digital-marketing-course",
       "changeFrequency": "monthly",
       "priority": 0.75,
       "enabled": true,
       "canonical": ""
     },
     {
-      "path": "/placements",
+      "path": "/placement-cell",
       "changeFrequency": "monthly",
       "priority": 0.7,
       "enabled": true,
       "canonical": ""
     },
     {
-      "path": "/testimonials",
+      "path": "/testimonial",
       "changeFrequency": "monthly",
       "priority": 0.6,
       "enabled": true,

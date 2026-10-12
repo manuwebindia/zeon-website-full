@@ -18,11 +18,11 @@ import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
-  return buildPageMetadata("/courses");
+  return buildPageMetadata("/course");
 }
 
 export default async function CoursesPage() {
-  const cms = await getPageCms("/courses");
+  const cms = await getPageCms("/course");
   const bannerImage = cms?.bannerImage || "/banner-white.svg";
 
   return (
@@ -97,7 +97,7 @@ export default async function CoursesPage() {
                   title="Advanced Digital Marketing Course"
                   duration="2 Months + 1 Month Internship"
                   image="/courses/d1.jpg"
-                  slug="/courses/advanced-digital-marketing"
+                  slug="/course/advanced-digital-marketing-course"
                   certifications="15+ Certifications (Google, Meta, HubSpot)"
                   placement="Guaranteed Internship & 100% Placement"
                   description="A complete, practical 60-day program that teaches all major areas of digital marketing using real tools, real campaigns, and placement-focused training."
@@ -129,7 +129,7 @@ export default async function CoursesPage() {
                   title="SEO Specialist Course"
                   duration="15 Days + 1 Month Internship"
                   image="/courses/s2.jpg"
-                  slug="/courses/seo-specialist"
+                  slug="/course/search-engine-optimization"
                   certifications="Zeon & Google Certifications"
                   placement="1-Month Agency Internship Support"
                   description="A fast-track SEO program designed to build strong search optimization skills in just 15 days."
@@ -160,7 +160,7 @@ export default async function CoursesPage() {
                   title="Ads Specialist Course"
                   duration="10 Days"
                   image="/courses/a2.jpg"
-                  slug="/courses/ads-specialist"
+                  slug="/course/ad-specialist"
                   certifications="Google & Meta Ads Certifications"
                   placement="Placement Drive Eligibility"
                   description="A 10-day intensive training focused on creating, managing, and optimizing high-performance social media ad campaigns."

@@ -52,12 +52,12 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 list-none p-0">
               {[
                 { label: "Home", href: "/" },
-                { label: "About Us", href: "/about" },
-                { label: "Courses", href: "/courses" },
-                { label: "Job Vacancy", href: "/placements" },
+                { label: "About Us", href: "/about-us" },
+                { label: "Courses", href: "/course" },
+                { label: "Job Vacancy", href: "/placement-cell" },
                 { label: "Blog", href: "/blog" },
                 { label: "Gallery", href: "/gallery" },
-                { label: "Contact Us", href: "/contact" },
+                { label: "Contact Us", href: "/contact-us" },
               ].map(({ label, href }) => (
                 <li key={label}>
                   <Link

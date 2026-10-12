@@ -236,11 +236,10 @@ export default function CourseCard({
               if (courseSlug && typeof courseSlug === "string" && !courseSlug.includes(",")) {
                 return courseSlug;
               }
-              const t = (courseTitle || "").toLowerCase();
-              if (t.includes("seo")) return "/courses/seo-specialist";
-              if (t.includes("ad") || t.includes("performance marketing")) return "/courses/ads-specialist";
-              if (t.includes("digital marketing")) return "/courses/advanced-digital-marketing";
-              return "/courses";
+              if (t.includes("seo")) return "/course/search-engine-optimization";
+              if (t.includes("ad") || t.includes("performance marketing")) return "/course/ad-specialist";
+              if (t.includes("digital marketing")) return "/course/advanced-digital-marketing-course";
+              return "/course";
             };
 
             const targetSlug = resolveCourseSlug(title, slug);

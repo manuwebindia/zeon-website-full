@@ -1,7 +1,7 @@
 import { buildPageMetadata } from '@/lib/pageSeo';
 
 export async function generateMetadata() {
-  return buildPageMetadata('/courses/seo-specialist');
+  return buildPageMetadata('/course/search-engine-optimization');
 }
 
 export default function SeoSpecialistLayout({ children }) {

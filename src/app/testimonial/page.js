@@ -6,11 +6,11 @@ import TestimonialsClient from "./TestimonialsClient";
 import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 
 export async function generateMetadata() {
-  return buildPageMetadata("/testimonials");
+  return buildPageMetadata("/testimonial");
 }
 
 export default async function TestimonialsPage() {
-  const cms = await getPageCms("/testimonials");
+  const cms = await getPageCms("/testimonial");
 
   return (
     <>

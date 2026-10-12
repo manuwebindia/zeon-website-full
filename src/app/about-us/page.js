@@ -25,11 +25,11 @@ import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
-  return buildPageMetadata("/about");
+  return buildPageMetadata("/about-us");
 }
 
 export default async function AboutPage() {
-  const cms = await getPageCms("/about");
+  const cms = await getPageCms("/about-us");
   const bannerImage = cms?.bannerImage || "/banner-white.svg";
   const heroTitle = cms?.bannerTitle;
   const heroSubtitle = cms?.bannerSubtitle;

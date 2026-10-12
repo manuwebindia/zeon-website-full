@@ -13,11 +13,11 @@ import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
-  return buildPageMetadata("/contact");
+  return buildPageMetadata("/contact-us");
 }
 
 export default async function ContactPage() {
-  const cms = await getPageCms("/contact");
+  const cms = await getPageCms("/contact-us");
   const bannerImage = cms?.bannerImage || "/banner-white.svg";
 
   return (
