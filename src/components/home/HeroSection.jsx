@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaCheckCircle, FaGraduationCap, FaLinkedin, FaMoneyBillAlt } from "react-icons/fa";
+import { FaCheckCircle, FaGraduationCap, FaLinkedin } from "react-icons/fa";
+import { SiOpenai, SiClaude, SiGooglegemini } from "react-icons/si";
 import { FiClock } from "react-icons/fi";
 import NextBatchDate from "../NextBatchDate";
 
@@ -163,11 +164,31 @@ export default function HeroSection({ nextBatchDate }) {
                     <span className="text-[0.95rem] font-semibold text-body/80 mt-1">LinkedIn Jobs</span>
                   </div>
                   <div className="flex-1 flex flex-col items-center justify-center">
-                    <span className="flex items-center justify-center bg-slate-200 text-slate-500 rounded px-2.5 py-1 mb-2 border border-slate-300">
-                      <FaMoneyBillAlt className="text-[1.1rem]" />
-                    </span>
-                    <span className="text-[1.6rem] font-black text-heading leading-tight tracking-tight">₹10 LPA</span>
-                    <span className="text-[0.95rem] font-semibold text-body/80 mt-1">Max Salary</span>
+                    <div className="flex items-center justify-center -space-x-2.5 mb-2 h-[2.2rem]">
+                      <span
+                        className="relative z-30 flex items-center justify-center w-8 h-8 rounded-full bg-[#10a37f] text-white shadow-sm ring-2 ring-white"
+                        title="ChatGPT"
+                        aria-label="ChatGPT"
+                      >
+                        <SiOpenai className="text-[1.05rem]" />
+                      </span>
+                      <span
+                        className="relative z-20 flex items-center justify-center w-8 h-8 rounded-full bg-[#d97757] text-white shadow-sm ring-2 ring-white"
+                        title="Claude"
+                        aria-label="Claude"
+                      >
+                        <SiClaude className="text-[1.05rem]" />
+                      </span>
+                      <span
+                        className="relative z-10 flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-tr from-[#1a73e8] via-[#6e8efb] to-[#9b72cb] text-white shadow-sm ring-2 ring-white"
+                        title="Google Gemini"
+                        aria-label="Google Gemini"
+                      >
+                        <SiGooglegemini className="text-[1.05rem]" />
+                      </span>
+                    </div>
+                    <span className="text-[1.6rem] font-black text-heading leading-tight tracking-tight">10+</span>
+                    <span className="text-[0.95rem] font-semibold text-body/80 mt-1">AI Marketing Tools</span>
                   </div>
                 </div>
               </div>
