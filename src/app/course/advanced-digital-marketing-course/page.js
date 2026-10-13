@@ -17,7 +17,7 @@ const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"))
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
 
 import { buildPageMetadata } from "@/lib/pageSeo";
-import { INNER_PAGE } from "@/lib/designLanguage";
+import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 export async function generateMetadata() {
   return buildPageMetadata("/course/advanced-digital-marketing-course");
@@ -286,12 +286,14 @@ export default function AdvancedDigitalMarketingPage() {
         <section className="py-16 bg-white border-t border-border">
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <h2 className="text-[2rem] font-extrabold text-heading mb-10 text-center">More Courses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[820px] mx-auto">
               <CourseCard
+                borderVariant="grey"
+                buttonTheme={COURSE_CARD_BUTTON_THEME}
                 mode="online"
                 title="SEO Specialist Course"
                 duration="15 Days + 1 Month Internship"
-                image="/courses/seo-course.webp"
+                image="/courses/s2.jpg"
                 slug="/course/search-engine-optimization"
                 certifications="Zeon & Google Certifications"
                 placement="1-Month Agency Internship Support"
@@ -299,15 +301,28 @@ export default function AdvancedDigitalMarketingPage() {
                 learnList={[
                   "SEO Search Logic & Search Algorithms",
                   "On-Page Content SEO & Page Speeds",
-                  "Technical SEO Auditing & Screaming Frog"
+                  "Technical SEO Auditing & Screaming Frog",
+                  "Local Business Listing & Map Packs",
+                  "Backlink Strategy & Authority Building",
                 ]}
                 isPopular={false}
+                brochure="/brochures/SEO_Specialist.pdf"
+                syllabus={[
+                  { title: "Module 1: SEO Fundamentals & Core Logic", topics: [] },
+                  { title: "Module 2: Keyword Research & Competitive Intel", topics: [] },
+                  { title: "Module 3: On-Page SEO & Content Planning", topics: [] },
+                  { title: "Module 4: Technical Audits & Web Speeds", topics: [] },
+                  { title: "Module 5: Link Building Strategies", topics: [] },
+                  { title: "Module 6: Local Map Pack SEO", topics: [] },
+                ]}
               />
               <CourseCard
+                borderVariant="grey"
+                buttonTheme={COURSE_CARD_BUTTON_THEME}
                 mode="online"
                 title="Ads Specialist Course"
                 duration="10 Days"
-                image="/courses/ads-course.webp"
+                image="/courses/a2.jpg"
                 slug="/course/ad-specialist"
                 certifications="Google & Meta Ads Certifications"
                 placement="Placement Drive Eligibility"
@@ -315,9 +330,20 @@ export default function AdvancedDigitalMarketingPage() {
                 learnList={[
                   "Paid Advertising Foundations",
                   "Google Search & Display Network Ads",
-                  "Meta Business Suite & Pixel Tracking"
+                  "Meta Business Suite & Pixel Tracking",
+                  "Audience Targeting & Funnel Strategy",
+                  "Campaign Budgets, ROAS & Scalability",
                 ]}
                 isPopular={false}
+                brochure="/brochures/Ads_Specialist.pdf"
+                syllabus={[
+                  { title: "Module 1: Paid Traffic & Tracking Basics", topics: [] },
+                  { title: "Module 2: Google Ads Setup & Optimization", topics: [] },
+                  { title: "Module 3: Display Advertising & YouTube Ads", topics: [] },
+                  { title: "Module 4: Meta Campaign Manager (FB & IG)", topics: [] },
+                  { title: "Module 5: Conversion Tracking & Pixels", topics: [] },
+                  { title: "Module 6: Analytics & Scaling Campaigns", topics: [] },
+                ]}
               />
             </div>
           </div>
