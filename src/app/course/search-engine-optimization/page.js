@@ -14,7 +14,7 @@ import Footer from "../../../components/Footer";
 import BrochureDownloadButton from "../../../components/BrochureDownloadButton";
 import GoogleReviewsLabel from "../../../components/GoogleReviewsLabel";
 import CourseShareActions from "../../../components/CourseShareActions";
-import { INNER_PAGE } from "@/lib/designLanguage";
+import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
@@ -304,12 +304,14 @@ export default function SeoSpecialistPage() {
         <section className="py-16 bg-white border-t border-border">
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <h2 className="text-[2rem] font-extrabold text-heading mb-10 text-center">More Courses</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[820px] mx-auto">
               <CourseCard
+                borderVariant="grey"
+                buttonTheme={COURSE_CARD_BUTTON_THEME}
                 mode="online"
                 title="Advanced Digital Marketing Course"
                 duration="2 Months + 1 Month Internship"
-                image="/courses/digitalmarketing-course.webp"
+                image="/courses/d1.jpg"
                 slug="/course/advanced-digital-marketing-course"
                 certifications="15+ Certifications (Google, Meta, HubSpot)"
                 placement="Guaranteed Internship & 100% Placement"
@@ -317,15 +319,29 @@ export default function SeoSpecialistPage() {
                 learnList={[
                   "Digital Marketing Strategy & Channels",
                   "SEO & Search Console Audits",
-                  "Google Ads & Performance Marketing"
+                  "Google Ads & Performance Marketing",
+                  "Meta Ads & Instagram Campaigns",
+                  "Email Marketing & Automation Tools",
                 ]}
-                isPopular={true}
+                isPopular={false}
+                brochure="/brochures/Advanced_Digital Marketing_Zeon_Academy.pdf"
+                syllabus={[
+                  { title: "Module 1: Intro to Digital Marketing & Graphic Design", topics: [] },
+                  { title: "Module 2: Website Creation & WordPress Setup", topics: [] },
+                  { title: "Module 3: Search Engine Optimization (SEO)", topics: [] },
+                  { title: "Module 4: Google Analytics & Search Console", topics: [] },
+                  { title: "Module 5: Performance Marketing & Google Ads", topics: [] },
+                  { title: "Module 6: Social Media Marketing & Meta Ads", topics: [] },
+                  { title: "Module 7: Email Marketing & Analytics Setup", topics: [] },
+                ]}
               />
               <CourseCard
+                borderVariant="grey"
+                buttonTheme={COURSE_CARD_BUTTON_THEME}
                 mode="online"
                 title="Ads Specialist Course"
                 duration="10 Days"
-                image="/courses/ads-course.webp"
+                image="/courses/a2.jpg"
                 slug="/course/ad-specialist"
                 certifications="Google & Meta Ads Certifications"
                 placement="Placement Drive Eligibility"
@@ -333,9 +349,20 @@ export default function SeoSpecialistPage() {
                 learnList={[
                   "Paid Advertising Foundations",
                   "Google Search & Display Network Ads",
-                  "Meta Business Suite & Pixel Tracking"
+                  "Meta Business Suite & Pixel Tracking",
+                  "Audience Targeting & Funnel Strategy",
+                  "Campaign Budgets, ROAS & Scalability",
                 ]}
                 isPopular={false}
+                brochure="/brochures/Ads_Specialist.pdf"
+                syllabus={[
+                  { title: "Module 1: Paid Traffic & Tracking Basics", topics: [] },
+                  { title: "Module 2: Google Ads Setup & Optimization", topics: [] },
+                  { title: "Module 3: Display Advertising & YouTube Ads", topics: [] },
+                  { title: "Module 4: Meta Campaign Manager (FB & IG)", topics: [] },
+                  { title: "Module 5: Conversion Tracking & Pixels", topics: [] },
+                  { title: "Module 6: Analytics & Scaling Campaigns", topics: [] },
+                ]}
               />
             </div>
           </div>
