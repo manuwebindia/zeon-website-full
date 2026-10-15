@@ -103,20 +103,22 @@ function CardImage({ blog, sizes, className = '' }) {
 export function BlogArchiveCard({ blog, view = 'grid' }) {
   if (view === 'list') {
     return (
-      <article className="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:shadow-md sm:flex-row">
+      <article className="group flex flex-col sm:flex-row items-center gap-5 sm:gap-6 overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 transition hover:shadow-md">
         <CardImage
           blog={blog}
-          sizes="(max-width: 640px) 100vw, 320px"
-          className="aspect-[2/1] w-full shrink-0 sm:w-72 md:w-80"
+          sizes="(max-width: 640px) 100vw, 380px"
+          className="aspect-[2/1] w-full sm:w-72 md:w-80 lg:w-[380px] shrink-0 rounded-xl"
         />
-        <div className="flex flex-1 flex-col p-6">
-          <TagRow blog={blog} />
-          <h2 className="mb-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-[#FF4444]">
-            <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
-          </h2>
-          <p className="mb-2 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-500">
-            {blog.excerpt}
-          </p>
+        <div className="flex flex-1 flex-col justify-between self-stretch py-1">
+          <div>
+            <TagRow blog={blog} />
+            <h2 className="mb-2 text-lg font-bold leading-snug text-slate-900 group-hover:text-primary">
+              <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
+            </h2>
+            <p className="line-clamp-2 text-sm leading-relaxed text-slate-500 mb-3">
+              {blog.excerpt}
+            </p>
+          </div>
           <CardMeta blog={blog} />
         </div>
       </article>
@@ -132,7 +134,7 @@ export function BlogArchiveCard({ blog, view = 'grid' }) {
       />
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <TagRow blog={blog} />
-        <h2 className="mb-2 text-base font-bold leading-snug text-slate-900 group-hover:text-[#FF4444] sm:text-lg">
+        <h2 className="mb-2 text-base font-bold leading-snug text-slate-900 group-hover:text-primary sm:text-lg">
           <Link href={`/blog/${blog.slug}`}>{blog.title}</Link>
         </h2>
         <p className="line-clamp-3 flex-1 text-sm leading-relaxed text-slate-500">
