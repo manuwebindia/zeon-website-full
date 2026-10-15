@@ -6,7 +6,6 @@ import InnerPageHero from '@/components/InnerPageHero';
 import BlogPagination from '@/components/BlogPagination';
 import BlogArchiveToolbar from '@/components/blog/BlogArchiveToolbar';
 import { BlogArchiveCard } from '@/components/blog/BlogArchiveCard';
-import BookDemoButton from '@/components/BookDemoButton';
 import {
   getBlogArchiveCategories,
   queryBlogArchive,
