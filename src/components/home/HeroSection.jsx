@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { FaCheckCircle, FaGraduationCap, FaLinkedin } from "react-icons/fa";
+import { FaCheckCircle, FaGraduationCap, FaLinkedin, FaHandshake, FaStar } from "react-icons/fa";
 import { SiOpenai, SiClaude, SiGooglegemini } from "react-icons/si";
 import { FiClock } from "react-icons/fi";
 import NextBatchDate from "../NextBatchDate";
@@ -26,15 +26,33 @@ const HERO_IMAGES = [
   },
 ];
 
+const HERO_SUBS = [
+  { text: "2-Month AI Digital Marketing", icon: FiClock },
+  { text: "100+ Hiring Partners", icon: FaHandshake },
+  { text: "4.9/5 Google Rating", icon: FaStar },
+  { text: "100% Placement Support", icon: FaCheckCircle },
+];
+
 export default function HeroSection({ nextBatchDate }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [currentSubIndex, setCurrentSubIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const imageInterval = setInterval(() => {
       setCurrentImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
     }, 3500);
-    return () => clearInterval(interval);
+    return () => clearInterval(imageInterval);
   }, []);
+
+  useEffect(() => {
+    const subInterval = setInterval(() => {
+      setCurrentSubIndex((prev) => (prev + 1) % HERO_SUBS.length);
+    }, 3000);
+    return () => clearInterval(subInterval);
+  }, []);
+
+  const currentSub = HERO_SUBS[currentSubIndex];
+  const SubIcon = currentSub.icon;
 
   return (
         <section className="pt-24 pb-8 md:pt-28 md:pb-10 lg:pt-32 lg:pb-12 xl:pt-36 xl:pb-16 bg-white xl:bg-zeon-banner bg-no-repeat bg-center bg-cover relative overflow-x-hidden">
@@ -133,9 +151,15 @@ export default function HeroSection({ nextBatchDate }) {
                   
                   {/* Floating Overlay Badge on Bottom Left of Image & Dots on Right */}
                   <div className="absolute bottom-3 sm:bottom-4 left-3.5 right-3.5 sm:left-5 sm:right-5 text-white z-10 flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-1.5 sm:gap-2 text-white font-extrabold text-[0.82rem] xs:text-[0.92rem] sm:text-[1.15rem] drop-shadow-md whitespace-nowrap min-w-0">
-                      <FiClock className="text-primary text-[1.15rem] sm:text-[1.4rem] shrink-0" strokeWidth={2.5} />
-                      <span className="truncate sm:overflow-visible">2-Month AI Digital Marketing</span>
+                    <span
+                      key={currentSubIndex}
+                      className="flex items-center gap-1.5 sm:gap-2 text-white font-extrabold text-[0.82rem] xs:text-[0.92rem] sm:text-[1.15rem] drop-shadow-md whitespace-nowrap min-w-0 animate-fade-in"
+                    >
+                      <SubIcon
+                        className="text-primary text-[1.15rem] sm:text-[1.4rem] shrink-0"
+                        strokeWidth={SubIcon === FiClock ? 2.5 : undefined}
+                      />
+                      <span className="truncate sm:overflow-visible">{currentSub.text}</span>
                     </span>
 
                     {/* Autoplay Slide Indicator Dots */}

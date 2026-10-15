@@ -121,13 +121,13 @@ export default async function BlogListingPage({ searchParams }) {
                     Practical training, real internships, and placement support at Zeon Academy — Kerala&apos;s #1 digital marketing institute.
                   </p>
                   <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <BookDemoButton
-                      courseName="Enrollment Inquiry"
+                    <Link
+                      href="/contact-us#form"
                       className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-bold text-white transition hover:bg-primary-hover cursor-pointer"
                     >
                       Enroll Now
                       <ArrowRight className="h-4 w-4" />
-                    </BookDemoButton>
+                    </Link>
                     <Link
                       href="/course"
                       className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 py-3 text-sm font-bold text-white transition hover:bg-white/15"

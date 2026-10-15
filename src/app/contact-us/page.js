@@ -136,7 +136,7 @@ export default async function ContactPage() {
         </section>
 
         {/* ─── MAP & FORM ───────────────────────────────── */}
-        <section className="py-16 md:py-24 bg-surface bg-dots-pattern border-t border-border overflow-hidden">
+        <section id="form" className="py-16 md:py-24 bg-surface bg-dots-pattern border-t border-border overflow-hidden">
           <div className="w-full max-w-[1200px] mx-auto px-6">
 
             <ScrollReveal direction="up" distance={30}>

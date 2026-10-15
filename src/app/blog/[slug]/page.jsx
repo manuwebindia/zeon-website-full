@@ -245,7 +245,13 @@ export default async function BlogPostPage({ params }) {
     { label: "Blog", href: "/blog" },
   ];
   if (blog.category) {
-    breadcrumbs.push({ label: blog.category });
+    breadcrumbs.push({
+      label: blog.category,
+      href: `/blog?category=${encodeURIComponent(blog.category)}`,
+    });
+  }
+  if (blog.title) {
+    breadcrumbs.push({ label: blog.title });
   }
 
   return (
@@ -261,112 +267,74 @@ export default async function BlogPostPage({ params }) {
       <Navbar />
 
       <main className="bg-white">
-        {/* Article Header (Breadcrumbs, Category, Title, Excerpt, Author Meta) */}
-        <header className="border-b border-slate-100 bg-slate-50/50 pt-28 pb-8 md:pt-32 md:pb-10">
+        {/* Article Header (Banner with Breadcrumbs inside, Category, Title) */}
+        <header className="border-b border-slate-100 bg-slate-50/50 pt-16 pb-0 md:pt-20 md:pb-4">
           <div className={INNER_PAGE.container}>
             <div className="mx-auto max-w-7xl text-center">
-              {/* Breadcrumbs */}
-              {/* {breadcrumbs.length > 0 && (
-                <nav className={INNER_PAGE.breadcrumb}>
-                  {breadcrumbs.map((crumb, idx) => (
-                    <span key={`${crumb.label}-${idx}`} className="contents">
-                      {idx > 0 && <span className={INNER_PAGE.breadcrumbSep}>/</span>}
-                      {crumb.href ? (
-                        <Link
-                          href={crumb.href}
-                          className={INNER_PAGE.breadcrumbLink}
-                        >
-                          {crumb.label}
-                        </Link>
-                      ) : (
-                        <span className={INNER_PAGE.breadcrumbCurrent}>{crumb.label}</span>
-                      )}
-                    </span>
-                  ))}
-                </nav>
-              )} */}
-
-              {/* Category Tag */}
-              {blog.category && (
-                <span className="mb-3 inline-block rounded-full bg-primary/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary">
-                  {blog.category}
-                </span>
-              )}
-
-              {/* Title */}
-              <h1 className={INNER_PAGE.title}>
-                {blog.title}
-              </h1>
-
-              {/* Hero Banner Image (Clean standalone beneath title & category) */}
+              {/* Hero Banner Image with Breadcrumbs inside */}
               {heroBanner && (
-                <div className={`${INNER_PAGE.container} mt-8 md:mt-10`}>
-                  <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-hidden aspect-[8/3] md:aspect-auto">
-                    <Image
-                      src={heroBanner}
-                      alt={
-                        blog.bannerImageAlt ||
-                        blog.featuredImageAlt ||
-                        blog.title
-                      }
-                      width={1200}
-                      height={290}
-                      priority
-                      sizes="100vw"
-                      className="w-full h-full object-cover object-right md:h-auto md:object-contain"
-                      unoptimized
-                    />
-                  </div>
+                <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-hidden aspect-[8/3] md:aspect-auto mb-6 md:mb-8 mt-3 md:mt-3">
+                  <Image
+                    src={heroBanner}
+                    alt={
+                      blog.bannerImageAlt ||
+                      blog.featuredImageAlt ||
+                      blog.title
+                    }
+                    width={1200}
+                    height={290}
+                    priority
+                    sizes="100vw"
+                    className="w-full h-full object-cover object-right md:h-auto md:object-contain"
+                    unoptimized
+                  />
+                  {breadcrumbs.length > 0 && (
+                    <div className="absolute inset-0 z-10 pointer-events-none">
+                      <div className={`${INNER_PAGE.container} h-full flex items-start justify-start pt-3 sm:pt-4 md:pt-5`}>
+                        <nav className="pointer-events-auto inline-flex items-center gap-2 flex-wrap rounded-full bg-white px-3.5 py-1.5 sm:px-4 sm:py-2 text-[0.82rem] sm:text-[0.85rem] font-medium text-slate-700 shadow-md border border-slate-100">
+                          {breadcrumbs.map((crumb, idx) => (
+                            <span key={`${crumb.label}-${idx}`} className="contents">
+                              {idx > 0 && <span className="text-slate-400">/</span>}
+                              {crumb.href ? (
+                                <Link
+                                  href={crumb.href}
+                                  className="text-slate-600 hover:text-primary transition-colors shrink-0"
+                                >
+                                  {crumb.label}
+                                </Link>
+                              ) : (
+                                <span
+                                  title={crumb.label}
+                                  className="text-slate-900 font-semibold truncate max-w-[160px] sm:max-w-[280px] md:max-w-[420px] lg:max-w-[550px]"
+                                >
+                                  {crumb.label}
+                                </span>
+                              )}
+                            </span>
+                          ))}
+                        </nav>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
 
-              {/* Excerpt / Subtitle */}
-              {/* {blog.excerpt && (
-                <p className="mx-auto mb-6 max-w-3xl text-base font-normal leading-relaxed text-slate-600 md:text-lg">
-                  {blog.excerpt}
-                </p>
-              )} */}
+              {/* Category Tag & Title */}
+              <div className="text-left">
+                {blog.category && (
+                  <span className="mb-3 inline-block rounded-full bg-primary/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                    {blog.category}
+                  </span>
+                )}
 
-              {/* Author & Meta */}
-              {/* <div className="flex items-center justify-center gap-3.5 pt-2">
-                <AuthorAvatar name={authorName} image={authorImage} />
-                <div className="text-left">
-                  <p className="text-sm font-bold leading-tight text-slate-900">
-                    {authorName}
-                  </p>
-                  <div className="mt-1 flex flex-wrap items-center gap-2.5 text-xs font-medium text-slate-500">
-                    <span className="inline-flex items-center gap-1">
-                      <Calendar className="h-3.5 w-3.5 text-primary" />
-                      {formatDate(blog.publishedAt)}
-                    </span>
-                    <span className="h-1 w-1 rounded-full bg-slate-300" />
-                    <span className="inline-flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5 text-primary" />
-                      {readTime} min read
-                    </span>
-                  </div>
-                </div>
-              </div> */}
+                {/* Title */}
+                <h1 className={`${INNER_PAGE.title} text-left`}>
+                  {blog.title}
+                </h1>
+              </div>
             </div>
           </div>
         </header>
-
-        {/* Hero Banner Image (Clean standalone, NO text/content on the image) */}
-        {/* {heroBanner && (
-          <div className={`${INNER_PAGE.container} mt-8 md:mt-10`}>
-            <div className="relative aspect-[2/1] w-full overflow-hidden rounded-2xl border border-slate-100 bg-slate-50 shadow-sm md:rounded-3xl">
-              <Image
-                src={heroBanner}
-                alt={blog.bannerImageAlt || blog.featuredImageAlt || blog.title}
-                fill
-                priority
-                sizes="(max-width: 1200px) 100vw, 1200px"
-                className="object-cover"
-                unoptimized
-              />
-            </div>
-          </div>
-        )} */}
 
         {/* Content Section */}
         <section className={`${INNER_PAGE.section} bg-white pt-8 md:pt-12`}>
@@ -378,18 +346,8 @@ export default async function BlogPostPage({ params }) {
 
               <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                 <div className="lg:col-span-8">
-                  {hasToc && (
-                    <div
-                      className={`mb-8 lg:hidden ${INNER_PAGE.contentPanel}`}
-                    >
-                      <span className={INNER_PAGE.tagline}>
-                        Table of Contents
-                      </span>
-                      <TableOfContents headings={tocHeadings} />
-                    </div>
-                  )}
                   {/* Author & Meta */}
-                  <div className="flex items-start justify-left gap-3.5 pb-6">
+                  <div className="flex items-start justify-start gap-3.5 pb-6">
                     <AuthorAvatar name={authorName} image={authorImage} />
                     <div className="text-left">
                       <p className="text-sm font-bold leading-tight text-slate-900">
@@ -408,6 +366,17 @@ export default async function BlogPostPage({ params }) {
                       </div>
                     </div>
                   </div>
+
+                  {hasToc && (
+                    <div
+                      className={`mb-8 lg:hidden ${INNER_PAGE.contentPanel}`}
+                    >
+                      <span className={INNER_PAGE.tagline}>
+                        Table of Contents
+                      </span>
+                      <TableOfContents headings={tocHeadings} />
+                    </div>
+                  )}
                   <BlogContent
                     content={blog.content}
                     className="w-full max-w-none"

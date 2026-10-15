@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 import InnerPageHero from '../../components/InnerPageHero';
 import GalleryListingView from '../../components/gallery/GalleryListingView';
 import { buildPageMetadata } from '@/lib/pageSeo';
-import { getPublishedAlbums } from '@/lib/gallery';
+import { getPublishedAlbums, getGalleryCategories } from '@/lib/gallery';
 import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
 
 const WhatsAppFloat = dynamic(() => import('../../components/WhatsAppFloat'));
@@ -15,7 +15,10 @@ export async function generateMetadata() {
 }
 
 export default async function GalleryIndexPage() {
-  const albums = await getPublishedAlbums();
+  const [albums, categories] = await Promise.all([
+    getPublishedAlbums(),
+    getGalleryCategories(),
+  ]);
 
   return (
     <>
@@ -55,7 +58,7 @@ export default async function GalleryIndexPage() {
                 </p>
               </div>
             ) : (
-              <GalleryListingView albums={albums} />
+              <GalleryListingView albums={albums} categories={categories} />
             )}
           </div>
         </section>
