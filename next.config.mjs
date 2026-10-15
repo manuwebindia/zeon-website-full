@@ -2,6 +2,7 @@
 const nextConfig = {
   serverExternalPackages: ['@prisma/client', 'prisma'],
   images: {
+    formats: ['image/avif', 'image/webp'],
     qualities: [100, 75, 70],
     remotePatterns: [
       {
