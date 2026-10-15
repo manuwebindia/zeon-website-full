@@ -53,6 +53,25 @@ export function saveGoogleReviewsData(data) {
 }
 
 /**
+ * Optimizes Google User Content avatar URLs down from high-res (e.g. s1920) to tiny thumbnail sizes (e.g. s80)
+ */
+export function optimizeGooglePhotoUrl(url, size = 80) {
+  if (!url || typeof url !== 'string') return '';
+  if (url.includes('googleusercontent.com')) {
+    if (/=s\d+/i.test(url)) {
+      return url.replace(/=s\d+[^"]*/i, `=s${size}-c-rp-mo`);
+    } else if (/=w\d+/i.test(url)) {
+      return url.replace(/=w\d+[^"]*/i, `=s${size}-c-rp-mo`);
+    } else if (url.includes('=')) {
+      return url.split('=')[0] + `=s${size}-c-rp-mo`;
+    } else {
+      return `${url}=s${size}-c-rp-mo`;
+    }
+  }
+  return url;
+}
+
+/**
  * Normalizes review from either Legacy Places API or Places API (New)
  */
 function normalizeReview(r) {
@@ -60,7 +79,7 @@ function normalizeReview(r) {
   if (r.author_name) {
     return {
       authorName: r.author_name,
-      authorPhoto: r.profile_photo_url || '',
+      authorPhoto: optimizeGooglePhotoUrl(r.profile_photo_url || '', 80),
       authorInitial: (r.author_name[0] || 'G').toUpperCase(),
       authorUrl: r.author_url || '',
       rating: r.rating || 5,
@@ -76,7 +95,7 @@ function normalizeReview(r) {
   const text = r.text?.text || r.originalText?.text || (typeof r.text === 'string' ? r.text : '');
   return {
     authorName,
-    authorPhoto: r.authorAttribution?.photoUri || '',
+    authorPhoto: optimizeGooglePhotoUrl(r.authorAttribution?.photoUri || '', 80),
     authorInitial: (authorName[0] || 'G').toUpperCase(),
     authorUrl: r.authorAttribution?.uri || '',
     rating: r.rating || 5,

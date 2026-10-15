@@ -1,12 +1,26 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { FaCheckCircle, FaSpinner } from "react-icons/fa";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug = "" }) {
+  const router = useRouter();
   const [status, setStatus] = useState(""); // "" | "submitting" | "success" | "error"
   const [errorMessage, setErrorMessage] = useState("");
+
+  const allowNameKey = (e) => {
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", " "];
+    if (allowed.includes(e.key)) return;
+    if (!/^[a-zA-Z]$/.test(e.key)) e.preventDefault();
+  };
+
+  const allowPhoneKey = (e) => {
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End"];
+    if (allowed.includes(e.key)) return;
+    if (!/^[0-9]$/.test(e.key)) e.preventDefault();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +85,7 @@ export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug
       if (data.success) {
         setStatus("success");
         e.target.reset();
+        router.push("/thank-you");
       } else {
         setStatus("error");
         setErrorMessage(data.error || "Failed to submit application. Please try again.");
@@ -115,6 +130,7 @@ export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug
               name="name"
               placeholder="Name"
               required
+              onKeyDown={allowNameKey}
               className={inputClass}
             />
           </div>
@@ -135,6 +151,8 @@ export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug
               name="phone"
               placeholder="Phone Number"
               required
+              maxLength={10}
+              onKeyDown={allowPhoneKey}
               className={inputClass}
             />
           </div>

@@ -41,7 +41,7 @@ export default function ThankYouPage() {
             </h1>
             
             <p className="text-[1.15rem] text-body leading-relaxed font-medium mb-10 max-w-[600px] mx-auto">
-              Your submission has been successfully received. Our admission team will contact you shortly with the next steps.
+              Your submission has been successfully received. Our team will contact you shortly with the next steps.
             </p>
             
             <Link 

@@ -48,15 +48,36 @@ const AVATAR_BG_COLORS = [
   "bg-[#0891B2]", // Cyan
 ];
 
+function optimizeAvatarUrl(url, size = 80) {
+  if (!url || typeof url !== 'string') return '';
+  if (url.includes('googleusercontent.com')) {
+    if (/=s\d+/i.test(url)) {
+      return url.replace(/=s\d+[^"]*/i, `=s${size}-c-rp-mo`);
+    } else if (/=w\d+/i.test(url)) {
+      return url.replace(/=w\d+[^"]*/i, `=s${size}-c-rp-mo`);
+    } else if (url.includes('=')) {
+      return url.split('=')[0] + `=s${size}-c-rp-mo`;
+    } else {
+      return `${url}=s${size}-c-rp-mo`;
+    }
+  }
+  return url;
+}
+
 function ReviewAvatar({ photo, name, initial, colorClass }) {
   const [imgError, setImgError] = useState(false);
 
   if (photo && !imgError) {
+    const optimizedSrc = optimizeAvatarUrl(photo, 80);
     return (
-      <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-[#E2E8F0]">
+      <div className="relative w-10 h-10 rounded-full overflow-hidden shrink-0 border border-[#E2E8F0] bg-slate-100">
         <img
-          src={photo}
+          src={optimizedSrc}
           alt={name || "Reviewer"}
+          width={40}
+          height={40}
+          loading="lazy"
+          decoding="async"
           referrerPolicy="no-referrer"
           onError={() => setImgError(true)}
           className="w-full h-full object-cover"

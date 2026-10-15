@@ -20,7 +20,7 @@ import ApplyEasyForm from "@/components/ApplyEasyForm";
 import BlogContent from "@/components/BlogContent";
 import { getJobBySlug, getApprovedJobs, mapJobToVacancy, getAllApprovedJobSlugs } from "@/lib/jobs";
 import { getPublishedPageBySlug } from "@/lib/pages";
-import { INNER_PAGE } from "@/lib/designLanguage";
+import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 const WhatsAppFloat = dynamic(() => import("@/components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("@/components/BookDemoModal"));
@@ -412,9 +412,9 @@ export default async function PlacementJobInnerPage({ params }) {
                       {job.phone && (
                         <a
                           href={`tel:+91${job.phone.replace(/[^0-9]/g, "")}`}
-                          className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl border border-border hover:border-heading text-heading font-semibold text-[0.88rem] transition-colors"
+                          className={`flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl font-bold text-[0.88rem] transition-all duration-200 bg-transparent border-2 border-black/50 text-heading ${COURSE_CARD_BUTTON_THEME.btnDetails}`}
                         >
-                          <FaPhoneAlt className="text-xs text-body/60" />
+                          <FaPhoneAlt className="text-xs transition-colors" />
                           Call HR Directly
                         </a>
                       )}

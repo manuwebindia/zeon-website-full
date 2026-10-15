@@ -40,8 +40,8 @@ const STATUS_COLORS  = {
   new: 'primary', contacted: 'warning', converted: 'success', closed: 'default',
 };
 
-const SOURCE_COLORS = { contact: 'info', pricing: 'secondary' };
-const SOURCE_LABELS = { contact: 'Contact Form', pricing: 'Pricing Form' };
+const SOURCE_COLORS = { contact: 'info', pricing: 'secondary', job_application: 'success' };
+const SOURCE_LABELS = { contact: 'Contact Form', pricing: 'Pricing Form', job_application: 'Job Application' };
 
 const PLAN_LABELS = { basic: 'Basic', intermediate: 'Intermediate', premium: 'Premium', custom: 'Custom' };
 
@@ -231,7 +231,7 @@ export default function ContactLeadsPage() {
             <Chip label={`${total} total`} size="small" sx={{ fontWeight: 600, fontSize: '0.7rem' }} />
           </Box>
           <Typography variant="body2" color="text.secondary">
-            Enquiries submitted via the Contact Form and Pricing Form.
+            Enquiries and job applications submitted via the website.
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 1 }}>
@@ -291,7 +291,7 @@ export default function ContactLeadsPage() {
           <IconInbox size={48} style={{ color: '#CBD5E1', marginBottom: '12px' }} />
           <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>No leads yet</Typography>
           <Typography variant="body2" color="text.secondary">
-            Contact and pricing form submissions will appear here.
+            Contact, pricing, and job application submissions will appear here.
           </Typography>
         </Paper>
       ) : (
@@ -302,7 +302,7 @@ export default function ContactLeadsPage() {
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Name</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Phone / Email</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Source</TableCell>
-                <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Message</TableCell>
+                <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Requirement / Position</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem', minWidth: 140 }}>Status</TableCell>
                 <TableCell sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Date</TableCell>
                 <TableCell align="right" sx={{ fontWeight: 700, fontSize: '0.78rem' }}>Actions</TableCell>
@@ -341,6 +341,28 @@ export default function ContactLeadsPage() {
                         {lead.budget && (
                           <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.72rem' }}>
                             ₹{Number(lead.budget).toLocaleString('en-IN')}
+                          </Typography>
+                        )}
+                      </Box>
+                    ) : lead.source === 'job_application' ? (
+                      <Box>
+                        <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '0.82rem', color: 'primary.main' }}>
+                          {lead.service || 'Job Application'}
+                        </Typography>
+                        {lead.message && (
+                          <Typography
+                            variant="caption"
+                            color="text.secondary"
+                            title={lead.message.trim()}
+                            sx={{
+                              fontSize: '0.72rem',
+                              display: '-webkit-box',
+                              WebkitLineClamp: 1,
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden',
+                            }}
+                          >
+                            {lead.message.trim()}
                           </Typography>
                         )}
                       </Box>
@@ -459,6 +481,17 @@ export default function ContactLeadsPage() {
                   <Box>
                     <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', fontSize: '0.65rem' }}>Message</Typography>
                     <Typography variant="body2" sx={{ mt: 0.3, whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{detailLead.message || '—'}</Typography>
+                  </Box>
+                ) : detailLead.source === 'job_application' ? (
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+                    <Box>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', fontSize: '0.65rem' }}>Position / Role</Typography>
+                      <Typography variant="body2" sx={{ mt: 0.3, fontWeight: 600, color: 'primary.main' }}>{detailLead.service || '—'}</Typography>
+                    </Box>
+                    <Box>
+                      <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', textTransform: 'uppercase', fontSize: '0.65rem' }}>Message / Cover Note</Typography>
+                      <Typography variant="body2" sx={{ mt: 0.3, whiteSpace: 'pre-wrap', lineHeight: 1.6 }}>{detailLead.message || '—'}</Typography>
+                    </Box>
                   </Box>
                 ) : (
                   <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>

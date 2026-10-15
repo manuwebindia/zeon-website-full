@@ -55,10 +55,11 @@ export async function GET(request) {
     // ── CSV export ──────────────────────────────────────────────────────────
     if (format === 'csv') {
       const rows = [
-        ['ID', 'Name', 'Phone', 'Email', 'Source', 'Message', 'Plan', 'Budget', 'Status', 'Created At'],
+        ['ID', 'Name', 'Phone', 'Email', 'Source', 'Position / Service', 'Message', 'Plan', 'Budget', 'Status', 'Created At'],
         ...leads.map((l) => [
           l.id, l.name, l.phone, l.email || '', l.source,
-          l.message || l.requirement || l.service || '',
+          l.service || '',
+          l.message || l.requirement || '',
           l.plan || '', l.budget || '', l.status,
           new Date(l.createdAt).toLocaleString('en-IN'),
         ]),

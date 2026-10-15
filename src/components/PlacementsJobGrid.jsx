@@ -84,7 +84,7 @@ export default function PlacementsJobGrid({ jobs = [] }) {
                 <Link
                   href={detailHref}
                   onClick={(e) => e.stopPropagation()}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl font-bold text-[0.88rem] transition-all duration-200 ${COURSE_CARD_BUTTON_THEME.btnNormal}`}
+                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl font-bold text-[0.88rem] transition-all duration-200 bg-transparent border-2 border-black/50 text-heading ${COURSE_CARD_BUTTON_THEME.btnDetails}`}
                 >
                   View Details
                   <FaArrowRight className="text-[0.7rem] group-hover:translate-x-0.5 transition-transform" />
