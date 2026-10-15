@@ -465,7 +465,7 @@ export default async function PlacementJobInnerPage({ params }) {
                     href={`/placement-cell/${item.slug || item.id}`}
                     className={`group ${INNER_PAGE.card} p-5 hover:-translate-y-0.5 flex flex-col`}
                   >
-                    <div className="text-[0.75rem] uppercase font-semibold text-body/60 tracking-wider mb-2">
+                    <div className="text-[0.75rem] uppercase font-semibold text-[#333333] tracking-wider mb-2">
                       {item.company}
                     </div>
 
@@ -473,8 +473,8 @@ export default async function PlacementJobInnerPage({ params }) {
                       {item.title}
                     </h3>
 
-                    <p className="text-[0.82rem] text-body/70 mb-3 flex items-center gap-1.5">
-                      <FaMapMarkerAlt className="text-body/50 text-[0.75rem]" />
+                    <p className="text-[0.82rem] text-primary mb-3 flex items-center gap-1.5 font-medium">
+                      <FaMapMarkerAlt className="text-primary text-[0.75rem]" />
                       {item.location}
                     </p>
 
@@ -482,7 +482,7 @@ export default async function PlacementJobInnerPage({ params }) {
                       {item.description}
                     </p>
 
-                    <div className="mt-auto flex items-center text-[0.85rem] font-semibold text-heading group-hover:text-heading transition-colors">
+                    <div className="mt-auto flex items-center text-[0.85rem] font-semibold text-heading group-hover:text-primary transition-colors">
                       View Position <FaArrowRight className="ml-1.5 text-xs group-hover:translate-x-1 transition-transform" />
                     </div>
                   </Link>

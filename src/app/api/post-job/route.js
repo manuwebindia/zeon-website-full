@@ -21,12 +21,33 @@ export async function POST(request) {
     }
 
     const secretKey = process.env.RECAPTCHA_SECRET_KEY;
-    const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
-    const recaptchaRes = await fetch(verifyUrl, { method: "POST" });
-    const recaptchaData = await recaptchaRes.json();
+    if (secretKey) {
+      try {
+        const recaptchaRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            secret: secretKey,
+            response: recaptchaToken,
+          }),
+        });
+        const recaptchaData = await recaptchaRes.json();
 
-    if (!recaptchaData.success || recaptchaData.score < 0.5 || recaptchaData.action !== "post_job") {
-      return Response.json({ success: false, error: "Security check failed." }, { status: 400 });
+        if (!recaptchaData.success) {
+          console.error("[post-job api] reCAPTCHA verification failed:", recaptchaData);
+          return Response.json({ success: false, error: "Security check failed." }, { status: 400 });
+        }
+
+        // For v3, only block if explicitly flagged as bot (score < 0.3)
+        if (typeof recaptchaData.score === "number" && recaptchaData.score < 0.3) {
+          console.warn("[post-job api] reCAPTCHA low score:", recaptchaData.score);
+          return Response.json({ success: false, error: "Security check failed." }, { status: 400 });
+        }
+      } catch (recaptchaErr) {
+        console.error("[post-job api] reCAPTCHA network error:", recaptchaErr);
+      }
+    } else {
+      console.warn("[post-job api] RECAPTCHA_SECRET_KEY is not defined in environment variables.");
     }
 
     const prisma = getPrismaClient();

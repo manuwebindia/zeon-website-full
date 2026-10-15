@@ -20,10 +20,24 @@ export async function POST(request) {
     // Optional reCAPTCHA verification if token provided
     if (recaptchaToken && process.env.RECAPTCHA_SECRET_KEY) {
       try {
-        const verifyUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`;
-        const recaptchaRes = await fetch(verifyUrl, { method: "POST" });
+        const recaptchaRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            secret: process.env.RECAPTCHA_SECRET_KEY,
+            response: recaptchaToken,
+          }),
+        });
         const recaptchaData = await recaptchaRes.json();
-        if (recaptchaData.success === false && recaptchaData.score < 0.3) {
+        if (!recaptchaData.success) {
+          console.error("[job-apply api] reCAPTCHA verification failed:", recaptchaData);
+          return Response.json(
+            { success: false, error: "Security check failed (Bot activity detected)." },
+            { status: 400 }
+          );
+        }
+        if (typeof recaptchaData.score === "number" && recaptchaData.score < 0.3) {
+          console.warn("[job-apply api] reCAPTCHA low score:", recaptchaData.score);
           return Response.json(
             { success: false, error: "Security check failed (Bot activity detected)." },
             { status: 400 }
