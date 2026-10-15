@@ -16,7 +16,7 @@ export default function DemoSection() {
             Try Before You Commit
           </span>
           <h2 className="text-[clamp(2.2rem,4vw,3rem)] font-extrabold text-heading mb-4 leading-tight">
-            Experience Zeon Academy{" "}
+            Join Our Free Live Demo Class{" "}
             <span className="text-primary">Before You Enroll</span>
           </h2>
           <p className="text-[1.15rem] text-body leading-relaxed font-medium">
