@@ -134,7 +134,7 @@ export default function HeroSection({ nextBatchDate }) {
                   {/* Floating Overlay Badge on Bottom Left of Image & Dots on Right */}
                   <div className="absolute bottom-4 left-5 right-5 text-white z-10 flex items-center justify-between">
                     <span className="flex items-center gap-2 text-white font-extrabold text-[1.15rem] drop-shadow-md">
-                      <FiClock className="text-primary text-[1.4rem]" strokeWidth={2.5} /> 2-Month AI Marketing Course
+                      <FiClock className="text-primary text-[1.4rem]" strokeWidth={2.5} /> 2-Month AI Digital Marketing
                     </span>
 
                     {/* Autoplay Slide Indicator Dots */}

@@ -2,15 +2,13 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaImages, FaVideo } from 'react-icons/fa';
+import { FaImages } from 'react-icons/fa';
 import ScrollReveal from '../ScrollReveal';
 import { formatGalleryDate } from '@/lib/galleryFormat';
 
 export default function GalleryAlbumCard({ album, index = 0 }) {
   const cover = album.coverImage || album.images?.[0]?.src || album.images?.[0]?.thumbnail;
   const rawImages = album.images || [];
-  const videosCount = rawImages.filter((i) => i.type === 'video').length;
-  const photosCount = (album._count?.images ?? rawImages.length) - videosCount;
   const totalCount = album._count?.images ?? rawImages.length;
   const dateLabel = formatGalleryDate(album.eventDate || album.publishedAt);
 
@@ -36,19 +34,6 @@ export default function GalleryAlbumCard({ album, index = 0 }) {
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-[#161B2A]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          {album.category && (
-            <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-heading/80 backdrop-blur-sm text-white text-[0.7rem] font-bold tracking-wide uppercase shadow-sm">
-              {album.category}
-            </div>
-          )}
-
-          {videosCount > 0 && (
-            <div className="absolute top-3 right-3 px-2 py-1 rounded-full bg-red-600/90 backdrop-blur-sm text-white text-[0.7rem] font-bold flex items-center gap-1 shadow-sm">
-              <FaVideo className="text-[0.65rem]" />
-              <span>Video</span>
-            </div>
-          )}
         </div>
 
         <div className="p-5 md:p-6 flex flex-col flex-grow justify-between">
@@ -67,9 +52,7 @@ export default function GalleryAlbumCard({ album, index = 0 }) {
             {dateLabel && <span>{dateLabel}</span>}
             {dateLabel && <span className="text-body/40">•</span>}
             <span>
-              {videosCount > 0
-                ? `${photosCount > 0 ? `${photosCount} photo${photosCount === 1 ? '' : 's'} · ` : ''}${videosCount} video${videosCount === 1 ? '' : 's'}`
-                : `${totalCount} photo${totalCount === 1 ? '' : 's'}`}
+              {totalCount} photo{totalCount === 1 ? '' : 's'}
             </span>
           </div>
         </div>

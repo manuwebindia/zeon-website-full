@@ -5,7 +5,7 @@ import Footer from '../../components/Footer';
 import InnerPageHero from '../../components/InnerPageHero';
 import GalleryListingView from '../../components/gallery/GalleryListingView';
 import { buildPageMetadata } from '@/lib/pageSeo';
-import { getPublishedAlbums, getGalleryCategories } from '@/lib/gallery';
+import { getPublishedAlbums } from '@/lib/gallery';
 import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
 
 const WhatsAppFloat = dynamic(() => import('../../components/WhatsAppFloat'));
@@ -15,10 +15,7 @@ export async function generateMetadata() {
 }
 
 export default async function GalleryIndexPage() {
-  const [albums, categories] = await Promise.all([
-    getPublishedAlbums(),
-    getGalleryCategories(),
-  ]);
+  const albums = await getPublishedAlbums();
 
   return (
     <>
@@ -36,7 +33,7 @@ export default async function GalleryIndexPage() {
           tagline="Memories from the Lens"
           title={
             <>
-              Photo & Video
+              Photo
               <br />
               <span className="text-primary">Gallery</span>
             </>
@@ -58,7 +55,7 @@ export default async function GalleryIndexPage() {
                 </p>
               </div>
             ) : (
-              <GalleryListingView albums={albums} categories={categories} />
+              <GalleryListingView albums={albums} />
             )}
           </div>
         </section>

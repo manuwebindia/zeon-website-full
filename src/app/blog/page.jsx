@@ -1,10 +1,12 @@
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import InnerPageHero from '@/components/InnerPageHero';
 import BlogPagination from '@/components/BlogPagination';
 import BlogArchiveToolbar from '@/components/blog/BlogArchiveToolbar';
 import { BlogArchiveCard } from '@/components/blog/BlogArchiveCard';
+import BookDemoButton from '@/components/BookDemoButton';
 import {
   getBlogArchiveCategories,
   queryBlogArchive,
@@ -13,6 +15,9 @@ import {
 import { buildPageMetadata } from '@/lib/pageSeo';
 import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
 import { ArrowRight, BookOpen } from 'lucide-react';
+
+const BookDemoModal = dynamic(() => import('@/components/BookDemoModal'));
+const WhatsAppFloat = dynamic(() => import('@/components/WhatsAppFloat'));
 
 export const revalidate = 60;
 
@@ -40,6 +45,8 @@ export default async function BlogListingPage({ searchParams }) {
   return (
     <>
       <Navbar />
+      <WhatsAppFloat />
+      <BookDemoModal />
 
       <main className="bg-white">
         <InnerPageHero
@@ -114,15 +121,15 @@ export default async function BlogListingPage({ searchParams }) {
                     Practical training, real internships, and placement support at Zeon Academy — Kerala&apos;s #1 digital marketing institute.
                   </p>
                   <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-bold text-white transition hover:bg-primary-hover"
+                    <BookDemoButton
+                      courseName="Enrollment Inquiry"
+                      className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-bold text-white transition hover:bg-primary-hover cursor-pointer"
                     >
                       Enroll Now
                       <ArrowRight className="h-4 w-4" />
-                    </Link>
+                    </BookDemoButton>
                     <Link
-                      href="/courses"
+                      href="/course"
                       className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 py-3 text-sm font-bold text-white transition hover:bg-white/15"
                     >
                       Explore Courses
