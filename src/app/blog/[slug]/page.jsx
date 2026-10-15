@@ -266,7 +266,7 @@ export default async function BlogPostPage({ params }) {
           <div className={INNER_PAGE.container}>
             <div className="mx-auto max-w-7xl text-center">
               {/* Breadcrumbs */}
-              {breadcrumbs.length > 0 && (
+              {/* {breadcrumbs.length > 0 && (
                 <nav className={INNER_PAGE.breadcrumb}>
                   {breadcrumbs.map((crumb, idx) => (
                     <span key={`${crumb.label}-${idx}`} className="contents">
@@ -284,7 +284,7 @@ export default async function BlogPostPage({ params }) {
                     </span>
                   ))}
                 </nav>
-              )}
+              )} */}
 
               {/* Category Tag */}
               {blog.category && (
