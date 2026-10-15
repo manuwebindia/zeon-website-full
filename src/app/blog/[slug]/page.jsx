@@ -15,6 +15,7 @@ import { buildJsonLdList } from "@/lib/schemaBuilder";
 import { extractHeadings } from "@/lib/tocUtils";
 import { INNER_PAGE, INNER_HERO_BANNERS } from "@/lib/designLanguage";
 import { Calendar, Clock } from "lucide-react";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export const dynamicParams = true;
 export const revalidate = 60;
@@ -69,7 +70,7 @@ export async function generateMetadata({ params }) {
 
   const title = blog.seoTitle || blog.title;
   const description = blog.seoDescription || blog.excerpt || "";
-  const domain = process.env.SITE_URL || "https://admission.zeonacademy.com";
+  const domain = getSiteUrl();
   const url = `${domain}/blog/${blog.slug}`;
   const canonical = blog.canonicalUrl || url;
   const imageUrl = blog.featuredImage

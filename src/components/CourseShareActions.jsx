@@ -16,6 +16,7 @@ import {
   FaArrowRight,
   FaShare,
 } from "react-icons/fa";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 const WHATSAPP_PHONE = "917558888252";
 
@@ -59,7 +60,7 @@ export default function CourseShareActions({
     if (typeof window !== "undefined") {
       return `${window.location.origin}/course/${courseSlug}`;
     }
-    return `https://admission.zeonacademy.com/course/${courseSlug}`;
+    return `${getSiteUrl()}/course/${courseSlug}`;
   };
 
   const getWhatsAppReferMessage = () => {

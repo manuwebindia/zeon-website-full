@@ -11,6 +11,7 @@ import {
   ListItemText,
 } from '@mui/material';
 import { IconCircleCheck, IconCircleX, IconCircleMinus } from '@tabler/icons-react';
+import { getSiteUrl } from '@/lib/siteUrl';
 
 // Strip HTML tags from rich text block content
 function stripHtml(html = '') {
@@ -36,7 +37,7 @@ function getFirstParagraph(content = []) {
 function checkLinks(content = []) {
   let hasInternal = false;
   let hasExternal = false;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://admission.zeonacademy.com';
+  const siteUrl = getSiteUrl();
 
   content
     .filter((b) => b.type === 'text' && b.html)

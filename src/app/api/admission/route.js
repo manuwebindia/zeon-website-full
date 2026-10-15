@@ -1,6 +1,7 @@
 export const runtime = "nodejs";
 
 import nodemailer from "nodemailer";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 
 export async function POST(request) {
@@ -64,7 +65,7 @@ export async function POST(request) {
     
     <!-- HEADER FIX: CSS Classes applied + slightly offset gradient (#2d2e2e to #2d2e2f) -->
     <div class="locked-bg" style="background-color:#2d2e2e; background-image:linear-gradient(to bottom, #2d2e2e, #2d2e2f); padding:24px 32px;">
-      <img src="https://admission.zeonacademy.com/zeon-logo.png" alt="Zeon Academy" style="display:block; max-width:150px; height:auto; border:0; margin-bottom:16px;">
+      <img src="${getSiteUrl()}/zeon-logo.png" alt="Zeon Academy" style="display:block; max-width:150px; height:auto; border:0; margin-bottom:16px;">
       
       <h2 class="locked-text-white" style="margin:0; font-size:1.4rem; color:#ffffff;">New Consultation Request</h2>
       <p class="locked-text-pink" style="margin:6px 0 0; font-size:0.9rem; color:#ffc7c7;">Via Zeon Academy Website Landing Page</p>

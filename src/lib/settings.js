@@ -1,14 +1,11 @@
 import fs from 'fs/promises';
 import path from 'path';
+import { getSiteUrl } from './siteUrl';
 
 const SETTINGS_FILE_PATH = path.join(process.cwd(), 'src/data/settings.json');
 
 export function getDefaultAdminLoginUrl() {
-  const base =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.SITE_URL ||
-    'https://admission.zeonacademy.com';
-  return `${base.replace(/\/$/, '')}/admin`;
+  return `${getSiteUrl()}/admin`;
 }
 
 export async function readSettings() {

@@ -1,6 +1,7 @@
 export const runtime = "nodejs";
 
 import nodemailer from "nodemailer";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export async function POST(request) {
   try {
@@ -58,7 +59,7 @@ export async function POST(request) {
   <div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background-color:#ffffff;">
     
     <div class="locked-bg" style="background-color:#2d2e2e; background-image:linear-gradient(to bottom, #2d2e2e, #2d2e2f); padding:24px 32px;">
-      <img src="https://admission.zeonacademy.in/zeon-logo.png" alt="Zeon Academy" style="display:block; max-width:150px; height:auto; border:0; margin-bottom:16px;">
+      <img src="${getSiteUrl()}/zeon-logo.png" alt="Zeon Academy" style="display:block; max-width:150px; height:auto; border:0; margin-bottom:16px;">
       <h2 class="locked-text-white" style="margin:0; font-size:1.4rem; color:#ffffff;">New Brochure Download</h2>
       <p class="locked-text-pink" style="margin:6px 0 0; font-size:0.9rem; color:#ffc7c7;">Via Zeon Academy Website</p>
     </div>

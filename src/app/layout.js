@@ -6,6 +6,7 @@ import OfferPopup from "@/components/OfferPopup";
 import LegalModal from "@/components/LegalModal";
 import DownloadBrochureModal from "@/components/DownloadBrochureModal";
 import { buildPageMetadata } from "@/lib/pageSeo";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,13 +15,12 @@ const inter = Inter({
   display: "swap",
 });
 
-const SITE_URL = "https://admission.zeonacademy.com";
-
 export async function generateMetadata() {
+  const siteUrl = getSiteUrl();
   const homeMeta = await buildPageMetadata("/");
 
   return {
-    metadataBase: new URL(SITE_URL),
+    metadataBase: new URL(siteUrl),
     title: {
       default: homeMeta.title,
       template: "%s | Zeon Academy",

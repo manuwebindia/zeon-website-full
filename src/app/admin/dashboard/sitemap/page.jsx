@@ -551,7 +551,7 @@ export default function SitemapPage() {
                   globalSettings: { ...prev.globalSettings, canonicalBaseUrl: e.target.value },
                 }))
               }
-              placeholder="https://admission.zeonacademy.com"
+              placeholder="https://www.zeonacademy.com"
               helperText="Used to generate default canonical tags."
               slotProps={{
                 helperText: { sx: { fontSize: '0.73rem' } }

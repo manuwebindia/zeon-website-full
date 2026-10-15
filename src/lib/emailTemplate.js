@@ -6,13 +6,7 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
-function getSiteUrl() {
-  return (
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.SITE_URL ||
-    'https://admission.zeonacademy.com'
-  ).replace(/\/$/, '');
-}
+import { getSiteUrl } from './siteUrl';
 
 /**
  * Shared Zeon email layout used across contact forms and admin notifications.

@@ -5,6 +5,7 @@ import { readSettings } from '@/lib/settings';
 import { getActiveOfferSlugs } from '@/lib/offers';
 import { getPublishedAlbumSlugs } from '@/lib/gallery';
 import { getPublishedPageSlugs } from '@/lib/pages';
+import { getSiteUrl, DEFAULT_SITE_URL } from '@/lib/siteUrl';
 
 const CONFIG_PATH = path.join(process.cwd(), 'src/data/sitemap-config.json');
 const PAGE_SEO_PATH = path.join(process.cwd(), 'src/data/page-seo.json');
@@ -29,7 +30,7 @@ export const DEFAULT_SITEMAP_CONFIG = {
     { path: '/thank-you', changeFrequency: 'yearly', priority: 0.3, enabled: false, canonical: '' },
   ],
   blogDefaults: { changeFrequency: 'weekly', priority: 0.6 },
-  globalSettings: { canonicalBaseUrl: 'https://admission.zeonacademy.com' },
+  globalSettings: { canonicalBaseUrl: DEFAULT_SITE_URL },
 };
 
 export async function readSitemapConfig() {
@@ -70,12 +71,15 @@ function isStaticPageIndexable(pagePath, pageSeoOverrides) {
 }
 
 export function getSitemapBaseUrl(config) {
-  return (
-    config?.globalSettings?.canonicalBaseUrl ||
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.SITE_URL ||
-    'https://admission.zeonacademy.com'
-  ).replace(/\/$/, '');
+  const envUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.SITE_URL;
+  if (envUrl) return envUrl.replace(/\/$/, '');
+
+  const configUrl = config?.globalSettings?.canonicalBaseUrl;
+  if (configUrl && !configUrl.includes('admission.zeonacademy')) {
+    return configUrl.replace(/\/$/, '');
+  }
+
+  return getSiteUrl();
 }
 
 export async function getPublishedBlogEntries() {

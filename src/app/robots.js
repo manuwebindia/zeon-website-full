@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-
-const SITE_URL = "https://admission.zeonacademy.com";
+import { getSiteUrl } from '@/lib/siteUrl';
 
 export default function robots() {
+  const siteUrl = getSiteUrl();
   let universalNoIndex = false;
   
   try {
@@ -34,6 +34,6 @@ export default function robots() {
         disallow: ["/admin", "/api/admin", "/api/", "/thank-you"],
       },
     ],
-    sitemap: `${SITE_URL}/sitemap.xml`,
+    sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

@@ -2,10 +2,17 @@
 // Generates JSON-LD structured data objects for blog posts
 
 import { normalizeSchemaBlocks } from './schemaBlocks';
+import { getSiteUrl } from './siteUrl';
 
-const DOMAIN = process.env.SITE_URL || 'https://admission.zeonacademy.com';
-const LOGO_URL = `${DOMAIN}/zeon-logo.png`;
 const ORG_NAME = 'Zeon Academy';
+
+function getDomain() {
+  return getSiteUrl();
+}
+
+function getLogoUrl() {
+  return `${getDomain()}/zeon-logo.png`;
+}
 
 function toISO(date) {
   if (!date) return undefined;
@@ -16,21 +23,27 @@ function toISO(date) {
   }
 }
 
-const PUBLISHER = {
-  '@type': 'Organization',
-  name: ORG_NAME,
-  url: DOMAIN,
-  logo: {
-    '@type': 'ImageObject',
-    url: LOGO_URL,
-  },
-};
+function getPublisher() {
+  const domain = getDomain();
+  return {
+    '@type': 'Organization',
+    name: ORG_NAME,
+    url: domain,
+    logo: {
+      '@type': 'ImageObject',
+      url: getLogoUrl(),
+    },
+  };
+}
 
 export function buildArticleSchema(blog) {
-  const articleUrl = `${DOMAIN}/blog/${blog.slug}`;
+  const domain = getDomain();
+  const logoUrl = getLogoUrl();
+  const publisher = getPublisher();
+  const articleUrl = `${domain}/blog/${blog.slug}`;
   const imageUrl = blog.featuredImage
-    ? `${DOMAIN}${blog.featuredImage}`
-    : LOGO_URL;
+    ? `${domain}${blog.featuredImage}`
+    : logoUrl;
 
   return {
     '@context': 'https://schema.org',
@@ -44,8 +57,8 @@ export function buildArticleSchema(blog) {
     image: imageUrl,
     datePublished: toISO(blog.publishedAt),
     dateModified: toISO(blog.updatedAt),
-    author: PUBLISHER,
-    publisher: PUBLISHER,
+    author: publisher,
+    publisher: publisher,
   };
 }
 
@@ -83,9 +96,11 @@ export function buildHowToSchema(blog, { fallbackToArticle = true } = {}) {
     return fallbackToArticle ? buildArticleSchema(blog) : null;
   }
 
+  const domain = getDomain();
+  const logoUrl = getLogoUrl();
   const imageUrl = blog.featuredImage
-    ? `${DOMAIN}${blog.featuredImage}`
-    : LOGO_URL;
+    ? `${domain}${blog.featuredImage}`
+    : logoUrl;
 
   return {
     '@context': 'https://schema.org',

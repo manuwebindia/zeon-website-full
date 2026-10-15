@@ -109,7 +109,7 @@ export default function SocialFields({
             variant="outlined"
             value={canonicalUrl || ''}
             onChange={(e) => onChange('canonicalUrl', e.target.value)}
-            placeholder="https://admission.zeonacademy.com/blog/your-slug"
+            placeholder="https://www.zeonacademy.com/blog/your-slug"
             helperText="Auto-generated from slug. Override only if republishing content from another source."
           />
 
