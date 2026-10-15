@@ -198,13 +198,13 @@ export default function AdvancedDigitalMarketingPage() {
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
                           <FaCheckCircle className="text-blue-600 text-sm" />
                         </div>
-                        2 months classes
+                        2 Months Classes
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
                           <FaCheckCircle className="text-blue-600 text-sm" />
                         </div>
-                        1 months internship
+                        1 Month Internship
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
                         <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
