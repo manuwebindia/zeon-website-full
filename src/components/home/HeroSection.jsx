@@ -132,13 +132,14 @@ export default function HeroSection({ nextBatchDate }) {
                   <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-black/90 via-black/40 to-transparent pointer-events-none z-[5]" />
                   
                   {/* Floating Overlay Badge on Bottom Left of Image & Dots on Right */}
-                  <div className="absolute bottom-4 left-5 right-5 text-white z-10 flex items-center justify-between">
-                    <span className="flex items-center gap-2 text-white font-extrabold text-[1.15rem] drop-shadow-md">
-                      <FiClock className="text-primary text-[1.4rem]" strokeWidth={2.5} /> 2-Month AI Digital Marketing
+                  <div className="absolute bottom-3 sm:bottom-4 left-3.5 right-3.5 sm:left-5 sm:right-5 text-white z-10 flex items-center justify-between gap-2">
+                    <span className="flex items-center gap-1.5 sm:gap-2 text-white font-extrabold text-[0.82rem] xs:text-[0.92rem] sm:text-[1.15rem] drop-shadow-md whitespace-nowrap min-w-0">
+                      <FiClock className="text-primary text-[1.15rem] sm:text-[1.4rem] shrink-0" strokeWidth={2.5} />
+                      <span className="truncate sm:overflow-visible">2-Month AI Digital Marketing</span>
                     </span>
 
                     {/* Autoplay Slide Indicator Dots */}
-                    <div className="flex items-center gap-1.5 bg-black/35 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-white/15">
+                    <div className="flex items-center gap-1 sm:gap-1.5 bg-black/40 backdrop-blur-md px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-full border border-white/15 shrink-0">
                       {HERO_IMAGES.map((_, idx) => (
                         <button
                           key={idx}
@@ -147,7 +148,7 @@ export default function HeroSection({ nextBatchDate }) {
                           aria-label={`Go to image ${idx + 1}`}
                           className={`h-1.5 rounded-full transition-all duration-500 cursor-pointer ${
                             idx === currentImageIndex
-                              ? "w-4 bg-primary"
+                              ? "w-3.5 sm:w-4 bg-primary"
                               : "w-1.5 bg-white/50 hover:bg-white/80"
                           }`}
                         />

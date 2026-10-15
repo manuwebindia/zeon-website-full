@@ -62,14 +62,7 @@ export default async function PlacementsPage() {
                 Live job openings sourced exclusively for Zeon Academy students and alumni. Apply directly through WhatsApp — our placement cell is here to connect you with top companies.
               </p>
 
-              <div className="flex items-center justify-center gap-1.5 mb-3">
-                {[...Array(5)].map((_, i) => (
-                  <FaStar key={i} className="text-[#fbbf24] text-xl" />
-                ))}
-              </div>
-              <p className="text-black/80 text-[0.9rem] font-semibold">
-                Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
-              </p>
+              
             </div>
           </div>
         </section>

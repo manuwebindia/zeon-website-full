@@ -165,16 +165,19 @@ model RateLimit {
 // ── Job Postings (employer submissions → admin approval → placements) ─────────
 model JobPosting {
   id             String    @id @default(cuid())
+  slug           String?   @unique
   companyName    String    @map("company_name")
   companyLogo    String?   @map("company_logo")
   jobTitle       String    @map("job_title")
   phone          String
   location       String?
   aboutCompany   String?   @map("about_company") @db.Text
+  responsibilities String? @db.Text
   skillsRequired String?   @map("skills_required") @db.Text
   eligibility    String?   @db.Text
   jobTypes       String?   @map("job_types")
   shiftSchedule  String?   @map("shift_schedule")
+  sourceUrl      String?   @map("source_url")
   status         String    @default("pending") // pending | approved | rejected
   approvedAt     DateTime? @map("approved_at")
   rejectedAt     DateTime? @map("rejected_at")

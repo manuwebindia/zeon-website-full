@@ -102,6 +102,28 @@ export async function PATCH(request, { params }) {
     }
   }
 
+  if (body.responsibilities !== undefined) {
+    data.responsibilities = body.responsibilities ? String(body.responsibilities).trim() : null;
+  }
+
+  if (body.sourceUrl !== undefined) {
+    data.sourceUrl = body.sourceUrl ? String(body.sourceUrl).trim() : null;
+  }
+
+  if (body.slug !== undefined) {
+    const rawSlug = String(body.slug).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    if (rawSlug) {
+      const prisma = getPrismaClient();
+      const existing = await prisma.jobPosting.findFirst({
+        where: { slug: rawSlug, NOT: { id } },
+      });
+      if (existing) {
+        return NextResponse.json({ error: 'This slug is already in use by another job posting.' }, { status: 400 });
+      }
+      data.slug = rawSlug;
+    }
+  }
+
   if (body.adminNotes !== undefined) {
     data.adminNotes = body.adminNotes ? String(body.adminNotes).slice(0, 5000) : null;
   }
@@ -114,6 +136,8 @@ export async function PATCH(request, { params }) {
     const prisma = getPrismaClient();
     const job = await prisma.jobPosting.update({ where: { id }, data });
     try {
+      revalidatePath('/placement-cell');
+      if (job.slug) revalidatePath('/placement-cell/' + job.slug);
       revalidatePath('/placements');
     } catch {
       // non-fatal

@@ -48,8 +48,11 @@ const INITIAL_FORM = {
   jobTypes: 'Full-time',
   shiftSchedule: 'Day Shift',
   aboutCompany: '',
+  responsibilities: '',
   skillsRequired: '',
   eligibility: '',
+  sourceUrl: '',
+  slug: '',
   status: 'approved',
   adminNotes: '',
 };
@@ -221,8 +224,11 @@ export default function JobPostingsPage() {
       jobTypes: job.jobTypes || 'Full-time',
       shiftSchedule: job.shiftSchedule || 'Day Shift',
       aboutCompany: job.aboutCompany || '',
+      responsibilities: job.responsibilities || '',
       skillsRequired: job.skillsRequired || '',
       eligibility: job.eligibility || '',
+      sourceUrl: job.sourceUrl || '',
+      slug: job.slug || '',
       status: job.status || 'pending',
       adminNotes: job.adminNotes || '',
     });
@@ -781,6 +787,29 @@ export default function JobPostingsPage() {
               />
             </Box>
 
+            {/* URL Slug */}
+            <Box>
+              <TextField
+                fullWidth
+                label="URL Slug (/placement-cell/[slug])"
+                placeholder="e.g. video-editor-pepebbq"
+                value={formData.slug}
+                onChange={(e) => setFormData((p) => ({ ...p, slug: e.target.value }))}
+                helperText="Used in URL. Auto-generated if left blank."
+              />
+            </Box>
+
+            {/* Source Reference URL / Text */}
+            <Box>
+              <TextField
+                fullWidth
+                label="Job Source Link / Info"
+                placeholder="e.g. View original job page"
+                value={formData.sourceUrl}
+                onChange={(e) => setFormData((p) => ({ ...p, sourceUrl: e.target.value }))}
+              />
+            </Box>
+
             {/* Status */}
             <Box sx={{ gridColumn: { xs: '1', sm: '1 / -1' } }}>
               <FormControl fullWidth>
@@ -805,10 +834,24 @@ export default function JobPostingsPage() {
                 multiline
                 rows={3}
                 label="Job Description / About Company"
-                placeholder="Overview of the company and role responsibilities..."
+                placeholder="Overview of the company and role..."
                 value={formData.aboutCompany}
                 onChange={(e) => setFormData((p) => ({ ...p, aboutCompany: e.target.value }))}
-                helperText="This description is prominently shown on the Placements job card."
+                helperText="This description is prominently shown on the Placements job card and inner page."
+              />
+            </Box>
+
+            {/* Key Responsibilities */}
+            <Box sx={{ gridColumn: { xs: '1', sm: '1 / -1' } }}>
+              <TextField
+                fullWidth
+                multiline
+                rows={4}
+                label="Key Responsibilities"
+                placeholder="• Visit hotels and restaurants...&#10;• Produce Instagram Reels...&#10;• Manage social accounts..."
+                value={formData.responsibilities}
+                onChange={(e) => setFormData((p) => ({ ...p, responsibilities: e.target.value }))}
+                helperText="Bulleted or line-separated list of duties shown in the inner course-style page."
               />
             </Box>
 

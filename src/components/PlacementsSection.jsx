@@ -11,7 +11,7 @@ const placements = [
 
   { name: "Naveen K George", role: "Digital Marketing Executive", company: "INMAKES INFOTECH", image: "/placements/naveen.webp" },
   { name: "Elsa Rose Biju", role: "Content Writer & Creator", company: "NEYNDRA SOLUTIONS", image: "/placements/elsa.webp" },
-  { name: "Saniga Suresh", role: "SEO Executive", company: "REATEAM HACKER ACADEMY", image: "/placements/sanigha.webp" },
+  { name: "Saniga Suresh", role: "SEO Executive", company: "RED TEAM HACKER ACADEMY", image: "/placements/sanigha.webp" },
   { name: "Ann Mariya Sojan", role: "Digital Marketing Executive", company: "AIVES AUSTRALIA", image: "/placements/ann.webp" },
   { name: "Rohit Nair S D", role: "Social Media Marketer", company: "SHIFT AUTOMOTIVE", image: "/placements/rohit.webp" },
   { name: "Micah Mark Shelji", role: "Content Creator cum Video Editor", company: "COVERSUN CURTAINS", image: "/placements/micah.webp" },

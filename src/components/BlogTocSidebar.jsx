@@ -5,7 +5,7 @@ export default function BlogTocSidebar({ headings = [] }) {
   const hasToc = headings.length >= 3;
 
   return (
-    <aside className="hidden lg:col-span-4 lg:block">
+    <aside className="hidden lg:col-span-4 lg:block h-full">
       <div className="blog-toc-sticky sticky top-28 z-10 max-h-[calc(100vh-7rem)] self-start overflow-y-auto overscroll-contain rounded-2xl border border-border bg-white p-6 shadow-card">
         {hasToc ? (
           <>

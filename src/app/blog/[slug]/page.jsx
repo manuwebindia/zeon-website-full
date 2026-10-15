@@ -267,28 +267,40 @@ export default async function BlogPostPage({ params }) {
             <div className="mx-auto max-w-7xl text-center">
               {/* Breadcrumbs */}
               {breadcrumbs.length > 0 && (
-                <nav className="mb-4 flex flex-wrap items-center justify-center gap-2 text-xs font-semibold text-slate-500 md:text-sm">
+                <nav className={INNER_PAGE.breadcrumb}>
                   {breadcrumbs.map((crumb, idx) => (
                     <span key={`${crumb.label}-${idx}`} className="contents">
-                      {idx > 0 && <span className="text-slate-300">/</span>}
+                      {idx > 0 && <span className={INNER_PAGE.breadcrumbSep}>/</span>}
                       {crumb.href ? (
                         <Link
                           href={crumb.href}
-                          className="transition-colors hover:text-primary"
+                          className={INNER_PAGE.breadcrumbLink}
                         >
                           {crumb.label}
                         </Link>
                       ) : (
-                        <span className="text-slate-700">{crumb.label}</span>
+                        <span className={INNER_PAGE.breadcrumbCurrent}>{crumb.label}</span>
                       )}
                     </span>
                   ))}
                 </nav>
               )}
 
-              {/* Hero Banner Image (Clean standalone, NO text/content on the image) */}
+              {/* Category Tag */}
+              {blog.category && (
+                <span className="mb-3 inline-block rounded-full bg-primary/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                  {blog.category}
+                </span>
+              )}
+
+              {/* Title */}
+              <h1 className={INNER_PAGE.title}>
+                {blog.title}
+              </h1>
+
+              {/* Hero Banner Image (Clean standalone beneath title & category) */}
               {heroBanner && (
-                <div className={`${INNER_PAGE.container} my-8 md:my-10`}>
+                <div className={`${INNER_PAGE.container} mt-8 md:mt-10`}>
                   <div className="relative left-1/2 -translate-x-1/2 w-screen overflow-hidden aspect-[8/3] md:aspect-auto">
                     <Image
                       src={heroBanner}
@@ -307,18 +319,6 @@ export default async function BlogPostPage({ params }) {
                   </div>
                 </div>
               )}
-
-              {/* Category Tag */}
-              {blog.category && (
-                <span className="mb-4 inline-block rounded-full bg-primary/10 px-3.5 text-xs font-bold uppercase tracking-wider text-primary">
-                  {blog.category}
-                </span>
-              )}
-
-              {/* Title */}
-              <h1 className=" text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.2]">
-                {blog.title}
-              </h1>
 
               {/* Excerpt / Subtitle */}
               {/* {blog.excerpt && (
@@ -372,11 +372,11 @@ export default async function BlogPostPage({ params }) {
         <section className={`${INNER_PAGE.section} bg-white pt-8 md:pt-12`}>
           <div className={INNER_PAGE.container}>
             <div className="relative overflow-visible">
-              <div className="absolute right-full top-0 mr-5 hidden lg:block xl:mr-10">
+              <div className="absolute right-full inset-y-0 mr-5 hidden lg:block xl:mr-10 pointer-events-none">
                 <SocialShare title={blog.title} />
               </div>
 
-              <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
                 <div className="lg:col-span-8">
                   {hasToc && (
                     <div

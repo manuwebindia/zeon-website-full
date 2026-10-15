@@ -7,7 +7,10 @@ function createPrismaClient() {
 }
 
 function hasJobPostingModel(client) {
-  return Boolean(client?.jobPosting?.findMany);
+  if (!client?.jobPosting?.findMany) return false;
+  const fields = client._runtimeDataModel?.models?.JobPosting?.fields;
+  if (!fields) return true;
+  return fields.some((f) => f.name === 'slug');
 }
 
 export function getPrismaClient() {

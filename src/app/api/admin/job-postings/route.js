@@ -76,6 +76,9 @@ export async function POST(request) {
     eligibility,
     jobTypes,
     shiftSchedule,
+    slug,
+    responsibilities,
+    sourceUrl,
     status = 'approved',
     adminNotes,
   } = body;
@@ -90,20 +93,35 @@ export async function POST(request) {
   const validStatuses = ['pending', 'approved', 'rejected'];
   const finalStatus = validStatuses.includes(status) ? status : 'approved';
 
+  let finalSlug = slug ? String(slug).trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') : '';
+  if (!finalSlug) {
+    finalSlug = `${jobTitle}-${companyName}`.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  }
+
   try {
     const prisma = getPrismaClient();
+    // Ensure slug uniqueness
+    let uniqueSlug = finalSlug;
+    let counter = 1;
+    while (await prisma.jobPosting.findUnique({ where: { slug: uniqueSlug } })) {
+      uniqueSlug = `${finalSlug}-${counter++}`;
+    }
+
     const posting = await prisma.jobPosting.create({
       data: {
+        slug: uniqueSlug,
         companyName: String(companyName).trim(),
         companyLogo: companyLogo ? String(companyLogo).trim() : null,
         jobTitle: String(jobTitle).trim(),
         phone: String(phone).trim(),
         location: location ? String(location).trim() : null,
         aboutCompany: aboutCompany ? String(aboutCompany).trim() : null,
+        responsibilities: responsibilities ? String(responsibilities).trim() : null,
         skillsRequired: skillsRequired ? String(skillsRequired).trim() : null,
         eligibility: eligibility ? String(eligibility).trim() : null,
         jobTypes: jobTypes ? String(jobTypes).trim() : null,
         shiftSchedule: shiftSchedule ? String(shiftSchedule).trim() : null,
+        sourceUrl: sourceUrl ? String(sourceUrl).trim() : null,
         status: finalStatus,
         approvedAt: finalStatus === 'approved' ? new Date() : null,
         rejectedAt: finalStatus === 'rejected' ? new Date() : null,
@@ -113,6 +131,8 @@ export async function POST(request) {
     });
 
     try {
+      revalidatePath('/placement-cell');
+      revalidatePath('/placement-cell/' + uniqueSlug);
       revalidatePath('/placements');
     } catch {
       // non-fatal

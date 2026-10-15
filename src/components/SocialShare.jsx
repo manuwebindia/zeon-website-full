@@ -59,7 +59,7 @@ export default function SocialShare({ title = '' }) {
   return (
     <>
       {/* 1. DESKTOP STICKY VERTICAL DOCK (Hidden on Mobile) */}
-      <div className="hidden lg:flex flex-col items-center gap-4 sticky top-36 z-20 select-none">
+      <div className="hidden lg:flex flex-col items-center gap-4 sticky top-28 z-20 select-none pointer-events-auto">
         <span className="text-[10px] font-extrabold uppercase tracking-widest text-slate-400 rotate-180 writing-mode-vertical py-2 border-b border-slate-100">
           Share
         </span>

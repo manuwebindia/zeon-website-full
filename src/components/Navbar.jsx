@@ -145,7 +145,7 @@ export default function Navbar() {
               })}
               <li>
                 <Link
-                  href="/#counsellor"
+                  href="/#admission"
                   className="flex items-center gap-2 px-3.5 py-2 text-[0.9rem] font-semibold text-heading rounded-md border-[1.5px] border-border transition-colors duration-200 whitespace-nowrap hover:border-primary hover:text-primary hover:bg-primary-light"
                 >
                   <FaPhoneAlt size={11} />

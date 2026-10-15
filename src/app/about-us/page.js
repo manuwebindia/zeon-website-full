@@ -56,6 +56,12 @@ export default async function AboutPage() {
 
           <div className={INNER_PAGE.heroContent}>
             <div className={INNER_PAGE.heroInner}>
+              <nav className={INNER_PAGE.breadcrumb}>
+                <Link href="/" className={INNER_PAGE.breadcrumbLink}>Home</Link>
+                <span className={INNER_PAGE.breadcrumbSep}>/</span>
+                <span className={INNER_PAGE.breadcrumbCurrent}>About Us</span>
+              </nav>
+
               <span className={INNER_PAGE.tagline}>Who We Are</span>
               <h1 className={INNER_PAGE.title}>
                 {heroTitle ? heroTitle : (
