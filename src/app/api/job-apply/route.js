@@ -111,11 +111,11 @@ export async function POST(request) {
         </tr>
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:0.9rem;">Phone</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-weight:600;color:#111827;"><a href="tel:+91${cleanPhone}" style="color:#D40303;text-decoration:none;">+91 ${phone}</a></td>
+          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-weight:600;color:#111827;"><a href="tel:+91${cleanPhone}" style="color:#FF4444;text-decoration:none;">+91 ${phone}</a></td>
         </tr>
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:0.9rem;">Email</td>
-          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-weight:600;color:#111827;">${email ? `<a href="mailto:${email}" style="color:#D40303;text-decoration:none;">${email}</a>` : '—'}</td>
+          <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;font-weight:600;color:#111827;">${email ? `<a href="mailto:${email}" style="color:#FF4444;text-decoration:none;">${email}</a>` : '—'}</td>
         </tr>
         <tr>
           <td style="padding:10px 0;border-bottom:1px solid #f3f4f6;color:#6b7280;font-size:0.9rem;vertical-align:top;">Message / Cover Note</td>

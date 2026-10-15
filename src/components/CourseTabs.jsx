@@ -13,7 +13,7 @@ function TabIcon({ Icon, active }) {
   return (
     <div
       className={`flex items-center justify-center w-[26px] h-[26px] rounded-[8px] shadow-sm transition-colors duration-300 ${
-        active ? "bg-white text-[#D40303]" : "bg-[#D40303] text-white"
+        active ? "bg-white text-[#FF4444]" : "bg-[#FF4444] text-white"
       }`}
     >
       <Icon className="text-[12px]" fill="currentColor" />
@@ -47,7 +47,10 @@ export default function CourseTabs({ offlineCourses, onlineCourses }) {
   return (
     <>
       {/* Mobile dropdown */}
-      <div className="md:hidden flex justify-center mb-10 px-1" ref={dropdownRef}>
+      <div
+        className="md:hidden flex justify-center mb-10 px-1"
+        ref={dropdownRef}
+      >
         <div className="relative w-full max-w-sm">
           <button
             type="button"
@@ -81,7 +84,7 @@ export default function CourseTabs({ offlineCourses, onlineCourses }) {
                       onClick={() => selectTab(tab.id)}
                       className={`w-full flex items-center gap-2.5 px-4 py-3.5 text-left font-bold text-[0.95rem] transition-colors ${
                         isActive
-                          ? "bg-[#D40303] text-white"
+                          ? "bg-[#FF4444] text-white"
                           : "text-body hover:bg-surface hover:text-heading"
                       }`}
                     >
@@ -108,7 +111,7 @@ export default function CourseTabs({ offlineCourses, onlineCourses }) {
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2.5 px-6 sm:px-8 py-3 rounded-full font-bold text-[0.95rem] transition-all duration-300 ${
                   isActive
-                    ? "bg-[#D40303] text-white shadow-[0_4px_15px_rgba(212,3,3,0.3)]"
+                    ? "bg-[#FF4444] text-white shadow-[0_4px_15px_rgba(212,3,3,0.3)]"
                     : "text-body hover:text-heading"
                 }`}
               >
