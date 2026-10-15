@@ -20,6 +20,8 @@ import TestimonialSection from "@/components/home/TestimonialsSection";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
+const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
+import BookDemoButton from "@/components/BookDemoButton";
 
 import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
@@ -38,6 +40,7 @@ export default async function AboutPage() {
     <>
       <Navbar />
       <WhatsAppFloat />
+      <BookDemoModal />
 
       <main className="bg-white">
         {/* HERO BANNER */}
@@ -318,14 +321,14 @@ export default async function AboutPage() {
               Ready to learn from professional digital marketers and gain real agency work experience? Book your demo class today.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/#demo"
-                className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300"
+              <BookDemoButton
+                courseName="Free Live Demo Class"
+                className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
               >
                 Book Free Demo
-              </Link>
+              </BookDemoButton>
               <Link
-                href="/courses"
+                href="/course"
                 className="px-8 py-4 border-2 border-border text-heading font-bold text-[1rem] rounded-full hover:border-primary hover:text-primary transition-all duration-300"
               >
                 Explore Programs
