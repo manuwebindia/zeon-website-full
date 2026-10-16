@@ -72,7 +72,21 @@ export default async function BlogListingPage({ searchParams }) {
               total={total}
             />
 
-            {total === 0 ? (
+            {archive.dbError ? (
+              <div className={`${INNER_PAGE.card} py-20 text-center`}>
+                <BookOpen className="mx-auto mb-5 h-14 w-14 text-primary/40" />
+                <h2 className="mb-2 text-xl font-bold text-heading">Connection issue</h2>
+                <p className="mx-auto max-w-md text-sm font-medium text-body">
+                  Unable to reach the database right now. Please try refreshing in a moment.
+                </p>
+                <Link
+                  href="/blog"
+                  className="mt-6 inline-flex rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-white transition hover:bg-primary-hover shadow-sm"
+                >
+                  Refresh Page
+                </Link>
+              </div>
+            ) : total === 0 ? (
               <div className={`${INNER_PAGE.card} py-24 text-center`}>
                 <BookOpen className="mx-auto mb-5 h-14 w-14 text-body/30" />
                 <h2 className="mb-2 text-xl font-bold text-heading">No articles found</h2>
@@ -82,9 +96,9 @@ export default async function BlogListingPage({ searchParams }) {
                 {(archiveParams.q || archiveParams.category) && (
                   <Link
                     href="/blog"
-                    className="mt-6 inline-flex text-sm font-semibold text-primary hover:underline"
+                    className="mt-6 inline-flex rounded-full bg-primary px-6 py-2.5 text-sm font-bold text-white transition hover:bg-primary-hover shadow-sm"
                   >
-                    View all blogs
+                    Clear Filters & View All
                   </Link>
                 )}
               </div>

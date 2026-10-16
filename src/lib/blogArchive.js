@@ -118,8 +118,8 @@ export async function queryBlogArchive(params) {
   const orderBy = buildOrderBy(parsed.sort);
   const skip = (parsed.page - 1) * parsed.perPage;
 
-  try {
-    const [total, blogs] = await Promise.all([
+  const runQuery = async () => {
+    return await Promise.all([
       prisma.blog.count({ where }),
       prisma.blog.findMany({
         where,
@@ -129,6 +129,20 @@ export async function queryBlogArchive(params) {
         select: blogSelect,
       }),
     ]);
+  };
+
+  try {
+    let result;
+    try {
+      result = await runQuery();
+    } catch (firstErr) {
+      // Retry once after 250ms for transient connection drops
+      console.warn('Initial blog query failed, retrying once...', firstErr?.message);
+      await new Promise((r) => setTimeout(r, 250));
+      result = await runQuery();
+    }
+
+    const [total, blogs] = result;
 
     return {
       ...parsed,
@@ -136,6 +150,7 @@ export async function queryBlogArchive(params) {
       totalPages: Math.max(1, Math.ceil(total / parsed.perPage)),
       currentPage: Math.min(parsed.page, Math.max(1, Math.ceil(total / parsed.perPage) || 1)),
       blogs,
+      dbError: false,
     };
   } catch (error) {
     console.error('Failed to query blog archive:', error.message);
@@ -145,6 +160,7 @@ export async function queryBlogArchive(params) {
       totalPages: 1,
       currentPage: 1,
       blogs: [],
+      dbError: true,
     };
   }
 }
