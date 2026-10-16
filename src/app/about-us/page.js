@@ -346,7 +346,7 @@ export default async function AboutPage() {
         <BottomCtaBanner
           badge="LAUNCH YOUR CAREER"
           headingMain="LEARN WITH KERALA'S"
-          headingSub="#1 DIGITAL ACADEMY"
+          headingSub="#1 DIGITAL MARKETING ACADEMY"
           description="Ready to learn from professional digital marketers and gain real agency work experience? Book your free demo class today."
           primaryText="Book Free Demo"
           secondaryText="Explore Programs"
