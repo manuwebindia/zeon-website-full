@@ -83,9 +83,9 @@ export const defaultMilestones = [
       "ZEON Academy was established to develop industry-relevant digital marketing skills.",
     isTop: true,
     galleryImages: [
-      "/uploads/gallery/q-and-a-with-zeon-students-0.webp",
-      "/uploads/gallery/q-and-a-with-zeon-students-1.webp",
-      "/about/zeon-aboutus.jpeg",
+      "/timeline/2019-1.webp",
+      "/timeline/2019-2.webp",
+      "/timeline/2019-3.jpg",
     ],
   },
   {
@@ -96,9 +96,9 @@ export const defaultMilestones = [
       "The academy introduced online learning to continue delivering training during the pandemic.",
     isTop: false,
     galleryImages: [
-      "/uploads/gallery/q-and-a-with-zeon-students-5.webp",
-      "/uploads/gallery/birthday-celebration-1.webp",
-      "/uploads/gallery/birthday-celebration-2.webp",
+      "/timeline/2020-1.jpg",
+      "/timeline/2020-2.webp",
+      "/timeline/2020-3.jpg",
     ],
   },
   {
@@ -109,9 +109,9 @@ export const defaultMilestones = [
       "The academy serves aspiring digital marketers and working professionals seeking to develop their skills.",
     isTop: true,
     galleryImages: [
-      "/uploads/gallery/graduation-day-2025-0.webp",
-      "/uploads/gallery/graduation-day-2025-3.webp",
-      "/uploads/gallery/graduation-day-2025-8.webp",
+      "/timeline/present-1.webp",
+      "/timeline/present-2.webp",
+      "/timeline/present-3.webp",
     ],
   },
 ];
