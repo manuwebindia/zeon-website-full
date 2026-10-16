@@ -2,11 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
-  FaBriefcase,
   FaCheck,
   FaStar,
 } from "react-icons/fa";
-import { FiClock, FiMonitor } from "react-icons/fi";
 import Navbar from "../../components/Navbar";
 import ScrollReveal from "../../components/ScrollReveal";
 import TestimonialSection from "@/components/home/TestimonialsSection";
@@ -14,6 +12,7 @@ import Footer from "../../components/Footer";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
+import Timeline from "@/components/ui/timeline";
 import BookDemoButton from "@/components/BookDemoButton";
 import BottomCtaBanner from "@/components/BottomCtaBanner";
 
@@ -168,86 +167,14 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        {/* SECTION 2: OUR JOURNEY (Timeline) */}
-        <section className="py-16 md:py-24 bg-surface bg-dots-pattern border-y border-border">
-          <div className="w-full max-w-[1200px] mx-auto px-6">
-            <ScrollReveal direction="up" distance={30}>
-              <div className="text-center mb-16 max-w-2xl mx-auto">
-                <span className="inline-block text-primary text-[0.85rem] font-bold mb-3 tracking-[0.2em] uppercase">
-                  Our Journey
-                </span>
-                <h2 className="text-[2.2rem] md:text-[2.8rem] font-extrabold text-heading leading-tight mb-4">
-                  Built to Bridge <span className="text-primary">Learning and Industry.</span>
-                </h2>
-              </div>
-            </ScrollReveal>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {/* Card 1 */}
-              <ScrollReveal direction="up" distance={40} delay={0.1}>
-                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col">
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center text-primary text-[1.4rem]">
-                      <FaBriefcase />
-                    </div>
-                    <span className="text-primary text-[0.82rem] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full bg-primary-light border border-primary/20">
-                      2019
-                    </span>
-                  </div>
-                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-3">
-                    The Beginning
-                  </h3>
-                  <p className="text-[0.95rem] leading-relaxed text-body font-medium flex-1">
-                    ZEON Academy was established to develop industry-relevant digital marketing skills.
-                  </p>
-                </div>
-              </ScrollReveal>
-
-              {/* Card 2 */}
-              <ScrollReveal direction="up" distance={40} delay={0.2}>
-                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col">
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center text-primary text-[1.4rem]">
-                      <FiMonitor />
-                    </div>
-                    <span className="text-primary text-[0.82rem] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full bg-primary-light border border-primary/20">
-                      2020
-                    </span>
-                  </div>
-                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-3">
-                    Adapting to Change
-                  </h3>
-                  <p className="text-[0.95rem] leading-relaxed text-body font-medium flex-1">
-                    The academy introduced online learning to continue delivering training during the pandemic.
-                  </p>
-                </div>
-              </ScrollReveal>
-
-              {/* Card 3 */}
-              <ScrollReveal direction="up" distance={40} delay={0.3}>
-                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col">
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center text-primary text-[1.4rem]">
-                      <FiClock />
-                    </div>
-                    <span className="text-primary text-[0.82rem] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full bg-primary-light border border-primary/20">
-                      Today
-                    </span>
-                  </div>
-                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-3">
-                    Expanding Learning Opportunities
-                  </h3>
-                  <p className="text-[0.95rem] leading-relaxed text-body font-medium flex-1">
-                    The academy serves aspiring digital marketers and working professionals seeking to develop their skills.
-                  </p>
-                </div>
-              </ScrollReveal>
-            </div>
-          </div>
-        </section>
+        {/* SECTION 2: OUR JOURNEY (Horizontal Pinned Timeline) */}
+        <Timeline
+          badge="OUR JOURNEY"
+          title="Built to Bridge Learning and Industry."
+          periodLabel="2019 — Present"
+          imageUrl="/about/zeon-aboutus.jpeg"
+          imageAlt="Zeon Academy Kochi Mentors & Students"
+        />
         <TestimonialSection />
 
         {/* SECTION 3: OUR TEAM */}
