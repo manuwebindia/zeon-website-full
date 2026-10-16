@@ -13,14 +13,16 @@ export default function DownloadBrochureModal() {
   const [brochureUrl, setBrochureUrl] = useState("");
 
   const allowNameKey = (e) => {
-    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", " "];
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", " ", ".", "-", "'"];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[a-zA-Z]$/.test(e.key)) e.preventDefault();
   };
 
   const allowPhoneKey = (e) => {
-    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End"];
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", "+"];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[0-9]$/.test(e.key)) e.preventDefault();
   };
 
@@ -128,9 +130,21 @@ export default function DownloadBrochureModal() {
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     document.documentElement.style.overflow = isOpen ? "hidden" : "";
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        closeModal();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
 
@@ -138,6 +152,9 @@ export default function DownloadBrochureModal() {
     <div
       className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99999] overflow-y-auto animate-fade-in"
       onClick={closeModal}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="brochure-modal-title"
     >
       <div className="flex min-h-full items-center justify-center p-4 py-6">
         <div
@@ -162,7 +179,7 @@ export default function DownloadBrochureModal() {
               </div>
             </div>
             
-            <h3 className="text-[1.4rem] font-extrabold text-heading mb-1 text-center">
+            <h3 id="brochure-modal-title" className="text-[1.4rem] font-extrabold text-heading mb-1 text-center">
               Download Brochure
             </h3>
             <p className="text-center text-[0.85rem] text-body mb-5 leading-normal">

@@ -162,6 +162,17 @@ export default function OfferPopup() {
     localStorage.setItem(LS_MINI_KEY, "1");
   }, []);
 
+  useEffect(() => {
+    if (!showPopup) return;
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        handleMinimise();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [showPopup, handleMinimise]);
+
   const handleClose = useCallback(() => {
     setShowPopup(false);
     setMinimised(false);
@@ -225,6 +236,9 @@ export default function OfferPopup() {
       className="fixed inset-0 z-[100000] flex items-center justify-center p-4 sm:p-6"
       style={{ background: "rgba(0,0,0,0.50)", backdropFilter: "blur(6px)" }}
       onClick={handleMinimise}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="offer-popup-title"
     >
       <div
         className="relative w-full max-w-[420px] rounded-3xl overflow-hidden shadow-[0_24px_60px_rgba(0,0,0,0.15)] animate-fade-in"
@@ -249,7 +263,7 @@ export default function OfferPopup() {
             {popupConfig.badgeText}
           </div>
 
-          <h2 className="text-heading text-[1.85rem] sm:text-[2.1rem] font-extrabold leading-tight mb-1">
+          <h2 id="offer-popup-title" className="text-heading text-[1.85rem] sm:text-[2.1rem] font-extrabold leading-tight mb-1">
             {popupConfig.headline}{" "}
             <span className="text-[#FF4444]">{popupConfig.headlineAccent}</span>
           </h2>

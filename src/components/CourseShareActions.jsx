@@ -41,11 +41,23 @@ export default function CourseShareActions({
     setMounted(true);
   }, []);
 
-  // Lock body scroll when modal is open
+  // Lock body scroll and listen for Escape key when modal is open
   useEffect(() => {
     if (activeModal) {
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
+
+      const handleKeyDown = (e) => {
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = "";
+        document.documentElement.style.overflow = "";
+        window.removeEventListener("keydown", handleKeyDown);
+      };
     } else {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
@@ -124,8 +136,12 @@ export default function CourseShareActions({
       "Home",
       "End",
       " ",
+      ".",
+      "-",
+      "'",
     ];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[a-zA-Z]$/.test(e.key)) e.preventDefault();
   };
 
@@ -138,8 +154,10 @@ export default function CourseShareActions({
       "ArrowRight",
       "Home",
       "End",
+      "+",
     ];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[0-9]$/.test(e.key)) e.preventDefault();
   };
 

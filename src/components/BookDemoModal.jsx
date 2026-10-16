@@ -22,14 +22,16 @@ export default function BookDemoModal() {
   ];
 
   const allowNameKey = (e) => {
-    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", " "];
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", " ", ".", "-", "'"];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[a-zA-Z]$/.test(e.key)) e.preventDefault();
   };
 
   const allowPhoneKey = (e) => {
-    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End"];
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", "+"];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[0-9]$/.test(e.key)) e.preventDefault();
   };
 
@@ -112,9 +114,21 @@ export default function BookDemoModal() {
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     document.documentElement.style.overflow = isOpen ? "hidden" : "";
+
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        closeModal();
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener("keydown", handleKeyDown);
+    }
+
     return () => {
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isOpen]);
 
@@ -122,16 +136,19 @@ export default function BookDemoModal() {
     <div
       className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99999] overflow-y-auto animate-fade-in"
       onClick={closeModal}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="book-demo-title"
     >
       <div className="flex min-h-full items-center justify-center p-4 py-6">
       <div
         className="bg-white w-full max-w-[460px] rounded-2xl p-7 relative shadow-[0_30px_70px_rgba(0,0,0,0.4)] border border-white/20 ring-1 ring-black/5 overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="absolute top-0 left-0 w-full h-[4px] bg-[#0B5CFF]" />
-        <div className="absolute -inset-[50px] bg-[#0B5CFF]/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-[#ff4a4a]" />
+        <div className="absolute -inset-[50px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
         <button
-          className="absolute top-4 right-4 bg-none border-none text-body text-2xl cursor-pointer transition-colors duration-300 hover:text-[#0B5CFF]"
+          className="absolute top-4 right-4 bg-none border-none text-body text-2xl cursor-pointer transition-colors duration-300 hover:text-primary"
           onClick={closeModal}
           aria-label="Close"
         >
@@ -152,7 +169,7 @@ export default function BookDemoModal() {
               the session.
             </p>
             <button
-              className="inline-flex items-center justify-center px-7 py-3.5 rounded-full font-semibold text-base bg-[#0B5CFF] text-white shadow-[0_4px_15px_rgba(11,92,255,0.3)] transition-all duration-300 hover:bg-[#084BCE]"
+              className="inline-flex items-center justify-center px-7 py-3.5 rounded-full font-bold text-base bg-primary text-white shadow-[0_4px_15px_rgba(255,51,51,0.3)] transition-all duration-300 hover:bg-heading"
               onClick={closeModal}
             >
               Close Details
@@ -160,7 +177,7 @@ export default function BookDemoModal() {
           </div>
         ) : (
           <div>
-            <h3 className="text-[1.4rem] font-extrabold text-heading mb-1 text-center">
+            <h3 id="book-demo-title" className="text-[1.4rem] font-extrabold text-heading mb-1 text-center">
               Book Your Live Demo
             </h3>
             <p className="text-center text-[0.85rem] text-body mb-4">
@@ -178,7 +195,7 @@ export default function BookDemoModal() {
                   placeholder="Enter your full name"
                   required
                   onKeyDown={allowNameKey}
-                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${errors.name ? "border-red-400 focus:border-red-400 focus:ring-red-100" : "border-border focus:border-[#0B5CFF] focus:ring-[#0B5CFF]/10"}`}
+                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${errors.name ? "border-red-400 focus:border-red-400 focus:ring-red-100" : "border-border focus:border-primary focus:ring-primary/10"}`}
                 />
                 {errors.name && <p className="text-red-500 text-[0.78rem] mt-1 ml-1">{errors.name}</p>}
               </div>
@@ -192,7 +209,7 @@ export default function BookDemoModal() {
                   name="email"
                   placeholder="Enter your email"
                   required
-                  className="w-full px-3.5 py-2.5 border border-border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-[#0B5CFF] focus:ring-[3px] focus:ring-[#0B5CFF]/10 focus:bg-white"
+                  className="w-full px-3.5 py-2.5 border border-border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-primary focus:ring-[3px] focus:ring-primary/10 focus:bg-white"
                 />
               </div>
 
@@ -207,7 +224,7 @@ export default function BookDemoModal() {
                   required
                   maxLength={10}
                   onKeyDown={allowPhoneKey}
-                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${errors.phone ? "border-red-400 focus:border-red-400 focus:ring-red-100" : "border-border focus:border-[#0B5CFF] focus:ring-[#0B5CFF]/10"}`}
+                  className={`w-full px-3.5 py-2.5 border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:ring-[3px] focus:bg-white ${errors.phone ? "border-red-400 focus:border-red-400 focus:ring-red-100" : "border-border focus:border-primary focus:ring-primary/10"}`}
                 />
                 {errors.phone && <p className="text-red-500 text-[0.78rem] mt-1 ml-1">{errors.phone}</p>}
               </div>
@@ -223,7 +240,7 @@ export default function BookDemoModal() {
                     min={new Date().toISOString().split("T")[0]}
                     value={selectedDate || ""}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className="w-full px-3.5 py-0 border border-[#E2E8F0] rounded-lg bg-[#F8F9FA] font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-[#0B5CFF] focus:ring-[3px] focus:ring-[#0B5CFF]/10 focus:bg-white h-[46px] appearance-none cursor-pointer"
+                    className="w-full px-3.5 py-0 border border-[#E2E8F0] rounded-lg bg-[#F8F9FA] font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-primary focus:ring-[3px] focus:ring-primary/10 focus:bg-white h-[46px] appearance-none cursor-pointer"
                   />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -234,7 +251,7 @@ export default function BookDemoModal() {
                     value={selectedTime || ""}
                     onChange={(e) => setSelectedTime(e.target.value)}
                     required
-                    className="w-full px-3.5 py-0 border border-[#E2E8F0] rounded-lg bg-[#F8F9FA] font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-[#0B5CFF] focus:ring-[3px] focus:ring-[#0B5CFF]/10 focus:bg-white h-[46px] appearance-none cursor-pointer"
+                    className="w-full px-3.5 py-0 border border-[#E2E8F0] rounded-lg bg-[#F8F9FA] font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-primary focus:ring-[3px] focus:ring-primary/10 focus:bg-white h-[46px] appearance-none cursor-pointer"
                     style={{
                       backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
                       backgroundRepeat: "no-repeat",
@@ -259,7 +276,7 @@ export default function BookDemoModal() {
                   name="message"
                   placeholder="Any specific questions you'd like answered?"
                   rows="2"
-                  className="w-full px-3.5 py-2.5 border border-border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-[#0B5CFF] focus:ring-[3px] focus:ring-[#0B5CFF]/10 focus:bg-white resize-y"
+                  className="w-full px-3.5 py-2.5 border border-border rounded-lg bg-surface font-[inherit] text-[0.95rem] text-heading transition-all duration-300 focus:outline-none focus:border-primary focus:ring-[3px] focus:ring-primary/10 focus:bg-white resize-y"
                 />
               </div>
 
@@ -275,7 +292,7 @@ export default function BookDemoModal() {
 
               <button
                 type="submit"
-                className="w-full mt-2 py-3.5 rounded-full font-semibold text-base bg-[#0B5CFF] text-white shadow-[0_4px_15px_rgba(11,92,255,0.3)] transition-all duration-300 hover:bg-[#084BCE] disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full mt-2 py-3.5 rounded-full font-bold text-base bg-gradient-to-r from-primary to-[#ff4a4a] text-white shadow-[0_4px_15px_rgba(255,51,51,0.28)] transition-all duration-300 hover:opacity-95 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
                 disabled={status === "submitting"}
               >
                 {status === "submitting" ? (

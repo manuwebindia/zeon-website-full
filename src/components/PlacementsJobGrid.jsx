@@ -2,16 +2,9 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { FaMapMarkerAlt, FaBriefcase, FaBuilding, FaArrowRight, FaWhatsapp } from 'react-icons/fa';
+import { FaMapMarkerAlt, FaBriefcase, FaBuilding, FaArrowRight } from 'react-icons/fa';
 import ScrollReveal from './ScrollReveal';
-import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from '@/lib/designLanguage';
-
-const WHATSAPP_PHONE = '917558888252';
-
-function buildApplyUrl(title, company) {
-  const msg = `Hi! I'd like to apply for the *${title}* position at *${company}* listed on Zeon Academy's Placement Cell. Could you please share more details?`;
-  return `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(msg)}`;
-}
+import { INNER_PAGE } from '@/lib/designLanguage';
 
 export default function PlacementsJobGrid({ jobs = [] }) {
   const router = useRouter();
@@ -82,25 +75,14 @@ export default function PlacementsJobGrid({ jobs = [] }) {
               </p>
 
               <div className="mt-auto pt-3 border-t border-border/60 flex items-center">
-                {/* <Link
+                <Link
                   href={detailHref}
                   onClick={(e) => e.stopPropagation()}
-                  className={`flex-1 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl font-bold text-[0.88rem] transition-all duration-200 bg-transparent border-2 border-black/50 text-heading ${COURSE_CARD_BUTTON_THEME.btnDetails}`}
+                  className="flex w-full items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-bold text-[0.88rem] text-white bg-primary hover:bg-heading shadow-[0_4px_12px_rgba(255,51,51,0.22)] hover:shadow-[0_6px_18px_rgba(0,0,0,0.18)] hover:-translate-y-0.5 transition-all duration-200 shrink-0"
                 >
-                  View Details
-                  <FaArrowRight className="text-[0.7rem] group-hover:translate-x-0.5 transition-transform" />
-                </Link> */}
-
-                <a
-                  href={buildApplyUrl(job.title, job.company)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
-                  className="flex w-full items-center justify-center gap-1.5 py-2.5 px-4 rounded-xl font-bold text-[0.88rem] text-white bg-[#25D366] hover:bg-[#20bd5a] shadow-[0_4px_12px_rgba(37,211,102,0.3)] hover:shadow-[0_6px_18px_rgba(37,211,102,0.4)] hover:-translate-y-0.5 transition-all duration-200 shrink-0"
-                >
-                  <FaWhatsapp className="text-[0.95rem]" />
-                  Apply
-                </a>
+                  Apply Now
+                  <FaArrowRight className="text-[0.75rem] group-hover:translate-x-1 transition-transform" />
+                </Link>
               </div>
             </div>
           </ScrollReveal>

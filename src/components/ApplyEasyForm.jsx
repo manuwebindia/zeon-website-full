@@ -11,14 +11,16 @@ export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug
   const [errorMessage, setErrorMessage] = useState("");
 
   const allowNameKey = (e) => {
-    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", " "];
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", " ", ".", "-", "'"];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[a-zA-Z]$/.test(e.key)) e.preventDefault();
   };
 
   const allowPhoneKey = (e) => {
-    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End"];
+    const allowed = ["Backspace", "Delete", "Tab", "ArrowLeft", "ArrowRight", "Home", "End", "+"];
     if (allowed.includes(e.key)) return;
+    if (e.ctrlKey || e.metaKey) return;
     if (!/^[0-9]$/.test(e.key)) e.preventDefault();
   };
 

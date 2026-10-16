@@ -98,7 +98,7 @@ export default async function PlacementsPage() {
                   Hiring Now — <span className="text-primary">Apply Today</span>
                 </h2>
                 <p className="text-[1.05rem] text-body font-medium max-w-xl mx-auto">
-                  All positions are exclusively curated for Zeon Academy students and alumni. Click "Apply Now" to reach out instantly via WhatsApp.
+                  All positions are exclusively curated for Zeon Academy students and alumni. Click &quot;Apply Now&quot; to view role details and apply.
                 </p>
               </div>
             </ScrollReveal>
