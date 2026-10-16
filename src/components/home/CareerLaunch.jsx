@@ -31,7 +31,7 @@ export default function CareerLaunch() {
               {careerCards.map((card, i) => (
                 <div
                   key={i}
-                  className="bg-white border border-border rounded-xl p-10 text-center transition-all duration-300 shadow-card hover:-translate-y-1.5 hover:shadow-card-hover hover:border-primary/20 group"
+                  className="bg-white border border-border rounded-2xl p-10 text-center transition-all duration-300 shadow-card hover:-translate-y-1.5 hover:shadow-card-hover hover:border-primary/20 group"
                 >
                   <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 transition-colors duration-300 group-hover:bg-primary">
                     <card.icon className="text-[1.8rem] text-primary transition-colors duration-300 group-hover:text-white" />

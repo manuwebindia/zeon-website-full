@@ -88,14 +88,14 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'Zeon Ad
         <div className="flex gap-2">
           <button
             onClick={() => scroll('left')}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-slate-50 active:scale-95"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-body shadow-sm transition-all hover:bg-surface hover:text-primary hover:border-primary/40 active:scale-95 cursor-pointer"
             aria-label="Scroll left"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={() => scroll('right')}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-600 shadow-sm transition-all hover:bg-slate-50 active:scale-95"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-border bg-white text-body shadow-sm transition-all hover:bg-surface hover:text-primary hover:border-primary/40 active:scale-95 cursor-pointer"
             aria-label="Scroll right"
           >
             <ChevronRight size={20} />
@@ -118,10 +118,10 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'Zeon Ad
           return (
           <article
             key={post.id}
-            className="group flex flex-col overflow-hidden  rounded-[24px] border border-slate-100 bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_16px_36px_-6px_rgba(0,0,0,0.05)] hover:border-slate-200/50 w-[280px] sm:w-[320px] md:w-[360px] shrink-0 snap-start"
+            className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover hover:border-primary/30 w-[280px] sm:w-[320px] md:w-[360px] shrink-0 snap-start"
           >
             {/* Card Thumbnail — featured cover image when available, fallback to banner */}
-            <Link href={`/blog/${post.slug}`} className="block relative aspect-[2/1] w-full overflow-hidden bg-slate-50 border-b border-slate-50/50">
+            <Link href={`/blog/${post.slug}`} className="block relative aspect-[2/1] w-full overflow-hidden bg-surface border-b border-border/50">
               {cardImage ? (
                 <Image
                   src={cardImage.src}
@@ -132,7 +132,7 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'Zeon Ad
                   unoptimized
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-slate-50 text-slate-300">
+                <div className="flex h-full w-full items-center justify-center bg-surface text-body/40">
                   <BookOpen className="h-10 w-10" strokeWidth={1} />
                 </div>
               )}
@@ -150,21 +150,21 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'Zeon Ad
               </div>
 
               {/* Title */}
-              <h4 className="mb-2 text-base sm:text-lg font-bold tracking-tight text-slate-900 leading-snug group-hover:text-[#1A4FD6] transition-colors duration-300 line-clamp-2">
+              <h4 className="mb-2 text-base sm:text-lg font-bold tracking-tight text-heading leading-snug group-hover:text-primary transition-colors duration-300 line-clamp-2">
                 <Link href={`/blog/${post.slug}`}>
                   {post.title}
                 </Link>
               </h4>
 
               {/* Excerpt */}
-              <p className="mb-5 flex-1 text-xs leading-relaxed text-slate-500 line-clamp-3 font-normal font-inter">
+              <p className="mb-5 flex-1 text-xs leading-relaxed text-body line-clamp-3 font-normal">
                 {post.excerpt}
               </p>
 
               {/* Author info footer */}
-              <div className="flex items-center gap-3 pt-4 border-t border-slate-100 mt-auto">
+              <div className="flex items-center gap-3 pt-4 border-t border-border mt-auto">
                 {authorImage ? (
-                  <div className="relative h-8 w-8 overflow-hidden rounded-full border border-slate-100">
+                  <div className="relative h-8 w-8 overflow-hidden rounded-full border border-border">
                     <Image
                       src={authorImage}
                       alt={authorName}
@@ -174,17 +174,17 @@ export default function RelatedPostsCarousel({ posts = [], authorName = 'Zeon Ad
                     />
                   </div>
                 ) : (
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#1A4FD6] to-[#17C653] text-[9px] font-extrabold text-white shadow-sm ring-2 ring-white">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-hover text-[9px] font-extrabold text-white shadow-sm ring-2 ring-white">
                     {authorName.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase()}
                   </div>
                 )}
                 <div>
-                  <p className="text-[10px] font-bold text-slate-800 leading-none mb-1">
+                  <p className="text-[10px] font-bold text-heading leading-none mb-1">
                     {authorName}
                   </p>
-                  <div className="flex items-center gap-1.5 text-[9px] font-medium text-slate-400">
+                  <div className="flex items-center gap-1.5 text-[9px] font-medium text-body/70">
                     <span>{formatDate(post.publishedAt)}</span>
-                    <span className="h-1 w-1 rounded-full bg-slate-300" />
+                    <span className="h-1 w-1 rounded-full bg-border" />
                     <span>{calculateReadTime(post.content)}m read</span>
                   </div>
                 </div>

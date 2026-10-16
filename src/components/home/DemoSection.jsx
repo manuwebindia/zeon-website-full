@@ -41,23 +41,23 @@ export default function DemoSection() {
           </div>
 
           {/* Live Demo Card (Recommended) */}
-          <div className="bg-white rounded-3xl p-10 md:p-12 text-left border-2 border-border shadow-card hover:shadow-card-hover hover:border-primary/25 transition-all duration-300 relative flex flex-col hover:-translate-y-2">
+          <div className="bg-white rounded-2xl p-10 md:p-12 text-left border-2 border-border shadow-card hover:shadow-card-hover hover:border-primary/25 transition-all duration-300 relative flex flex-col hover:-translate-y-2">
             <div
               className={`absolute -top-3.5 left-1/2 -translate-x-1/2 ${COURSE_CARD_BUTTON_THEME.ribbonBg} text-white px-5 py-1.5 rounded-full text-[0.85rem] font-extrabold tracking-wider uppercase z-10 shadow-sm`}
             >
               Recommended
             </div>
             <div className="flex gap-3 mb-6">
-              <div className="bg-[#FF4444]/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
-                <div className="flex items-center justify-center w-[24px] h-[24px] bg-[#FF4444] rounded-[6px] shadow-sm">
+              <div className="bg-primary/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
+                <div className="flex items-center justify-center w-[24px] h-[24px] bg-primary rounded-[6px] shadow-sm">
                   <FaVideo
                     className="text-white text-[11px] inherit-text ml-px"
                     fill="currentColor"
                   />
                 </div>
               </div>
-              <div className="bg-[#FF4444]/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
-                <SiGooglemeet className="text-[1.6rem] text-[#FF4444]" />
+              <div className="bg-primary/10 w-14 h-14 rounded-full flex items-center justify-center shadow-sm">
+                <SiGooglemeet className="text-[1.6rem] text-primary" />
               </div>
             </div>
             <h3 className="text-2xl font-extrabold text-heading mb-1">
@@ -72,11 +72,11 @@ export default function DemoSection() {
             </p>
             <ul className="list-none p-0 m-0 mb-8">
               <li className="flex items-center gap-2.5 mb-3 text-[0.95rem] text-heading font-medium">
-                <FiClock className="text-[#FF4444] text-lg" /> Flexible Free
+                <FiClock className="text-primary text-lg" /> Flexible Free
                 Live Demo Scheduling
               </li>
               <li className="flex items-center gap-2.5 mb-3 text-[0.95rem] text-heading font-medium">
-                <FiUsers className="text-[#FF4444] text-lg" /> Interactive Q
+                <FiUsers className="text-primary text-lg" /> Interactive Q
                 &amp; A with trainers
               </li>
             </ul>

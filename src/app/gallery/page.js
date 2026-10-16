@@ -9,6 +9,7 @@ import { getPublishedAlbums, getGalleryCategories } from '@/lib/gallery';
 import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
 
 const WhatsAppFloat = dynamic(() => import('../../components/WhatsAppFloat'));
+import BottomCtaBanner from '@/components/BottomCtaBanner';
 
 export async function generateMetadata() {
   return buildPageMetadata('/gallery');
@@ -51,7 +52,7 @@ export default async function GalleryIndexPage() {
                 <p className="text-[1.1rem] font-bold text-heading mb-2">Gallery coming soon</p>
                 <p className="text-body font-medium">
                   Albums are being prepared. Check back shortly or{' '}
-                  <Link href="/contact" className="text-primary font-semibold hover:underline">
+                  <Link href="/contact-us" className="text-primary font-semibold hover:underline">
                     contact us
                   </Link>
                   .
@@ -62,6 +63,17 @@ export default async function GalleryIndexPage() {
             )}
           </div>
         </section>
+
+        <BottomCtaBanner
+          badge="CAMPUS LIFE & LEARNING"
+          headingMain="BE PART OF OUR"
+          headingSub="GROWING FAMILY"
+          description="Beyond the classroom: workshops, agency projects, graduation celebrations, and peer learning. Experience digital marketing training the right way."
+          primaryText="Book Free Demo"
+          secondaryText="Explore Programs"
+          secondaryHref="/course"
+          statsBadge="500+ Graduates"
+        />
       </main>
 
       <Footer />

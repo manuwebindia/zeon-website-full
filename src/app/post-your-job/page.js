@@ -154,7 +154,7 @@ export default function PostYourJobPage() {
 
               <div className="flex items-center justify-center gap-1.5 mb-3">
                 {[...Array(5)].map((_, i) => (
-                  <FaStar key={i} className="text-[#fbbf24] text-xl" />
+                  <FaStar key={i} className="text-gold text-xl" />
                 ))}
               </div>
               <p className="text-black/80 text-[0.9rem] font-semibold">

@@ -52,7 +52,7 @@ export default function StartJourney() {
             <div className="flex gap-4 w-full max-w-[420px] flex-col sm:flex-row mx-auto lg:mx-0">
               <a
                 href="tel:+918943356405"
-                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-full font-normal text-base bg-[#0B5CFF] text-white shadow-[0_8px_20px_rgba(11,92,255,0.25)] transition-all duration-300 hover:bg-[#1059D6] hover:shadow-[0_12px_25px_rgba(11,92,255,0.35)] hover:-translate-y-0.5"
+                className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-3.5 rounded-full font-normal text-base bg-heading text-white shadow-[0_6px_20px_rgba(0,0,0,0.12)] transition-all duration-300 hover:bg-black hover:shadow-[0_10px_25px_rgba(0,0,0,0.18)] hover:-translate-y-0.5"
               >
                 <FaPhoneAlt size={16} />
                 <strong>+91 8943356405</strong>

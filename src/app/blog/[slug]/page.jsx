@@ -177,7 +177,7 @@ function AuthorAvatar({ name, image }) {
     : "Z";
 
   return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-[#CC2222] text-[12px] font-extrabold text-white shadow-sm ring-2 ring-white">
+    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary-hover text-[12px] font-extrabold text-white shadow-sm ring-2 ring-white">
       {initials}
     </div>
   );

@@ -44,39 +44,18 @@ export default function CourseCard({
   const isOnline = mode === "online";
   const greyBorder =
     "border-2 border-border shadow-card hover:shadow-card-hover hover:border-primary/25";
-  const theme = isOnline
-    ? {
-        borderPopular:
-          borderVariant === "grey"
-            ? greyBorder
-            : "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
-        borderNormal:
-          borderVariant === "grey"
-            ? greyBorder
-            : "border-2 border-[#0B5CFF] shadow-[0_8px_30px_rgba(11,92,255,0.1)] hover:shadow-[0_20px_50px_rgba(11,92,255,0.15)]",
-        ribbonBg: "bg-[#0B5CFF]",
-        textPrimary: "text-[#0B5CFF]",
-        checkColor: "before:text-[#0B5CFF]",
-        btnPopular: "bg-[#0B5CFF] border-2 border-transparent text-white hover:bg-[#084BCE] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(11,92,255,0.25)]",
-        btnNormal: "bg-transparent text-[#0B5CFF] border-2 border-[#0B5CFF] hover:bg-[#0B5CFF] hover:text-white hover:-translate-y-0.5",
-        btnDetails: "hover:border-[#0B5CFF] hover:text-[#0B5CFF]",
-      }
-    : {
-        borderPopular:
-          borderVariant === "grey"
-            ? greyBorder
-            : "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
-        borderNormal:
-          borderVariant === "grey"
-            ? greyBorder
-            : "border-2 border-[#37d366] shadow-[0_8px_30px_rgba(16,185,129,0.1)] hover:shadow-[0_20px_50px_rgba(16,185,129,0.15)]",
-        ribbonBg: "bg-[#37d366]",
-        textPrimary: "text-[#37d366]",
-        checkColor: "before:text-[#37d366]",
-        btnPopular: "bg-[#37d366] border-2 border-transparent text-white hover:bg-[#059669] hover:-translate-y-0.5 shadow-[0_4px_15px_rgba(16,185,129,0.25)]",
-        btnNormal: "bg-transparent text-[#37d366] border-2 border-[#37d366] hover:bg-[#37d366] hover:text-white hover:-translate-y-0.5",
-        btnDetails: "hover:border-[#37d366] hover:text-[#37d366]",
-      };
+  const theme = {
+    borderPopular: greyBorder,
+    borderNormal: greyBorder,
+    ribbonBg: "bg-primary",
+    textPrimary: "text-primary",
+    checkColor: "before:text-primary",
+    btnPopular:
+      "bg-primary border-2 border-transparent text-white hover:bg-primary-hover hover:-translate-y-0.5 shadow-glow",
+    btnNormal:
+      "bg-primary border-2 border-transparent text-white hover:bg-primary-hover hover:-translate-y-0.5 shadow-glow",
+    btnDetails: "hover:border-primary hover:text-primary",
+  };
 
   const activeTheme = buttonTheme
     ? { ...theme, ...buttonTheme }

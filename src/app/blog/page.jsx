@@ -13,10 +13,11 @@ import {
 } from '@/lib/blogArchive';
 import { buildPageMetadata } from '@/lib/pageSeo';
 import { INNER_PAGE, INNER_HERO_BANNERS } from '@/lib/designLanguage';
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 
 const BookDemoModal = dynamic(() => import('@/components/BookDemoModal'));
 const WhatsAppFloat = dynamic(() => import('@/components/WhatsAppFloat'));
+import BottomCtaBanner from '@/components/BottomCtaBanner';
 
 export const revalidate = 60;
 
@@ -124,33 +125,16 @@ export default async function BlogListingPage({ searchParams }) {
               </>
             )}
 
-            <section className="mt-16">
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#2e0606] via-[#900202] to-[#2e0606] p-8 text-center shadow-xl md:p-14">
-                <div className="relative z-10 mx-auto max-w-2xl">
-                  <h2 className="mb-3 text-2xl font-extrabold text-white sm:text-3xl">
-                    Level Up Your Digital Marketing Career
-                  </h2>
-                  <p className="mb-6 text-sm leading-relaxed text-slate-200 sm:text-base">
-                    Practical training, real internships, and placement support at Zeon Academy — Kerala&apos;s #1 digital marketing institute.
-                  </p>
-                  <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <Link
-                      href="/contact-us#form"
-                      className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3 text-sm font-bold text-white transition hover:bg-primary-hover cursor-pointer"
-                    >
-                      Enroll Now
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                    <Link
-                      href="/course"
-                      className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-7 py-3 text-sm font-bold text-white transition hover:bg-white/15"
-                    >
-                      Explore Courses
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <BottomCtaBanner
+              badge="ZEON BLOG & ACADEMY"
+              headingMain="FIND YOUR PERFECT"
+              headingSub="MARKETING CAREER"
+              description="Learn practical skills with real campaigns, live client budgets, and placement support at Zeon Academy — Kerala's #1 digital marketing institute."
+              primaryText="Book Free Demo"
+              secondaryText="Explore Courses"
+              secondaryHref="/course"
+              className="py-6 md:py-8"
+            />
           </div>
         </section>
       </main>

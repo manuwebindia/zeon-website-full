@@ -13,7 +13,7 @@ export const INNER_PAGE = {
   tagline:
     'block text-black text-[0.85rem] font-normal mb-3 tracking-[0.2em] uppercase',
   title:
-    'text-[clamp(2.2rem,5vw,2.3rem)] leading-[1.2] text-black mb-5 tracking-tight',
+    'text-[clamp(2.2rem,5vw,2.3rem)] leading-[1.2] text-black mb-5 tracking-tight font-semibold',
   subtitle:
     'text-[1.1rem] md:text-[1rem] text-black/80 leading-relaxed font-light mb-5 max-w-3xl mx-auto',
   breadcrumb:

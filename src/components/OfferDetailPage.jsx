@@ -50,14 +50,14 @@ export default function OfferDetailPage({ offer, otherOffers = [] }) {
               <div className="flex-1 lg:w-2/3">
                 {offer.aboutPoints?.length > 0 && (
                   <ScrollReveal direction="up" distance={30}>
-                    <div className="bg-white border border-border rounded-[20px] p-6 md:p-8 mb-8 shadow-sm">
+                    <div className="bg-white border border-border rounded-2xl p-6 md:p-8 mb-8 shadow-sm">
                       <h2 className="text-[1.5rem] font-extrabold text-heading mb-6">
                         {offer.aboutTitle}
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
                         {offer.aboutPoints.map((item) => (
                           <div key={item} className="flex items-start gap-3">
-                            <FaCheckCircle className="text-blue-600 mt-1 shrink-0" />
+                            <FaCheckCircle className="text-primary mt-1 shrink-0" />
                             <span className="text-body font-medium leading-snug">{item}</span>
                           </div>
                         ))}
@@ -86,14 +86,14 @@ export default function OfferDetailPage({ offer, otherOffers = [] }) {
                 <div className="sticky top-28 space-y-6">
                   {offer.showBrochureForm && offer.downloadUrl && (
                     <div className="bg-white border border-border rounded-2xl overflow-hidden shadow-card">
-                      <div className="h-[5px] w-full bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a]" />
+                      <div className="h-[4px] w-full bg-gradient-to-r from-primary to-primary-hover" />
                       <div className="p-6">
                         <div className="flex items-center gap-3 mb-3">
-                          <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0">
+                          <div className="w-12 h-12 rounded-xl bg-primary-light border border-primary/20 flex items-center justify-center shrink-0 text-primary">
                             <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none">
-                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#ef4444" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                              <polyline points="14 2 14 8 20 8" stroke="#ef4444" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                              <text x="6" y="19" fontSize="5.5" fontWeight="800" fill="#ef4444" fontFamily="sans-serif">PDF</text>
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                              <polyline points="14 2 14 8 20 8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                              <text x="6" y="19" fontSize="5.5" fontWeight="800" fill="currentColor" fontFamily="sans-serif">PDF</text>
                             </svg>
                           </div>
                           <div>
@@ -109,7 +109,7 @@ export default function OfferDetailPage({ offer, otherOffers = [] }) {
                         <BrochureDownloadButton
                           brochureUrl={offer.downloadUrl}
                           courseName={brochureName}
-                          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-primary to-[#ff4a4a] text-white font-bold text-[0.9rem] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-sm cursor-pointer"
+                          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-primary text-white font-bold text-[0.9rem] shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
                         >
                           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />

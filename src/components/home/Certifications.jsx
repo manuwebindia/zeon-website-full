@@ -36,9 +36,9 @@ export default function Certifications() {
             <ScrollReveal direction="up" distance={25}>
               <div className="flex gap-6 mt-12 max-lg:flex-col">
                 {/* Main Zeon Cert Card */}
-                <div className="flex-[0_0_320px] max-lg:flex-auto max-lg:w-full bg-white border border-border rounded-2xl flex flex-col items-center justify-center p-12 shadow-[0_8px_30px_rgba(0,0,0,0.04)] text-center transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(255,68,68,0.12)] hover:border-primary/40 relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-[#ff8c4a]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
-                  <div className="w-[150px] h-[150px] rounded-full border-2 border-primary/20 flex items-center justify-center mb-8 p-4 relative bg-white transition-all duration-500 group-hover:border-primary group-hover:shadow-[0_0_30px_rgba(255,68,68,0.2)]">
+                <div className="flex-[0_0_320px] max-lg:flex-auto max-lg:w-full bg-white border border-border rounded-2xl flex flex-col items-center justify-center p-12 shadow-[0_8px_30px_rgba(0,0,0,0.04)] text-center transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_50px_rgba(255,51,51,0.12)] hover:border-primary/40 relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-primary/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
+                  <div className="w-[150px] h-[150px] rounded-full border-2 border-primary/20 flex items-center justify-center mb-8 p-4 relative bg-white transition-all duration-500 group-hover:border-primary group-hover:shadow-[0_0_30px_rgba(255,51,51,0.2)]">
                     <div className="absolute inset-[-4px] rounded-full border border-dashed border-primary/40 animate-[spin_10s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     <Image
                       src="/LOGOblack.png"
@@ -52,7 +52,7 @@ export default function Certifications() {
                   <h3 className="text-xl font-extrabold text-heading leading-snug relative z-10">
                     Zeon Academy
                     <br />
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-[#ff8c4a]">Certification</span>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-primary-hover">Certification</span>
                   </h3>
                 </div>
 

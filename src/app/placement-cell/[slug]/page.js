@@ -196,7 +196,7 @@ export default async function PlacementJobInnerPage({ params }) {
                 <span className={INNER_PAGE.breadcrumbCurrent}>{job.jobTitle}</span>
               </nav>
 
-              <h1 className="text-[clamp(1.85rem,4vw,2.5rem)] font-bold text-heading leading-[1.2] mb-3 tracking-tight">
+              <h1 className={`${INNER_PAGE.title} mb-3`}>
                 {job.jobTitle}
               </h1>
 

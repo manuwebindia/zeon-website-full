@@ -73,12 +73,12 @@ export default function GalleryAlbumPage({ album, otherAlbums = [] }) {
                         {/* Video Play Overlay */}
                         {isVid && (
                           <div className="absolute inset-0 bg-black/25 group-hover:bg-black/40 transition-colors flex items-center justify-center">
-                            <div className="w-12 h-12 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
+                            <div className="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
                               <svg className="w-5 h-5 fill-current translate-x-0.5" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z" />
                               </svg>
                             </div>
-                            <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-red-600 text-white text-[0.68rem] font-bold shadow">
+                            <span className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-full bg-primary text-white text-[0.68rem] font-bold shadow">
                               Video
                             </span>
                           </div>

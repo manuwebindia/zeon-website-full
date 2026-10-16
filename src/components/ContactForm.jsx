@@ -129,8 +129,8 @@ export default function ContactForm() {
           )}
           
           <div className="text-left">
-            <label className="block font-semibold text-primary mb-2 text-[0.88rem]">
-              Full Name *
+            <label className="block font-semibold text-heading mb-2 text-[0.88rem]">
+              Full Name <span className="text-primary">*</span>
             </label>
             <input
               type="text"
@@ -145,8 +145,8 @@ export default function ContactForm() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div className="text-left">
-              <label className="block font-semibold text-primary mb-2 text-[0.88rem]">
-                Email Address *
+              <label className="block font-semibold text-heading mb-2 text-[0.88rem]">
+                Email Address <span className="text-primary">*</span>
               </label>
               <input
                 type="email"
@@ -158,8 +158,8 @@ export default function ContactForm() {
             </div>
 
             <div className="text-left">
-              <label className="block font-semibold text-primary mb-2 text-[0.88rem]">
-                Phone Number *
+              <label className="block font-semibold text-heading mb-2 text-[0.88rem]">
+                Phone Number <span className="text-primary">*</span>
               </label>
               <div className="flex gap-2 items-center">
                 <div className="px-3 py-3.5 bg-[#f8f9fa] border border-border rounded-xl text-[0.9rem] font-bold text-heading shrink-0">
@@ -182,8 +182,8 @@ export default function ContactForm() {
           </div>
 
           <div className="text-left flex-1 flex flex-col">
-            <label className="block font-semibold text-primary mb-2 text-[0.88rem]">
-              Message *
+            <label className="block font-semibold text-heading mb-2 text-[0.88rem]">
+              Message <span className="text-primary">*</span>
             </label>
             <textarea
               name="message"
@@ -208,7 +208,7 @@ export default function ContactForm() {
           <div className="mt-auto pt-1">
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 w-full rounded-full py-4 px-8 font-bold text-[1rem] transition-all duration-300 bg-primary text-white hover:bg-primary-hover hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed border-none shadow-[0_8px_20px_rgba(255,68,68,0.25)]"
+              className="flex items-center justify-center gap-2 w-full rounded-full py-4 px-8 font-bold text-[1rem] transition-all duration-300 bg-primary text-white hover:bg-primary-hover hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed border-none shadow-glow hover:shadow-glow-hover"
               disabled={status === "submitting"}
             >
               {status === "submitting" ? (

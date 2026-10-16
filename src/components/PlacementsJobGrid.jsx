@@ -52,8 +52,9 @@ export default function PlacementsJobGrid({ jobs = [] }) {
                     <FaBriefcase className="text-primary text-[0.95rem]" />
                   </div>
                 )}
-                <span className="inline-block text-[0.7rem] font-bold text-green-600 bg-green-50 border border-green-200 px-2.5 py-1 rounded-full whitespace-nowrap">
-                  🟢 Hiring
+                <span className="inline-flex items-center gap-1.5 text-[0.72rem] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/80 px-2.5 py-1 rounded-full whitespace-nowrap">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                  Hiring
                 </span>
               </div>
 

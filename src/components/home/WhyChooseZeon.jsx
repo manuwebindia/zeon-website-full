@@ -39,11 +39,11 @@ export default function WhyChooseZeon() {
                 {features.map((f, i) => (
                   <div
                     key={i}
-                    className="bg-white border border-border rounded-2xl p-7 transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(255,68,68,0.08)] hover:border-primary/30 group relative overflow-hidden"
+                    className="bg-white border border-border rounded-2xl p-7 transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(255,51,51,0.08)] hover:border-primary/30 group relative overflow-hidden"
                   >
-                    <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-[#ff8c4a] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-primary-hover opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     <div className="absolute -inset-[100px] bg-primary/5 rounded-full blur-3xl opacity-0 transition-opacity duration-700 group-hover:opacity-100 pointer-events-none" />
-                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-5 text-primary text-[1.4rem] border border-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(255,68,68,0.3)] relative z-10">
+                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-5 text-primary text-[1.4rem] border border-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(255,51,51,0.3)] relative z-10">
                       <f.icon />
                     </div>
                     <h3 className="text-[1.05rem] font-bold text-heading mb-3">

@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaPlayCircle, FaTimes, FaStar, FaQuoteLeft } from "react-icons/fa";
 import { INNER_PAGE } from "@/lib/designLanguage";
+import BottomCtaBanner from "@/components/BottomCtaBanner";
 
 const testimonials = [
   {
@@ -211,36 +212,17 @@ export default function TestimonialsClient({ bannerImage }) {
       </section>
 
       {/* ── CTA ── */}
-      <section className="py-16 bg-surface border-t border-border">
-        <div className="w-full max-w-[900px] mx-auto px-6 text-center">
-          <div className="flex items-center justify-center gap-1 mb-3">
-            {[...Array(5)].map((_, i) => (
-              <FaStar key={i} className="text-[#fbbf24] text-lg" />
-            ))}
-          </div>
-          <h2 className="text-[1.8rem] md:text-[2.2rem] font-extrabold text-heading mb-4">
-            Join Hundreds of Happy Graduates
-          </h2>
-          <p className="text-[1.05rem] text-body font-medium leading-relaxed mb-8 max-w-xl mx-auto">
-            Be the next success story. Start your digital marketing journey with
-            Kerala's most trusted institute.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/#demo"
-              className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300"
-            >
-              Book Free Demo
-            </Link>
-            <Link
-              href="/courses"
-              className="px-8 py-4 border-2 border-border text-heading font-bold text-[1rem] rounded-full hover:border-primary hover:text-primary transition-all duration-300"
-            >
-              Explore Programs
-            </Link>
-          </div>
-        </div>
-      </section>
+      <BottomCtaBanner
+        badge="STUDENT SUCCESS"
+        headingMain="JOIN HUNDREDS OF"
+        headingSub="HAPPY GRADUATES"
+        description="Be the next success story. Start your digital marketing journey with Kerala's most trusted, agency-backed training institute."
+        primaryText="Book Free Demo"
+        primaryHref="/#demo"
+        secondaryText="Explore Programs"
+        secondaryHref="/course"
+        statsBadge="4.9/5 Rating"
+      />
 
       {/* ── VIDEO MODAL ── */}
       {activeVideo && (

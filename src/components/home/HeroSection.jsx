@@ -116,7 +116,7 @@ export default function HeroSection({ nextBatchDate }) {
             <div className="flex-[0_0_min(520px,46%)] min-[1025px]:max-w-[520px] relative z-10 max-[1024px]:flex-none max-[1024px]:w-full max-[1024px]:max-w-[540px] max-[1024px]:mx-auto max-[1024px]:order-2 max-[1024px]:my-8">
               {/* Premium Glow Orbs */}
               <div className="absolute top-10 -left-10 w-[200px] h-[200px] bg-primary/20 rounded-full blur-3xl z-[-1] animate-pulse-glow" />
-              <div className="absolute -bottom-10 -right-10 w-[250px] h-[250px] bg-[#ff8c4a]/20 rounded-full blur-3xl z-[-1] animate-pulse-glow hover:bg-primary/30" />
+              <div className="absolute -bottom-10 -right-10 w-[250px] h-[250px] bg-primary/15 rounded-full blur-3xl z-[-1] animate-pulse-glow hover:bg-primary/25" />
               
               {/* Image Frame with Stats */}
               <div className="bg-white rounded-[24px] p-2.5 pb-0 shadow-[0_20px_50px_rgba(0,0,0,0.15)] ring-4 ring-white/60 animate-[float_6s_ease-in-out_infinite] group flex flex-col relative">

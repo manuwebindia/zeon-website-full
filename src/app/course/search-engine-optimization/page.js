@@ -18,6 +18,7 @@ import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
 
 const WhatsAppFloat = dynamic(() => import("../../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../../components/BookDemoModal"));
+import BottomCtaBanner from "@/components/BottomCtaBanner";
 
 export default function SeoSpecialistPage() {
   const whatYouWillLearn = [
@@ -163,7 +164,7 @@ export default function SeoSpecialistPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
                       {whatYouWillLearn.map((item, idx) => (
                         <div key={idx} className="flex items-start gap-3">
-                          <FaCheckCircle className="text-blue-600 mt-1 shrink-0" />
+                          <FaCheckCircle className="text-primary mt-1 shrink-0" />
                           <span className="text-body font-medium leading-snug">{item}</span>
                         </div>
                       ))}
@@ -209,38 +210,38 @@ export default function SeoSpecialistPage() {
                     <h3 className="font-extrabold text-[1.25rem] text-heading mb-5">This course includes:</h3>
                     <ul className="space-y-4 mb-6">
                       <li className="flex items-center gap-3 text-body font-medium">
-                        <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
-                          <FaCheckCircle className="text-blue-600 text-sm" />
+                        <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-primary text-sm" />
                         </div>
                         15 Days Classes
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
-                        <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
-                          <FaCheckCircle className="text-blue-600 text-sm" />
+                        <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-primary text-sm" />
                         </div>
                         1 Month Agency Internship Support
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
-                        <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
-                          <FaCheckCircle className="text-blue-600 text-sm" />
+                        <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-primary text-sm" />
                         </div>
                         Zeon & Google Certifications
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
-                        <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
-                          <FaCheckCircle className="text-blue-600 text-sm" />
+                        <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-primary text-sm" />
                         </div>
                         100% Placement Support
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
-                        <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
-                          <FaCheckCircle className="text-blue-600 text-sm" />
+                        <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-primary text-sm" />
                         </div>
                         Certificate of Completion
                       </li>
                       <li className="flex items-center gap-3 text-body font-medium">
-                        <div className="w-8 h-8 rounded-full bg-blue-600/10 flex items-center justify-center shrink-0">
-                          <FaCheckCircle className="text-blue-600 text-sm" />
+                        <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center shrink-0">
+                          <FaCheckCircle className="text-primary text-sm" />
                         </div>
                         1 Year Academic Support
                       </li>
@@ -257,14 +258,14 @@ export default function SeoSpecialistPage() {
 
                     {/* Download Brochure Card */}
                     <div className="bg-white border border-border rounded-2xl overflow-hidden shadow-card">
-                      <div className="h-[5px] w-full bg-gradient-to-r from-primary via-[#ff4a4a] to-[#ff8c4a]" />
+                      <div className="h-[5px] w-full bg-primary" />
                       <div className="p-6">
                         <div className="flex items-center gap-3 mb-3">
                           <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0">
                             <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none">
-                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#ef4444" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                              <polyline points="14 2 14 8 20 8" stroke="#ef4444" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                              <text x="6" y="19" fontSize="5.5" fontWeight="800" fill="#ef4444" fontFamily="sans-serif">PDF</text>
+                              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="#FF3333" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                              <polyline points="14 2 14 8 20 8" stroke="#FF3333" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                              <text x="6" y="19" fontSize="5.5" fontWeight="800" fill="#FF3333" fontFamily="sans-serif">PDF</text>
                             </svg>
                           </div>
                           <div>
@@ -278,7 +279,7 @@ export default function SeoSpecialistPage() {
                         <BrochureDownloadButton
                           brochureUrl="/brochures/SEO_Specialist.pdf"
                           courseName="SEO Specialist Course"
-                          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-primary to-[#ff4a4a] text-white font-bold text-[0.9rem] hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-sm cursor-pointer"
+                          className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-primary text-white font-bold text-[0.9rem] hover:bg-primary-hover hover:-translate-y-0.5 transition-all duration-300 shadow-sm cursor-pointer"
                         >
                           <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -367,6 +368,16 @@ export default function SeoSpecialistPage() {
             </div>
           </div>
         </section>
+
+        <BottomCtaBanner
+          badge="MASTER SEARCH OPTIMIZATION"
+          headingMain="DOMINATE SEARCH &"
+          headingSub="RANK #1 ON GOOGLE"
+          description="Master keyword research, on-page optimization, technical site audits, and high-authority link building in our 15-day focused SEO program."
+          primaryText="Book Free Demo"
+          secondaryText="Explore All Programs"
+          secondaryHref="/course"
+        />
       </main>
       <Footer />
     </>

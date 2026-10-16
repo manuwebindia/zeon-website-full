@@ -44,7 +44,7 @@ export default function LocationMap() {
                     href="https://www.google.com/maps?rlz=1C5CHFA_enIN1151IN1151&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KaM1iwnYcgg7MQtWkCmexzQd&daddr=46/2709+C,+Ground+Floor,+Haritha+Rd,+Vennala,+Kochi,+Kerala+682028"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 w-full rounded-full py-2.5 px-4 font-bold text-[0.85rem] bg-primary text-white hover:bg-primary-hover transition-all duration-300 shadow-[0_4px_12px_rgba(255,68,68,0.2)]"
+                    className="inline-flex items-center justify-center gap-2 w-full rounded-full py-2.5 px-4 font-bold text-[0.85rem] bg-primary text-white hover:bg-primary-hover transition-all duration-300 shadow-[0_4px_12px_rgba(255,51,51,0.2)]"
                   >
                     Get Directions
                   </a>

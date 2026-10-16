@@ -67,7 +67,7 @@ export default async function ContactPage() {
               {/* Card 1: Talk with us */}
               <ScrollReveal direction="up" distance={40} delay={0.1}>
                 <div className="bg-surface border border-border/70 rounded-[22px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col items-center text-center">
-                  <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-[#ff8c4a]" />
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
                   <div className="w-14 h-14 bg-primary-light rounded-2xl flex items-center justify-center mb-5 text-primary text-[1.4rem] group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <FaPhoneAlt />
                   </div>
@@ -92,7 +92,7 @@ export default async function ContactPage() {
               {/* Card 2: Walk in */}
               <ScrollReveal direction="up" distance={40} delay={0.2}>
                 <div className="bg-surface border border-border/70 rounded-[22px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col items-center text-center">
-                  <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-[#ff8c4a] to-primary" />
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
                   <div className="w-14 h-14 bg-primary-light rounded-2xl flex items-center justify-center mb-5 text-primary text-[1.4rem] group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <FaMapMarkerAlt />
                   </div>
@@ -114,7 +114,7 @@ export default async function ContactPage() {
               {/* Card 3: I ❤️ email */}
               <ScrollReveal direction="up" distance={40} delay={0.3}>
                 <div className="bg-surface border border-border/70 rounded-[22px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col items-center text-center">
-                  <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-primary to-[#ff8c4a]" />
+                  <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
                   <div className="w-14 h-14 bg-primary-light rounded-2xl flex items-center justify-center mb-5 text-primary text-[1.4rem] group-hover:scale-110 transition-transform duration-300 shrink-0">
                     <FaEnvelope />
                   </div>

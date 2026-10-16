@@ -134,7 +134,7 @@ export default function AdmissionForm({ showHeader = true }) {
             Our career counsellor will contact you shortly.
           </p>
           <button
-            className="inline-flex items-center justify-center px-7 py-3 rounded-full font-semibold text-base text-heading border-2 border-border transition-all duration-300 hover:border-[#FF4444] hover:text-[#FF4444] bg-transparent"
+            className="inline-flex items-center justify-center px-7 py-3 rounded-full font-semibold text-base text-heading border-2 border-border transition-all duration-300 hover:border-primary hover:text-primary bg-transparent"
             onClick={() => setStatus("")}
           >
             Submit Another Request
@@ -144,8 +144,8 @@ export default function AdmissionForm({ showHeader = true }) {
         <form onSubmit={onSubmit} className="space-y-6">
           <div className="block space-y-5">
             <div className="text-left">
-              <label className="block font-semibold text-[#FF4444] mb-2 text-[0.9rem]">
-                Name *
+              <label className="block font-semibold text-heading mb-2 text-[0.9rem]">
+                Name <span className="text-primary">*</span>
               </label>
               <input
                 type="text"
@@ -163,8 +163,8 @@ export default function AdmissionForm({ showHeader = true }) {
             </div>
 
             <div className="text-left">
-              <label className="block font-semibold text-[#FF4444] mb-2 text-[0.9rem]">
-                Email *
+              <label className="block font-semibold text-heading mb-2 text-[0.9rem]">
+                Email <span className="text-primary">*</span>
               </label>
               <input
                 type="email"
@@ -176,8 +176,8 @@ export default function AdmissionForm({ showHeader = true }) {
             </div>
 
             <div className="text-left md:col-span-2">
-              <label className="block font-semibold text-[#FF4444] mb-2 text-[0.9rem]">
-                Phone *
+              <label className="block font-semibold text-heading mb-2 text-[0.9rem]">
+                Phone <span className="text-primary">*</span>
               </label>
               <div className="flex gap-2 items-center">
                 <div className="px-4 py-3.5 bg-[#f8f9fa] border border-border rounded-xl text-[0.95rem] font-semibold flex gap-2 items-center text-heading shrink-0">

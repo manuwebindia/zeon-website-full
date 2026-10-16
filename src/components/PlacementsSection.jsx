@@ -97,9 +97,9 @@ export default function PlacementsSection() {
                 className="px-3 md:px-4 box-border flex-shrink-0"
                 style={{ width: `${100 / cardsToShow}%` }}
               >
-                <div className="relative bg-white rounded-[20px] p-6 pt-10 flex flex-col items-center text-center shadow-card border border-border/40 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300 h-full">
+                <div className="relative bg-white rounded-2xl p-6 pt-10 flex flex-col items-center text-center shadow-card border border-border/40 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300 h-full">
                   {/* Placed Ribbon */}
-                  <div className="absolute top-0 right-0 w-24 h-24 overflow-hidden rounded-tr-[20px] z-10 pointer-events-none">
+                  <div className="absolute top-0 right-0 w-24 h-24 overflow-hidden rounded-tr-2xl z-10 pointer-events-none">
                     <div className="absolute top-5 -right-7 w-36 rotate-45 transform bg-primary py-1.5 text-center text-[0.65rem] font-extrabold tracking-widest text-white shadow-sm">
                       PLACED
                     </div>

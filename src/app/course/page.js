@@ -13,6 +13,7 @@ const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
 const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 import TestimonialsSection from "@/components/home/TestimonialsSection";
+import BottomCtaBanner from "@/components/BottomCtaBanner";
 
 import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE, COURSE_CARD_BUTTON_THEME } from "@/lib/designLanguage";
@@ -235,12 +236,12 @@ export default async function CoursesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {/* Mentor 1: Sreethu */}
               <ScrollReveal direction="up" distance={40} delay={0.1}>
-                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card  hover:border-primary/30 transition-all duration-500">
+                <div className="group relative bg-white border border-border rounded-2xl overflow-hidden shadow-card hover:border-primary/30 transition-all duration-500">
                   {/* Image Panel */}
-                  <div className="relative h-[320px] w-full bg-gradient-to-br from-white via-[#fff] to-[#fff] flex items-end justify-center overflow-hidden">
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-primary/5 flex items-end justify-center overflow-hidden">
                     {/* Decorative circles */}
                     <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
-                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-[#ff8c4a]/15 rounded-full blur-lg" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-primary/10 rounded-full blur-lg" />
                     <Image
                       src="/sreethu2.webp"
                       alt="Sreethu — Digital Marketing Specialist & Mentor"
@@ -273,11 +274,11 @@ export default async function CoursesPage() {
 
               {/* Mentor 2: Jayakrishnan */}
               <ScrollReveal direction="up" distance={40} delay={0.2}>
-                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:border-primary/30 transition-all duration-500">
+                <div className="group relative bg-white border border-border rounded-2xl overflow-hidden shadow-card hover:border-primary/30 transition-all duration-500">
                   {/* Image Panel */}
-                  <div className="relative h-[320px] w-full bg-gradient-to-br from-white via-[#fff] to-[#fff] flex items-end justify-center overflow-hidden">
-                    <div className="absolute top-4 right-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" />
-                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-purple-400/15 rounded-full blur-lg" />
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-primary/5 flex items-end justify-center overflow-hidden">
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-primary/10 rounded-full blur-lg" />
                     <Image
                       src="/Jayakrishnan.webp"
                       alt="Jayakrishnan — Performance Marketing Specialist & Mentor"
@@ -310,12 +311,12 @@ export default async function CoursesPage() {
 
               {/* Mentor 3: Abhijith R */}
               <ScrollReveal direction="up" distance={40} delay={0.3}>
-                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:border-primary/30 transition-all duration-500">
+                <div className="group relative bg-white border border-border rounded-2xl overflow-hidden shadow-card hover:border-primary/30 transition-all duration-500">
                   {/* Image Panel */}
-                  <div className="relative h-[320px] w-full bg-gradient-to-br from-white via-[#fff] to-[#fff] flex items-end justify-center overflow-hidden">
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-primary/5 flex items-end justify-center overflow-hidden">
                     {/* Decorative circles */}
                     <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
-                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-[#ff8c4a]/15 rounded-full blur-lg" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-primary/10 rounded-full blur-lg" />
                     <Image
                       src="/Abhijith-R.webp"
                       alt="Abhijith R — Digital Marketing Trainer"
@@ -347,6 +348,17 @@ export default async function CoursesPage() {
             </div>
           </div>
         </section>
+
+        {/* BOTTOM CTA BANNER */}
+        <BottomCtaBanner
+          badge="ADMISSIONS OPEN"
+          headingMain="FIND YOUR PERFECT"
+          headingSub="MARKETING CAREER"
+          description="Build practical agency skills with 100% placement support. Reserve your seat for the upcoming batch or attend a free demo session."
+          primaryText="Book Free Demo"
+          secondaryText="Talk to Counsellor"
+          secondaryHref="/contact-us"
+        />
       </main>
       <Footer />
     </>

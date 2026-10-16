@@ -13,6 +13,7 @@ import { getApprovedJobs, mapJobToVacancy } from "@/lib/jobs";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
+import BottomCtaBanner from "@/components/BottomCtaBanner";
 
 export async function generateMetadata() {
   return buildPageMetadata("/placement-cell");
@@ -108,35 +109,16 @@ export default async function PlacementsPage() {
 
         <OurPartners />
 
-        <section className="py-16 bg-surface border-t border-border">
-          <div className="w-full max-w-[900px] mx-auto px-6 text-center">
-            <div className="flex items-center justify-center gap-1 mb-3">
-              {[...Array(5)].map((_, i) => (
-                <FaStar key={i} className="text-[#fbbf24] text-lg" />
-              ))}
-            </div>
-            <h2 className="text-[1.8rem] md:text-[2.2rem] font-extrabold text-heading mb-4">
-              Ready to Land Your <span className="text-primary">Dream Job?</span>
-            </h2>
-            <p className="text-[1.05rem] text-body font-medium leading-relaxed mb-8 max-w-xl mx-auto">
-              Join Zeon Academy and get direct access to our placement cell, 100+ hiring partners, and job-ready training.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link
-                href="/#demo"
-                className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300"
-              >
-                Book Free Demo
-              </Link>
-              <Link
-                href="/courses"
-                className="px-8 py-4 border-2 border-border text-heading font-bold text-[1rem] rounded-full hover:border-primary hover:text-primary transition-all duration-300"
-              >
-                Explore Courses
-              </Link>
-            </div>
-          </div>
-        </section>
+        <BottomCtaBanner
+          badge="PLACEMENT CELL"
+          headingMain="READY TO LAND YOUR"
+          headingSub="DREAM JOB?"
+          description="Join Zeon Academy and get direct access to our active placement cell, 100+ hiring partners, and agency-level practical portfolio."
+          primaryText="Book Free Demo"
+          secondaryText="Explore Courses"
+          secondaryHref="/course"
+          statsBadge="100+ Hiring Partners"
+        />
       </main>
 
       <Footer />

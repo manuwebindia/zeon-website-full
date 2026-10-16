@@ -2,26 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import {
-  FaPhoneAlt,
-  FaCheck,
-  FaMapMarkerAlt,
-  FaEnvelope,
-  FaFacebookF,
-  FaInstagram,
-  FaLinkedin,
-  FaYoutube,
   FaBriefcase,
+  FaCheck,
   FaStar,
 } from "react-icons/fa";
 import { FiClock, FiMonitor } from "react-icons/fi";
 import Navbar from "../../components/Navbar";
 import ScrollReveal from "../../components/ScrollReveal";
 import TestimonialSection from "@/components/home/TestimonialsSection";
+import Footer from "../../components/Footer";
 
 const WhatsAppFloat = dynamic(() => import("../../components/WhatsAppFloat"));
-const LegalButtons = dynamic(() => import("../../components/LegalButtons"));
 const BookDemoModal = dynamic(() => import("../../components/BookDemoModal"));
 import BookDemoButton from "@/components/BookDemoButton";
+import BottomCtaBanner from "@/components/BottomCtaBanner";
 
 import { buildPageMetadata, getPageCms } from "@/lib/pageSeo";
 import { INNER_PAGE } from "@/lib/designLanguage";
@@ -167,8 +161,8 @@ export default async function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Card 1 */}
               <ScrollReveal direction="up" distance={40} delay={0.1}>
-                <div className="bg-white border border-border/80 rounded-[20px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-[#ff8c4a]" />
+                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
                   <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-6 text-primary text-[1.4rem]">
                     <FaBriefcase />
                   </div>
@@ -183,8 +177,8 @@ export default async function AboutPage() {
 
               {/* Card 2 */}
               <ScrollReveal direction="up" distance={40} delay={0.2}>
-                <div className="bg-white border border-border/80 rounded-[20px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-[#ff8c4a]" />
+                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
                   <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-6 text-primary text-[1.4rem]">
                     <FiMonitor />
                   </div>
@@ -199,8 +193,8 @@ export default async function AboutPage() {
 
               {/* Card 3 */}
               <ScrollReveal direction="up" distance={40} delay={0.3}>
-                <div className="bg-white border border-border/80 rounded-[20px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
-                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-[#ff8c4a]" />
+                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
+                  <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
                   <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-6 text-primary text-[1.4rem]">
                     <FiClock />
                   </div>
@@ -237,12 +231,12 @@ export default async function AboutPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {/* Mentor 1: Sreethu */}
               <ScrollReveal direction="up" distance={40} delay={0.1}>
-                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
+                <div className="group relative bg-white border border-border rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
                   {/* Image Panel */}
-                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-[#ffecd2] flex items-end justify-center overflow-hidden">
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-primary/5 flex items-end justify-center overflow-hidden">
                     {/* Decorative circles */}
                     <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
-                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-[#ff8c4a]/15 rounded-full blur-lg" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-primary/10 rounded-full blur-lg" />
                     <Image
                       src="/sreethu2.webp"
                       alt="Sreethu — Digital Marketing Specialist & Mentor"
@@ -274,11 +268,11 @@ export default async function AboutPage() {
 
               {/* Mentor 2: Jayakrishnan */}
               <ScrollReveal direction="up" distance={40} delay={0.2}>
-                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
+                <div className="group relative bg-white border border-border rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
                   {/* Image Panel */}
-                  <div className="relative h-[320px] w-full bg-gradient-to-br from-[#eef2ff] via-[#f5f0ff] to-[#ffe4f0] flex items-end justify-center overflow-hidden">
-                    <div className="absolute top-4 right-4 w-20 h-20 bg-blue-500/10 rounded-full blur-xl" />
-                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-purple-400/15 rounded-full blur-lg" />
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-primary/5 flex items-end justify-center overflow-hidden">
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-primary/10 rounded-full blur-lg" />
                     <Image
                       src="/Jayakrishnan.webp"
                       alt="Jayakrishnan — Performance Marketing Specialist & Mentor"
@@ -310,12 +304,12 @@ export default async function AboutPage() {
 
               {/* Mentor 3: Abhijith R */}
               <ScrollReveal direction="up" distance={40} delay={0.3}>
-                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
+                <div className="group relative bg-white border border-border rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover hover:border-primary/30 transition-all duration-500 hover:-translate-y-2">
                   {/* Image Panel */}
-                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-[#ffecd2] flex items-end justify-center overflow-hidden">
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-primary/10 via-[#fff1f1] to-primary/5 flex items-end justify-center overflow-hidden">
                     {/* Decorative circles */}
                     <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
-                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-[#ff8c4a]/15 rounded-full blur-lg" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-primary/10 rounded-full blur-lg" />
                     <Image
                       src="/Abhijith-R.webp"
                       alt="Abhijith R — Digital Marketing Trainer"
@@ -349,166 +343,18 @@ export default async function AboutPage() {
         </section>
 
         {/* CTA SECTION */}
-        <section className="py-16 bg-surface border-t border-border">
-          <div className="w-full max-w-[900px] mx-auto px-6 text-center">
-            <div className="flex items-center justify-center gap-1 mb-3">
-              {[...Array(5)].map((_, i) => (
-                <FaStar key={i} className="text-[#fbbf24] text-lg" />
-              ))}
-            </div>
-            <h2 className="text-[1.8rem] md:text-[2.2rem] font-extrabold text-heading mb-4">
-              Launch Your Career with <br />
-              <span className="text-primary">Kerala&rsquo;s #1 Academy</span>
-            </h2>
-            <p className="text-[1.05rem] text-body font-medium leading-relaxed mb-8 max-w-xl mx-auto">
-              Ready to learn from professional digital marketers and gain real agency work experience? Book your demo class today.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <BookDemoButton
-                courseName="Free Live Demo Class"
-                className="px-8 py-4 bg-primary text-white font-bold text-[1rem] rounded-full shadow-glow hover:bg-primary-hover hover:shadow-glow-hover hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
-              >
-                Book Free Demo
-              </BookDemoButton>
-              <Link
-                href="/course"
-                className="px-8 py-4 border-2 border-border text-heading font-bold text-[1rem] rounded-full hover:border-primary hover:text-primary transition-all duration-300"
-              >
-                Explore Programs
-              </Link>
-            </div>
-          </div>
-        </section>
+        <BottomCtaBanner
+          badge="LAUNCH YOUR CAREER"
+          headingMain="LEARN WITH KERALA'S"
+          headingSub="#1 DIGITAL ACADEMY"
+          description="Ready to learn from professional digital marketers and gain real agency work experience? Book your free demo class today."
+          primaryText="Book Free Demo"
+          secondaryText="Explore Programs"
+          secondaryHref="/course"
+        />
 
         {/* FOOTER */}
-        <footer className="bg-[#222831] text-[#c3c8cf] pt-12 pb-6 md:pt-16 md:pb-8 text-[0.95rem] border-t border-white/10">
-          <div className="w-full max-w-[1200px] mx-auto px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
-              {/* Column 1: Brand */}
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <Image
-                    src="/zeon-logo.png"
-                    alt="Zeon Academy"
-                    width={140}
-                    height={45}
-                    style={{ height: "45px", width: "auto" }}
-                  />
-                </div>
-                <p className="leading-relaxed mb-6 text-[#c3c8cf]">
-                  Kerala&rsquo;s leading digital marketing training institute with 100% placement support.
-                </p>
-                <div className="flex gap-3">
-                  {[
-                    { Icon: FaFacebookF, href: "https://www.facebook.com/ZEONACADEMY/" },
-                    { Icon: FaInstagram, href: "https://www.instagram.com/zeon_academy" },
-                    { Icon: FaLinkedin, href: "https://in.linkedin.com/company/zeon-academy" },
-                    { Icon: FaYoutube, href: "https://www.youtube.com/@zeonacademy" },
-                  ].map(({ Icon, href }, i) => (
-                    <a
-                      key={i}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center justify-center w-9 h-9 rounded-md bg-[#393f47] text-white transition-all duration-200 hover:bg-primary hover:scale-110"
-                    >
-                      <Icon />
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Column 2: Quick Links */}
-              <div>
-                <h4 className="text-white font-bold mb-5 tracking-wide">
-                  Quick Links
-                </h4>
-                <ul className="flex flex-col gap-3 list-none p-0">
-                  {[
-                    { label: "Home", href: "/" },
-                    { label: "About Us", href: "/about" },
-                    { label: "Courses", href: "/courses" },
-                    { label: "Job Vacancy", href: "/placements" },
-                    { label: "Blog", href: "/blog" },
-                    { label: "Contact Us", href: "/contact" },
-                  ].map(({ label, href }) => (
-                    <li key={label}>
-                      <Link
-                        href={href}
-                        className="text-[#c3c8cf] no-underline transition-all duration-300 hover:text-white hover:pl-1"
-                      >
-                        {label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Column 3: Contact */}
-              <div>
-                <h4 className="text-white font-bold mb-5 tracking-wide">
-                  Contact Us
-                </h4>
-                <ul className="flex flex-col gap-4 list-none p-0">
-                  <li className="flex items-start gap-3">
-                    <FaMapMarkerAlt className="text-primary mt-1 shrink-0" />
-                    <span className="leading-normal text-[#c3c8cf]">
-                      Zeon Academy, 46/2709 C, Haritha Road Vennala PO, Kochi - 682028
-                    </span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <FaPhoneAlt className="text-primary shrink-0" />
-                    <a
-                      href="tel:+918943356405"
-                      className="text-[#c3c8cf] no-underline hover:text-white transition-colors"
-                    >
-                      +91 8943356405
-                    </a>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <FaEnvelope className="text-primary shrink-0" />
-                    <span className="text-[#c3c8cf]">
-                      contact@zeonacademy.com
-                    </span>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Column 4: Certifications */}
-              <div>
-                <h4 className="text-white font-bold mb-5 tracking-wide">
-                  Certifications
-                </h4>
-                <ul className="flex flex-col gap-3 list-none p-0">
-                  {[
-                    "Government Recognized",
-                    "NSDC Partner",
-                    "Google Partner",
-                    "Meta Partner",
-                  ].map((cert) => (
-                    <li
-                      key={cert}
-                      className="flex items-center gap-3 text-[#c3c8cf]"
-                    >
-                      <FaCheck className="text-primary text-[0.85em] shrink-0" />
-                      {cert}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Bottom Bar */}
-            <div className="flex flex-col-reverse sm:flex-row sm:justify-between items-center gap-4 py-6 border-t border-white/10 text-[0.85rem]">
-              <p className="m-0 text-[#c3c8cf] text-center sm:text-left">
-                © 2026 Zeon Academy. All Rights Reserved | <span className="whitespace-nowrap">Powered by <a href="https://webindiasolutions.com/" target="_blank" rel="noopener noreferrer" className="text-white no-underline hover:text-primary transition-all duration-300">Web India Solutions</a></span>
-              </p>
-              <div className="flex gap-6">
-                <LegalButtons />
-              </div>
-            </div>
-          </div>
-        </footer>
+        <Footer />
       </main>
     </>
   );
