@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useCallback, useState, useEffect, useTransition, useRef } from 'react';
+import { useCallback, useState, useTransition, useRef } from 'react';
 import { Search, SlidersHorizontal, LayoutGrid, List, X, ChevronDown } from 'lucide-react';
 import { buildBlogArchiveUrl, PER_PAGE_OPTIONS } from '@/lib/blogArchive';
 
@@ -14,13 +14,13 @@ export default function BlogArchiveToolbar({
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [query, setQuery] = useState(params.q || '');
+  const [prevQ, setPrevQ] = useState(params.q);
+  if (params.q !== prevQ) {
+    setPrevQ(params.q);
+    setQuery(params.q || '');
+  }
   const [filterOpen, setFilterOpen] = useState(showFilterPanel && Boolean(params.category));
   const inputRef = useRef(null);
-
-  // Sync state with incoming URL search params (e.g. back button, "View all blogs" click)
-  useEffect(() => {
-    setQuery(params.q || '');
-  }, [params.q]);
 
   const navigate = useCallback(
     (overrides) => {

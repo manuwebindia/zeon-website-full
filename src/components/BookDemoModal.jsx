@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { createPortal } from "react-dom";
 import { FaTimes, FaCheckCircle, FaSpinner } from "react-icons/fa";
@@ -10,7 +10,11 @@ export default function BookDemoModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [errors, setErrors] = useState({});
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const [courseName, setCourseName] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
@@ -35,9 +39,7 @@ export default function BookDemoModal() {
     if (!/^[0-9]$/.test(e.key)) e.preventDefault();
   };
 
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
-    setMounted(true);
     const handleOpen = (e) => {
       if (e.detail && e.detail.courseName) {
         setCourseName(e.detail.courseName);
@@ -106,10 +108,10 @@ export default function BookDemoModal() {
     });
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsOpen(false);
     setTimeout(() => { if (status !== "submitting") setStatus(""); }, 300);
-  };
+  }, [status]);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -130,7 +132,7 @@ export default function BookDemoModal() {
       document.documentElement.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, closeModal]);
 
   const modalRender = (
     <div

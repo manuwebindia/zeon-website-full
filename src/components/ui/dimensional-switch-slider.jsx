@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { flushSync } from "react-dom";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 if (typeof window !== "undefined") {

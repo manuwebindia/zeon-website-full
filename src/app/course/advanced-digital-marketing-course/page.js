@@ -146,7 +146,7 @@ export default function AdvancedDigitalMarketingPage() {
                 {/* What you'll learn */}
                 <ScrollReveal direction="up" distance={30}>
                   <div className="bg-white border border-border rounded-[20px] p-6 md:p-8 mb-8 shadow-sm">
-                    <h2 className="text-[1.5rem] font-extrabold text-heading mb-6">What you'll learn</h2>
+                    <h2 className="text-[1.5rem] font-extrabold text-heading mb-6">What you&apos;ll learn</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-6">
                       {whatYouWillLearn.map((item, idx) => (
                         <div key={idx} className="flex items-start gap-3">

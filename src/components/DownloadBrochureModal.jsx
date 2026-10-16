@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import { FaTimes, FaSpinner, FaFilePdf } from "react-icons/fa";
 
@@ -8,7 +8,11 @@ export default function DownloadBrochureModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState("");
   const [errors, setErrors] = useState({});
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
   const [courseName, setCourseName] = useState("");
   const [brochureUrl, setBrochureUrl] = useState("");
 
@@ -27,7 +31,6 @@ export default function DownloadBrochureModal() {
   };
 
   useEffect(() => {
-    setMounted(true);
     const handleOpen = (e) => {
       if (e.detail) {
         setCourseName(e.detail.courseName || "");
@@ -117,15 +120,13 @@ export default function DownloadBrochureModal() {
     });
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsOpen(false);
     setTimeout(() => {
-      if (status !== "submitting") {
-        setStatus("");
-        setErrors({});
-      }
+      setStatus((prev) => (prev !== "submitting" ? "" : prev));
+      setErrors({});
     }, 300);
-  };
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -146,7 +147,7 @@ export default function DownloadBrochureModal() {
       document.documentElement.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen]);
+  }, [isOpen, closeModal]);
 
   const modalRender = (
     <div

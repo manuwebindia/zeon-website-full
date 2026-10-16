@@ -225,13 +225,13 @@ function OverlappingImageStack({ images = [], isTop, isHovered, className = "" }
 function MilestoneCard({ item, isTop, activeStyle, mutedTextStyle }) {
   const cardRef = useRef(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
   const [coords, setCoords] = useState(null);
   const images = item.galleryImages || [];
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     if (!isHovered || !cardRef.current) return;
