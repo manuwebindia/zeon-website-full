@@ -1,6 +1,6 @@
 {
   "popup": {
-    "enabled": true,
+    "enabled": false,
     "delaySeconds": 2,
     "durationMinutes": 5,
     "badgeText": "Limited Time Offer",

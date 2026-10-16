@@ -232,7 +232,7 @@ export default async function CoursesPage() {
               </div>
             </ScrollReveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {/* Mentor 1: Sreethu */}
               <ScrollReveal direction="up" distance={40} delay={0.1}>
                 <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card  hover:border-primary/30 transition-all duration-500">
@@ -246,7 +246,7 @@ export default async function CoursesPage() {
                       alt="Sreethu — Digital Marketing Specialist & Mentor"
                       width={280}
                       height={300}
-                      className="object-contain object-bottom w-auto h-[300px] transition-transform duration-500 group-hover:scale-101 relative z-10 drop-shadow-lg"
+                      className="object-contain object-bottom w-auto h-[300px] relative z-10 drop-shadow-lg"
                       sizes="280px"
                     />
                   </div>
@@ -283,7 +283,7 @@ export default async function CoursesPage() {
                       alt="Jayakrishnan — Performance Marketing Specialist & Mentor"
                       width={280}
                       height={300}
-                      className="object-contain object-bottom w-auto h-[300px] transition-transform duration-500 group-hover:scale-101 relative z-10 drop-shadow-lg"
+                      className="object-contain object-bottom w-auto h-[300px] relative z-10 drop-shadow-lg"
                       sizes="280px"
                     />
                   </div>
@@ -304,6 +304,43 @@ export default async function CoursesPage() {
                       </span>
                     </div>
 
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              {/* Mentor 3: Abhijith R */}
+              <ScrollReveal direction="up" distance={40} delay={0.3}>
+                <div className="group relative bg-white border border-border rounded-3xl overflow-hidden shadow-card hover:border-primary/30 transition-all duration-500">
+                  {/* Image Panel */}
+                  <div className="relative h-[320px] w-full bg-gradient-to-br from-white via-[#fff] to-[#fff] flex items-end justify-center overflow-hidden">
+                    {/* Decorative circles */}
+                    <div className="absolute top-4 right-4 w-20 h-20 bg-primary/10 rounded-full blur-xl" />
+                    <div className="absolute bottom-0 left-6 w-14 h-14 bg-[#ff8c4a]/15 rounded-full blur-lg" />
+                    <Image
+                      src="/Abhijith-R.webp"
+                      alt="Abhijith R — Digital Marketing Trainer"
+                      width={280}
+                      height={300}
+                      className="object-contain object-bottom w-auto h-[300px] relative z-10 drop-shadow-lg"
+                      sizes="280px"
+                    />
+                  </div>
+                  {/* Info Panel */}
+                  <div className="px-6 py-5">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="text-[1.4rem] font-extrabold text-heading leading-tight">
+                          Abhijith R
+                        </h3>
+                        <p className="text-[0.9rem] font-bold text-primary mt-0.5">
+                          Digital Marketing Trainer
+                        </p>
+                      </div>
+                      <span className="shrink-0 mt-1 inline-flex items-center gap-1.5 bg-green-500/10 text-green-500 text-[0.75rem] font-bold px-3 py-1 rounded-full">
+                        <span className="w-1.5 h-1.5 bg-green-500 rounded-full inline-block animate-pulse" />
+                        Active Trainer
+                      </span>
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
