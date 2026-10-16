@@ -66,21 +66,51 @@ export default async function ContactPage() {
 
               {/* Card 1: Talk with us */}
               <ScrollReveal direction="up" distance={40} delay={0.1}>
-                <div className="bg-surface border border-border/70 rounded-[22px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col items-center text-center">
-                  <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
-                  <div className="w-14 h-14 bg-primary-light rounded-2xl flex items-center justify-center mb-5 text-primary text-[1.4rem] group-hover:scale-110 transition-transform duration-300 shrink-0">
+                <div className="relative rounded-[24px] md:rounded-[28px] bg-primary p-7 sm:p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(255,51,51,0.28)] group overflow-hidden flex flex-col items-center text-center border-2 border-white/20 shadow-[0_14px_36px_rgba(255,51,51,0.22)]">
+                  {/* Diagonal Hatching Pattern */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-20"
+                    style={{
+                      backgroundImage: `repeating-linear-gradient(
+                        -45deg,
+                        rgba(255, 255, 255, 0.4) 0px,
+                        rgba(255, 255, 255, 0.4) 1.5px,
+                        transparent 1.5px,
+                        transparent 8px
+                      )`,
+                    }}
+                  />
+                  {/* Radial ambient glow orbs */}
+                  <div className="absolute -top-16 -left-16 w-44 h-44 rounded-full bg-white/15 blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-black/20 blur-2xl pointer-events-none" />
+
+                  {/* Decorative Mini Cloud */}
+                  <div className="absolute top-3 right-4 opacity-40 pointer-events-none">
+                    <svg width="40" height="20" viewBox="0 0 68 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M18 34H56C62.6274 34 68 28.6274 68 22C68 15.6569 63.0783 10.4578 56.8402 10.024C55.086 4.25417 49.7115 0 43.3333 0C37.8966 0 33.1537 3.08985 30.7937 7.62507C29.2801 6.60251 27.4526 6 25.4878 6C20.4074 6 16.2308 9.9406 15.867 14.939C6.98592 15.4219 0 22.8465 0 31.875C0 33.0487 0.119253 34 0.354167 34H18Z"
+                        fill="white"
+                        fillOpacity="0.85"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Icon */}
+                  <div className="w-14 h-14 bg-white/15 border border-white/25 rounded-2xl flex items-center justify-center mb-5 text-white text-[1.35rem] group-hover:scale-110 transition-transform duration-300 shrink-0 backdrop-blur-sm shadow-sm relative z-10">
                     <FaPhoneAlt />
                   </div>
-                  <h3 className="text-[1.2rem] font-extrabold text-heading mb-2">Talk with us</h3>
-                  <p className="text-[0.88rem] text-body mb-5 font-medium leading-relaxed">
+                  <h3 className="text-[1.25rem] font-black text-white uppercase tracking-tight mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)] relative z-10">
+                    Talk with us
+                  </h3>
+                  <p className="text-[0.88rem] text-white/90 mb-6 font-medium leading-relaxed relative z-10">
                     Call our team directly for immediate course counselling and queries.
                   </p>
-                  <div className="flex flex-col gap-1.5 mt-auto w-full">
+                  <div className="flex flex-col gap-2 mt-auto w-full relative z-10">
                     {["+91 7558888252", "+91 8943356405", "+91 8943356406"].map((num, i) => (
                       <a
                         key={i}
                         href={`tel:${num.replace(/\s/g, "")}`}
-                        className="inline-block font-bold text-heading text-[1rem] hover:text-primary transition-colors py-0.5"
+                        className="inline-flex items-center justify-center font-black text-primary bg-white text-[0.92rem] hover:bg-heading hover:text-white rounded-full py-2 px-4 shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-95"
                       >
                         {num}
                       </a>
@@ -91,43 +121,107 @@ export default async function ContactPage() {
 
               {/* Card 2: Walk in */}
               <ScrollReveal direction="up" distance={40} delay={0.2}>
-                <div className="bg-surface border border-border/70 rounded-[22px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col items-center text-center">
-                  <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
-                  <div className="w-14 h-14 bg-primary-light rounded-2xl flex items-center justify-center mb-5 text-primary text-[1.4rem] group-hover:scale-110 transition-transform duration-300 shrink-0">
+                <div className="relative rounded-[24px] md:rounded-[28px] bg-primary p-7 sm:p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(255,51,51,0.28)] group overflow-hidden flex flex-col items-center text-center border-2 border-white/20 shadow-[0_14px_36px_rgba(255,51,51,0.22)]">
+                  {/* Diagonal Hatching Pattern */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-20"
+                    style={{
+                      backgroundImage: `repeating-linear-gradient(
+                        -45deg,
+                        rgba(255, 255, 255, 0.4) 0px,
+                        rgba(255, 255, 255, 0.4) 1.5px,
+                        transparent 1.5px,
+                        transparent 8px
+                      )`,
+                    }}
+                  />
+                  {/* Radial ambient glow orbs */}
+                  <div className="absolute -top-16 -left-16 w-44 h-44 rounded-full bg-white/15 blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-black/20 blur-2xl pointer-events-none" />
+
+                  {/* Decorative Mini Cloud */}
+                  <div className="absolute top-3 right-4 opacity-40 pointer-events-none">
+                    <svg width="40" height="20" viewBox="0 0 68 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M18 34H56C62.6274 34 68 28.6274 68 22C68 15.6569 63.0783 10.4578 56.8402 10.024C55.086 4.25417 49.7115 0 43.3333 0C37.8966 0 33.1537 3.08985 30.7937 7.62507C29.2801 6.60251 27.4526 6 25.4878 6C20.4074 6 16.2308 9.9406 15.867 14.939C6.98592 15.4219 0 22.8465 0 31.875C0 33.0487 0.119253 34 0.354167 34H18Z"
+                        fill="white"
+                        fillOpacity="0.85"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Icon */}
+                  <div className="w-14 h-14 bg-white/15 border border-white/25 rounded-2xl flex items-center justify-center mb-5 text-white text-[1.35rem] group-hover:scale-110 transition-transform duration-300 shrink-0 backdrop-blur-sm shadow-sm relative z-10">
                     <FaMapMarkerAlt />
                   </div>
-                  <h3 className="text-[1.2rem] font-extrabold text-heading mb-2">Walk in</h3>
-                  <p className="text-[0.88rem] text-body mb-5 font-medium leading-relaxed">
+                  <h3 className="text-[1.25rem] font-black text-white uppercase tracking-tight mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)] relative z-10">
+                    Walk in
+                  </h3>
+                  <p className="text-[0.88rem] text-white/90 mb-6 font-medium leading-relaxed relative z-10">
                     Zeon Academy, 46/2709 C, Haritha Road,<br />Vennala PO, Kochi – 682028
                   </p>
-                  <a
-                    href="https://www.google.com/maps?rlz=1C5CHFA_enIN1151IN1151&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KaM1iwnYcgg7MQtWkCmexzQd&daddr=46/2709+C,+Ground+Floor,+Haritha+Rd,+Vennala,+Kochi,+Kerala+682028"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 mt-auto text-primary font-bold text-[0.9rem] hover:underline"
-                  >
-                    <FaMapMarkedAlt /> Get Directions
-                  </a>
+                  <div className="mt-auto w-full relative z-10">
+                    <a
+                      href="https://www.google.com/maps?rlz=1C5CHFA_enIN1151IN1151&um=1&ie=UTF-8&fb=1&gl=in&sa=X&geocode=KaM1iwnYcgg7MQtWkCmexzQd&daddr=46/2709+C,+Ground+Floor,+Haritha+Rd,+Vennala,+Kochi,+Kerala+682028"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 w-full font-black text-primary bg-white text-[0.92rem] hover:bg-heading hover:text-white rounded-full py-2.5 px-5 shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-95"
+                    >
+                      <FaMapMarkedAlt /> Get Directions
+                    </a>
+                  </div>
                 </div>
               </ScrollReveal>
 
               {/* Card 3: I ❤️ email */}
               <ScrollReveal direction="up" distance={40} delay={0.3}>
-                <div className="bg-surface border border-border/70 rounded-[22px] p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col items-center text-center">
-                  <div className="absolute top-0 left-0 w-full h-[3px] bg-primary" />
-                  <div className="w-14 h-14 bg-primary-light rounded-2xl flex items-center justify-center mb-5 text-primary text-[1.4rem] group-hover:scale-110 transition-transform duration-300 shrink-0">
+                <div className="relative rounded-[24px] md:rounded-[28px] bg-primary p-7 sm:p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_45px_rgba(255,51,51,0.28)] group overflow-hidden flex flex-col items-center text-center border-2 border-white/20 shadow-[0_14px_36px_rgba(255,51,51,0.22)]">
+                  {/* Diagonal Hatching Pattern */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-20"
+                    style={{
+                      backgroundImage: `repeating-linear-gradient(
+                        -45deg,
+                        rgba(255, 255, 255, 0.4) 0px,
+                        rgba(255, 255, 255, 0.4) 1.5px,
+                        transparent 1.5px,
+                        transparent 8px
+                      )`,
+                    }}
+                  />
+                  {/* Radial ambient glow orbs */}
+                  <div className="absolute -top-16 -left-16 w-44 h-44 rounded-full bg-white/15 blur-2xl pointer-events-none" />
+                  <div className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-black/20 blur-2xl pointer-events-none" />
+
+                  {/* Decorative Mini Cloud */}
+                  <div className="absolute top-3 right-4 opacity-40 pointer-events-none">
+                    <svg width="40" height="20" viewBox="0 0 68 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M18 34H56C62.6274 34 68 28.6274 68 22C68 15.6569 63.0783 10.4578 56.8402 10.024C55.086 4.25417 49.7115 0 43.3333 0C37.8966 0 33.1537 3.08985 30.7937 7.62507C29.2801 6.60251 27.4526 6 25.4878 6C20.4074 6 16.2308 9.9406 15.867 14.939C6.98592 15.4219 0 22.8465 0 31.875C0 33.0487 0.119253 34 0.354167 34H18Z"
+                        fill="white"
+                        fillOpacity="0.85"
+                      />
+                    </svg>
+                  </div>
+
+                  {/* Icon */}
+                  <div className="w-14 h-14 bg-white/15 border border-white/25 rounded-2xl flex items-center justify-center mb-5 text-white text-[1.35rem] group-hover:scale-110 transition-transform duration-300 shrink-0 backdrop-blur-sm shadow-sm relative z-10">
                     <FaEnvelope />
                   </div>
-                  <h3 className="text-[1.2rem] font-extrabold text-heading mb-2">I ❤️ email</h3>
-                  <p className="text-[0.88rem] text-body mb-5 font-medium leading-relaxed">
+                  <h3 className="text-[1.25rem] font-black text-white uppercase tracking-tight mb-2 drop-shadow-[0_2px_8px_rgba(0,0,0,0.15)] relative z-10">
+                    I ❤️ email
+                  </h3>
+                  <p className="text-[0.88rem] text-white/90 mb-6 font-medium leading-relaxed relative z-10">
                     We read and respond to every email. Drop us a line anytime.
                   </p>
-                  <a
-                    href="mailto:contact@zeonacademy.com"
-                    className="font-bold text-primary text-[0.95rem] hover:underline mt-auto break-all"
-                  >
-                    contact@zeonacademy.com
-                  </a>
+                  <div className="mt-auto w-full relative z-10">
+                    <a
+                      href="mailto:contact@zeonacademy.com"
+                      className="inline-flex items-center justify-center font-black text-primary bg-white text-[0.92rem] hover:bg-heading hover:text-white rounded-full py-2.5 px-5 shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition-all duration-300 hover:scale-[1.02] active:scale-95 break-all w-full"
+                    >
+                      contact@zeonacademy.com
+                    </a>
+                  </div>
                 </div>
               </ScrollReveal>
 
