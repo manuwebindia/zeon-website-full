@@ -668,7 +668,7 @@ export default function Timeline({
               alt={imageAlt}
               fill
               sizes="(max-width: 640px) 240px, (max-width: 768px) 320px, 360px"
-              quality={70}
+              quality={100}
               priority
               className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 select-none"
             />
