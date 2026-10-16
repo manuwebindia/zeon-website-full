@@ -5,7 +5,7 @@ import GoogleReviewsWidget from "@/components/GoogleReviewsWidget";
 
 export default function CourseTestimonials() {
   return (
-    <div className="w-full">
+    <div className="w-full text-left">
       <GoogleReviewsWidget />
     </div>
   );

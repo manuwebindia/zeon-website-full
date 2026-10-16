@@ -62,7 +62,7 @@ export default function TestimonialsSection({
         {/* Google Reviews Integration */}
         {showGoogleReviews && (
           <ScrollReveal direction="up" distance={30} delay={0.15}>
-            <div className={showVideos ? "pt-8 border-t border-slate-200/80" : ""}>
+            <div className={`text-left ${showVideos ? "pt-8 border-t border-slate-200/80" : ""}`}>
               <CourseTestimonials />
             </div>
           </ScrollReveal>

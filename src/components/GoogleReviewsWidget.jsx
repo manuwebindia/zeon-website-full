@@ -158,7 +158,7 @@ export default function GoogleReviewsWidget({
   const reviews = data?.reviews || [];
 
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full text-left ${className}`}>
       {/* ── TOP HEADER / BADGE BAR ── */}
       <div className="bg-white border border-[#E2E8F0] rounded-2xl p-5 md:p-6 mb-6 shadow-[0_2px_12px_rgba(0,0,0,0.04)] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         {/* Left: Google Logo + Rating + Stars */}
@@ -279,9 +279,9 @@ export default function GoogleReviewsWidget({
             return (
               <div
                 key={rev.id || index}
-                className="w-[300px] sm:w-[340px] shrink-0 bg-white border border-[#E2E8F0] rounded-2xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:border-[#CBD5E1] transition-all duration-300 flex flex-col justify-between snap-start"
+                className="w-[300px] sm:w-[340px] shrink-0 bg-white border border-[#E2E8F0] rounded-2xl p-5 shadow-[0_2px_10px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] hover:border-[#CBD5E1] transition-all duration-300 flex flex-col justify-between snap-start text-left"
               >
-                <div>
+                <div className="text-left">
                   {/* Author Header */}
                   <div className="flex items-start justify-between gap-3 mb-3">
                     <div className="flex items-center gap-3 min-w-0">
@@ -335,14 +335,14 @@ export default function GoogleReviewsWidget({
                   </div>
 
                   {/* Review Text */}
-                  <p className="text-[#334155] text-[0.85rem] leading-relaxed font-normal">
+                  <p className="text-[#334155] text-[0.85rem] leading-relaxed font-normal text-left">
                     {displayText}
                   </p>
 
                   {isLong && (
                     <button
                       onClick={() => toggleExpand(rev.id)}
-                      className="text-[0.78rem] font-bold text-[#2563EB] hover:text-[#1D4ED8] mt-1.5 block cursor-pointer transition-colors"
+                      className="text-[0.78rem] font-bold text-[#2563EB] hover:text-[#1D4ED8] mt-1.5 block cursor-pointer transition-colors text-left"
                     >
                       {isExpanded ? "Show less" : "Read more"}
                     </button>

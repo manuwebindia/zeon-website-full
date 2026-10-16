@@ -106,12 +106,21 @@ export default function BottomCtaBanner({
                   </BookDemoButton>
                 )}
 
-                <Link
-                  href={secondaryHref}
-                  className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/80 text-white font-extrabold text-[0.95rem] hover:bg-white hover:text-primary hover:border-white transition-all duration-300 text-center"
-                >
-                  {secondaryText} →
-                </Link>
+                {secondaryHref === "demo" || secondaryHref === "#demo" ? (
+                  <BookDemoButton
+                    courseName="Free Live Demo Class"
+                    className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/80 text-white font-extrabold text-[0.95rem] hover:bg-white hover:text-primary hover:border-white active:scale-95 transition-all duration-300 text-center cursor-pointer"
+                  >
+                    {secondaryText} →
+                  </BookDemoButton>
+                ) : (
+                  <Link
+                    href={secondaryHref}
+                    className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 backdrop-blur-md border-2 border-white/80 text-white font-extrabold text-[0.95rem] hover:bg-white hover:text-primary hover:border-white active:scale-95 transition-all duration-300 text-center"
+                  >
+                    {secondaryText} →
+                  </Link>
+                )}
               </div>
             </div>
 
@@ -120,12 +129,12 @@ export default function BottomCtaBanner({
               
               <div className="relative w-full max-w-[420px] mx-auto flex items-center justify-center">
                 
-                {/* Floating Trust Point 1: Top-Left */}
+                {/* Floating Trust Point 1: Top-Left (Dynamic Stat / Placement) */}
                 <div className="absolute -top-2 left-0 sm:-top-3 sm:-left-2 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.18)] border border-white/70 text-heading text-[0.72rem] sm:text-[0.78rem] font-bold">
                   <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0">
                     <CheckCircle2 size={12} className="stroke-[3]" />
                   </span>
-                  <span className="whitespace-nowrap">100% Placement Support</span>
+                  <span className="whitespace-nowrap">{statsBadge || "100% Placement Support"}</span>
                 </div>
 
                 {/* Floating Trust Point 2: Top-Right */}
@@ -148,21 +157,13 @@ export default function BottomCtaBanner({
                   />
                 </div>
 
-                {/* Floating Trust Point 3: Bottom-Left / Center */}
-                <div className="absolute -bottom-2 left-2 sm:-bottom-2.5 sm:left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.18)] border border-white/70 text-heading text-[0.72rem] sm:text-[0.78rem] font-bold">
+                {/* Floating Trust Point 3: Bottom-Center (Centered horizontally, zero collision) */}
+                <div className="absolute -bottom-2.5 sm:-bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.18)] border border-white/80 text-heading text-[0.72rem] sm:text-[0.78rem] font-bold whitespace-nowrap">
                   <span className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-amber-500 text-white flex items-center justify-center shrink-0">
                     <Sparkles size={11} className="stroke-[2.5]" />
                   </span>
-                  <span className="whitespace-nowrap">No Prior Experience Needed</span>
+                  <span>No Prior Experience Needed</span>
                 </div>
-
-                {/* Extra Stats Badge: Bottom-Right */}
-                {statsBadge && (
-                  <div className="hidden sm:flex absolute -bottom-2 right-1 sm:-bottom-2.5 sm:right-2 z-20 items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-light/95 backdrop-blur-md shadow-[0_8px_20px_rgba(0,0,0,0.15)] border border-primary/20 text-primary text-[0.72rem] sm:text-[0.78rem] font-black">
-                    <TrendingUp size={12} className="stroke-[3]" />
-                    <span className="whitespace-nowrap">{statsBadge}</span>
-                  </div>
-                )}
 
               </div>
             </div>

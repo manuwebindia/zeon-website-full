@@ -66,7 +66,7 @@ export default async function AboutPage() {
                 )}
               </h1>
               <p className={INNER_PAGE.subtitle}>
-                {heroSubtitle || "Zeon Academy is an offshoot of Web India Solutions (WIS), a web development and digital marketing company with 18 years of experience in the business."}
+                {heroSubtitle || "ZEON Academy is a career-focused digital marketing training institute in Kochi, backed by the industry experience of Web India Branding & Marketing Private Limited (WIS)."}
               </p>
             </div>
           </div>
@@ -107,32 +107,59 @@ export default async function AboutPage() {
 
               {/* Right Side: Text description */}
               <ScrollReveal direction="right" distance={40} className="flex-1">
-                <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
-                  WIS & Zeon Academy
+                <span className="inline-block text-primary text-[0.85rem] font-bold mb-3 tracking-[0.2em] uppercase">
+                  About Zeon Academy
                 </span>
-                <h2 className="text-[2.2rem] md:text-[2.8rem] font-extrabold text-heading leading-[1.15] mb-6">
-                  Studying is Inseparable from
-                  <span className="text-primary"> Working at WIS</span>
+                <h2 className="text-[2rem] sm:text-[2.4rem] md:text-[2.7rem] font-extrabold text-heading leading-[1.18] mb-6">
+                  Learn Digital Marketing. <br className="hidden sm:inline" />
+                  Work on Real Projects. <br className="hidden sm:inline" />
+                  <span className="text-primary">Build Your Career.</span>
                 </h2>
-                <p className="text-base md:text-[1.05rem] text-body leading-[1.7] font-medium mb-6">
-                  We are not an ordinary digital marketing training institute in Kochi. Zeon Academy stands out as it is an offshoot of Web India Solutions fondly known as <strong>WIS</strong>, a web development and digital marketing company with 18 years of experience in the business.
-                </p>
-                <p className="text-base md:text-[1.05rem] text-body leading-[1.7] font-medium mb-8">
-                  Housed in the same building, studying at Zeon Academy is inseparable from working at WIS. All the faculty teaching are professional digital marketers of WIS.
-                </p>
+                
+                <div className="space-y-4 text-base md:text-[1rem] text-body leading-[1.7] font-medium mb-8">
+                  <p>
+                    ZEON Academy is a career-focused digital marketing training institute in Kochi, backed by the industry experience of Web India Branding &amp; Marketing Private Limited (WIS).
+                  </p>
+                  <p>
+                    We go beyond classroom learning by combining practical training, industry insights, and hands-on experience to help students develop the skills needed to succeed in the digital marketing industry.
+                  </p>
+                  <p>
+                    Our trainers are active industry professionals who bring real-world knowledge, practical strategies, and current industry practices into every learning session.
+                  </p>
+                  <p className="font-semibold text-heading pt-1">
+                    At ZEON Academy, you don&apos;t just learn digital marketing — you learn how it works in the real world.
+                  </p>
+                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary shrink-0">
-                      <FaCheck size={12} />
+                <div className="pt-5 border-t border-border/80">
+                  <span className="block text-[0.8rem] font-black tracking-[0.18em] text-primary uppercase mb-4">
+                    Key Highlights
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary shrink-0">
+                        <FaCheck size={12} />
+                      </div>
+                      <span className="font-bold text-heading text-[0.92rem]">Industry-Experienced Trainers</span>
                     </div>
-                    <span className="font-bold text-heading text-[0.95rem]">Shared Agency Workspace</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary shrink-0">
-                      <FaCheck size={12} />
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary shrink-0">
+                        <FaCheck size={12} />
+                      </div>
+                      <span className="font-bold text-heading text-[0.92rem]">Practical, Hands-On Learning</span>
                     </div>
-                    <span className="font-bold text-heading text-[0.95rem]">Active Agency Mentors</span>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary shrink-0">
+                        <FaCheck size={12} />
+                      </div>
+                      <span className="font-bold text-heading text-[0.92rem]">Real-World Project Exposure</span>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary-light flex items-center justify-center text-primary shrink-0">
+                        <FaCheck size={12} />
+                      </div>
+                      <span className="font-bold text-heading text-[0.92rem]">Career-Focused Training</span>
+                    </div>
                   </div>
                 </div>
               </ScrollReveal>
@@ -146,63 +173,75 @@ export default async function AboutPage() {
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <ScrollReveal direction="up" distance={30}>
               <div className="text-center mb-16 max-w-2xl mx-auto">
-                <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
-                  Our Timeline
+                <span className="inline-block text-primary text-[0.85rem] font-bold mb-3 tracking-[0.2em] uppercase">
+                  Our Journey
                 </span>
                 <h2 className="text-[2.2rem] md:text-[2.8rem] font-extrabold text-heading leading-tight mb-4">
-                  Established in <span className="text-primary">2019</span>
+                  Built to Bridge <span className="text-primary">Learning and Industry.</span>
                 </h2>
-                <p className="text-[1.05rem] text-body leading-relaxed font-medium">
-                  Meeting the growing need for digital marketing professionals with agency-level training.
-                </p>
               </div>
             </ScrollReveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* Card 1 */}
               <ScrollReveal direction="up" distance={40} delay={0.1}>
-                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
+                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col">
                   <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
-                  <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-6 text-primary text-[1.4rem]">
-                    <FaBriefcase />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center text-primary text-[1.4rem]">
+                      <FaBriefcase />
+                    </div>
+                    <span className="text-primary text-[0.82rem] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full bg-primary-light border border-primary/20">
+                      2019
+                    </span>
                   </div>
-                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-4">
-                    2019: The Foundation
+                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-3">
+                    The Beginning
                   </h3>
-                  <p className="text-[0.95rem] leading-relaxed text-body font-medium">
-                    Established with an eye at the growing need of digital marketing freshers vacancies in many digital marketing companies in and around Kochi and Kerala. Initially started as a classroom program.
+                  <p className="text-[0.95rem] leading-relaxed text-body font-medium flex-1">
+                    ZEON Academy was established to develop industry-relevant digital marketing skills.
                   </p>
                 </div>
               </ScrollReveal>
 
               {/* Card 2 */}
               <ScrollReveal direction="up" distance={40} delay={0.2}>
-                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
+                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col">
                   <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
-                  <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-6 text-primary text-[1.4rem]">
-                    <FiMonitor />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center text-primary text-[1.4rem]">
+                      <FiMonitor />
+                    </div>
+                    <span className="text-primary text-[0.82rem] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full bg-primary-light border border-primary/20">
+                      2020
+                    </span>
                   </div>
-                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-4">
-                    2020: Moving Online
+                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-3">
+                    Adapting to Change
                   </h3>
-                  <p className="text-[0.95rem] leading-relaxed text-body font-medium">
-                    We moved online in the wake of the pandemic, ensuring uninterrupted education and maintaining the same interactive, live learning environment for our trainees.
+                  <p className="text-[0.95rem] leading-relaxed text-body font-medium flex-1">
+                    The academy introduced online learning to continue delivering training during the pandemic.
                   </p>
                 </div>
               </ScrollReveal>
 
               {/* Card 3 */}
               <ScrollReveal direction="up" distance={40} delay={0.3}>
-                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden">
+                <div className="bg-white border border-border/80 rounded-2xl p-8 h-full transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card-hover group relative overflow-hidden flex flex-col">
                   <div className="absolute top-0 left-0 w-full h-[4px] bg-gradient-to-r from-primary to-primary-hover" />
-                  <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center mb-6 text-primary text-[1.4rem]">
-                    <FiClock />
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="w-[50px] h-[50px] bg-primary-light rounded-xl flex items-center justify-center text-primary text-[1.4rem]">
+                      <FiClock />
+                    </div>
+                    <span className="text-primary text-[0.82rem] font-extrabold tracking-wider uppercase px-3 py-1 rounded-full bg-primary-light border border-primary/20">
+                      Today
+                    </span>
                   </div>
-                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-4">
-                    Today: Shift Extensions
+                  <h3 className="text-[1.25rem] font-extrabold text-heading mb-3">
+                    Expanding Learning Opportunities
                   </h3>
-                  <p className="text-[0.95rem] leading-relaxed text-body font-medium">
-                    A late evening session was later added due to growing demand from working professionals and businessmen looking to move up in their careers or improve their business prospects.
+                  <p className="text-[0.95rem] leading-relaxed text-body font-medium flex-1">
+                    The academy serves aspiring digital marketers and working professionals seeking to develop their skills.
                   </p>
                 </div>
               </ScrollReveal>
@@ -216,14 +255,14 @@ export default async function AboutPage() {
           <div className="w-full max-w-[1200px] mx-auto px-6">
             <ScrollReveal direction="up" distance={30}>
               <div className="text-center mb-16 max-w-2xl mx-auto">
-                <span className="inline-block text-primary text-[0.85rem] font-semibold mb-3 tracking-[0.2em] uppercase">
-                  Our Team
+                <span className="inline-block text-primary text-[0.85rem] font-bold mb-3 tracking-[0.2em] uppercase">
+                  Meet the Mentors
                 </span>
                 <h2 className="text-[2.2rem] md:text-[2.8rem] font-extrabold text-heading leading-tight mb-4">
-                  Meet Our <span className="text-primary">Mentors</span>
+                  Learn from Professionals Who <span className="text-primary">Do the Work.</span>
                 </h2>
                 <p className="text-[1.05rem] text-body leading-relaxed font-medium">
-                  We are active and accomplished digital marketing professionals who are also compassionate student mentors.
+                  Our mentors bring professional experience and practical industry knowledge into the learning environment, helping students understand how digital marketing works beyond theory.
                 </p>
               </div>
             </ScrollReveal>
@@ -345,12 +384,14 @@ export default async function AboutPage() {
         {/* CTA SECTION */}
         <BottomCtaBanner
           badge="LAUNCH YOUR CAREER"
-          headingMain="LEARN WITH KERALA'S"
-          headingSub="#1 DIGITAL MARKETING ACADEMY"
-          description="Ready to learn from professional digital marketers and gain real agency work experience? Book your free demo class today."
-          primaryText="Book Free Demo"
-          secondaryText="Explore Programs"
-          secondaryHref="/course"
+          headingMain="READY TO TAKE YOUR FIRST STEP INTO"
+          headingSub="DIGITAL MARKETING?"
+          description="Explore our training programmes, discover the skills you can develop, and find the right starting point for your digital marketing journey."
+          primaryText="Explore Our Courses →"
+          primaryHref="/course"
+          secondaryText="Book a Free Demo"
+          secondaryHref="demo"
+          statsBadge="100% Placement Support"
         />
 
         {/* FOOTER */}
