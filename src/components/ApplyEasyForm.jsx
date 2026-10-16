@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { FaCheckCircle, FaSpinner } from "react-icons/fa";
+import { FaCheckCircle, FaSpinner, FaShieldAlt } from "react-icons/fa";
 import { INNER_PAGE } from "@/lib/designLanguage";
 
 export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug = "" }) {
@@ -47,24 +47,40 @@ export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug
 
     // Attempt recaptcha token execution if available
     let recaptchaToken = "";
-    if (typeof window !== "undefined" && window.grecaptcha && process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
-      try {
-        await new Promise((resolve) => {
-          window.grecaptcha.ready(async () => {
-            try {
-              recaptchaToken = await window.grecaptcha.execute(
-                process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
-                { action: "job_application" }
-              );
-            } catch (err) {
-              console.warn("reCAPTCHA exec error:", err);
-            }
-            resolve();
-          });
-        });
-      } catch (err) {
-        console.warn("reCAPTCHA load error:", err);
+    if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
+      if (!window.grecaptcha) {
+        for (let i = 0; i < 25; i++) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+          if (window.grecaptcha) break;
+        }
       }
+
+      if (window.grecaptcha?.ready && window.grecaptcha?.execute) {
+        try {
+          recaptchaToken = await new Promise((resolve) => {
+            window.grecaptcha.ready(async () => {
+              try {
+                const token = await window.grecaptcha.execute(
+                  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+                  { action: "job_application" }
+                );
+                resolve(token);
+              } catch (err) {
+                console.warn("[ApplyEasyForm] reCAPTCHA exec error:", err);
+                resolve("");
+              }
+            });
+          });
+        } catch (err) {
+          console.warn("[ApplyEasyForm] reCAPTCHA load error:", err);
+        }
+      }
+    }
+
+    if (process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && !recaptchaToken) {
+      setStatus("error");
+      setErrorMessage("reCAPTCHA verification failed. Please refresh and try again.");
+      return;
     }
 
     try {
@@ -186,6 +202,11 @@ export default function ApplyEasyForm({ jobTitle = "", companyName = "", jobSlug
               "Apply Now"
             )}
           </button>
+
+          <p className="text-[0.72rem] text-slate-400 text-center flex items-center justify-center gap-1.5 pt-1">
+            <FaShieldAlt className="text-slate-400 text-[0.7rem]" />
+            <span>Protected by Google reCAPTCHA</span>
+          </p>
         </form>
       )}
     </div>

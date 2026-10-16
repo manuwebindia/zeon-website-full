@@ -2,6 +2,7 @@ export const runtime = "nodejs";
 
 import nodemailer from "nodemailer";
 import { getPrismaClient } from "@/lib/db";
+import { getSiteUrl } from "@/lib/siteUrl";
 
 export async function POST(request) {
   try {
@@ -83,12 +84,27 @@ export async function POST(request) {
 
       const htmlBody = `<!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"></head>
-<body style="margin:0;padding:0;background-color:#f4f4f5;">
+<head>
+  <meta charset="UTF-8">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <style>
+    @media (prefers-color-scheme: dark) {
+      .locked-bg { background-color: #2d2e2e !important; }
+      .locked-text-white { color: #ffffff !important; }
+      .locked-text-pink { color: #ffc7c7 !important; }
+    }
+    u + .body .locked-bg { background-color: #2d2e2e !important; }
+    u + .body .locked-text-white { color: #ffffff !important; }
+    u + .body .locked-text-pink { color: #ffc7c7 !important; }
+  </style>
+</head>
+<body class="body" style="margin:0;padding:0;background-color:#f4f4f5;">
   <div style="font-family:Arial,sans-serif;max-width:620px;margin:0 auto;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;background-color:#ffffff;">
-    <div style="background-color:#2d2e2e;padding:24px 32px;">
-      <h2 style="margin:0;font-size:1.4rem;color:#ffffff;">New Job Posting — Pending Review</h2>
-      <p style="margin:6px 0 0;font-size:0.9rem;color:#ffc7c7;">Approve in Admin → Job Postings to publish on Placements</p>
+    <div class="locked-bg" style="background-color:#2d2e2e;background-image:linear-gradient(to bottom, #2d2e2e, #2d2e2f);padding:24px 32px;">
+      <img src="${getSiteUrl()}/zeon-logo.png" alt="Zeon Academy" style="display:block;max-width:150px;height:auto;border:0;margin-bottom:16px;">
+      <h2 class="locked-text-white" style="margin:0;font-size:1.4rem;color:#ffffff;">New Job Posting — Pending Review</h2>
+      <p class="locked-text-pink" style="margin:6px 0 0;font-size:0.9rem;color:#ffc7c7;">Approve in Admin → Job Postings to publish on Placements</p>
     </div>
     <div style="padding:32px;background-color:#ffffff;">
       <table style="width:100%;border-collapse:collapse;">
@@ -103,6 +119,9 @@ export async function POST(request) {
         ${row("Shift & Schedule", shiftSchedule)}
         ${row("Submission ID", posting.id)}
       </table>
+    </div>
+    <div style="background-color:#f9fafb;padding:16px 32px;text-align:center;">
+      <p style="color:#9ca3af;font-size:0.8rem;margin:0;">Zeon Academy · Placement & Hiring System</p>
     </div>
   </div>
 </body>

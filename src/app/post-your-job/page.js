@@ -85,38 +85,69 @@ export default function PostYourJobPage() {
     const errs = validate();
     if (Object.keys(errs).length) { setErrors(errs); return; }
 
-    if (!window.grecaptcha) {
-      setErrors({ recaptcha: "reCAPTCHA not loaded. Please refresh and try again." });
-      return;
-    }
-
     setErrors({});
     setStatus("submitting");
 
-    window.grecaptcha.ready(() => {
-      window.grecaptcha
-        .execute(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY, { action: "post_job" })
-        .then(async (token) => {
-          if (!token) { setErrors({ recaptcha: "reCAPTCHA failed." }); setStatus(""); return; }
+    // Resilient reCAPTCHA resolution
+    let token = null;
+    if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
+      if (!window.grecaptcha) {
+        for (let i = 0; i < 25; i++) {
+          await new Promise((r) => setTimeout(r, 100));
+          if (window.grecaptcha) break;
+        }
+      }
 
-          try {
-            const res = await fetch("/api/post-job", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                ...form,
-                jobTypes: form.jobTypes.join(", "),
-                shiftSchedule: form.shiftSchedule.join(", "),
-                recaptchaToken: token,
-              }),
+      if (window.grecaptcha?.ready && window.grecaptcha?.execute) {
+        try {
+          token = await new Promise((resolve) => {
+            window.grecaptcha.ready(async () => {
+              try {
+                const t = await window.grecaptcha.execute(
+                  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+                  { action: "post_job" }
+                );
+                resolve(t);
+              } catch (err) {
+                console.warn("[PostJob] reCAPTCHA exec error:", err);
+                resolve(null);
+              }
             });
-            const data = await res.json();
-            setStatus(data.success ? "success" : "error");
-          } catch {
-            setStatus("error");
-          }
-        });
-    });
+          });
+        } catch (err) {
+          console.warn("[PostJob] reCAPTCHA error:", err);
+        }
+      }
+    }
+
+    if (process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && !token) {
+      setErrors({ recaptcha: "reCAPTCHA verification failed. Please refresh and try again." });
+      setStatus("error");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/post-job", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...form,
+          jobTypes: form.jobTypes.join(", "),
+          shiftSchedule: form.shiftSchedule.join(", "),
+          recaptchaToken: token || "",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus("success");
+      } else {
+        setStatus("error");
+        setErrors({ submit: data.error || "Failed to submit job listing. Please try again." });
+      }
+    } catch {
+      setStatus("error");
+      setErrors({ submit: "An unexpected error occurred. Please try again." });
+    }
   };
 
   return (
@@ -158,7 +189,7 @@ export default function PostYourJobPage() {
                 ))}
               </div>
               <p className="text-black/80 text-[0.9rem] font-semibold">
-                Rated 4.9 on Google — Kerala's Most Loved Digital Marketing Institute
+                Rated 4.9 on Google — Kerala&apos;s Most Loved Digital Marketing Institute
               </p>
             </div>
           </div>

@@ -273,7 +273,7 @@ export default function AdvancedDigitalMarketingPage() {
                       </div>
                     </div>
 
-                    <FreeDemoForm />
+                    <FreeDemoForm courseName="Advanced Digital Marketing Course" />
                   </div>
 
                 </div>

@@ -17,14 +17,22 @@ export async function POST(request) {
       );
     }
 
-    // Optional reCAPTCHA verification if token provided
-    if (recaptchaToken && process.env.RECAPTCHA_SECRET_KEY) {
+    // reCAPTCHA verification
+    const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+    if (secretKey) {
+      if (!recaptchaToken) {
+        return Response.json(
+          { success: false, error: "Security check required (Missing reCAPTCHA token)." },
+          { status: 400 }
+        );
+      }
+
       try {
         const recaptchaRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
           method: "POST",
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
           body: new URLSearchParams({
-            secret: process.env.RECAPTCHA_SECRET_KEY,
+            secret: secretKey,
             response: recaptchaToken,
           }),
         });
