@@ -83,22 +83,57 @@ export const defaultMilestones = [
       "ZEON Academy was established to develop industry-relevant digital marketing skills.",
     isTop: true,
     galleryImages: [
-      "/timeline/2019-1.webp",
-      "/timeline/2019-2.webp",
-      "/timeline/2019-3.jpg",
+      "/timeline/new/2k19-2.png",
+      "/timeline/new/2k19-3.png",
     ],
   },
   {
-    id: "2020-change",
+    id: "2020-adapting",
     year: "2020",
     title: "Adapting to Change",
     content:
       "The academy introduced online learning to continue delivering training during the pandemic.",
     isTop: false,
     galleryImages: [
-      "/timeline/2020-1.jpg",
-      "/timeline/2020-2.webp",
-      "/timeline/2020-3.jpg",
+      "/timeline/new/2k20-1.jpg",
+      "/timeline/new/2k20-2.webp",
+    ],
+  },
+  {
+    id: "2021-practical",
+    year: "2021",
+    title: "Practical Learning",
+    content:
+      "A stronger focus on practical exercises and hands-on digital marketing learning helped students connect theory with application.",
+    isTop: true,
+    galleryImages: [
+      "/timeline/new/2k21-1.jpg",
+      "/timeline/new/2k21-2.jpg",
+    ],
+  },
+  {
+    id: "2022-industry",
+    year: "2022",
+    title: "Industry Exposure",
+    content:
+      "Learning focused on understanding professional digital marketing workflows, tools, and campaign strategies.",
+    isTop: false,
+    galleryImages: [
+      "/timeline/new/2k22-1.jpg",
+      "/timeline/new/2k22-2.jpg",
+    ],
+  },
+  {
+    id: "2023-skill",
+    year: "2023",
+    title: "Skill Development",
+    content:
+      "The academy continued focusing on developing practical skills relevant to the evolving digital marketing industry.",
+    isTop: true,
+    galleryImages: [
+      "/timeline/new/2k23-1.jpg",
+      "/timeline/new/2k23-2.jpeg",
+      "/timeline/new/2k23-3.jpg",
     ],
   },
   {
@@ -106,12 +141,13 @@ export const defaultMilestones = [
     year: "Today",
     title: "Expanding Learning Opportunities",
     content:
-      "The academy serves aspiring digital marketers and working professionals seeking to develop their skills.",
-    isTop: true,
+      "ZEON Academy serves aspiring digital marketers and working professionals seeking to develop their skills.",
+    isTop: false,
     galleryImages: [
-      "/timeline/present-1.webp",
-      "/timeline/present-2.webp",
-      "/timeline/present-3.webp",
+      "/timeline/new/2k24-1.webp",
+      "/timeline/new/2k24-2.webp",
+      "/timeline/new/2k25-1.webp",
+      "/timeline/new/2k25-3.webp",
     ],
   },
 ];
@@ -123,7 +159,7 @@ export const defaultMilestones = [
  * Uses Next.js Image with small responsive sizes to save bandwidth.
  */
 function OverlappingImageStack({ images = [], isTop, isHovered, className = "" }) {
-  const stackImages = images.slice(0, 3);
+  const stackImages = images.slice(0, 4);
   const total = stackImages.length;
   const [activeIdx, setActiveIdx] = useState(0);
 
@@ -146,7 +182,7 @@ function OverlappingImageStack({ images = [], isTop, isHovered, className = "" }
         const position = (originalIdx - activeIdx + total) % total;
         const zIndex = total - position;
 
-        const xOffset = position === 0 ? 0 : position === 1 ? 16 : 30;
+        const xOffset = position === 0 ? 0 : position === 1 ? 14 : position === 2 ? 26 : 38;
         const yOffset =
           position === 0
             ? 0
@@ -154,9 +190,13 @@ function OverlappingImageStack({ images = [], isTop, isHovered, className = "" }
             ? isTop
               ? -12
               : 12
+            : position === 2
+            ? isTop
+              ? -22
+              : 22
             : isTop
-            ? -22
-            : 22;
+            ? -30
+            : 30;
         const rotation =
           position === 0
             ? isTop
@@ -457,9 +497,7 @@ export default function Timeline({
     color: mutedTextColor,
   };
 
-  const item2019 = milestones.find((m) => m.year === "2019") || milestones[0];
-  const item2020 = milestones.find((m) => m.year === "2020") || milestones[1];
-  const itemToday = milestones.find((m) => m.year === "Today") || milestones[2];
+  
 
   useGSAP(
     () => {
@@ -516,7 +554,7 @@ export default function Timeline({
       });
 
       const scrollDistance = getDistance();
-      const pinDistance = Math.max(1600, scrollDistance * 1.35);
+      const pinDistance = Math.max(2200, scrollDistance * 1.35);
 
       // ── Master GSAP Timeline Scrubbed to Vertical Page Scroll ──
       const masterTl = gsap.timeline({
@@ -554,83 +592,32 @@ export default function Timeline({
         0,
       );
 
-      // 3. Milestone 1 (2019) reveal on scroll (at ~15% - 28% scroll progress)
-      if (item2019) {
+      // 3. Dynamic Sequential Milestones Reveal along the Journey Line
+      milestones.forEach((item, i) => {
+        const startTime = 0.8 + (i / Math.max(1, milestones.length - 1)) * 7.4;
         masterTl
           .to(
-            `.jd-${item2019.id}`,
+            `.jd-${item.id}`,
             { scale: 1, ease: "back.out(2)", duration: 0.5 },
-            1.2,
+            startTime,
           )
           .to(
-            `.jl-${item2019.id}`,
-            { scaleY: 1, ease: "power2.out", duration: 0.9 },
-            1.3,
+            `.jl-${item.id}`,
+            { scaleY: 1, ease: "power2.out", duration: 0.8 },
+            startTime + 0.1,
           )
           .to(
             [
-              `.badge-${item2019.id}`,
-              `.hint-${item2019.id}`,
-              `.title-${item2019.id}`,
-              `.desc-${item2019.id}`,
-              `.photo-${item2019.id}`,
+              `.badge-${item.id}`,
+              `.hint-${item.id}`,
+              `.title-${item.id}`,
+              `.desc-${item.id}`,
+              `.photo-${item.id}`,
             ],
-            { opacity: 1, y: 0, ease: "power2.out", stagger: 0.08, duration: 0.8 },
-            1.6,
+            { opacity: 1, y: 0, ease: "power2.out", stagger: 0.08, duration: 0.7 },
+            startTime + 0.3,
           );
-      }
-
-      // 4. Milestone 2 (2020) reveal on scroll (at ~42% - 58% scroll progress)
-      if (item2020) {
-        masterTl
-          .to(
-            `.jd-${item2020.id}`,
-            { scale: 1, ease: "back.out(2)", duration: 0.5 },
-            4.2,
-          )
-          .to(
-            `.jl-${item2020.id}`,
-            { scaleY: 1, ease: "power2.out", duration: 0.9 },
-            4.3,
-          )
-          .to(
-            [
-              `.badge-${item2020.id}`,
-              `.hint-${item2020.id}`,
-              `.title-${item2020.id}`,
-              `.desc-${item2020.id}`,
-              `.photo-${item2020.id}`,
-            ],
-            { opacity: 1, y: 0, ease: "power2.out", stagger: 0.08, duration: 0.8 },
-            4.6,
-          );
-      }
-
-      // 5. Milestone 3 (Today) reveal on scroll (at ~72% - 88% scroll progress)
-      if (itemToday) {
-        masterTl
-          .to(
-            `.jd-${itemToday.id}`,
-            { scale: 1, ease: "back.out(2)", duration: 0.5 },
-            7.2,
-          )
-          .to(
-            `.jl-${itemToday.id}`,
-            { scaleY: 1, ease: "power2.out", duration: 0.9 },
-            7.3,
-          )
-          .to(
-            [
-              `.badge-${itemToday.id}`,
-              `.hint-${itemToday.id}`,
-              `.title-${itemToday.id}`,
-              `.desc-${itemToday.id}`,
-              `.photo-${itemToday.id}`,
-            ],
-            { opacity: 1, y: 0, ease: "power2.out", stagger: 0.08, duration: 0.8 },
-            7.6,
-          );
-      }
+      });
 
       const handleResize = () => {
         ScrollTrigger.refresh();
@@ -712,29 +699,23 @@ export default function Timeline({
                 </h2>
               </div>
 
-              {/* Top Milestones Track: 2019 (Col 1) | Spacer for 2020 (Col 2) | Today (Col 3) */}
+              {/* Top Milestones Track */}
               <div className="flex items-end overflow-visible">
-                {/* Column 1: Milestone 2019 (Top) */}
-                {item2019 && (
-                  <MilestoneCard
-                    item={item2019}
-                    isTop={true}
-                    activeStyle={activeStyle}
-                    mutedTextStyle={mutedTextStyle}
-                  />
-                )}
-
-                {/* Column 2: Spacer above Milestone 2020 */}
-                <div className="w-[260px] sm:w-[300px] md:w-[340px] shrink-0 h-full pointer-events-none" />
-
-                {/* Column 3: Milestone Today (Top) */}
-                {itemToday && (
-                  <MilestoneCard
-                    item={itemToday}
-                    isTop={true}
-                    activeStyle={activeStyle}
-                    mutedTextStyle={mutedTextStyle}
-                  />
+                {milestones.map((item) =>
+                  item.isTop ? (
+                    <MilestoneCard
+                      key={item.id}
+                      item={item}
+                      isTop={true}
+                      activeStyle={activeStyle}
+                      mutedTextStyle={mutedTextStyle}
+                    />
+                  ) : (
+                    <div
+                      key={`top-spacer-${item.id}`}
+                      className="w-[260px] sm:w-[300px] md:w-[340px] shrink-0 h-full pointer-events-none"
+                    />
+                  ),
                 )}
               </div>
             </div>
@@ -756,23 +737,24 @@ export default function Timeline({
                 
               </div>
 
-              {/* Bottom Milestones Track: Spacer for 2019 (Col 1) | 2020 (Col 2) | Spacer for Today (Col 3) */}
+              {/* Bottom Milestones Track */}
               <div className="flex items-start overflow-visible">
-                {/* Column 1: Spacer below Milestone 2019 */}
-                <div className="w-[260px] sm:w-[300px] md:w-[340px] shrink-0 h-full pointer-events-none" />
-
-                {/* Column 2: Milestone 2020 (Bottom) */}
-                {item2020 && (
-                  <MilestoneCard
-                    item={item2020}
-                    isTop={false}
-                    activeStyle={activeStyle}
-                    mutedTextStyle={mutedTextStyle}
-                  />
+                {milestones.map((item) =>
+                  !item.isTop ? (
+                    <MilestoneCard
+                      key={item.id}
+                      item={item}
+                      isTop={false}
+                      activeStyle={activeStyle}
+                      mutedTextStyle={mutedTextStyle}
+                    />
+                  ) : (
+                    <div
+                      key={`bottom-spacer-${item.id}`}
+                      className="w-[260px] sm:w-[300px] md:w-[340px] shrink-0 h-full pointer-events-none"
+                    />
+                  ),
                 )}
-
-                {/* Column 3: Spacer below Milestone Today */}
-                <div className="w-[260px] sm:w-[300px] md:w-[340px] shrink-0 h-full pointer-events-none" />
               </div>
             </div>
           </div>
