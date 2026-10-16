@@ -2,7 +2,6 @@
 
 import React, {
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
   useSyncExternalStore,
@@ -15,37 +14,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
-}
-
-const useIsomorphicLayoutEffect =
-  typeof window !== "undefined" ? useLayoutEffect : useEffect;
-
-function useGSAP(callback, options = {}) {
-  const deps = options.dependencies ?? [];
-  const scope = options.scope;
-  const ctxRef = useRef(null);
-  const cleanupRef = useRef(undefined);
-
-  useIsomorphicLayoutEffect(() => {
-    const el =
-      scope && typeof scope === "object" && "current" in scope
-        ? scope.current
-        : scope;
-    ctxRef.current = gsap.context(() => {}, el ?? undefined);
-    return () => {
-      cleanupRef.current?.();
-      cleanupRef.current = undefined;
-      ctxRef.current?.revert();
-      ctxRef.current = null;
-    };
-  }, []);
-
-  useIsomorphicLayoutEffect(() => {
-    if (!ctxRef.current) return;
-    cleanupRef.current?.();
-    const ret = ctxRef.current.add(callback);
-    cleanupRef.current = typeof ret === "function" ? ret : undefined;
-  }, deps);
 }
 
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
@@ -499,19 +467,21 @@ export default function Timeline({
 
   
 
-  useGSAP(
-    () => {
-      const section = sectionRef.current;
-      const slider = wholeSliderRef.current;
-      if (!section || !slider) return;
+  useEffect(() => {
+    const section = sectionRef.current;
+    const slider = wholeSliderRef.current;
+    if (!section || !slider) return;
 
+    if (typeof window === "undefined") return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
       const getDistance = () => {
         const extra = window.innerWidth < 640 ? 60 : 120;
         return Math.max(0, slider.scrollWidth - window.innerWidth + extra);
       };
 
       if (reducedMotion) {
-        // Accessibility fallback: everything visible immediately
         gsap.set(".journey-line", { width: "100%" });
         milestones.forEach((item) => {
           gsap.set(`.jl-${item.id}`, { scaleY: 1 });
@@ -524,16 +494,13 @@ export default function Timeline({
               `.desc-${item.id}`,
               `.photo-${item.id}`,
             ],
-            {
-              opacity: 1,
-              y: 0,
-            },
+            { opacity: 1, y: 0 },
           );
         });
         return;
       }
 
-      // ── Initial State: Timeline starts hidden until scrolled ──
+      // Initial State: Timeline starts hidden until scrolled
       gsap.set(".journey-line", { width: "0%" });
       milestones.forEach((item) => {
         gsap.set(`.jl-${item.id}`, { scaleY: 0 });
@@ -556,7 +523,6 @@ export default function Timeline({
       const scrollDistance = getDistance();
       const pinDistance = Math.max(2200, scrollDistance * 1.35);
 
-      // ── Master GSAP Timeline Scrubbed to Vertical Page Scroll ──
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
@@ -618,18 +584,12 @@ export default function Timeline({
             startTime + 0.3,
           );
       });
+    }, section);
 
-      const handleResize = () => {
-        ScrollTrigger.refresh();
-      };
-      window.addEventListener("resize", handleResize);
-
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    },
-    { dependencies: [reducedMotion], scope: sectionRef },
-  );
+    return () => {
+      ctx.revert();
+    };
+  }, [reducedMotion, milestones]);
 
   return (
     <section

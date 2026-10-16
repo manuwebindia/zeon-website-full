@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   serverExternalPackages: ['@prisma/client', 'prisma'],
+  experimental: {
+    optimizePackageImports: [
+      '@mui/material',
+      '@mui/icons-material',
+      'lucide-react',
+      'react-icons',
+      'recharts',
+    ],
+  },
   images: {
     formats: ['image/avif', 'image/webp'],
     qualities: [100, 75, 70],
